@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>岡崎かつひろ 46th Birthday｜Voicyライブ祭り 2026.8.11</title>
+<style>
+  :root{
+    --orange:#ff7a18; --orange-d:#e85d00; --gold:#ffcf4a;
+    --pink:#ff5c8a; --ink:#2a1a10; --cream:#fff7ec; --card:#ffffff;
+    --shadow:0 10px 30px rgba(200,90,0,.15);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:var(--ink);
+       background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  img{max-width:100%}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;text-align:center;color:#fff;overflow:hidden;
+        background:linear-gradient(135deg,var(--orange) 0%,var(--pink) 55%,#ff9a3c 100%);
+        padding:64px 20px 72px}
+  .hero .conf{position:absolute;inset:0;opacity:.22;
+        background-image:radial-gradient(circle,#fff 3px,transparent 3px);
+        background-size:38px 38px}
+  .hero .content{position:relative}
+  .badge{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.6);
+        border-radius:999px;padding:6px 18px;font-size:14px;letter-spacing:.08em;margin-bottom:18px;font-weight:700}
+  .hero h1{font-size:clamp(38px,9vw,74px);line-height:1.05;font-weight:900;letter-spacing:.01em;
+        text-shadow:0 4px 14px rgba(180,50,0,.35)}
+  .hero .sub{font-size:clamp(16px,3.6vw,21px);font-weight:700;margin-top:14px}
+  .hero .date{margin-top:26px;font-size:clamp(22px,5vw,34px);font-weight:900;
+        background:#fff;color:var(--orange-d);display:inline-block;padding:8px 26px;border-radius:14px;
+        box-shadow:var(--shadow)}
+  .hero .date small{display:block;font-size:14px;color:var(--ink);font-weight:700;margin-top:2px}
+  /* countdown */
+  .cd{margin:28px auto 0;max-width:430px}
+  .cd-lbl{font-size:13px;font-weight:800;letter-spacing:.14em;color:#fff;opacity:.95;margin-bottom:9px}
+  .cd-row{display:flex;gap:8px;justify-content:center}
+  .cd-cell{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.45);border-radius:13px;
+        padding:11px 0;flex:1}
+  .cd-cell span{display:block;font-size:clamp(26px,7vw,38px);font-weight:900;line-height:1;color:#fff;
+        font-variant-numeric:tabular-nums;text-shadow:0 2px 8px rgba(160,40,0,.3)}
+  .cd-cell small{font-size:11px;font-weight:700;color:#fff;opacity:.9}
+  /* hero cta */
+  .hero-cta{display:inline-block;margin-top:28px;background:#fff;color:var(--orange-d);font-weight:900;
+        font-size:19px;text-decoration:none;padding:17px 46px;border-radius:999px;
+        box-shadow:0 12px 28px rgba(150,40,0,.32)}
+  .hero-cta small{display:block;font-size:12px;color:#a86a30;font-weight:700;margin-top:3px}
+  /* sticky floating cta */
+  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.97);
+        box-shadow:0 -6px 22px rgba(180,90,0,.18);padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+  .sc-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:12px;justify-content:space-between}
+  .sc-txt{line-height:1.25}
+  .sc-txt b{display:block;color:var(--orange-d);font-size:15px}
+  .sc-txt span{font-size:12px;color:#8a6f58}
+  .sc-btn{flex-shrink:0;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;font-weight:900;
+        text-decoration:none;padding:13px 28px;border-radius:999px;font-size:16px;white-space:nowrap;
+        box-shadow:0 6px 16px rgba(255,92,134,.35)}
+
+  /* ===== SECTION ===== */
+  section{padding:52px 0}
+  .lead{font-size:clamp(16px,3.4vw,19px);text-align:center;max-width:640px;margin:0 auto}
+  .lead strong{color:var(--orange-d)}
+  h2{text-align:center;font-size:clamp(24px,5.5vw,34px);font-weight:900;margin-bottom:8px}
+  h2 .em{color:var(--orange)}
+  .h2sub{text-align:center;color:#9a7a5f;font-weight:700;letter-spacing:.12em;font-size:13px;margin-bottom:30px}
+
+  /* ===== TIMETABLE ===== */
+  .slot{background:var(--card);border-radius:18px;box-shadow:var(--shadow);
+        margin:18px 0;padding:22px 24px;display:flex;gap:20px;align-items:flex-start;
+        border-left:8px solid var(--orange)}
+  .slot .time{min-width:118px;font-weight:900;color:var(--orange-d);font-size:19px;line-height:1.3}
+  .slot .time span{display:block;font-size:12px;color:#b08b6b;font-weight:700}
+  .slot .body{flex:1}
+  .slot .theme{font-weight:900;font-size:18px;margin-bottom:10px}
+  .guests{display:flex;flex-wrap:wrap;gap:8px}
+  .g{background:#fff3e2;color:#b0642a;border:1px dashed #f0b477;border-radius:10px;
+        padding:6px 12px;font-size:14px;font-weight:700}
+  .g.soon{opacity:.85}
+  .rest{background:linear-gradient(90deg,#fff0f5,#fff7ec);border-left-color:var(--pink);text-align:center;
+        justify-content:center;color:#c76;font-weight:800}
+  .rest .body{text-align:center}
+
+  /* ===== HOW / CTA ===== */
+  .how{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:28px 26px;max-width:640px;margin:0 auto}
+  .how ol{margin:0 0 0 20px}
+  .how li{margin:10px 0;font-weight:600}
+  .cta{text-align:center;margin-top:34px}
+  .btn{display:inline-block;background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;
+        font-weight:900;font-size:19px;text-decoration:none;padding:18px 46px;border-radius:999px;
+        box-shadow:var(--shadow);letter-spacing:.03em}
+  .btn.sub{background:#fff;color:var(--orange-d);border:2px solid var(--orange);box-shadow:none;margin-top:14px;font-size:16px}
+  .note{text-align:center;color:#a98;font-size:13px;margin-top:14px}
+
+  /* ===== PROFILE ===== */
+  .profile{display:flex;gap:24px;align-items:center;background:#fff;border-radius:20px;box-shadow:var(--shadow);
+        padding:26px;max-width:660px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+  .pf-photo{width:150px;height:192px;object-fit:cover;object-position:center top;border-radius:14px;flex-shrink:0;
+        box-shadow:0 6px 18px rgba(120,60,0,.22)}
+  .pf-body{flex:1;min-width:230px}
+  .pf-role{font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--orange)}
+  .pf-name{font-size:27px;font-weight:900;margin:2px 0 10px}
+  .pf-bio{font-size:14.5px;color:#5f4c3d;line-height:1.85}
+  .pf-stat{margin-top:15px;display:inline-block;background:#fff3e2;border:1px solid #f0c489;border-radius:12px;
+        padding:8px 18px;font-weight:800;color:#a85a1c}
+  .pf-stat b{color:var(--orange-d);font-size:21px;margin:0 3px}
+  /* ===== BOOKS ===== */
+  .books{display:grid;grid-template-columns:repeat(auto-fill,minmax(94px,1fr));gap:13px;max-width:720px;margin:0 auto}
+  .books img{width:100%;border-radius:6px;box-shadow:0 5px 14px rgba(120,60,0,.22);display:block}
+
+  /* ===== REGISTRATION ===== */
+  .reg{background:var(--card);border-radius:20px;box-shadow:var(--shadow);max-width:520px;margin:0 auto;
+        padding:30px 26px;text-align:center;border-top:6px solid var(--orange)}
+  .reg-head{font-size:clamp(20px,4.6vw,26px);font-weight:900;color:var(--ink)}
+  .reg-lead{font-size:15px;color:#6b5748;margin-top:12px;line-height:1.9}
+  .reg-lead b{color:var(--orange-d)}
+  .reg-form{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+  .reg-form input{width:100%;padding:15px 16px;font-size:16px;border:2px solid #f0d3b3;border-radius:12px;
+        background:#fffdfa;outline:none}
+  .reg-form input:focus{border-color:var(--orange)}
+  .steps{max-width:520px;margin:26px auto 0;display:flex;flex-direction:column;gap:10px}
+  .step{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #f2ddc4;border-radius:14px;
+        padding:14px 18px;text-align:left;opacity:.78}
+  .step small{display:block;color:#a9866a;font-size:12.5px;font-weight:600;margin-top:2px}
+  .step b{font-size:15.5px}
+  .step .num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:#f0e0cd;color:#b0855a;
+        display:flex;align-items:center;justify-content:center;font-weight:900}
+  .step.now{opacity:1;border:2px solid var(--orange);box-shadow:0 6px 20px rgba(255,122,24,.18);background:#fff8f0}
+  .step.now .num{background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff}
+  .step.now b{color:var(--orange-d)}
+
+  footer{background:var(--ink);color:#f3e7da;text-align:center;padding:30px 20px;margin-top:40px;font-weight:700}
+
+  /* placeholder marker for editing */
+  .todo{background:#fff0c2;color:#8a6d00;border:1px dashed #d6b64a;border-radius:8px;
+        padding:2px 8px;font-size:12px;font-weight:700}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="conf"></div>
+  <div class="content">
+    <span class="badge">🎂 岡崎かつひろ 46th Birthday</span>
+    <h1>Voicyライブ<br>祭り</h1>
+    <p class="sub">朝6時から夜23時まで、豪華ゲストと<br>6時間ぶっ通し生放送</p>
+    <div class="date">2026.8.11<small>朝6:00 START ／ 夜23:00 まで</small></div>
+
+    <div class="cd" id="cd">
+      <div class="cd-lbl">開催まであと</div>
+      <div class="cd-row">
+        <div class="cd-cell"><span id="cd-d">--</span><small>日</small></div>
+        <div class="cd-cell"><span id="cd-h">--</span><small>時間</small></div>
+        <div class="cd-cell"><span id="cd-m">--</span><small>分</small></div>
+        <div class="cd-cell"><span id="cd-s">--</span><small>秒</small></div>
+      </div>
+    </div>
+
+    <a class="hero-cta" href="#entry">▶ 無料で参加登録する<small>メール登録だけ・30秒</small></a>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="lead">
+      46回目の誕生日は、<strong>1日まるごとVoicyライブ</strong>で。<br>
+      入れ替わり立ち替わり、豪華ゲストが登場します。<br>
+      台本なし・生放送だからこその<strong>ハプニングも込みで</strong>、
+      その瞬間にしか聴けない時間を、一緒に楽しみましょう。
+    </p>
+  </div>
+</section>
+
+<section style="background:linear-gradient(180deg,#ffeede,#fff7ec)">
+  <div class="wrap">
+    <div class="profile">
+      <img class="pf-photo" src="img/profile.jpg" alt="岡崎かつひろ">
+      <div class="pf-body">
+        <div class="pf-role">主催・著者</div>
+        <div class="pf-name">岡崎かつひろ</div>
+        <p class="pf-bio">1980年8月11日生まれ。著者・講演家として全国で登壇するかたわら、全国出版オーディションを主宰し、著者の輩出にも力を注ぐ。8月11日、46歳の誕生日を迎える。</p>
+        <div class="pf-stat">著書<b>13冊</b>／累計<b>27万部</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>著書<span class="em">13冊</span></h2>
+    <p class="h2sub">累計27万部</p>
+    <div class="books">
+      <img src="img/book01.jpg" alt="自分を安売りするのは&quot;いますぐ&quot;やめなさい">
+      <img src="img/book02.jpg" alt="言いなりの人生は&quot;いますぐ&quot;やめなさい">
+      <img src="img/book03.jpg" alt="憂鬱な毎日は&quot;いますぐ&quot;やめなさい">
+      <img src="img/book04.jpg" alt="なぜ、あの人は「お金」にも「時間」にも余裕があるのか？">
+      <img src="img/book05.jpg" alt="うまくいく人がやっている 1億円会話術">
+      <img src="img/book06.jpg" alt="&quot;好き&quot;を仕事にできる人の本当の考え方">
+      <img src="img/book07.jpg" alt="お金に困らない人が学んでいること">
+      <img src="img/book08.jpg" alt="「好かれる人」になる55のコツ（単行本）">
+      <img src="img/book09.jpg" alt="「好かれる人」になる55のコツ（王様文庫）">
+      <img src="img/book10.jpg" alt="ChatGPTで一番ラクして頭のいい人になる">
+      <img src="img/book11.jpg" alt="人生中盤からの成功戦略">
+      <img src="img/book12.jpg" alt="いつも機嫌よくいられる本">
+      <img src="img/book13.jpg" alt="要領のいい人が最初に考えること">
+    </div>
+  </div>
+</section>
+
+<section style="background:linear-gradient(180deg,#fff7ec,#ffeede)">
+  <div class="wrap">
+    <h2>タイム<span class="em">テーブル</span></h2>
+    <p class="h2sub">TIME TABLE ／ 全4枠・ゲスト30分交代</p>
+
+    <div class="slot">
+      <div class="time">6:00<span>▼</span>7:30</div>
+      <div class="body">
+        <div class="theme">枠① <span class="todo">テーマ解禁までお楽しみに</span></div>
+        <div class="guests">
+          <span class="g soon">GUEST｜Coming Soon</span>
+          <span class="g soon">GUEST｜Coming Soon</span>
+          <span class="g soon">GUEST｜Coming Soon</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="time">7:30<span>▼</span>9:00</div>
+      <div class="body">
+        <div class="theme">枠② <span class="todo">テーマ解禁までお楽しみに</span></div>
+        <div class="guests">
+          <span class="g soon">GUEST｜Coming Soon</span>
+          <span class="g soon">GUEST｜Coming Soon</span>
+          <span class="g soon">GUEST｜Coming Soon</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slot rest">
+      <div class="body">☀️ 昼間はおやすみ ── 各自ゆっくり。夜20時に戻ってきます</div>
+    </div>
+
+    <div class="slot">
+      <div class="time">20:00<span>▼</span>21:30</div>
+      <div class="body">
+        <div class="theme">枠③ <span class="todo">テーマ解禁までお楽しみに</span></div>
+        <div class="guests">
+          <span class="g soon">GUEST｜Coming Soon</span>
+          <span class="g soon">GUEST｜Coming Soon</span>
+          <span class="g soon">GUEST｜Coming Soon</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="slot">
+      <div class="time">21:30<span>▼</span>23:00</div>
+      <div class="body">
+        <div class="theme">枠④ <span class="todo">テーマ解禁までお楽しみに（フィナーレ）</span></div>
+        <div class="guests">
+          <span class="g soon">GUEST｜Coming Soon</span>
+          <span class="g soon">GUEST｜Coming Soon</span>
+          <span class="g soon">GUEST｜Coming Soon</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="entry" style="background:linear-gradient(180deg,#ffeede,#fff7ec)">
+  <div class="wrap">
+    <h2>参加<span class="em">登録</span></h2>
+    <p class="h2sub">ENTRY ／ 無料・メール登録だけ</p>
+
+    <div class="reg">
+      <div class="reg-head">まずは無料でメール登録</div>
+      <p class="reg-lead">
+        登録後すぐ、<b>オープンチャットにご招待</b>します。<br>
+        <b>ライブ開始の通知</b>・<b>ゲスト解禁情報</b>・タイムテーブルは、<br>
+        すべてオープンチャットでお届けします。
+      </p>
+
+      <form class="reg-form" action="https://okazaki-media.com/p/r/cYvhGwAi" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="_method" value="POST">
+        <input type="hidden" name="data[User][referer_form_url]" value="">
+        <input type="hidden" name="data[User][referer_url]" value="">
+        <input type="email" name="data[User][mail]" placeholder="メールアドレス" aria-label="メールアドレス" required>
+        <button type="submit" class="btn" style="width:100%">▶ 無料で参加登録する</button>
+      </form>
+      <p class="note">ご登録後、オープンチャットのご案内ページが開きます。</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <div><b>メール登録</b><small>この画面から30秒</small></div>
+      </div>
+      <div class="step now">
+        <span class="num">2</span>
+        <div><b>オープンチャットに参加</b><small>登録直後にご招待。ここが本番の入口</small></div>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <div><b>当日、Voicyライブを聴く</b><small>開始通知はオープンチャットに届きます</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  岡崎かつひろ｜Voicyライブ祭り 2026.8.11
+</footer>
+
+<div class="sticky-cta">
+  <div class="sc-inner">
+    <div class="sc-txt"><b>8/11(火) 開催</b><span>無料・メール登録だけ</span></div>
+    <a href="#entry" class="sc-btn">▶ 参加登録</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var target = new Date('2026-08-11T06:00:00+09:00').getTime();
+  var d=document.getElementById('cd-d'), h=document.getElementById('cd-h'),
+      m=document.getElementById('cd-m'), s=document.getElementById('cd-s');
+  function pad(n){return n<10?'0'+n:''+n;}
+  function tick(){
+    var diff = target - Date.now();
+    if(diff<0) diff=0;
+    var dd=Math.floor(diff/86400000),
+        hh=Math.floor(diff%86400000/3600000),
+        mm=Math.floor(diff%3600000/60000),
+        ss=Math.floor(diff%60000/1000);
+    if(d)d.textContent=dd;
+    if(h)h.textContent=pad(hh);
+    if(m)m.textContent=pad(mm);
+    if(s)s.textContent=pad(ss);
+  }
+  tick(); setInterval(tick,1000);
+})();
+</script>
+
+</body>
+</html>
