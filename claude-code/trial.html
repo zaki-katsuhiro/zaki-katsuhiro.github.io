@@ -39,7 +39,7 @@
   <p class="vmeta">2026年7月20日 読者限定セミナー（録画）／約1時間48分</p>
 
   <div class="video">
-    <iframe src="https://www.youtube-nocookie.com/embed/g8Y6fPaKe_0?rel=0"
+    <iframe id="ytplayer" src="https://www.youtube-nocookie.com/embed/g8Y6fPaKe_0?rel=0"
       title="仕事を自動化する必殺技！ クロードコードで要領よい自分になる方法"
       loading="lazy"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -48,14 +48,28 @@
   </div>
   <p class="note">※動画が再生されない場合は、<a href="https://www.youtube.com/watch?v=g8Y6fPaKe_0" target="_blank" rel="noopener">こちら（YouTube）</a>からご覧ください。</p>
 
-  <p style="margin-top:24px;">この動画では、講師が実際に日々の仕事をAI（Claude Code）にまかせている様子を、デモ4本でお見せしています。</p>
-  <ul class="check">
-    <li><b>メルマガ</b>の文面をつくる</li>
-    <li><b>Note記事</b>の下書きを一気に用意する</li>
-    <li><b>X（旧Twitter）</b>の投稿を更新する</li>
-    <li><b>資料スライド</b>をつくる</li>
-  </ul>
-  <p>「こんなことまで頼めるのか」というイメージを持っていただけたら十分です。やり方は、第1期の全6回でひとつずつ、手を動かしながら身につけていきます。</p>
+  <!-- 見どころショートカット -->
+  <div class="callout" style="border-color:#e8621c;background:#fff2e9;margin-top:22px;">
+    <p style="margin:0 0 12px;font-weight:800;color:#1a2a4a;font-size:16px;">⏩ 見たいところへジャンプ</p>
+    <p style="margin:0 0 8px;">実際の作業（実践デモ）を見たい方は　→　<a href="#" onclick="jumpTo(event,1297)" style="font-weight:800;font-size:18px;">▶ 21:37 から</a></p>
+    <p style="margin:0;">完成したもの（できあがり）を見たい方は　→　<a href="#" onclick="jumpTo(event,4078)" style="font-weight:800;font-size:18px;">▶ 1:07:58 から</a></p>
+  </div>
+
+  <h3>この動画のタイムテーブル</h3>
+  <table class="tbl">
+    <tr><th style="width:120px;">時間</th><th>内容</th></tr>
+    <tr><td>0:00〜</td><td>導入・解説（クロードコードで日々の仕事がどう変わるか）</td></tr>
+    <tr>
+      <td style="background:#fff2e9;"><a href="#" onclick="jumpTo(event,1297)"><b>▶ 21:37〜</b></a></td>
+      <td style="background:#fff2e9;"><b>実践デモ</b>：メルマガ／Note記事／X（旧Twitter）投稿／スライド作成<br><span style="color:#e8621c;font-weight:800;">＼実際の作業を見たいなら、ここから！／</span></td>
+    </tr>
+    <tr>
+      <td><a href="#" onclick="jumpTo(event,4078)"><b>▶ 1:07:58〜</b></a></td>
+      <td><b>完成したもののお披露目</b>（実際にできあがった成果物をご紹介）</td>
+    </tr>
+  </table>
+
+  <p style="margin-top:24px;">「こんなことまで頼めるのか」というイメージを持っていただけたら十分です。やり方は、第1期の全6回でひとつずつ、手を動かしながら身につけていきます。</p>
 
   <!-- 視聴後の導線 -->
   <div class="invite">
@@ -86,6 +100,16 @@
   </div>
   <div class="copy">© 2026 株式会社XYZ. All rights reserved.</div>
 </div></footer>
+
+<script>
+function jumpTo(e, sec){
+  if(e){ e.preventDefault(); }
+  var f = document.getElementById('ytplayer');
+  if(!f){ return; }
+  f.src = 'https://www.youtube-nocookie.com/embed/g8Y6fPaKe_0?rel=0&start=' + sec + '&autoplay=1';
+  f.scrollIntoView({behavior:'smooth', block:'center'});
+}
+</script>
 
 </body>
 </html>
