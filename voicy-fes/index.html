@@ -97,6 +97,22 @@
   .btn.sub{background:#fff;color:var(--orange-d);border:2px solid var(--orange);box-shadow:none;margin-top:14px;font-size:16px}
   .note{text-align:center;color:#a98;font-size:13px;margin-top:14px}
 
+  /* ===== GUEST CARDS ===== */
+  .gc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;max-width:940px;margin:0 auto}
+  .gc{background:#fff;border-radius:18px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+  .gc-photo{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center top;background:#ffe9d3;display:block}
+  .gc-noimg{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+        background:linear-gradient(135deg,var(--orange),var(--pink));color:#fff;font-size:44px;font-weight:900}
+  .gc-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column}
+  .gc-time{display:inline-block;align-self:flex-start;background:#fff3e2;color:#b0642a;font-weight:800;font-size:12px;
+        border-radius:999px;padding:3px 11px;margin-bottom:8px}
+  .gc-name{font-size:18px;font-weight:900;line-height:1.3}
+  .gc-role{font-size:12px;font-weight:800;color:var(--orange-d);margin-top:3px}
+  .gc-bio{font-size:13px;color:#6b584a;line-height:1.7;margin-top:8px;flex:1}
+  .gc-book{display:flex;align-items:center;gap:9px;margin-top:12px;padding-top:12px;border-top:1px solid #f4e6d6}
+  .gc-book img{width:40px;border-radius:3px;box-shadow:0 2px 6px rgba(120,60,0,.2);flex-shrink:0}
+  .gc-book span{font-size:11px;color:#8a7360;line-height:1.45}
+
   /* ===== PROFILE ===== */
   .profile{display:flex;gap:24px;align-items:center;background:#fff;border-radius:20px;box-shadow:var(--shadow);
         padding:26px;max-width:660px;margin:0 auto;flex-wrap:wrap;justify-content:center}
@@ -279,6 +295,114 @@
       </div>
     </div>
 
+  </div>
+</section>
+
+<section style="background:linear-gradient(180deg,#ffeede,#fff7ec)">
+  <div class="wrap">
+    <h2>出演<span class="em">ゲスト</span></h2>
+    <p class="h2sub">GUEST ／ 順次解禁中</p>
+    <div class="gc-grid">
+
+      <div class="gc">
+        <img class="gc-photo" src="img/photo_wada.jpg" alt="和田 裕美">
+        <div class="gc-body">
+          <span class="gc-time">6:00〜</span>
+          <div class="gc-name">和田 裕美</div>
+          <div class="gc-role">著述家・講演家</div>
+          <div class="gc-bio">世界142カ国中2位の営業成績を収めた講演家。「陽転思考」提唱者。</div>
+          <div class="gc-book"><img src="img/book_wada.jpg" alt="著書"><span>『人生がなぜかうまくいく人の「すごい」考え方』</span></div>
+        </div>
+      </div>
+
+      <div class="gc">
+        <img class="gc-photo" src="img/photo_hara.jpg" alt="原 邦雄">
+        <div class="gc-body">
+          <span class="gc-time">7:00〜</span>
+          <div class="gc-name">原 邦雄</div>
+          <div class="gc-role">「ほめ育」創始者</div>
+          <div class="gc-bio">ほめて育てる「ほめ育」を世界20か国に広めた教育実践家。</div>
+          <div class="gc-book"><img src="img/book_hara.jpg" alt="著書"><span>『20代の自分に贈る「仕事の話」』</span></div>
+        </div>
+      </div>
+
+      <div class="gc">
+        <img class="gc-photo" src="img/photo_tanaka.jpg" alt="田中 克成">
+        <div class="gc-body">
+          <span class="gc-time">7:30〜</span>
+          <div class="gc-name">田中 克成</div>
+          <div class="gc-role">作家・講演家</div>
+          <div class="gc-bio">リヤカーで全国を回り、書籍1万3447冊を手売りした作家。</div>
+          <div class="gc-book"><img src="img/book_tanaka.jpg" alt="著書"><span>『自分をよろこばせる習慣』</span></div>
+        </div>
+      </div>
+
+      <div class="gc">
+        <img class="gc-photo" src="img/photo_toujinbara.png" alt="唐仁原 けいこ">
+        <div class="gc-body">
+          <span class="gc-time">8:00〜</span>
+          <div class="gc-name">唐仁原 けいこ</div>
+          <div class="gc-role">経営者・著者</div>
+          <div class="gc-bio">『主婦業9割削減宣言』著者。法人2期目に年商5億円を達成。</div>
+          <div class="gc-book"><img src="img/book_toujinbara.jpg" alt="著書"><span>『戦略的いい人 残念ないい人の考え方』</span></div>
+        </div>
+      </div>
+
+      <div class="gc">
+        <img class="gc-photo" src="img/photo_watanabe.jpg" alt="わたなべ あゆみ">
+        <div class="gc-body">
+          <span class="gc-time">8:30〜</span>
+          <div class="gc-name">わたなべ あゆみ</div>
+          <div class="gc-role">ヨガインストラクター</div>
+          <div class="gc-bio">「亀のポーズ」でギネス世界記録。ヨガ・瞑想歴20年の指導者。</div>
+          <div class="gc-book"><img src="img/book_watanabe.jpg" alt="著書"><span>『巡りの法則』</span></div>
+        </div>
+      </div>
+
+      <div class="gc">
+        <img class="gc-photo" src="img/photo_toyodome.jpg" alt="とよどめ なつみ">
+        <div class="gc-body">
+          <span class="gc-time">20:00〜</span>
+          <div class="gc-name">とよどめ なつみ</div>
+          <div class="gc-role">書評インフルエンサー</div>
+          <div class="gc-bio">年間約240冊を読む書評家。都内でフットケアサロンも経営。</div>
+          <div class="gc-book"><img src="img/book_toyodome.jpg" alt="著書"><span>『人見知りの仮面』</span></div>
+        </div>
+      </div>
+
+      <div class="gc">
+        <div class="gc-noimg">高</div>
+        <div class="gc-body">
+          <span class="gc-time">20:30〜</span>
+          <div class="gc-name">高木ゆうき</div>
+          <div class="gc-role">レジェンドメンターセミナー主催</div>
+          <div class="gc-bio">プロフィールは近日公開。</div>
+        </div>
+      </div>
+
+      <div class="gc">
+        <img class="gc-photo" src="img/photo_yamamoto.jpg" alt="山本 光子">
+        <div class="gc-body">
+          <span class="gc-time">22:00〜</span>
+          <div class="gc-name">山本 光子</div>
+          <div class="gc-role">話し方・印象の専門家</div>
+          <div class="gc-bio">延べ3万5千人以上を指導。「ストーリートーキング」提唱者。</div>
+          <div class="gc-book"><img src="img/book_yamamoto.jpg" alt="著書"><span>『買いたくなる1分ストーリー』</span></div>
+        </div>
+      </div>
+
+      <div class="gc">
+        <img class="gc-photo" src="img/photo_shimotsuma.jpg" alt="下間 とよこ">
+        <div class="gc-body">
+          <span class="gc-time">22:30〜</span>
+          <div class="gc-name">下間 とよこ</div>
+          <div class="gc-role">フリーアナ・声のプロ</div>
+          <div class="gc-bio">元FM802アナ。30年超で4千名以上に声と話し方を指導。</div>
+          <div class="gc-book"><img src="img/book_shimotsuma.jpg" alt="著書"><span>『人前で話したくなる声と話し方』</span></div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
