@@ -177,8 +177,8 @@
   <div class="content">
     <span class="badge">🎂 岡崎かつひろ 46th Birthday</span>
     <h1>Voicyライブ<br>祭り</h1>
-    <p class="sub">朝6時から夜23時まで、豪華ゲストと<br>6時間ぶっ通し生放送</p>
-    <div class="date">2026.8.11<small>朝6:00 START ／ 夜23:00 まで</small></div>
+    <p class="sub">朝5時から夜23時まで、豪華ゲストと<br>7時間ぶっ通し生放送</p>
+    <div class="date">2026.8.11<small>朝5:00 START ／ 夜23:00 まで</small></div>
 
     <div class="cd" id="cd">
       <div class="cd-lbl">開催まであと</div>
@@ -244,14 +244,25 @@
 <section style="background:linear-gradient(180deg,#fff7ec,#ffeede)">
   <div class="wrap">
     <h2>タイム<span class="em">テーブル</span></h2>
-    <p class="h2sub">TIME TABLE ／ 全4枠・ゲスト30分交代</p>
+    <p class="h2sub">TIME TABLE ／ 朝5:00開幕・ゲスト30分交代</p>
+
+    <div class="slot">
+      <div class="time">5:00<span>▼</span>6:00</div>
+      <div class="body">
+        <div class="theme">開幕 <span class="th-pill">テーマ</span>創り出せる人になる考え方</div>
+        <div class="guests">
+          <span class="g fixed">5:00〜 岡崎かつひろ<small>主催・一人語り</small></span>
+          <span class="g fixed">5:30〜 森澤 勇司<small>能楽師・小鼓方</small></span>
+        </div>
+      </div>
+    </div>
 
     <div class="slot">
       <div class="time">6:00<span>▼</span>7:30</div>
       <div class="body">
         <div class="theme">枠① <span class="th-pill">テーマ</span>チャンスを生み出す人がしていること</div>
         <div class="guests">
-          <span class="g soon">6:00〜 Coming Soon</span>
+          <span class="g fixed">6:00〜 和田 裕美<small>著述家・講演家</small></span>
           <span class="g fixed">6:30〜 茉会 彩乃<small>経営者・マレーシアリトルジャパンアンバサダー</small></span>
           <span class="g fixed">7:00〜 原 邦雄<small>ほめ育</small></span>
         </div>
@@ -306,6 +317,39 @@
     <h2>出演<span class="em">ゲスト</span></h2>
     <p class="h2sub">GUEST ／ 順次解禁中</p>
     <div class="gc-grid">
+
+      <div class="gc">
+        <img class="gc-photo" src="img/photo_okazaki.jpg" alt="岡崎かつひろ" style="object-position:center 12%">
+        <div class="gc-body">
+          <span class="gc-time">5:00〜</span>
+          <div class="gc-name">岡崎かつひろ</div>
+          <div class="gc-role">主催・著者</div>
+          <div class="gc-bio">本日の主催。朝5時、一人語りでお祭りの幕を開けます。</div>
+          <div class="gc-book"><img src="img/book_okazaki.jpg" alt="著書"><span>『要領のいい人が最初に考えること』</span></div>
+        </div>
+      </div>
+
+      <div class="gc">
+        <div class="gc-noimg">森</div>
+        <div class="gc-body">
+          <span class="gc-time">5:30〜</span>
+          <div class="gc-name">森澤 勇司</div>
+          <div class="gc-role">能楽師・小鼓方</div>
+          <div class="gc-bio">重要無形文化財「能楽」保持者（総合認定）。</div>
+          <div class="gc-book"><img src="img/book_morisawa.jpg" alt="著書"><span>『超訳 世阿弥 道を極める』</span></div>
+        </div>
+      </div>
+
+      <div class="gc">
+        <img class="gc-photo" src="img/photo_wada.jpg" alt="和田 裕美">
+        <div class="gc-body">
+          <span class="gc-time">6:00〜</span>
+          <div class="gc-name">和田 裕美</div>
+          <div class="gc-role">著述家・講演家</div>
+          <div class="gc-bio">世界142カ国中2位の営業成績を収めた講演家。「陽転思考」提唱者。</div>
+          <div class="gc-book"><img src="img/book_wada.jpg" alt="著書"><span>『人生がなぜかうまくいく人の「すごい」考え方』</span></div>
+        </div>
+      </div>
 
       <div class="gc">
         <img class="gc-photo" src="img/photo_makai.jpg" alt="茉会 彩乃" style="object-position:center 26%">
@@ -497,7 +541,7 @@
 
 <script>
 (function(){
-  var target = new Date('2026-08-11T06:00:00+09:00').getTime();
+  var target = new Date('2026-08-11T05:00:00+09:00').getTime();
   var d=document.getElementById('cd-d'), h=document.getElementById('cd-h'),
       m=document.getElementById('cd-m'), s=document.getElementById('cd-s');
   function pad(n){return n<10?'0'+n:''+n;}
