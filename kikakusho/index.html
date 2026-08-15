@@ -383,8 +383,9 @@
 (function(){
   // UTAGE ファネル「出版企画書勉強会」＞登録経路 で発行したID
   var ROUTES = {
-    mail: 'uwqcEFDzpW9E',   // ①既存リスト（メルマガ告知）
-    line: 'XVXnXT6ayFqP'    // ②全国出版オーディション LINE公式
+    mail: 'uwqcEFDzpW9E',      // ①既存リスト（メルマガ告知）
+    community: 'uwqcEFDzpW9E', // 出版コミュニティ募集メール4通。①と同じ枠に合流させる（細かく分けない方針）
+    line: 'XVXnXT6ayFqP'       // ②全国出版オーディション LINE公式
   };
   var KEY = 'kikakusho_from';
   var from = new URLSearchParams(location.search).get('from');
