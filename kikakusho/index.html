@@ -377,5 +377,29 @@
   <div class="foot">岡崎かつひろ ／ お問い合わせ：happylife.japan2021@gmail.com</div>
 
 </div>
+
+<!-- 流入経路の引き継ぎ：?from=◯◯ で来た人のCTAを、UTAGEの登録経路URLに差し替える -->
+<script>
+(function(){
+  // UTAGE ファネル「出版企画書勉強会」＞登録経路 で発行したID
+  var ROUTES = {
+    mail: 'uwqcEFDzpW9E',   // ①既存リスト（メルマガ告知）
+    line: 'XVXnXT6ayFqP'    // ②全国出版オーディション LINE公式
+  };
+  var KEY = 'kikakusho_from';
+  var from = new URLSearchParams(location.search).get('from');
+  // 一度来たら覚えておく（LPを開き直しても経路が消えないように）
+  try {
+    if (from && ROUTES[from]) sessionStorage.setItem(KEY, from);
+    else if (!from) from = sessionStorage.getItem(KEY);
+  } catch (e) {}
+  var ftid = ROUTES[from];
+  if (!ftid) return;
+  var links = document.querySelectorAll('a.cta[href*="mgJQIGH5RN7s"]');
+  for (var i = 0; i < links.length; i++) {
+    links[i].href = 'https://utage-system.com/p/mgJQIGH5RN7s?ftid=' + ftid;
+  }
+})();
+</script>
 </body>
 </html>
