@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「好かれる人」になる55のコツ ｜ 独立して仕事をしている人のための2時間</title>
+<style>
+  :root{
+    --bg:#FBF6EE; --ink:#2B2420; --sub:#6B5E54;
+    --orange:#F26419; --orange-t:#D9500F; --gold:#E5A100; --green:#2A9D8F;
+    --line:#E6DCCB; --dark:#241C17; --cream:#FBF6EE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#0e0b09;
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Noto Sans JP",Meiryo,sans-serif;
+    color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased;}
+
+  #stage{position:absolute;top:50%;left:50%;width:1280px;height:720px;
+    transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center center;}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;
+    justify-content:flex-start;padding:58px 84px 74px;background:var(--bg);color:var(--ink);font-size:30px;}
+  .slide.active{display:flex;}
+  .slide.dark{background:var(--dark);color:var(--cream);}
+  .slide.dark .sub{color:#C9BBAD;}
+  .slide.dark .kicker{color:var(--gold);}
+  .slide.center{justify-content:center;align-items:center;text-align:center;}
+
+  .kicker{font-size:.98em;letter-spacing:.18em;font-weight:700;color:var(--orange-t);
+    margin-bottom:14px;white-space:nowrap;}
+  h1{font-size:2.1em;line-height:1.34;letter-spacing:.01em;}
+  h2{font-size:1.5em;line-height:1.4;margin:0 0 20px;letter-spacing:.01em;}
+  h2 .hl{color:var(--orange-t);} .slide.dark h2 .hl{color:var(--gold);}
+  p{font-size:1.3em;line-height:1.62;}
+  .slide.dark p{color:#EAE0D2;}
+  .sub{font-size:1.02em;color:var(--sub);line-height:1.58;}
+  .nowrap{white-space:nowrap;}
+  .big{font-size:1.75em;font-weight:800;line-height:1.42;}
+  .huge{font-size:2.4em;font-weight:900;line-height:1.3;letter-spacing:.02em;}
+  .orange{color:var(--orange-t);} .gold{color:var(--gold);}
+  strong{color:var(--orange-t);} .slide.dark strong{color:var(--gold);}
+  .bar{width:66px;height:8px;border-radius:4px;background:var(--orange);margin:0 0 20px;}
+
+  ul.clean{list-style:none;margin-top:4px;}
+  ul.clean li{font-size:1.26em;line-height:1.5;margin:16px 0;padding-left:38px;position:relative;}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.48em;width:17px;height:17px;
+    border-radius:50%;background:var(--orange);}
+  .slide.dark ul.clean li::before{background:var(--gold);}
+
+  .split{display:flex;gap:52px;align-items:flex-start;flex:1;min-height:0;}
+  .split .txt{flex:1;min-width:0;}
+  .split .media{flex:0 0 auto;display:flex;align-items:center;justify-content:center;align-self:center;}
+  .media img.ph{width:470px;height:400px;object-fit:cover;border-radius:18px;
+    box-shadow:0 18px 40px rgba(0,0,0,.24);}
+  .media img.pl{width:470px;border-radius:18px;box-shadow:0 18px 40px rgba(0,0,0,.24);}
+  .media.person img{height:420px;border-radius:16px;object-fit:contain;
+    box-shadow:0 18px 40px rgba(0,0,0,.3);}
+  .media.book img{height:400px;border-radius:6px;box-shadow:0 20px 44px rgba(0,0,0,.4);}
+
+  .strip{display:flex;gap:6px;justify-content:center;align-items:flex-end;margin-top:22px;}
+  .strip img{height:120px;border-radius:3px;box-shadow:0 9px 20px rgba(0,0,0,.28);}
+
+  .three{display:flex;gap:24px;margin-top:20px;width:100%;max-width:1060px;margin-left:auto;margin-right:auto;}
+  .three .item{flex:1;background:#fff;border:2px solid var(--line);border-radius:18px;
+    padding:24px 20px;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.06);}
+  .slide.dark .three .item{background:rgba(255,255,255,.06);border-color:rgba(229,161,0,.45);}
+  .three .n{font-size:2.1em;font-weight:900;color:var(--orange-t);line-height:1;}
+  .slide.dark .three .n{color:var(--gold);}
+  .three .lab{margin-top:12px;font-size:1.12em;font-weight:800;line-height:1.42;}
+  .three .d{margin-top:10px;font-size:.86em;line-height:1.5;color:var(--sub);}
+  .slide.dark .three .d{color:#C9BBAD;}
+
+  .steps{list-style:none;margin-top:6px;width:100%;max-width:1000px;}
+  .steps li{display:flex;gap:20px;align-items:flex-start;margin:16px 0;font-size:1.16em;line-height:1.5;}
+  .steps li .num{flex:0 0 auto;width:44px;height:44px;border-radius:50%;background:var(--orange);
+    color:#fff;font-weight:900;font-size:.92em;display:flex;align-items:center;justify-content:center;}
+  .steps li .tm{flex:0 0 auto;font-size:.72em;font-weight:800;color:var(--sub);
+    background:#F3EADB;border-radius:20px;padding:5px 14px;white-space:nowrap;margin-top:6px;}
+
+  .ba{display:flex;gap:24px;margin-top:16px;align-items:stretch;width:100%;max-width:1060px;
+    margin-left:auto;margin-right:auto;}
+  .ba .card{flex:1;border-radius:16px;padding:22px 24px;line-height:1.5;}
+  .ba .card .lab{font-size:.86em;font-weight:800;letter-spacing:.1em;margin-bottom:10px;white-space:nowrap;}
+  .ba .card.a{background:#F0E7D8;border:2px solid var(--line);}
+  .ba .card.a .lab{color:var(--sub);}
+  .ba .card.b{background:#FFF3E2;border:3px solid var(--orange);}
+  .ba .card.b .lab{color:var(--orange-t);}
+  .ba .card p{font-size:.96em;color:var(--ink);}
+  .slide.dark .ba .card p{color:var(--ink);}
+  .ba .arw{align-self:center;font-size:2em;color:var(--orange-t);font-weight:900;}
+
+  .qs{list-style:none;margin-top:8px;width:100%;max-width:1080px;}
+  .qs li{display:flex;gap:20px;align-items:flex-start;margin:20px 0;font-size:1.14em;line-height:1.5;}
+  .qs li .qn{flex:0 0 auto;font-size:1.05em;font-weight:900;color:var(--gold);width:38px;}
+  .qs li .ans{color:var(--gold);font-weight:800;}
+
+  .point{margin-top:22px;width:100%;background:#FFF3E2;border:3px solid var(--orange);border-radius:18px;
+    padding:22px 28px;font-size:1.24em;font-weight:800;line-height:1.5;max-width:1060px;
+    margin-left:auto;margin-right:auto;}
+  .slide.dark .point{background:rgba(229,161,0,.14);border-color:var(--gold);color:#F6EEDF;}
+
+  .tag{display:inline-block;align-self:flex-start;background:var(--orange);color:#fff;font-size:.9em;font-weight:800;
+    padding:6px 20px;border-radius:22px;letter-spacing:.08em;margin-bottom:18px;white-space:nowrap;}
+  .slide.dark .tag{background:var(--gold);color:#241C17;}
+
+  .art{overflow:hidden;padding:0;}
+  .art .bgart{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .art .scrim{position:absolute;inset:0;z-index:1;
+    background:radial-gradient(ellipse at 50% 48%, rgba(12,10,8,.34) 0%, rgba(12,10,8,.82) 78%);}
+  .art .content{position:relative;z-index:2;text-align:center;width:100%;padding:0 84px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;}
+  .art .content h1,.art .content h2,.art .content p{color:#F7F0E3;}
+  .art .content .kicker{color:var(--gold);}
+  .art .content .sub{color:#D9CDBC;}
+
+
+  .art.light .scrim{background:linear-gradient(rgba(251,246,238,.62),rgba(251,246,238,.90));}
+  .art.light .content h1,.art.light .content h2,.art.light .content p{color:var(--ink);}
+  .art.light .content .kicker{color:var(--orange-t);}
+  .art.light .content .gold{color:var(--orange-t);}
+  .art.light .content .sub{color:var(--sub);}
+  .art.light .foot{color:var(--sub);}
+  .foot{position:absolute;bottom:22px;left:84px;right:84px;display:flex;justify-content:space-between;
+    align-items:center;font-size:.74em;color:var(--sub);letter-spacing:.05em;z-index:3;}
+  .slide.dark .foot,.art .foot{color:#9c8f7d;}
+  .progress{position:absolute;bottom:0;left:0;height:6px;background:var(--orange);transition:width .25s;z-index:60;}
+
+  .fragment{opacity:0;transition:opacity .35s ease, transform .35s ease;transform:translateY(8px);}
+  .fragment.show{opacity:1;transform:none;}
+
+  #hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#8a8175;font-size:12px;
+    background:rgba(0,0,0,.35);padding:6px 14px;border-radius:20px;z-index:50;transition:opacity .4s;}
+  #counter{position:fixed;top:14px;right:18px;color:#9a8f7e;font-size:13px;z-index:50;letter-spacing:.05em;}
+
+  @media print{
+    @page{size:1280px 720px;margin:0;}
+    body{background:#fff;overflow:visible;}
+    #stage{position:static;transform:none;width:1280px;height:auto;}
+    .slide{display:flex!important;position:relative;page-break-after:always;height:720px;}
+    .fragment{opacity:1!important;transform:none!important;}
+    #hint,#counter,.progress{display:none!important;}
+  }
+</style>
+</head>
+<body>
+<div id="counter"></div>
+<div id="hint">← → / Space で進む ・ F で全画面 ・ P で印刷</div>
+<div class="progress" id="prog"></div>
+
+<div id="stage">
+
+  <!-- 1 TITLE -->
+  <section class="slide dark">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">2時間・ワークあり</div>
+        <h1 style="font-size:1.95em;">すぐできるのに<br><span class="nowrap">99％の人はやっていない</span><br><span class="gold">「好かれる人」になる<br>55のコツ</span></h1>
+        <p class="sub" style="margin-top:22px;">〜 独立して仕事をしている人のための、<br><span class="nowrap">「次の仕事が来る」つくり方</span> 〜</p>
+      </div>
+      <div class="media" style="flex:0 0 auto;">
+        <img src="img/book_sukareru.jpg" alt="好かれる人になる55のコツ" style="height:250px;border-radius:6px;box-shadow:0 16px 36px rgba(0,0,0,.4);position:relative;z-index:1;">
+        <img src="img/book_sukareru_bunko.jpg" alt="好かれる人になる55のコツ 王様文庫" style="height:312px;border-radius:6px;box-shadow:0 22px 46px rgba(0,0,0,.55);margin-left:-46px;position:relative;z-index:2;">
+      </div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span></span></div>
+  </section>
+
+  <!-- 2 自己紹介 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">はじめに</div>
+        <div class="bar"></div>
+        <h2>岡崎かつひろです</h2>
+        <ul class="clean">
+          <li>本を書く仕事と、話す仕事をしています</li>
+          <li>その前は、<strong>飲食店</strong>を5店舗やっていました</li>
+          <li>ずっと<strong>一人で</strong>仕事を<br>つくってきた側の人間です</li>
+        </ul>
+      </div>
+      <div class="media person"><img src="img/profile_brick.jpg" alt="岡崎かつひろ"></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 3 著書 -->
+  <section class="slide">
+    <div class="kicker">これまで書いてきた本</div>
+    <div class="bar"></div>
+    <h2>13冊</h2>
+    <div class="strip">
+      <img src="img/all_01.jpg"><img src="img/all_02.jpg"><img src="img/all_03.jpg">
+      <img src="img/all_04.jpg"><img src="img/all_05.jpg"><img src="img/all_06.jpg">
+      <img src="img/all_07.jpg"><img src="img/all_08.jpg"><img src="img/all_09.jpg">
+      <img src="img/all_10.jpg"><img src="img/all_11.jpg"><img src="img/all_12.jpg">
+      <img src="img/all_13.jpg">
+    </div>
+    <p class="sub auto-frag" style="margin-top:26px;">今日お話しするのは、この中の1冊<span class="nowrap">『「好かれる人」になる55のコツ』</span>から。</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 4 うまくいっていない時間のほうが長い -->
+  <section class="slide art">
+    <img class="bgart" src="img/hisan_statue.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">正直なところ</div>
+      <h1>うまくいっていた期間のほうが、<br><span class="gold">短い人間です</span></h1>
+      <p class="sub auto-frag" style="margin-top:24px;">独立した直後、資金が尽きて<span class="nowrap">1年半、車の中で暮らしました</span></p>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 5 2020年 -->
+  <section class="slide art light">
+    <img class="bgart" src="img/empty_hall.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">2020年</div>
+      <h1>予定していた仕事が、<br><span class="gold">ぜんぶ白紙になりました</span></h1>
+      <p class="sub auto-frag" style="margin-top:24px;">収入ゼロ。そこからまた、仕事が戻ってきた。<br>今日は<span class="nowrap">その理由の話</span>をします。</p>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 6 手を挙げてください -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">はじめに、ひとつ質問</div>
+        <div class="bar"></div>
+        <h2><span class="nowrap">自分で売り込んだ仕事より、</span><br><span class="hl">紹介で来た仕事</span>のほうが多い方</h2>
+        <p class="auto-frag" style="margin-top:8px;"><strong>手を挙げてみてください。</strong></p>
+        <p class="sub auto-frag" style="margin-top:16px;">僕も、今日ここに立っているのは<br>誰かが僕の名前を出してくれたからです。</p>
+      </div>
+      <div class="media"><img class="ph" src="img/people.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 7 今日のゴール -->
+  <section class="slide dark">
+    <div class="kicker">今日の2時間</div>
+    <div class="bar"></div>
+    <h2>持って帰ってもらうもの</h2>
+    <div class="three">
+      <div class="item"><div class="n">1</div><div class="lab">明日やること<br>ひとつ</div><div class="d">紙に書いて、<br>隣の人に宣言します</div></div>
+      <div class="item"><div class="n">2</div><div class="lab">この会場で<br>増える3人</div><div class="d">立ち歩くワークで<br>実際に交換まで</div></div>
+      <div class="item"><div class="n">3</div><div class="lab">「好かれる」の<br>正体</div><div class="d">性格の話ではなく<br>仕事の話として</div></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 8 問い1 -->
+  <section class="slide art">
+    <img class="bgart" src="img/tsukami_pensive.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">QUESTION 1</div>
+      <h1>実力はたいして変わらないのに、<br>なぜ<span class="gold">あの人にばかり</span><br>仕事が来るのか</h1>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 9 問い2 -->
+  <section class="slide art light">
+    <img class="bgart" src="img/reception.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">QUESTION 2</div>
+      <h1>名刺を100枚配っても<br>1件にならない人と、<br><span class="gold">飲み会1回で仕事になる人</span></h1>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 10 問い3 -->
+  <section class="slide art">
+    <img class="bgart" src="img/coffee.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">QUESTION 3</div>
+      <h1>営業をまったくしていない人ほど、<br>なぜ<span class="gold">紹介が続く</span>のか</h1>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 11 答えは最後に -->
+  <section class="slide dark center">
+    <div class="kicker">答え合わせは、最後に</div>
+    <p class="huge">3つとも、<br><span class="gold">同じ答え</span>です</p>
+    <p class="sub auto-frag" style="margin-top:26px;">先に言いません。まず、僕の失敗の話から。</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 12 WORK1 -->
+  <section class="slide art">
+    <img class="bgart" src="img/team_meeting.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="tag">WORK 1</div>
+      <h1>仕事の話が<span class="gold">禁止</span>の<br>30秒 自己紹介</h1>
+      <p class="sub auto-frag" style="margin-top:22px;">近くの方と2人組をつくってください</p>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 13 WORK1 手順 -->
+  <section class="slide">
+    <div class="tag">WORK 1 ・ 8分</div>
+    <h2>ルールは、ひとつだけ</h2>
+    <ul class="steps">
+      <li><span class="num">1</span><span>2人組をつくる</span><span class="tm">1分</span></li>
+      <li><span class="num">2</span><span>30秒ずつ自己紹介。ただし<strong>仕事・肩書・実績は禁止</strong></span><span class="tm">2分</span></li>
+      <li><span class="num">3</span><span>話していいのは「最近ハマっていること」<span class="nowrap">「出身地」「休みの日」</span>だけ</span><span class="tm">2分</span></li>
+      <li><span class="num">4</span><span>交代して、もう一度</span><span class="tm">2分</span></li>
+    </ul>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 14 WORK1 回収 -->
+  <section class="slide dark center">
+    <div class="kicker">いまの2分で起きたこと</div>
+    <p class="big">相手の仕事は、<br>わからないままですよね。</p>
+    <p class="huge auto-frag" style="margin-top:24px;">でも<span class="gold">顔と話した内容は</span><br>覚えている</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 15 PART1 章扉 -->
+  <section class="slide art light">
+    <img class="bgart" src="img/mind_search.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">PART 1</div>
+      <h1>思い出して<br><span class="gold">もらえる人</span></h1>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 16 問い -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">考えてみてください</div>
+        <div class="bar"></div>
+        <h2>誰かに仕事を頼むとき、<br>僕たちは<span class="hl">何をしている</span>でしょう</h2>
+        <p class="sub auto-frag" style="margin-top:14px;">検索でも、比較でもありません。</p>
+      </div>
+      <div class="media"><img class="ph" src="img/mind_search.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 17 答え -->
+  <section class="slide dark center">
+    <p class="huge">頭の中で<br><span class="gold">名前を探しています</span></p>
+    <p class="big auto-frag" style="margin-top:28px;">ここで思い出されなければ、<br>実力があっても<span class="gold">いないのと同じ</span></p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 18 実話 導入 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">僕の話 ・ 30代のころ</div>
+        <div class="bar"></div>
+        <h2>お世話になっていた社長に、<br>雑談の流れで言われました</h2>
+        <p class="auto-frag" style="margin-top:10px;font-size:1.5em;font-weight:800;">「飲食店、やらない？」</p>
+      </div>
+      <div class="media"><img class="ph" src="img/izakaya_offer.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 19 即答 -->
+  <section class="slide art light">
+    <img class="bgart" src="img/quick_yes.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">僕の返事</div>
+      <h1 class="gold" style="font-size:3.1em;">「やります」</h1>
+      <p class="sub auto-frag" style="margin-top:26px;">条件も、場所も、金額も、<span class="nowrap">何ひとつ聞かないまま</span></p>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 20 翌日 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">翌日</div>
+        <div class="bar"></div>
+        <h2>電話が鳴りました</h2>
+        <p class="auto-frag" style="font-size:1.6em;font-weight:800;margin-top:10px;">「君に決めた」</p>
+        <p class="sub auto-frag" style="margin-top:18px;">あとで知ったのですが、社長は<br>同じ話を<span class="nowrap">何人かにしていました。</span></p>
+      </div>
+      <div class="media"><img class="ph" src="img/city_evening.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 21 他の人 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">ほかの人の返事</div>
+        <div class="bar"></div>
+        <h2>「検討します」<br>「一度、持ち帰ります」</h2>
+        <p class="sub auto-frag" style="margin-top:16px;">まっとうな返事です。<br>僕のほうが軽はずみでした。</p>
+      </div>
+      <div class="media"><img class="ph" src="img/others_hesitate.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 22 選ばれた理由 -->
+  <section class="slide dark center">
+    <div class="kicker">それでも選ばれた理由</div>
+    <p class="big">能力ではありません。</p>
+    <p class="huge auto-frag" style="margin-top:24px;">あの場でいちばん<br><span class="gold">早く返事をしたから</span></p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 23 コツ1 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">55のコツから ・ その1</div>
+        <div class="bar"></div>
+        <h2>名前を、呼ぶ</h2>
+        <ul class="clean">
+          <li>会話の中で、相手の名前を<strong>3回</strong></li>
+          <li>「そうなんですね」<br>→「そうなんですね、<br><strong>◯◯さん</strong>」</li>
+        </ul>
+      </div>
+      <div class="media"><img class="ph" src="img/name_call.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 24 コツ2 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">55のコツから ・ その2</div>
+        <div class="bar"></div>
+        <h2>別れぎわで、決まる</h2>
+        <ul class="clean">
+          <li>記憶に残るのは、会っている時間ではない</li>
+          <li>帰りぎわに<strong>具体的に1つだけ</strong>伝える</li>
+          <li>「今日の◯◯の話、<br>面白かったです」</li>
+        </ul>
+      </div>
+      <div class="media"><img class="ph" src="img/farewell_door.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 25 コツ3 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">55のコツから ・ その3</div>
+        <div class="bar"></div>
+        <h2>先に、声をかける</h2>
+        <ul class="clean">
+          <li>相手が気づくのを、待たない</li>
+          <li>先にするだけで、印象は変わる</li>
+        </ul>
+      </div>
+      <div class="media"><img class="ph" src="img/exchange_cards.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 26 具体例 メッセージ -->
+  <section class="slide">
+    <div class="kicker">たとえば ・ 交流会の翌日</div>
+    <h2>同じ「お礼」でも、残り方が違う</h2>
+    <div class="ba">
+      <div class="card a"><div class="lab">ほとんどの人</div><p>「本日はありがとう<br>ございました。<br>今後ともよろしく<br>お願いします」</p></div>
+      <div class="arw">→</div>
+      <div class="card b"><div class="lab">覚えられる人</div><p>「◯◯さんの、大阪のお店を<br>立ち上げた話。<br>今日いちばん<br>面白かったです」</p></div>
+    </div>
+    <div class="point">1週間後に思い出せるのは、<span class="orange">後者だけ</span>です。</div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 27 PART1の答え -->
+  <section class="slide dark center">
+    <div class="kicker">PART 1 の答え</div>
+    <p class="huge">思い出してもらえる人は、<br><span class="gold">「その人といた時間」</span>を<br>具体的に返せる人</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 28 WORK2 -->
+  <section class="slide art light">
+    <img class="bgart" src="img/praise_pair.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="tag">WORK 2</div>
+      <h1>いいところ探し</h1>
+      <p class="sub auto-frag" style="margin-top:22px;">さっきの方と、もう一度組んでください</p>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 29 WORK2 手順 -->
+  <section class="slide">
+    <div class="tag">WORK 2 ・ 8分</div>
+    <h2>相手のいいところを、3つ</h2>
+    <ul class="steps">
+      <li><span class="num">1</span><span>相手を30秒見て、<strong>いいところを3つ</strong>探す</span><span class="tm">1分</span></li>
+      <li><span class="num">2</span><span>相手に向かって、声に出して伝える</span><span class="tm">2分</span></li>
+      <li><span class="num">3</span><span>交代する</span><span class="tm">2分</span></li>
+      <li><span class="num">4</span><span>やってみて、どうだったかを話す</span><span class="tm">2分</span></li>
+    </ul>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 30 返報性 -->
+  <section class="slide dark center">
+    <div class="kicker">返報性の原理</div>
+    <p class="huge">やったことは、<br><span class="gold">やり返される</span></p>
+    <p class="big auto-frag" style="margin-top:26px;">いいことも、<br>悪いことも。</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 31 営業も同じ -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">これは、営業でも同じ</div>
+        <div class="bar"></div>
+        <h2>自分の商品のいいところを<br>説明する人より</h2>
+        <p class="auto-frag" style="font-size:1.45em;font-weight:800;margin-top:12px;">相手のいいところを<br><strong>見つける人</strong>が、また呼ばれる</p>
+        <p class="sub auto-frag" style="margin-top:18px;">ただし、さっき体験した通り<br><span class="nowrap">探すのは訓練しないとできません。</span></p>
+      </div>
+      <div class="media"><img class="ph" src="img/good_mood.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 32 PART2 章扉 -->
+  <section class="slide art">
+    <img class="bgart" src="img/hourglass.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">PART 2</div>
+      <h1>安心して<br><span class="gold">任せられる人</span></h1>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 33 問い -->
+  <section class="slide dark center">
+    <div class="kicker">思い出してもらえた。その次</div>
+    <p class="huge">相手が考えるのは、<br>たったひとつ</p>
+    <p class="big auto-frag" style="margin-top:26px;">「この人に頼んで、<br><span class="gold">大丈夫だろうか</span>」</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 34 実話 原稿 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">僕の話 ・ 1冊目の本</div>
+        <div class="bar"></div>
+        <h2>まったく、書けませんでした</h2>
+        <ul class="clean">
+          <li>初めての出版が決まった</li>
+          <li>締め切りが来ても、<strong>真っ白</strong></li>
+        </ul>
+      </div>
+      <div class="media"><img class="ph" src="img/manuscript_stuck.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 35 約束 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">編集者にした約束</div>
+        <div class="bar"></div>
+        <h2>「毎週月曜日に、<br>そこまで書いたぶんを<br><span class="hl">必ず出します</span>」</h2>
+        <p class="sub auto-frag" style="margin-top:16px;">完成品ではなく、途中のものを。<br>ひどい原稿を送った週もあります。</p>
+      </div>
+      <div class="media"><img class="ph" src="img/weekly_promise.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 36 結果 -->
+  <section class="slide dark center">
+    <div class="kicker">結果</div>
+    <p class="big">1度も、落としませんでした。</p>
+    <p class="huge auto-frag" style="margin-top:26px;">その編集者から、<br><span class="gold">次の仕事が来ました</span></p>
+    <p class="sub auto-frag" style="margin-top:22px;">原稿の質で信頼されたわけではありません。</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 37 コツ3つ -->
+  <section class="slide">
+    <div class="kicker">55のコツから</div>
+    <div class="bar"></div>
+    <h2>任される人がやっていること</h2>
+    <div class="three">
+      <div class="item"><div class="n">1</div><div class="lab">返事は、早く</div><div class="d">答えが出ていなくても<br>「拝見しました。<br>◯日までに<br>お返しします」と即返す</div></div>
+      <div class="item"><div class="n">2</div><div class="lab">言いにくいこと<br>ほど、早く</div><div class="d">遅れそう・できない、は最速で。<br>黙っている時間が<br>そのまま不信になる</div></div>
+      <div class="item"><div class="n">3</div><div class="lab">待たせない</div><div class="d">5分前に着く。<br>資料は先に送る。<br>相手の時間を奪わない</div></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 38 具体例 見積もり -->
+  <section class="slide">
+    <div class="kicker">たとえば ・ 見積もりを頼まれた</div>
+    <h2>どちらに仕事が決まるか</h2>
+    <div class="ba">
+      <div class="card a"><div class="lab">丁寧な人</div><p>きちんと作り込んで、<br>3日後に提出した</p></div>
+      <div class="arw">→</div>
+      <div class="card b"><div class="lab">仕事になる人</div><p>その日のうちに<br>「ざっくりこの範囲です。<br>詳細は明日」と返した</p></div>
+    </div>
+    <div class="point">相手にも、<span class="orange">返事を待っている人</span>がいるからです。</div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 39 PART2の答え -->
+  <section class="slide dark center">
+    <div class="kicker">PART 2 の答え</div>
+    <p class="huge">速さは、能力ではなく<br><span class="gold">態度</span>で出せる</p>
+    <p class="big auto-frag" style="margin-top:26px;">100点を目指して黙る人より、<br><span class="gold">60点で出す人</span>が信頼される</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 40 感謝はスピード -->
+  <section class="slide art light">
+    <img class="bgart" src="img/fast_delivery.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">速く返すということは</div>
+      <h1>「あなたを大事に思っています」<br>を<span class="gold">行動で伝えている</span></h1>
+      <p class="sub auto-frag" style="margin-top:24px;">感謝は、言葉より<span class="nowrap">スピードで伝わります。</span></p>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 41 WORK3 -->
+  <section class="slide art light">
+    <img class="bgart" src="img/group_photo.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="tag">WORK 3 ・ 立ち歩きます</div>
+      <h1>3人リレー紹介</h1>
+      <p class="sub auto-frag" style="margin-top:22px;">相手は3回替わります。ご安心ください。</p>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 42 WORK3 手順 -->
+  <section class="slide">
+    <div class="tag">WORK 3 ・ 13分</div>
+    <h2>自分の紹介は、しません</h2>
+    <ul class="steps">
+      <li><span class="num">1</span><span>まだ話していない人と2人組。<strong>お互いの仕事</strong>と<span class="nowrap">「どんな人を紹介してほしいか」</span>を話す</span><span class="tm">3分</span></li>
+      <li><span class="num">2</span><span>相手を替える。ここからは<strong>さっきの人を紹介</strong>する</span><span class="tm">3分</span></li>
+      <li><span class="num">3</span><span>もう一度替えて、同じことを</span><span class="tm">3分</span></li>
+      <li><span class="num">4</span><span>最後の方と<strong>連絡先を交換</strong>して席へ</span><span class="tm">2分</span></li>
+    </ul>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 43 WORK3 回収 -->
+  <section class="slide dark center">
+    <div class="kicker">やってみて、どうでしたか</div>
+    <p class="big">自分で「すごい」と言うと、<br>相手は身構える。</p>
+    <p class="huge auto-frag" style="margin-top:24px;">他人が言うと、<br><span class="gold">そのまま信じてもらえる</span></p>
+    <p class="sub auto-frag" style="margin-top:22px;">だから磨くのは、売り込む力ではなく<span class="nowrap">「紹介しやすさ」</span>です。</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 44 PART3 章扉 -->
+  <section class="slide art light">
+    <img class="bgart" src="img/helping_hand.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">PART 3</div>
+      <h1>応援したく<br><span class="gold">なる人</span></h1>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 45 まだ起きない -->
+  <section class="slide dark center">
+    <p class="big">思い出してもらえた。<br>任せても大丈夫だと思われた。</p>
+    <p class="huge auto-frag" style="margin-top:26px;">それでも、まだ<br><span class="gold">紹介は起きません</span></p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 46 実話 仕事ゼロ -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">僕の話 ・ 仕事がゼロになった年</div>
+        <div class="bar"></div>
+        <h2>声をかけてくれたのは、<br>営業していた相手では<br>ありませんでした</h2>
+        <p class="auto-frag" style="margin-top:12px;font-size:1.3em;font-weight:800;">前に一緒に仕事をして、<br><strong>こちらが先に何かを渡していた人</strong></p>
+      </div>
+      <div class="media"><img class="ph" src="img/helping_hand.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 47 困る前 -->
+  <section class="slide dark center">
+    <p class="huge">困ったときに助けてくれる人は、<br><span class="gold">困る前に関わっていた人</span><br>しかいません</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 48 コツ3つ -->
+  <section class="slide">
+    <div class="kicker">55のコツから</div>
+    <div class="bar"></div>
+    <h2>応援される人がやっていること</h2>
+    <div class="three">
+      <div class="item"><div class="n">1</div><div class="lab">与える順番を<br>先にする</div><div class="d">情報でも、紹介でも。<br>見返りの計算をしない</div></div>
+      <div class="item"><div class="n">2</div><div class="lab">頼まれごとは<br>試されごと</div><div class="d">面倒な頼まれごと<br>ほど受ける。<br>断らなかった人にしか<br>次は来ない</div></div>
+      <div class="item"><div class="n">3</div><div class="lab">機嫌は<br>伝染する</div><div class="d">不機嫌な人には、<br>誰も人を紹介できない</div></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 49 信用を貸す -->
+  <section class="slide art light">
+    <img class="bgart" src="img/lend_credit.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">紹介する側の身になると</div>
+      <h1>人を紹介するというのは、<br><span class="gold">自分の信用を貸す</span>こと</h1>
+      <p class="sub auto-frag" style="margin-top:24px;">紹介した人がやらかしたら、<span class="nowrap">紹介した自分の顔が潰れる。</span></p>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 50 貸しても大丈夫な人 -->
+  <section class="slide dark center">
+    <p class="big">だから僕たちが紹介するのは</p>
+    <p class="huge auto-frag" style="margin-top:22px;">能力のある人ではなく<br><span class="gold">貸しても大丈夫な人</span></p>
+    <p class="sub auto-frag" style="margin-top:24px;">ここを勘違いすると、実績をいくら並べても紹介は増えません。</p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 51 答え合わせ -->
+  <section class="slide dark">
+    <div class="kicker">答え合わせ</div>
+    <div class="bar"></div>
+    <h2>最初の3つの問い</h2>
+    <ul class="qs">
+      <li><span class="qn">1</span><span>なぜ、あの人にばかり仕事が来るのか<br><span class="ans">→ 思い出されるところに、いるから</span></span></li>
+      <li><span class="qn">2</span><span>名刺100枚が、なぜ1件にもならないのか<br><span class="ans">→ 渡しただけで、何も先に渡していないから</span></span></li>
+      <li><span class="qn">3</span><span>営業しない人ほど、なぜ紹介が続くのか<br><span class="ans">→ その人が、信用を貸しても大丈夫な人だから</span></span></li>
+    </ul>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 52 3段階 -->
+  <section class="slide">
+    <div class="kicker">紹介は、この順番でしか起きない</div>
+    <div class="bar"></div>
+    <h2>次の仕事が来る、3段階</h2>
+    <div class="three">
+      <div class="item"><div class="n">1</div><div class="lab">思い出して<br>もらえる</div><div class="d">名前を呼ぶ／別れぎわ／<br>先に声をかける</div></div>
+      <div class="item"><div class="n">2</div><div class="lab">任せても<br>大丈夫と<br>思われる</div><div class="d">返事が早い／<br>言いにくいことほど早い</div></div>
+      <div class="item"><div class="n">3</div><div class="lab">この人を<br>推したいと<br>思われる</div><div class="d">先に渡す／断らない／<br>機嫌がいい</div></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 53 結論 -->
+  <section class="slide dark center">
+    <div class="kicker">今日の結論</div>
+    <p class="big">好かれる人に、仕事が来るのではありません。</p>
+    <p class="huge auto-frag" style="margin-top:26px;"><span class="gold">紹介が起きる条件</span>を<br>満たしている人のことを<br>「好かれる人」と呼んでいるだけ</p>
+    <p class="sub auto-frag" style="margin-top:24px;">性格の問題ではなく、今日から変えられる<span class="nowrap">行動の問題です。</span></p>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 54 WORK4 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="tag">WORK 4 ・ 最後です</div>
+        <h2>明日やることを、<br><span class="hl">ひとつだけ</span></h2>
+        <ul class="clean">
+          <li>今日会った人に、お礼を送る</li>
+          <li>保留にしているメールに、<br>今日中に返す</li>
+          <li>お世話になった人に、<br>先に何かを渡す</li>
+        </ul>
+        <p class="sub auto-frag" style="margin-top:10px;">書いたら、隣の方に<br>声に出して宣言してください。</p>
+      </div>
+      <div class="media"><img class="ph" src="img/write_action.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 55 締め -->
+  <section class="slide art">
+    <img class="bgart" src="img/arms_sunrise.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="kicker">最後に</div>
+      <h1>状況を変えてくれたのは、<br>いつも<span class="gold">誰かが僕の名前を<br>出してくれた瞬間</span>でした</h1>
+      <p class="sub auto-frag" style="margin-top:26px;">今日みなさんは、この会場で3人と話しました。<br>その3人が、来年、誰かにあなたの名前を出すかもしれません。</p>
+    </div>
+    <div class="foot"><span>「好かれる人」になる55のコツ</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 56 締め 書影 -->
+  <section class="slide dark">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">ありがとうございました</div>
+        <h1>55のうち、<br>今日話したのは<span class="gold">10個</span>ほど</h1>
+        <p class="sub auto-frag" style="margin-top:22px;">全部やらなくていいので、<br><strong>明日、ひとつだけ</strong>やってみてください。</p>
+      </div>
+      <div class="media book"><img src="img/book_sukareru_bunko.jpg" alt="好かれる人になる55のコツ"></div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span></span></div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  // 自動フラグメント付与（1つ目の項目も対象。内容確定後に付ける方式）
+  var SEL='ul.clean li, .steps li, .three .item, .qs li, .ba .card, .ba .arw, .point, .auto-frag, .strip';
+  Array.prototype.forEach.call(document.querySelectorAll('.slide'),function(s){
+    Array.prototype.forEach.call(s.querySelectorAll(SEL),function(el){el.classList.add('fragment');});
+  });
+
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var counter=document.getElementById('counter');
+  var prog=document.getElementById('prog');
+  var hint=document.getElementById('hint');
+  var si=0, fi=0;
+  function frags(s){return Array.prototype.slice.call(s.querySelectorAll('.fragment'));}
+  function render(){
+    slides.forEach(function(s,i){s.classList.toggle('active', i===si);});
+    frags(slides[si]).forEach(function(el,i){el.classList.toggle('show', i<fi);});
+    counter.textContent=(si+1)+' / '+slides.length;
+    prog.style.width=((si)/(slides.length-1)*100)+'%';
+  }
+  function next(){var f=frags(slides[si]);
+    if(fi<f.length){fi++;render();return;}
+    if(si<slides.length-1){si++;fi=0;render();}}
+  function prev(){if(fi>0){fi--;render();return;}
+    if(si>0){si--;fi=frags(slides[si]).length;render();}}
+  function fit(){stage.style.setProperty('--scale',Math.min(window.innerWidth/1280,window.innerHeight/720));}
+  window.addEventListener('resize',fit);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){si=0;fi=0;render();}
+    else if(e.key==='End'){si=slides.length-1;fi=frags(slides[si]).length;render();}
+    else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+    else if(e.key==='p'||e.key==='P'){window.print();}
+  });
+  document.addEventListener('click',function(e){
+    if(e.clientX < window.innerWidth*0.25) prev(); else next();
+  });
+  setTimeout(function(){hint.style.opacity='0';},5000);
+  fit();render();
+})();
+</script>
+</body>
+</html>
