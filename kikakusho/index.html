@@ -147,22 +147,36 @@
   @media(max-width:560px){ .guest{flex-direction:column-reverse;} .gphoto{flex-basis:auto;width:100%;} .gphoto .frame{width:100%;height:230px;} }
   .foot{margin-top:50px;text-align:center;color:#55555a;font-size:13px;}
   @media(max-width:520px){ .hero-inner{max-width:100%;} .hero h1{font-size:29px;} h2{font-size:20px;} .price .free{font-size:32px;} }
+  /* ヘッダー画像＋ブルブル震えるボタン */
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  .hd{margin:0 -20px 4px;}
+  .hd > img{display:block;width:100%;vertical-align:bottom;}
+  .hd-btn{display:block;overflow:hidden;line-height:0;}
+  .hd-btn img{display:block;width:calc(100% + 12px);margin-left:-6px;vertical-align:bottom;
+    animation:buruburu 4.2s ease-in-out infinite;will-change:transform;}
+  @keyframes buruburu{
+    0%,84%,100%{transform:translateX(0);}
+    85%{transform:translateX(-4px);}  86%{transform:translateX(4px);}
+    87%{transform:translateX(-4px);}  88%{transform:translateX(4px);}
+    89%{transform:translateX(-3px);}  90%{transform:translateX(3px);}
+    91%{transform:translateX(-2px);}  92%{transform:translateX(2px);}
+    93%{transform:translateX(-1px);}  94%{transform:translateX(1px);}
+  }
+  @media(prefers-reduced-motion:reduce){ .hd-btn img{animation:none;} }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <!-- ① HERO -->
-  <div class="hero">
-    <img class="hero-bg" src="images/header.jpg" alt="">
-    <div class="hero-inner">
-      <span class="badge">これから出す〜3冊以内の新人著者へ</span>
-      <h1>出版は、<br>企画書で決まる。</h1>
-      <p class="sub">本になる企画書の「通る理由」を、毎月、現役の編集者本人が明かす。新人著者のための、月1回の勉強会。</p>
-      <div class="offer-band">いま入会すると、<b>3ヶ月まるごと無料。</b><br>毎月ちがう編集者の話を、3回、タダで聞けます。</div>
-      <a class="cta" href="https://utage-system.com/p/mgJQIGH5RN7s">3ヶ月無料で入会する</a>
-      <div class="cta-note">4ヶ月目から月3,850円（税込）／いつでも解約OK・合わなければ0円</div>
-    </div>
+  <div class="hd">
+    <h1 class="sr-only">出版は、企画書で決まる。｜出版企画書勉強会</h1>
+    <img src="images/hero/hd_a.jpg" alt="はじめての出版を目指す方・新人著者の方へ。本になる企画書を、現役の編集長から学ぶ。出版企画書勉強会。今なら豪華9大特典付き。3ヶ月無料・過去の勉強会も見放題">
+    <a class="hd-btn" href="https://utage-system.com/p/mgJQIGH5RN7s">
+      <img src="images/hero/hd_b.jpg" alt="今すぐ無料で入会する">
+    </a>
+    <img src="images/hero/hd_c.jpg" alt="4ヶ月目から月3,850円（税込）／いつでも解約可能">
   </div>
 
   <!-- ② 悩み -->
@@ -423,7 +437,7 @@
   } catch (e) {}
   var ftid = ROUTES[from];
   if (!ftid) return;
-  var links = document.querySelectorAll('a.cta[href*="mgJQIGH5RN7s"]');
+  var links = document.querySelectorAll('a[href*="mgJQIGH5RN7s"]');
   for (var i = 0; i < links.length; i++) {
     links[i].href = 'https://utage-system.com/p/mgJQIGH5RN7s?ftid=' + ftid;
   }
