@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>AI時代のウソに騙されない ｜ 梅田蔦屋書店 講演スライド</title>
+<style>
+  :root{
+    --bg:#FBF6EE;          /* cream */
+    --ink:#2B2420;         /* charcoal text */
+    --sub:#6B5E54;         /* muted */
+    --orange:#F26419;      /* energy */
+    --gold:#E5A100;        /* accent */
+    --green:#2A9D8F;       /* fresh */
+    --line:#E6DCCB;
+    --dark:#241C17;        /* impact bg */
+    --cream:#FBF6EE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    background:#0e0b09;
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Noto Sans JP",Meiryo,sans-serif;
+    color:var(--ink);
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---- Stage: fixed 16:9, scaled to fit ---- */
+  #stage{
+    position:absolute; top:50%; left:50%;
+    width:1280px; height:720px;
+    transform:translate(-50%,-50%) scale(var(--scale,1));
+    transform-origin:center center;
+  }
+  .slide{
+    position:absolute; inset:0;
+    display:none;
+    flex-direction:column;
+    justify-content:flex-start;      /* 本文は上揃え固定＝ページ間で位置が動かない */
+    padding:84px 84px 64px;
+    background:var(--bg);
+    color:var(--ink);
+    font-size:30px;
+  }
+  .slide.active{display:flex;}
+  .slide.wide{padding-left:30px;padding-right:30px;}
+  .slide.dark{background:var(--dark);color:var(--cream);}
+  .slide.dark .sub{color:#C9BBAD;}
+  .slide.dark .kicker{color:var(--gold);}
+
+  /* ---- Common type ---- */
+  .kicker{
+    font-size:1.0em; letter-spacing:.18em; font-weight:700;
+    color:var(--orange); margin-bottom:16px; white-space:nowrap;
+  }
+  h1{font-size:2.15em; line-height:1.34; letter-spacing:.01em;}
+  h2{font-size:1.5em; line-height:1.4; margin-bottom:24px; letter-spacing:.01em;}
+  h2 .hl{color:var(--orange);}
+  .slide.dark h2 .hl{color:var(--gold);}
+  p{font-size:1.34em; line-height:1.66; color:var(--ink);}
+  .slide.dark p{color:#EAE0D2;}
+  .sub{font-size:1.06em; color:var(--sub); line-height:1.6;}
+  .nowrap{white-space:nowrap;}
+  .big{font-size:1.8em; font-weight:800; line-height:1.42;}
+  .huge{font-size:2.5em; font-weight:900; line-height:1.28; letter-spacing:.02em;}
+  .orange{color:var(--orange);} .gold{color:var(--gold);} .green{color:var(--green);}
+  strong{color:var(--orange);} .slide.dark strong{color:var(--gold);}
+
+  .bar{width:68px;height:8px;border-radius:4px;background:var(--orange);margin:0 0 24px;}
+  .center{align-items:center;text-align:center;justify-content:center;}
+
+  ul.clean{list-style:none;margin-top:8px;}
+  ul.clean li{
+    font-size:1.32em; line-height:1.5; margin:18px 0; padding-left:40px; position:relative;
+  }
+  ul.clean li::before{
+    content:"";position:absolute;left:0;top:.5em;width:18px;height:18px;border-radius:50%;
+    background:var(--orange);
+  }
+  .slide.dark ul.clean li::before{background:var(--gold);}
+  ul.tight li{font-size:1.24em; margin:14px 0;}
+
+  .quote{
+    border-left:9px solid var(--gold); padding:8px 0 8px 30px; margin:10px 0;
+    font-size:1.32em; line-height:1.62; font-weight:700;
+  }
+  .who{font-size:.95em; color:var(--sub); font-weight:600; margin-top:10px; letter-spacing:.04em;}
+  .slide.dark .who{color:#B7A992;}
+
+  /* two-column split: text + media */
+  .split{display:flex; gap:56px; align-items:center; flex:1; min-height:0;}
+  .split .txt{flex:1; min-width:0; align-self:flex-start;}
+  .split .media{flex:0 0 auto; display:flex; align-items:center; justify-content:center;}
+  .media.book img{height:430px; border-radius:6px; box-shadow:0 20px 44px rgba(0,0,0,.4);}
+  .media.person img{height:430px; border-radius:16px; object-fit:contain;
+       box-shadow:0 20px 44px rgba(0,0,0,.3);}
+  .media.photo img{width:470px;height:400px;object-fit:cover;border-radius:16px;
+       box-shadow:0 20px 44px rgba(0,0,0,.3);}
+  .media.photo.tall img{width:370px;height:470px;}
+
+  /* full-bleed photo background */
+  .slide.photobg{overflow:hidden;}
+  .slide.photobg .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .slide.photobg .scrim{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(rgba(22,15,10,.52),rgba(22,15,10,.74));}
+  .slide.photobg > :not(.bgimg):not(.scrim):not(.foot){position:relative;z-index:2;}
+  .slide.photobg .foot{z-index:2;}
+
+  /* book strip */
+  .strip{display:flex; gap:6px; justify-content:center; align-items:flex-end; margin-top:26px;}
+  .strip img{height:118px; border-radius:3px; box-shadow:0 9px 20px rgba(0,0,0,.28);}
+
+  /* before/after cards */
+  .ba{display:flex; gap:26px; margin-top:10px; align-items:stretch;}
+  .card{flex:1; border-radius:16px; padding:24px 26px; line-height:1.5;}
+  .card .lab{font-size:.95em; font-weight:800; letter-spacing:.1em; margin-bottom:12px; white-space:nowrap;}
+  .card.before{background:#F0E7D8; border:2px solid var(--line);}
+  .card.before .lab{color:var(--sub);}
+  .card.after{background:#FFF3E2; border:2px solid var(--orange);}
+  .card.after .lab{color:var(--orange);}
+  .card p{font-size:1.16em; color:var(--ink);}
+  .arrow{align-self:center;font-size:2.2em;color:var(--orange);font-weight:900;}
+
+  .tag{display:inline-block;background:var(--orange);color:#fff;font-size:.95em;font-weight:800;
+       padding:6px 18px;border-radius:22px;letter-spacing:.08em;margin-bottom:20px;white-space:nowrap;}
+  .slide.dark .tag, .slide.photobg .tag{background:var(--gold);color:#241C17;}
+
+  .three{display:flex;gap:26px;margin-top:26px;width:100%;}
+  .three .item{flex:1;background:rgba(255,255,255,.06);
+    border:2px solid rgba(229,161,0,.45);border-radius:18px;padding:28px 20px;text-align:center;}
+  .three .n{font-size:2.3em;font-weight:900;color:var(--gold);line-height:1;}
+  .three .lab{margin-top:14px;font-size:1.18em;font-weight:700;line-height:1.4;}
+  .three.light .item{background:#FFF3E2;border:2px solid var(--orange);}
+  .three.light .n{color:var(--orange);}
+  .three.light .lab{color:var(--ink);}
+
+  /* question list (つかみの3問) */
+  .qs{margin-top:8px;}
+  .q{display:flex;align-items:flex-start;gap:22px;margin:26px 0;}
+  .q .qn{flex:0 0 auto;width:54px;height:54px;border-radius:50%;background:var(--gold);
+    color:#241C17;font-weight:900;font-size:1.15em;display:flex;align-items:center;justify-content:center;}
+  .q .qt{font-size:1.42em;font-weight:700;line-height:1.5;padding-top:5px;}
+
+  /* big number stat */
+  .stats{display:flex;gap:30px;margin-top:14px;}
+  .stat{flex:1;background:#FFF3E2;border:2px solid var(--orange);border-radius:18px;
+    padding:26px 18px;text-align:center;}
+  .stat .sv{font-size:2.1em;font-weight:900;color:var(--orange);line-height:1.2;white-space:nowrap;}
+  .stat .sl{margin-top:10px;font-size:1.0em;font-weight:700;color:var(--ink);white-space:nowrap;}
+
+  /* QR誘導 */
+  .qrcard{background:#fff;border-radius:18px;padding:26px 26px 16px;
+    box-shadow:0 20px 44px rgba(0,0,0,.18);text-align:center;}
+  .qrcard img{width:300px;height:300px;display:block;}
+  .qrcard .qcap{margin-top:10px;font-size:.9em;font-weight:800;color:var(--ink);
+    letter-spacing:.06em;white-space:nowrap;}
+  .qrrow{display:flex;align-items:center;gap:22px;}
+  .qrrow img{width:150px;height:150px;background:#fff;padding:8px;border-radius:12px;}
+  .qrrow .qtx{font-size:.95em;font-weight:700;color:#C9BBAD;line-height:1.6;}
+
+  /* problems → one cause diagram */
+  .probgrid{display:flex;align-items:center;gap:26px;margin-top:18px;}
+  .probs{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;}
+  .prob{background:#F0E7D8;border:2px solid var(--line);border-radius:12px;
+    padding:20px 12px;text-align:center;font-weight:700;font-size:1.0em;color:var(--ink);white-space:nowrap;}
+  .cause{flex:0 0 380px;background:#FFF3E2;border:3px solid var(--orange);border-radius:16px;
+    padding:30px 22px;text-align:center;}
+  .cause .cl{font-size:.9em;font-weight:800;color:var(--orange);letter-spacing:.1em;margin-bottom:10px;white-space:nowrap;}
+  .cause .ct{font-size:1.28em;font-weight:900;color:var(--ink);line-height:1.5;}
+
+  /* footer */
+  .foot{
+    position:absolute;bottom:24px;left:84px;right:84px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:.78em;color:var(--sub);letter-spacing:.05em;
+  }
+  .slide.dark .foot, .slide.photobg .foot{color:#9c8f7d;}
+  .progress{position:absolute;bottom:0;left:0;height:6px;background:var(--orange);transition:width .25s;}
+
+  /* fragments */
+  .fragment{opacity:0;transition:opacity .35s ease, transform .35s ease;transform:translateY(8px);}
+  .fragment.show{opacity:1;transform:none;}
+
+  #hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+    color:#8a8175;font-size:12px;background:rgba(0,0,0,.35);padding:6px 14px;border-radius:20px;
+    z-index:50;transition:opacity .4s;}
+  #dl{position:fixed;top:12px;left:16px;z-index:60;background:#F26419;color:#fff;
+    text-decoration:none;font-size:13px;font-weight:800;padding:8px 16px;border-radius:20px;
+    letter-spacing:.04em;box-shadow:0 6px 16px rgba(0,0,0,.35);}
+  @media print{#dl{display:none!important;}}
+  #counter{position:fixed;top:14px;right:18px;color:#9a8f7e;font-size:13px;z-index:50;letter-spacing:.05em;}
+
+  @media print{
+    @page{size:1280px 720px;margin:0;}
+    body{background:#fff;overflow:visible;}
+    #stage{position:static;transform:none;width:1280px;height:auto;}
+    .slide{display:flex!important;position:relative;page-break-after:always;height:720px;}
+    .fragment{opacity:1!important;transform:none!important;}
+    #hint,#counter,.progress{display:none!important;}
+  }
+</style>
+</head>
+<body>
+<div id="counter"></div>
+<a id="dl" href="slides.pdf" download>PDFをダウンロード</a>
+<div id="hint">← → / Space で進む ・ F で全画面 ・ P で印刷</div>
+
+<div id="stage">
+<style>
+  .card strong{color:#B8430B;}
+  .qs.tightq .q{margin:14px 0;}
+  .keyword{background:#FFF3E2;border:3px solid var(--orange);border-radius:16px;
+    padding:16px 22px;text-align:center;font-size:1.7em;font-weight:900;
+    color:var(--ink);line-height:1.3;white-space:nowrap;}
+  .keyword strong{color:#B8430B;}
+  .media.books{gap:24px;}
+  .media.books img{height:346px;border-radius:5px;box-shadow:0 20px 44px rgba(0,0,0,.45);}
+</style>
+
+  <!-- 1 TITLE -->
+  <section class="slide dark">
+    <div class="split">
+      <div class="txt" style="align-self:center;">
+        <div class="kicker">梅田 蔦屋書店 ・ 2026.9.25</div>
+        <h1>AI時代のウソに<br>騙されない</h1>
+        <p class="sub" style="margin-top:26px;">
+          選ばれる人になる、仕事の仕方
+        </p>
+      </div>
+      <div class="media books">
+        <img src="img/all_13.jpg" alt="要領のいい人が最初に考えること">
+        <img src="img/book_horai.jpg" alt="買いたくなる1分ストーリー">
+      </div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ ／ 宝来光子</span><span>梅田 蔦屋書店</span></div>
+  </section>
+
+  <!-- 2 つかみ：問い3つ -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">QUESTION</div>
+        <h2><span class="hl">3つ</span>だけ、聞かせてください</h2>
+        <div class="qs tightq">
+          <div class="q fragment"><div class="qn">Q1</div><div class="qt">AIは、もう<strong>毎日のように</strong>使っている</div></div>
+          <div class="q fragment"><div class="qn">Q2</div><div class="qt">でも、成果は<strong>そこまで変わっていない</strong></div></div>
+          <div class="q fragment"><div class="qn">Q3</div><div class="qt">このまま自分は、<strong>必要とされ続ける</strong>のか</div></div>
+        </div>
+      </div>
+      <div class="media photo tall"><img src="img/tsukami_pensive.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 3 自分事化 -->
+  <section class="slide center">
+    <p class="big">1つでも当てはまった方——</p>
+    <p class="huge orange fragment" style="margin-top:26px;">この30分は、<br>あなたのための時間です。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 4 自己紹介 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">はじめに</div>
+        <div class="bar"></div>
+        <h2>改めまして、<br>岡崎かつひろです</h2>
+        <p class="sub">株式会社XYZ 代表取締役 ／ 講演・研修講師</p>
+        <ul class="clean tight">
+          <li class="fragment">著書 <strong>13冊</strong>。最新刊は『要領のいい人が最初に考えること』</li>
+          <li class="fragment"><strong>早稲田大学</strong>で、ChatGPT講座を担当</li>
+          <li class="fragment">「全国出版オーディション」主宰</li>
+        </ul>
+      </div>
+      <div class="media person"><img src="img/profile_gray.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 5 書影ストリップ -->
+  <section class="slide center">
+    <div class="kicker">著者として</div>
+    <p class="big">これまでに書いた本が、<span class="orange">13冊</span></p>
+    <div class="strip">
+      <img src="img/all_01.jpg" alt=""><img src="img/all_03.jpg" alt=""><img src="img/all_05.jpg" alt="">
+      <img src="img/all_07.jpg" alt=""><img src="img/all_09.jpg" alt=""><img src="img/all_11.jpg" alt="">
+      <img src="img/all_13.jpg" alt="">
+    </div>
+    <p class="sub fragment" style="margin-top:24px;">AIも、毎日使っています。<br><strong>使うなという話は、一切しません。</strong></p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 6 今日の話は3つ -->
+  <section class="slide center">
+    <div class="kicker">今日のお話</div>
+    <p class="big">伝えたいことは、<span class="orange">3つ</span></p>
+    <div class="three light">
+      <div class="item fragment"><div class="n">1</div><div class="lab">なぜ人は、<br>判断を間違えるのか</div></div>
+      <div class="item fragment"><div class="n">2</div><div class="lab">AIとは、<br>そもそも何なのか</div></div>
+      <div class="item fragment"><div class="n">3</div><div class="lab">では、何を<br>伸ばせばいいのか</div></div>
+    </div>
+    <p class="sub fragment" style="margin-top:26px;">答えは、<strong>最後に</strong>。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 7 セクション扉① -->
+  <section class="slide dark center">
+    <div class="tag">PART 1</div>
+    <p class="huge">なぜ人は、<br><span class="gold">まっすぐ間違える</span>のか</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 8 1943年 -->
+  <section class="slide photobg center">
+    <img class="bgimg" src="img/hisan_statue.jpg" alt="">
+    <div class="scrim"></div>
+    <div class="tag">第二次世界大戦 ・ アメリカ軍</div>
+    <p class="huge" style="color:#FBF6EE;">帰ってきた爆撃機を、<br>一機ずつ調べた。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 9 弾痕図 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">わかったこと</div>
+        <h2>弾痕は、<span class="hl">翼と胴体</span>に<br>集まっていた</h2>
+        <ul class="clean tight">
+          <li class="fragment">エンジンには、ほとんどない</li>
+          <li class="fragment">コックピットにも、ほとんどない</li>
+        </ul>
+        <p class="sub fragment" style="margin-top:22px;">軍の結論——<br><strong>「よし、翼と胴体を補強しよう」</strong></p>
+      </div>
+      <div class="media">
+        <svg width="400" height="440" viewBox="0 0 400 440" role="img" aria-label="帰還した爆撃機の弾痕分布">
+          <g fill="#E3D8C6" stroke="#A89579" stroke-width="3" stroke-linejoin="round">
+            <path d="M178,168 L36,206 L32,230 L178,242 Z"/>
+            <path d="M222,168 L364,206 L368,230 L222,242 Z"/>
+            <path d="M178,318 L112,344 L112,358 L178,364 Z"/>
+            <path d="M222,318 L288,344 L288,358 L222,364 Z"/>
+            <path d="M200,26 C216,44 222,72 222,104 L222,344 C222,364 212,380 200,386 C188,380 178,364 178,344 L178,104 C178,72 184,44 200,26 Z"/>
+          </g>
+          <g fill="#CFC1AA" stroke="#A89579" stroke-width="3">
+            <rect x="74" y="178" width="26" height="72" rx="13"/>
+            <rect x="122" y="168" width="26" height="82" rx="13"/>
+            <rect x="252" y="168" width="26" height="82" rx="13"/>
+            <rect x="300" y="178" width="26" height="72" rx="13"/>
+          </g>
+          <g fill="#8C7B62">
+            <rect x="63" y="170" width="48" height="8" rx="4"/>
+            <rect x="111" y="160" width="48" height="8" rx="4"/>
+            <rect x="241" y="160" width="48" height="8" rx="4"/>
+            <rect x="289" y="170" width="48" height="8" rx="4"/>
+            <circle cx="87" cy="174" r="6"/><circle cx="135" cy="164" r="6"/>
+            <circle cx="265" cy="164" r="6"/><circle cx="313" cy="174" r="6"/>
+          </g>
+          <ellipse cx="200" cy="72" rx="17" ry="24" fill="#AECFE4" stroke="#A89579" stroke-width="3"/>
+          <g fill="#D7263D">
+            <circle cx="58" cy="216" r="7"/><circle cx="76" cy="224" r="6"/><circle cx="52" cy="226" r="5"/>
+            <circle cx="162" cy="206" r="6"/><circle cx="168" cy="228" r="7"/><circle cx="152" cy="232" r="5"/>
+            <circle cx="342" cy="216" r="7"/><circle cx="324" cy="224" r="6"/><circle cx="348" cy="226" r="5"/>
+            <circle cx="238" cy="206" r="6"/><circle cx="232" cy="228" r="7"/><circle cx="248" cy="232" r="5"/>
+            <circle cx="140" cy="346" r="6"/><circle cx="262" cy="348" r="6"/><circle cx="166" cy="356" r="5"/>
+            <circle cx="110" cy="214" r="5"/><circle cx="290" cy="214" r="5"/>
+            <circle cx="196" cy="158" r="6"/><circle cx="209" cy="192" r="7"/><circle cx="190" cy="226" r="6"/>
+            <circle cx="207" cy="262" r="6"/><circle cx="192" cy="298" r="7"/><circle cx="204" cy="328" r="5"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>● ＝ 帰ってきた機体の弾痕</span></div>
+  </section>
+
+  <!-- 10 会場に問う -->
+  <section class="slide dark center">
+    <p class="huge">みなさんも、<br><span class="gold">そう思いますか？</span></p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 11 ウォルドの答え -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">統計学者 アブラハム・ウォルド</div>
+        <h2>答えは、<span class="hl">真逆</span>だった</h2>
+        <div class="quote">補強すべきは、<br>弾痕の<span class="orange">ない</span>エンジンと<br>コックピットだ。</div>
+        <p class="sub fragment" style="margin-top:20px;">そこを撃たれた機体は——<br><strong>そもそも、帰ってこなかった。</strong></p>
+      </div>
+      <div class="media">
+        <svg width="400" height="440" viewBox="0 0 400 440" role="img" aria-label="本当に補強すべき箇所">
+          <g fill="#E3D8C6" stroke="#A89579" stroke-width="3" stroke-linejoin="round">
+            <path d="M178,168 L36,206 L32,230 L178,242 Z"/>
+            <path d="M222,168 L364,206 L368,230 L222,242 Z"/>
+            <path d="M178,318 L112,344 L112,358 L178,364 Z"/>
+            <path d="M222,318 L288,344 L288,358 L222,364 Z"/>
+            <path d="M200,26 C216,44 222,72 222,104 L222,344 C222,364 212,380 200,386 C188,380 178,364 178,344 L178,104 C178,72 184,44 200,26 Z"/>
+          </g>
+          <g fill="#CFC1AA" stroke="#A89579" stroke-width="3">
+            <rect x="74" y="178" width="26" height="72" rx="13"/>
+            <rect x="122" y="168" width="26" height="82" rx="13"/>
+            <rect x="252" y="168" width="26" height="82" rx="13"/>
+            <rect x="300" y="178" width="26" height="72" rx="13"/>
+          </g>
+          <g fill="#8C7B62">
+            <rect x="63" y="170" width="48" height="8" rx="4"/>
+            <rect x="111" y="160" width="48" height="8" rx="4"/>
+            <rect x="241" y="160" width="48" height="8" rx="4"/>
+            <rect x="289" y="170" width="48" height="8" rx="4"/>
+            <circle cx="87" cy="174" r="6"/><circle cx="135" cy="164" r="6"/>
+            <circle cx="265" cy="164" r="6"/><circle cx="313" cy="174" r="6"/>
+          </g>
+          <ellipse cx="200" cy="72" rx="17" ry="24" fill="#AECFE4" stroke="#A89579" stroke-width="3"/>
+          <g fill="none" stroke="#F26419" stroke-width="8">
+            <circle cx="111" cy="209" r="62"/><circle cx="289" cy="209" r="62"/><circle cx="200" cy="72" r="40"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>○ ＝ 本当に補強すべき場所</span></div>
+  </section>
+
+  <!-- 12 教訓 -->
+  <section class="slide photobg center">
+    <img class="bgimg" src="img/window_calm.jpg" alt="">
+    <div class="scrim"></div>
+    <p class="huge" style="color:#FBF6EE;">見えているものだけで<br>判断すると、<br><span class="gold">人はまっすぐ間違える。</span></p>
+    <p class="sub fragment" style="color:#D8CBB9;margin-top:26px;">大事なことは、<strong>帰ってこなかった機体</strong>のほうに書いてある。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 13 セクション扉② -->
+  <section class="slide dark center">
+    <div class="tag">PART 2</div>
+    <p class="huge">これ、いまの<span class="gold">AIの話</span>に<br>似ていませんか。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 14 見えているもの -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">いま、見えているもの</div>
+        <h2>「AIを使いこなす人が、<br><span class="hl">成果を出している</span>」</h2>
+        <p class="sub fragment">書店にも、SNSにも、その話ばかり。</p>
+        <p class="sub fragment" style="margin-top:14px;">だから世の中は、こう結論を出した。</p>
+        <p class="big fragment" style="margin-top:12px;">「<strong>AIを学べば、選ばれる</strong>」</p>
+      </div>
+      <div class="media photo"><img src="img/phone.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 15 見えていないもの -->
+  <section class="slide dark center">
+    <div class="kicker">では、見えていないものは？</div>
+    <p class="huge fragment">AIを使っているのに、<br><span class="gold">選ばれていない人。</span></p>
+    <p class="sub fragment" style="margin-top:26px;">しかも、そちらのほうが<strong>圧倒的に多い</strong>。<br>ただ、誰も発信しないから見えないだけ。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 16 つまり -->
+  <section class="slide center">
+    <div class="kicker">つまり</div>
+    <p class="big">「AIを学べば選ばれる」は</p>
+    <p class="huge orange fragment" style="margin-top:22px;">帰ってきた飛行機の翼を、<br>補強している。</p>
+    <p class="sub fragment" style="margin-top:24px;">同じことを、しています。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 17 セクション扉③ -->
+  <section class="slide dark center">
+    <div class="tag">PART 3</div>
+    <p class="huge">そもそも、<br><span class="gold">AIとは何か。</span></p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 18 定義 -->
+  <section class="slide dark center">
+    <div class="kicker">岡崎の定義</div>
+    <p class="huge">AIとは、<br><span class="gold">難しかったことを</span><br><span class="gold">簡単にできるようにするもの。</span></p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 19 例 -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">かつては、専門技能が要った</div>
+        <h2>動画編集。資料作成。<br>文章。プログラム。</h2>
+        <ul class="clean tight">
+          <li class="fragment">どれも、何年もかけて習うものだった</li>
+          <li class="fragment">それが今は——<strong>日本語で頼むだけ</strong></li>
+        </ul>
+      </div>
+      <div class="media photo"><img src="img/notebook.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 20 指示は簡単 -->
+  <section class="slide center">
+    <p class="big">だから、<br>「AIに指示を出す力」は</p>
+    <p class="huge orange fragment" style="margin-top:22px;">それほど、難しくない。</p>
+    <p class="sub fragment" style="margin-top:26px;">学べば少しは上手くなる。それは事実です。<br>ただ、<strong>そこで決定的な差はつきません。</strong></p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 21 歴史（飛ばし候補） -->
+  <section class="slide center">
+    <div class="kicker">歴史が、同じことを何度も言っている</div>
+    <div class="three light">
+      <div class="item fragment"><div class="n">計算</div><div class="lab">電卓・エクセル<br><span class="sub">計算が速い人は<br>評価されなくなった</span></div></div>
+      <div class="item fragment"><div class="n">調べ</div><div class="lab">検索エンジン<br><span class="sub">物知りは<br>価値ではなくなった</span></div></div>
+      <div class="item fragment"><div class="n">作る</div><div class="lab">AI<br><span class="sub"><strong>いま、ここ</strong></span></div></div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>※ 時間がなければ口頭のみで飛ばす</span></div>
+  </section>
+
+  <!-- 22 差はつかない -->
+  <section class="slide photobg center">
+    <img class="bgimg" src="img/people.jpg" alt="">
+    <div class="scrim"></div>
+    <p class="huge" style="color:#FBF6EE;">簡単になった瞬間、<br><span class="gold">そこで差はつかなくなる。</span></p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 23 誤解防止（絶対に落とさない） -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt">
+        <div class="kicker">誤解のないように</div>
+        <div class="bar"></div>
+        <h2>「AIを使うな」とは、<br><span class="hl">言っていません</span></h2>
+        <ul class="clean tight">
+          <li class="fragment">使わない選択肢は、ありません</li>
+          <li class="fragment">私も、毎日使っています</li>
+          <li class="fragment">ただ——<strong>そこは、勝負どころではない</strong></li>
+        </ul>
+      </div>
+      <div class="media photo"><img src="img/coffee.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 24 セクション扉④ -->
+  <section class="slide dark center">
+    <div class="tag">PART 4</div>
+    <p class="huge">では、<br><span class="gold">何を伸ばすのか。</span></p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 25 伸ばすのは -->
+  <section class="slide center">
+    <p class="big">伸ばすべきは</p>
+    <p class="huge orange fragment" style="margin-top:20px;">簡単に、<br>ならなかったところ。</p>
+    <p class="sub fragment" style="margin-top:26px;">私はそれを、<strong>「要領のいい仕事の仕方」</strong>と呼んでいます。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 26 ①効率と効果 -->
+  <section class="slide">
+    <div class="tag">要領のいい仕事の仕方 ①</div>
+    <h2>似ているようで、まったく違う</h2>
+    <div class="ba">
+      <div class="card before fragment"><div class="lab">効率</div><p>「<strong>早さ</strong>」の最大化</p></div>
+      <div class="arrow fragment">→</div>
+      <div class="card after fragment"><div class="lab">効果</div><p>「<strong>成果</strong>」の最大化</p></div>
+    </div>
+    <p class="sub fragment" style="margin-top:26px;">要領のよさの本質は——<strong>効果</strong>のほう。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>① 効率ではなく「効果」</span></div>
+  </section>
+
+  <!-- 27 コールセンター -->
+  <section class="slide">
+    <div class="tag">新人時代 ・ コールセンター</div>
+    <h2>バラバラに見えて、<span class="hl">根っこは1つ</span></h2>
+    <div class="probgrid">
+      <div class="probs">
+        <div class="prob fragment">クレームが増える</div>
+        <div class="prob fragment">対応が長引く</div>
+        <div class="prob fragment">お客様を待たせる</div>
+        <div class="prob fragment">さらにクレーム</div>
+      </div>
+      <div class="arrow fragment">→</div>
+      <div class="cause fragment"><div class="cl">本当の原因</div><div class="ct">数字管理が<br>できていなかった</div></div>
+    </div>
+    <p class="sub fragment" style="margin-top:22px;">仕組みをひとつ変えたら、<strong>全部が一気に消えた。</strong></p>
+    <div class="foot"><span>岡崎かつひろ</span><span>① 効率ではなく「効果」</span></div>
+  </section>
+
+  <!-- 28 ①AIにできない理由 -->
+  <section class="slide dark center">
+    <div class="kicker">AIには、できないこと</div>
+    <p class="huge">AIは、与えた問いにしか<br>答えません。</p>
+    <p class="big gold fragment" style="margin-top:26px;">「何のためにやるのか」を<br>決めるのは、人間です。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>① 効率ではなく「効果」</span></div>
+  </section>
+
+  <!-- 29 ②決断 -->
+  <section class="slide center">
+    <div class="tag">要領のいい仕事の仕方 ②</div>
+    <p class="big">ヒントは、「決断」という字</p>
+    <p class="huge fragment" style="margin-top:20px;">決断 ＝ 決める ＋ <span class="orange">断つ</span></p>
+    <p class="big fragment" style="margin-top:26px;">最初に決めるのは、<strong>やらないこと</strong>。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>② 最初に決めるのは「やらないこと」</span></div>
+  </section>
+
+  <!-- 30 ②3基準 -->
+  <section class="slide center">
+    <div class="kicker">やらないことの、決め方</div>
+    <p class="big">この<span class="orange">3つ</span>につながらないなら、やらない</p>
+    <div class="three light">
+      <div class="item fragment"><div class="n">1</div><div class="lab">社会性の<br>向上</div></div>
+      <div class="item fragment"><div class="n">2</div><div class="lab">認知の<br>獲得</div></div>
+      <div class="item fragment"><div class="n">3</div><div class="lab">利益の<br>確保</div></div>
+    </div>
+    <p class="sub fragment" style="margin-top:24px;">残るのは、重要なものだけ。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>② 最初に決めるのは「やらないこと」</span></div>
+  </section>
+
+  <!-- 31 ②AIにできない理由 -->
+  <section class="slide dark center">
+    <div class="kicker">AIには、できないこと</div>
+    <p class="huge">AIは、<br>「<span class="gold">それ、やめましょう</span>」<br>とは言いません。</p>
+    <p class="sub fragment" style="margin-top:26px;">頼めば、全部やってしまう。<br><strong>捨てる責任を負えるのは、人間だけです。</strong></p>
+    <div class="foot"><span>岡崎かつひろ</span><span>② 最初に決めるのは「やらないこと」</span></div>
+  </section>
+
+  <!-- 32 ③相手が動く仕事から -->
+  <section class="slide">
+    <div class="tag">要領のいい仕事の仕方 ③</div>
+    <h2>優先順位の、<span class="hl">逆転</span></h2>
+    <div class="ba">
+      <div class="card before fragment"><div class="lab">ありがち</div><p><strong>重要なもの</strong>から手をつける</p></div>
+      <div class="arrow fragment">→</div>
+      <div class="card after fragment"><div class="lab">要領のいい人</div><p><strong>相手が動くもの</strong>から先に渡す</p></div>
+    </div>
+    <p class="sub fragment" style="margin-top:26px;">先に渡してしまえば、待っている間も<strong>仕事は進んでいる。</strong></p>
+    <div class="foot"><span>岡崎かつひろ</span><span>③「相手が動く仕事」から先に渡す</span></div>
+  </section>
+
+  <!-- 33 ③AIにできない理由 -->
+  <section class="slide dark center">
+    <div class="kicker">AIには、できないこと</div>
+    <p class="huge">仕事は、<br><span class="gold">人のところで止まる。</span></p>
+    <p class="big fragment" style="margin-top:26px;">そして、人を動かすのは<br>AIではありません。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>③「相手が動く仕事」から先に渡す</span></div>
+  </section>
+
+  <!-- 34 宝来さんへのバトン -->
+  <section class="slide photobg center">
+    <img class="bgimg" src="img/people.jpg" alt="">
+    <div class="scrim"></div>
+    <p class="huge" style="color:#FBF6EE;">では、どうやって<br>人に動いてもらうのか。</p>
+    <p class="big gold fragment" style="margin-top:26px;">ここから先は、<br>宝来光子さんの領域です。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>→ 宝来光子さんへ</span></div>
+  </section>
+
+  <!-- 35 答え合わせ -->
+  <section class="slide center">
+    <div class="kicker">答え合わせ</div>
+    <p class="big">AIには渡せない、<span class="orange">3つ</span></p>
+    <div class="three light">
+      <div class="item fragment"><div class="n">1</div><div class="lab">目的を<br>決める</div></div>
+      <div class="item fragment"><div class="n">2</div><div class="lab">捨てるものを<br>決める</div></div>
+      <div class="item fragment"><div class="n">3</div><div class="lab">人を<br>動かす</div></div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 36 着地 -->
+  <section class="slide dark center">
+    <p class="huge">選ばれる人は、<br>AIを使える人では<br>ありません。</p>
+    <p class="huge gold fragment" style="margin-top:30px;">AI以外の能力を、<br>伸ばしている人です。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 37 あなたにしかできない -->
+  <section class="slide photobg center">
+    <img class="bgimg" src="img/arms_sunrise.jpg" alt="">
+    <div class="scrim"></div>
+    <p class="huge" style="color:#FBF6EE;">それは、AIには渡せない。</p>
+    <p class="huge gold fragment" style="margin-top:26px;">あなたにしか、<br>できない仕事です。</p>
+    <div class="foot"><span>岡崎かつひろ</span><span>AI時代のウソに騙されない</span></div>
+  </section>
+
+  <!-- 38 CTA -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt" style="align-self:center;">
+        <div class="kicker">お持ち帰りください</div>
+        <div class="bar"></div>
+        <h2>本日のスライドを、<br><span class="hl">そのまま</span>差し上げます</h2>
+        <ul class="clean tight">
+          <li>QRから、LINEにご登録</li>
+          <li>この<strong>合言葉</strong>を送ってください</li>
+        </ul>
+        <div class="keyword" style="margin-top:18px;">「<strong>光子さん大好き</strong>」</div>
+        <p class="sub" style="margin-top:14px;">もう友だちの方も、同じ合言葉でどうぞ。</p>
+      </div>
+      <div class="media noadvance">
+        <div class="qrcard"><img src="img/qr_line.png" alt="LINE公式 QR"><div class="qcap">岡崎かつひろ LINE公式</div></div>
+      </div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>@okazaki_official</span></div>
+  </section>
+
+  <!-- 39 締め -->
+  <section class="slide">
+    <div class="split">
+      <div class="txt" style="align-self:center;">
+        <div class="kicker">ご清聴、感謝します</div>
+        <h1>本日は、<br>ありがとう<br><span class="orange">ございました</span>。</h1>
+        <p class="sub" style="margin-top:24px;">続きは、ぜひ本の中で。</p>
+      </div>
+      <div class="media book"><img src="img/all_13.jpg" alt=""></div>
+    </div>
+    <div class="foot"><span>岡崎かつひろ</span><span>『要領のいい人が最初に考えること』三笠書房</span></div>
+  </section>
+
+</div>
+
+<div class="progress" id="prog"></div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var counter=document.getElementById('counter');
+  var prog=document.getElementById('prog');
+  var hint=document.getElementById('hint');
+  var si=0, fi=0;
+
+  function frags(s){return Array.prototype.slice.call(s.querySelectorAll('.fragment'));}
+
+  function render(){
+    slides.forEach(function(s,i){s.classList.toggle('active', i===si);});
+    var f=frags(slides[si]);
+    f.forEach(function(el,i){el.classList.toggle('show', i<fi);});
+    counter.textContent=(si+1)+' / '+slides.length;
+    prog.style.width=((si)/(slides.length-1)*100)+'%';
+  }
+  function next(){
+    var f=frags(slides[si]);
+    if(fi<f.length){fi++;render();return;}
+    if(si<slides.length-1){si++;fi=0;render();}
+  }
+  function prev(){
+    if(fi>0){fi--;render();return;}
+    if(si>0){si--;fi=frags(slides[si]).length;render();}
+  }
+  function fit(){
+    var sx=window.innerWidth/1280, sy=window.innerHeight/720;
+    stage.style.setProperty('--scale', Math.min(sx,sy));
+  }
+  window.addEventListener('resize',fit);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){si=0;fi=0;render();}
+    else if(e.key==='End'){si=slides.length-1;fi=frags(slides[si]).length;render();}
+    else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+    else if(e.key==='p'||e.key==='P'){window.print();}
+  });
+  document.addEventListener('click',function(e){
+    if(e.target.closest && e.target.closest('.noadvance')) return;
+    if(e.clientX < window.innerWidth*0.25) prev(); else next();
+  });
+  setTimeout(function(){hint.style.opacity='0';},5000);
+  fit();render();
+
+  /* ---- 自動検証モード（?check=1）：はみ出し・フッター重なり・コントラストを機械測定 ---- */
+  if(location.search.indexOf('check')>=0){
+    stage.style.setProperty('--scale',1);
+    document.body.style.overflow='visible';
+    function lum(c){
+      var m=c.match(/rgba?\(([\d.]+)[, ]+([\d.]+)[, ]+([\d.]+)/);
+      if(!m) return null;
+      var v=[+m[1],+m[2],+m[3]].map(function(x){x/=255;return x<=0.03928?x/12.92:Math.pow((x+0.055)/1.055,2.4);});
+      return 0.2126*v[0]+0.7152*v[1]+0.0722*v[2];
+    }
+    function bgOf(el){
+      var n=el;
+      while(n && n.nodeType===1){
+        if(n.classList && n.classList.contains('photobg')) return 'rgb(40,30,22)'; /* scrim近似 */
+        var bg=getComputedStyle(n).backgroundColor;
+        var a=bg.match(/rgba?\([\d.]+[, ]+[\d.]+[, ]+[\d.]+(?:[, ]+([\d.]+))?\)/);
+        var alpha=(a && a[1]!==undefined)?+a[1]:1;
+        if(a && alpha>0.9) return bg;
+        n=n.parentElement;
+      }
+      return 'rgb(251,246,238)';
+    }
+    var report=[];
+    slides.forEach(function(s,i){
+      slides.forEach(function(x,j){x.classList.toggle('active', j===i);});
+      frags(s).forEach(function(el){el.classList.add('show');});
+      var sr=stage.getBoundingClientRect();
+      var over=[], tight=[], lowc=[];
+      var footEl=s.querySelector('.foot');
+      var footTop=footEl?footEl.getBoundingClientRect().top-sr.top:721;
+      Array.prototype.slice.call(s.querySelectorAll('*')).forEach(function(el){
+        if(el.offsetParent===null && getComputedStyle(el).position!=='fixed') return;
+        if(footEl && (el===footEl || footEl.contains(el))) return;
+        if(el.classList.contains('bgimg')||el.classList.contains('scrim')) return;
+        var r=el.getBoundingClientRect();
+        if(r.width===0 && r.height===0) return;
+        var top=r.top-sr.top, bot=r.bottom-sr.top, lef=r.left-sr.left, rig=r.right-sr.left;
+        var tag=el.tagName.toLowerCase()+(el.className&&typeof el.className==='string'?'.'+el.className.split(' ')[0]:'');
+        var hasOwnText=Array.prototype.some.call(el.childNodes,function(n){return n.nodeType===3&&n.textContent.trim();});
+        if(top<-1||bot>721||lef<-1||rig>1281) over.push(tag+' t'+Math.round(top)+' b'+Math.round(bot)+' l'+Math.round(lef)+' r'+Math.round(rig));
+        else if(top<10||bot>712) tight.push(tag+' t'+Math.round(top)+' b'+Math.round(bot));
+        else if(hasOwnText && bot>footTop+4) tight.push(tag+' overlaps-foot b'+Math.round(bot)+' foot'+Math.round(footTop));
+        if(hasOwnText){
+          var l1=lum(getComputedStyle(el).color), l2=lum(bgOf(el));
+          if(l1!==null&&l2!==null){
+            var ratio=(Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05);
+            if(ratio<2.6) lowc.push(tag+' ratio '+ratio.toFixed(2));
+          }
+        }
+      });
+      if(over.length||tight.length||lowc.length){
+        report.push('SLIDE '+(i+1)+(over.length?' OVERFLOW: '+over.join(' | '):'')+(tight.length?' TIGHT: '+tight.slice(0,4).join(' | '):'')+(lowc.length?' LOWCONTRAST: '+lowc.slice(0,4).join(' | '):''));
+      }
+    });
+    var pre=document.createElement('pre');
+    pre.id='checkout';
+    pre.textContent=report.length?report.join('\n'):'ALL CLEAR';
+    document.body.appendChild(pre);
+    si=0;fi=0;render();
+  }
+})();
+</script>
+</body>
+</html>
