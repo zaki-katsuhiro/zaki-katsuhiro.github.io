@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>セールストレーニング 第2回｜岡崎かつひろ</title>
+<style>
+  :root{
+    --bg:#0a1020; --panel:#0f1830; --ink:#f2f5fb; --sub:#9fb0c8;
+    --gold:#f0c26a; --gold-deep:#caa14e; --accent:#ff6a3d; --teal:#5fc7b8;
+    --green:#8cc63f; --line:#1d2a45;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#000;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Noto Sans JP",Meiryo,sans-serif;color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased;}
+  #stage{position:absolute;top:50%;left:50%;width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center center;}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:flex-start;padding:66px 80px 60px;background:var(--bg);color:var(--ink);font-size:30px;overflow:hidden;}
+  .slide.active{display:flex;}
+  .slide.center{align-items:center;text-align:center;justify-content:center;padding:60px 84px;}
+
+  .kicker{font-size:.92em;letter-spacing:.22em;font-weight:800;color:var(--accent);margin-bottom:11px;white-space:nowrap;}
+  h1{font-size:2.3em;line-height:1.32;letter-spacing:.01em;font-weight:900;}
+  h2{font-size:1.5em;line-height:1.38;margin-bottom:13px;letter-spacing:.01em;font-weight:800;}
+  p{font-size:1.3em;line-height:1.7;}
+  .sub{font-size:1.0em;color:var(--sub);line-height:1.65;}
+  .lead{font-size:1.12em;color:#c9d4e6;line-height:1.7;}
+  .nowrap{white-space:nowrap;}
+  .gold{color:var(--gold);} .accentc{color:var(--accent);} .tealc{color:var(--teal);} .greenc{color:var(--green);}
+  strong{color:var(--gold);font-weight:800;}
+  .grad{background:linear-gradient(100deg,var(--accent),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .tag{display:inline-block;font-size:.8em;font-weight:800;letter-spacing:.12em;background:linear-gradient(100deg,var(--accent),var(--gold));color:#1a0e06;padding:6px 20px;border-radius:999px;margin-bottom:18px;white-space:nowrap;}
+
+  ul.clean{list-style:none;width:100%;max-width:1060px;align-self:center;}
+  ul.clean li{font-size:1.1em;line-height:1.5;margin:14px 0;padding-left:34px;position:relative;}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.48em;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--gold));}
+  ul.clean li small{display:block;font-size:.66em;color:var(--sub);line-height:1.5;margin-top:3px;font-weight:600;}
+  ul.clean.sm li{font-size:.96em;margin:10px 0;}
+
+  .three{display:flex;gap:20px;margin-top:6px;width:100%;max-width:1080px;align-self:center;}
+  .three .c{flex:1;background:rgba(255,255,255,.045);border:2px solid #26334f;border-radius:16px;padding:16px 20px 18px;}
+  .three .c .tt{font-size:1.02em;font-weight:900;margin-bottom:7px;white-space:nowrap;}
+  .three .c .dd{font-size:.78em;color:#c2cddf;line-height:1.6;}
+  .three .c.a1{border-color:var(--accent);} .three .c.a2{border-color:var(--gold);} .three .c.a3{border-color:var(--teal);}
+  .three .c.a1 .tt{color:var(--accent);} .three .c.a2 .tt{color:var(--gold);} .three .c.a3 .tt{color:var(--teal);}
+
+  .mtbl{width:100%;max-width:1090px;align-self:center;border-collapse:collapse;margin-top:6px;font-size:.88em;}
+  .mtbl th,.mtbl td{border:1px solid #26334f;padding:7px 16px;text-align:left;vertical-align:middle;line-height:1.45;}
+  .mtbl thead th{background:rgba(255,255,255,.06);color:var(--gold);font-weight:800;}
+  .mtbl th.rowh{font-weight:900;white-space:nowrap;background:rgba(255,255,255,.03);color:#fff;}
+  .mtbl td{color:#ccd6e6;font-size:.95em;}
+  .mtbl td b{color:#fff;}
+  .mtbl small{color:var(--sub);font-size:.78em;}
+
+  /* ===== 4象限マップ ===== */
+  .quad{position:relative;width:100%;max-width:1046px;align-self:center;padding-left:40px;padding-bottom:34px;margin-top:2px;}
+  .quad .ylab{position:absolute;left:-6px;top:0;bottom:34px;width:40px;display:flex;align-items:center;justify-content:center;
+    font-size:.52em;font-weight:900;color:var(--sub);letter-spacing:.08em;writing-mode:vertical-rl;white-space:nowrap;}
+  .quad .xlab{position:absolute;left:40px;right:0;bottom:0;text-align:right;font-size:.52em;font-weight:900;color:var(--sub);letter-spacing:.08em;}
+  .qgrid{position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;grid-template-areas:"q2 q1" "q4 q3";gap:10px;
+    border-left:3px solid #46557a;border-bottom:3px solid #46557a;padding:10px;}
+  .qgrid::before{content:"";position:absolute;left:10px;right:10px;top:50%;border-top:2px dotted #47567c;z-index:1;}
+  .qgrid::after{content:"";position:absolute;top:10px;bottom:10px;left:50%;border-left:2px dotted #47567c;z-index:1;}
+  .q{position:relative;z-index:2;border:2px solid #26334f;border-radius:14px;background:rgba(255,255,255,.04);padding:12px 18px 12px;min-height:148px;
+    display:flex;flex-direction:column;justify-content:center;}
+  .q .nm{font-size:1.06em;font-weight:900;line-height:1.2;white-space:nowrap;}
+  .q .pc{display:inline-block;margin-top:7px;font-size:.6em;font-weight:900;padding:3px 12px;border-radius:999px;border:2px solid #46557a;color:#e7edf6;white-space:nowrap;align-self:flex-start;}
+  .q .dd{margin-top:8px;font-size:.58em;color:#b9c5da;line-height:1.5;font-weight:700;}
+  .q .lv{position:absolute;top:9px;right:12px;font-size:.44em;font-weight:900;color:var(--sub);letter-spacing:.04em;white-space:nowrap;}
+  .q.q1{grid-area:q1;border-color:var(--green);background:rgba(140,198,63,.16);}
+  .q.q1 .nm{color:var(--green);} .q.q1 .pc{border-color:var(--green);background:var(--green);color:#10200a;}
+  .q.q1 .lv{color:var(--green);}
+  .q.q2{grid-area:q2;border-color:var(--gold);} .q.q2 .nm{color:var(--gold);}
+  .q.q3{grid-area:q3;border-color:var(--teal);} .q.q3 .nm{color:var(--teal);}
+  .q.q4{grid-area:q4;border-color:var(--accent);} .q.q4 .nm{color:var(--accent);}
+  .q.q4 .pc{border-color:var(--accent);background:var(--accent);color:#1a0e06;}
+  .edu{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;width:74px;height:74px;border-radius:50%;
+    background:var(--green);color:#10200a;font-size:.62em;font-weight:900;display:flex;align-items:center;justify-content:center;
+    border:5px solid var(--bg);box-shadow:0 6px 18px rgba(0,0,0,.5);white-space:nowrap;}
+  .arw{position:absolute;z-index:3;font-size:.8em;font-weight:900;color:#fff;}
+  .arw.a-r1{left:calc(50% - 116px);top:26%;}
+  .arw.a-r2{left:calc(50% - 116px);top:70%;}
+  .arw.a-u1{left:calc(50% - 118px);top:calc(50% - 22px);}
+  .arw.a-u2{left:calc(50% + 96px);top:calc(50% - 22px);}
+  .quad:not(.mv) .arw{display:none;}
+  .qnote{margin-top:10px;align-self:center;font-size:.66em;font-weight:800;color:var(--gold);text-align:center;}
+
+  /* 質問リスト */
+  .qlist{width:100%;max-width:1060px;align-self:center;display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+  .qlist .ql{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.045);border:2px solid #26334f;border-radius:12px;padding:8px 18px;}
+  .qlist .ql .n{flex:0 0 auto;width:1.6em;height:1.6em;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--gold));color:#1a0e06;font-size:.7em;font-weight:900;display:flex;align-items:center;justify-content:center;margin-top:.15em;}
+  .qlist .ql .t{flex:1;font-size:.88em;font-weight:800;line-height:1.45;color:#fff;}
+  .qlist .ql .t em{display:block;font-style:normal;font-size:.72em;font-weight:700;color:var(--sub);margin-top:3px;line-height:1.5;}
+  .qlist .ql.hot{border-color:var(--gold);background:rgba(240,194,106,.10);}
+  .qlist .ql.hot .t b{color:var(--gold);}
+
+  .saybox{margin-top:12px;width:100%;max-width:1020px;align-self:center;background:rgba(0,0,0,.3);border:2px solid var(--teal);border-radius:14px;padding:12px 26px;font-size:.9em;line-height:1.6;color:#eaf3f1;}
+  .saybox b{color:var(--gold);font-weight:900;}
+  .point{margin-top:12px;width:100%;max-width:1020px;align-self:center;background:linear-gradient(100deg,rgba(255,106,61,.18),rgba(240,194,106,.18));border:2px solid var(--gold);border-radius:14px;padding:12px 26px;font-size:1.0em;font-weight:900;line-height:1.55;color:#fff;text-align:center;}
+  .quiz{width:100%;max-width:1040px;align-self:center;margin-top:8px;background:rgba(95,199,184,.10);border:2px solid var(--teal);border-radius:14px;padding:12px 24px;}
+  .quiz .qh{font-size:.66em;font-weight:900;letter-spacing:.12em;color:var(--teal);margin-bottom:5px;white-space:nowrap;}
+  .quiz .qb{font-size:.86em;line-height:1.6;color:#eaf3f1;}
+  .quiz .qb b{color:var(--gold);font-weight:900;}
+
+  .steps{display:flex;gap:18px;margin-top:8px;width:100%;max-width:1080px;align-self:center;}
+  .steps .s{flex:1;background:rgba(255,255,255,.045);border:2px solid #26334f;border-radius:14px;padding:16px 16px 18px;text-align:center;}
+  .steps .s .n{font-size:1.2em;font-weight:900;color:var(--gold);margin-bottom:6px;}
+  .steps .s .t{font-size:.86em;font-weight:800;line-height:1.45;}
+  .steps .s .d{margin-top:7px;font-size:.66em;color:var(--sub);line-height:1.5;}
+  .steps .s.on{border-color:var(--gold);background:rgba(240,194,106,.12);}
+
+  /* 待機スライド */
+  .waiting{background:radial-gradient(ellipse at 50% 30%,#12203c 0%,#0a1020 70%);}
+  .please{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:1060px;align-self:center;margin-top:14px;text-align:left;}
+  .please .p{background:rgba(255,255,255,.05);border:2px solid #26334f;border-radius:14px;padding:12px 20px;font-size:.9em;font-weight:800;line-height:1.4;color:#f2f5fb;}
+  .please .p b{color:var(--accent);margin-right:8px;}
+  .please .p span{display:block;font-size:.76em;font-weight:600;color:#9fb0c8;margin-top:4px;line-height:1.5;}
+  .please .pnote{grid-column:1 / -1;text-align:center;font-size:.82em;font-weight:800;color:var(--gold);margin-top:2px;}
+  .bgmbtn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:2px solid var(--gold);background:rgba(255,255,255,.06);color:var(--gold);font-weight:800;font-size:.78em;padding:10px 26px;border-radius:999px;letter-spacing:.06em;}
+  .bgmbtn.on{background:linear-gradient(100deg,var(--accent),var(--gold));color:#1a0e06;border-color:transparent;}
+  .bgmbar{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:16px;background:rgba(255,255,255,.05);border:2px solid #2a3a58;border-radius:18px;padding:12px 22px;align-self:center;max-width:1000px;}
+  .bgmbar label{font-size:.6em;font-weight:800;color:var(--sub);letter-spacing:.04em;}
+  .bgmbar select{font:inherit;font-size:.6em;font-weight:700;color:#1a2436;background:#fff;border:2px solid var(--gold);border-radius:8px;padding:5px 10px;cursor:pointer;}
+  .bgmbar input[type=range]{width:150px;accent-color:var(--accent);cursor:pointer;}
+  .bgmbar .volnum{font-size:.58em;font-weight:900;color:var(--gold);width:3em;text-align:right;}
+  .bgmbar .hint{flex-basis:100%;text-align:center;font-size:.55em;color:var(--sub);font-weight:600;margin-top:2px;}
+
+  .foot{position:absolute;bottom:20px;left:80px;right:80px;z-index:3;display:flex;justify-content:space-between;align-items:center;font-size:.6em;color:#67789a;letter-spacing:.04em;}
+  .progress{position:absolute;bottom:0;left:0;height:5px;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .25s;z-index:60;}
+
+  .slide.active > *{animation:none!important;}
+  .fragment{opacity:0;transition:none;}
+  .fragment.show{opacity:1;}
+
+  #hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#a9b8d4;font-size:12px;background:rgba(0,0,0,.4);padding:6px 14px;border-radius:20px;z-index:80;transition:opacity .5s;}
+  #counter{position:fixed;top:14px;right:18px;color:#8595b4;font-size:13px;z-index:80;letter-spacing:.05em;}
+
+  @media print{
+    @page{size:1280px 720px;margin:0;}
+    body{background:#fff;overflow:visible;}
+    #stage{position:static;transform:none;width:1280px;height:auto;}
+    .slide{display:flex!important;position:relative;page-break-after:always;height:720px;}
+    .fragment{opacity:1!important;}
+    .grad{background:none!important;-webkit-text-fill-color:var(--gold)!important;color:var(--gold)!important;}
+    #hint,#counter,.progress,.bgmbar{display:none!important;}
+  }
+
+  /* ===== 第2回で追加 ===== */
+  /* ギャップ図 */
+  .gapfig{width:100%;max-width:1000px;align-self:center;margin-top:4px;}
+  .gapfig svg{width:100%;height:auto;display:block;}
+  .gapfig .gt{font-family:inherit;font-weight:900;}
+
+  /* 会話の実例 */
+  .ex{width:100%;max-width:1080px;align-self:center;display:flex;flex-direction:column;gap:12px;margin-top:6px;}
+  .ex .e{display:flex;gap:18px;align-items:stretch;background:rgba(255,255,255,.045);border:2px solid #26334f;border-radius:14px;padding:12px 22px;}
+  .ex .e .lb{flex:0 0 104px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:2px solid #2d3c5c;}
+  .ex .e .lb .n{font-size:1.05em;font-weight:900;color:var(--gold);line-height:1.1;}
+  .ex .e .lb .w{font-size:.5em;font-weight:900;color:var(--sub);white-space:nowrap;margin-top:4px;letter-spacing:.04em;}
+  .ex .e .bd{flex:1;}
+  .ex .e .bd .qq{font-size:.82em;font-weight:800;line-height:1.5;color:#fff;}
+  .ex .e .bd .aa{font-size:.74em;font-weight:700;line-height:1.55;color:var(--teal);margin-top:6px;}
+  .ex .e.hot{border-color:var(--gold);background:rgba(240,194,106,.12);}
+  .ex .e.hot .lb{border-right-color:var(--gold);}
+
+  /* 注意ボックス */
+  .warn{margin-top:12px;width:100%;max-width:1040px;align-self:center;background:rgba(255,106,61,.14);border:2px solid var(--accent);border-radius:14px;padding:11px 26px;}
+  .warn .wh{display:block;font-size:.62em;font-weight:900;letter-spacing:.12em;color:var(--accent);margin-bottom:4px;white-space:nowrap;}
+  .warn .wb{font-size:.86em;font-weight:700;line-height:1.55;color:#ffe6dc;}
+  .warn .wb b{color:#ffb79c;font-weight:900;}
+
+  /* 2列の対比表 */
+  .ba2{display:flex;gap:22px;margin-top:8px;width:100%;max-width:1060px;align-self:center;}
+  .ba2 .bx{flex:1;border:2px solid #26334f;border-radius:16px;padding:16px 22px 18px;background:rgba(255,255,255,.045);}
+  .ba2 .bx .hd{font-size:.86em;font-weight:900;white-space:nowrap;margin-bottom:8px;}
+  .ba2 .bx .bd{font-size:.78em;line-height:1.6;color:#c9d4e6;font-weight:700;}
+  .ba2 .bx .bd b{color:#fff;}
+  .ba2 .bx.ng{border-color:var(--accent);} .ba2 .bx.ng .hd{color:var(--accent);}
+  .ba2 .bx.ok{border-color:var(--green);background:rgba(140,198,63,.12);} .ba2 .bx.ok .hd{color:var(--green);}
+
+  /* セリフ（大きめ引用） */
+  .say{margin-top:14px;width:100%;max-width:960px;align-self:center;background:rgba(0,0,0,.34);border:2px solid var(--gold);border-radius:16px;padding:18px 30px;text-align:center;}
+  .say .s1{font-size:1.15em;font-weight:900;line-height:1.5;color:var(--gold);}
+  .say .s2{font-size:.74em;font-weight:700;color:var(--sub);margin-top:8px;line-height:1.55;}
+</style>
+</head>
+<body>
+<div id="counter"></div>
+<div id="hint">← → / Space で進む ・ F で全画面 ・ P で印刷</div>
+
+<div id="stage">
+<div class="progress" id="prog"></div>
+
+<!-- 1 待機 -->
+<section class="slide waiting center nofrag" style="padding-top:46px;padding-bottom:42px;">
+  <div class="kicker">まもなく始まります ・ セールストレーニング 第2回</div>
+  <h1 style="font-size:1.8em;">ようこそ！<span class="grad"> はじめに、4つのお願い</span></h1>
+  <div class="please">
+    <div class="p"><b>①</b>できればカメラをONに<span>顔が見えると、場があたたまります</span></div>
+    <div class="p"><b>②</b>表示名を、お名前に変えてください<span>参加者一覧 › ご自分の名前 › 詳細 › 名前の変更</span></div>
+    <div class="p"><b>③</b>顔出しが難しい方は、<br>お名前の前に「👂」を<span>「聞いています」の合図。<br>聞き役での参加も大歓迎です</span></div>
+    <div class="p"><b>④</b>リアクションは大きめに<span>拍手も 👍 も、どんどんお願いします</span></div>
+    <div class="pnote">ここは学ぶ場であり、つながる場でもあります。</div>
+  </div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 2 タイトル -->
+<section class="slide center nofrag">
+  <div class="kicker">セールストレーニング 第2回 ・ 2026.9.26</div>
+  <h1>売り込まずに、<br><span class="grad">買いたくさせる</span>。</h1>
+  <p class="lead" style="margin-top:24px;">― ギャップをつくる、4つの質問 ―</p>
+  <p class="sub" style="margin-top:24px;">岡崎かつひろ</p>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 4 前回の復習：4象限 -->
+<section class="slide nofrag">
+  <div class="kicker">前回の復習　①</div>
+  <h2>お客様は、この<span class="grad">4種類</span>しかいない</h2>
+  <div class="quad">
+    <div class="ylab">ニーズ（必要性）</div>
+    <div class="qgrid">
+      <div class="q q4"><span class="lv">難易度 Lv.4</span><div class="nm">まだまだ客</div><span class="pc">全体の80%</span><div class="dd">ニーズ × ／ ウォンツ ×</div></div>
+      <div class="q q3"><span class="lv">難易度 Lv.3</span><div class="nm">そのうち客</div><span class="pc">全体の9.5%</span><div class="dd">ニーズ × ／ ウォンツ ○</div></div>
+      <div class="q q2"><span class="lv">難易度 Lv.2</span><div class="nm">お悩み客</div><span class="pc">全体の9.5%</span><div class="dd">ニーズ ○ ／ ウォンツ ×</div></div>
+      <div class="q q1"><span class="lv">難易度 Lv.1</span><div class="nm">今すぐ客</div><span class="pc">全体の1%</span><div class="dd">ニーズ ○ ／ ウォンツ ○</div></div>
+    </div>
+    <div class="xlab">ウォンツ（欲求・価値観）</div>
+  </div>
+  <div class="qnote">売れるのは右上だけ。ところが右上は、100人にたった1人。</div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 5 前回の結論と、今日の入口 -->
+<section class="slide">
+  <div class="kicker">前回の復習　②</div>
+  <h2>前回の結論と、今日やること</h2>
+  <ul class="clean">
+    <li>売れない理由は99%、<br><b>今すぐ客以外の人に、今すぐ客向けの話をしている</b>こと<small>相手がどこにいるかを見ないまま、商品の説明をしてしまう</small></li>
+    <li>前回は「<b>お客様がどこにいるか</b>」を見分ける話でした<small>ここまでが、見立て</small></li>
+    <li>今日は「<b>では、どうやって動かすのか</b>」。ここだけをやります<small>語るのではなく、聞く。その順番の話です</small></li>
+  </ul>
+  <div class="point">前回の最後に言った<span class="gold">「セールストーク」</span>の続きです。</div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 6 問い -->
+<section class="slide center">
+  <div class="tag">今日の問い</div>
+  <h1>お客様は、結局<br><span class="grad">なにを買っている</span>のでしょうか。</h1>
+  <p class="lead fragment" style="margin-top:26px;">商品でしょうか。未来でしょうか。<br>——どちらでもありません。</p>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 7 ギャップ図 -->
+<section class="slide">
+  <div class="kicker">今日の中心</div>
+  <h2>お客様が買っているのは、<span class="grad">この落差</span></h2>
+  <div class="gapfig">
+    <svg viewBox="0 0 1000 296" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <circle cx="64" cy="152" r="10" fill="#f0c26a"/>
+        <text class="gt" x="64" y="196" text-anchor="middle" font-size="22" fill="#9fb0c8">いま</text>
+      </g>
+      <g class="auto-frag">
+        <path d="M64 152 L672 256" stroke="#ff6a3d" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <text class="gt" x="712" y="265" font-size="25" fill="#ff6a3d">このままの未来</text>
+      </g>
+      <g class="auto-frag">
+        <path d="M64 152 L672 48" stroke="#8cc63f" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <text class="gt" x="712" y="56" font-size="25" fill="#8cc63f">解決した未来</text>
+      </g>
+      <g class="auto-frag">
+        <path d="M688 54 L688 250" stroke="#f0c26a" stroke-width="5" fill="none"/>
+        <path d="M688 44 L681 60 L695 60 Z" fill="#f0c26a"/>
+        <path d="M688 260 L681 244 L695 244 Z" fill="#f0c26a"/>
+        <text class="gt" x="712" y="152" font-size="28" fill="#f0c26a">ギャップ</text>
+        <text class="gt" x="712" y="182" font-size="20" fill="#9fb0c8">＝ここにお金が払われる</text>
+      </g>
+    </svg>
+  </div>
+  <div class="point">落差が小さければ買わない。<span class="gold">大きければ、値段は問題にならない</span>。</div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 8 ギャップは誰がつくるか -->
+<section class="slide">
+  <div class="kicker">今日いちばん大事なところ</div>
+  <h2>この落差は、<span class="grad">誰がつくる</span>のか</h2>
+  <div class="ba2">
+    <div class="bx ng">
+      <div class="hd">✕　売り手が言う</div>
+      <div class="bd">「放っておくと、大変なことになりますよ」<br><br><b>＝正論の追い打ち。</b><br>相手は逃げます。前回お話しした、<br><b>友達をなくすクロージング</b>です。</div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">○　お客様本人が言う</div>
+      <div class="bd">「このままだと、まずいですね……」<br><br><b>＝自分の言葉。</b><br>人は、自分が口にしたことを<br>否定できません。<b>決意</b>になります。</div>
+    </div>
+  </div>
+  <div class="point">ギャップは、売り手がつくるのではない。<br><span class="gold">お客様が、自分の口でつくる。</span></div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 9 だから質問する -->
+<section class="slide center">
+  <div class="tag">ここまでの結論</div>
+  <h1 style="font-size:2.0em;">我々の仕事は、<br><span class="grad">語ること</span>ではない。</h1>
+  <p class="lead fragment" style="margin-top:28px;">質問すること。それだけです。</p>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 10 4つの質問・全体像 -->
+<section class="slide">
+  <div class="kicker">今日の本編</div>
+  <h2>順番が決まっています。<span class="grad">この順番以外だと効きません</span></h2>
+  <div class="steps">
+    <div class="s"><div class="n">1</div><div class="t">今の状況を<br>聞く</div><div class="d">どこにいる人かが分かる</div></div>
+    <div class="s"><div class="n">2</div><div class="t">何が問題かを<br>聞く</div><div class="d">「ほかには？」で3つ出す</div></div>
+    <div class="s on"><div class="n">3</div><div class="t">放置したら<br>どうなるか聞く</div><div class="d">下の線が引かれる</div></div>
+    <div class="s on"><div class="n">4</div><div class="t">解決したら<br>どうなるか聞く</div><div class="d">上の線が引かれる</div></div>
+  </div>
+  <div class="point"><span class="gold">3と4で、さっきの落差が生まれます。</span>ここが装置です。</div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 11 質問① -->
+<section class="slide">
+  <div class="kicker">質問①　今の状況を聞く</div>
+  <h2>まだ、商品の話は1ミリもしない</h2>
+  <div class="qlist">
+    <div class="ql"><div class="n">1</div><div class="t">「いま、どんなことをやられているんですか」</div></div>
+    <div class="ql"><div class="n">2</div><div class="t">「それは、どのくらい続けてこられたんですか」</div></div>
+  </div>
+  <ul class="clean sm" style="margin-top:10px;">
+    <li>ねらいは、<b>相手が4つのどこにいるかを見分ける</b>こと<small>ここで見立てが決まります</small></li>
+  </ul>
+  <div class="warn"><span class="wh">やりがちな失敗</span><div class="wb"><b>長く聞きすぎる。</b>調べれば分かることを聞くと、相手の時間を奪うだけ。ここは入口です。早く②へ進みます。</div></div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 12 質問② -->
+<section class="slide">
+  <div class="kicker">質問②　何が問題かを聞く</div>
+  <h2>1つ出たところで、満足しない</h2>
+  <div class="qlist">
+    <div class="ql"><div class="n">1</div><div class="t">「そのままで、いいんですかね」</div></div>
+    <div class="ql"><div class="n">2</div><div class="t">「なにか、お困りのことでもあるんですか」</div></div>
+    <div class="ql hot"><div class="n">3</div><div class="t"><b>「ほかには？」</b><em>これが本体です。問題を3つ出してもらう</em></div></div>
+  </div>
+  <div class="warn"><span class="wh">やりがちな失敗</span><div class="wb">1つ出たところで<b>「じゃあ、うちの商品なら」</b>と飛ぶ。ここで飛ぶと全部が台無しに。<b>1つ目は本音ではありません。</b>2つ目・3つ目に出ます。</div></div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 13 質問③ -->
+<section class="slide">
+  <div class="kicker">質問③　放置したら、どうなるかを聞く　★今日の最重要</div>
+  <h2>ここで<span class="accentc">下の線</span>が引かれる</h2>
+  <div class="qlist">
+    <div class="ql hot"><div class="n">1</div><div class="t"><b>「それ、そのまま1年経つと、どうなりそうですか」</b><em>いちばん効く質問です</em></div></div>
+    <div class="ql"><div class="n">2</div><div class="t">「このまま行くと、一番困るのは誰ですか」</div></div>
+    <div class="ql"><div class="n">3</div><div class="t">「今までに、何か手を打たれましたか」<em>打って効かなかった事実が効きます</em></div></div>
+  </div>
+  <div class="warn"><span class="wh">絶対にやってはいけない</span><div class="wb"><b>この答えを、売り手が言わない。</b>言った瞬間に、正論の追い打ちになります。<br><b>相手が黙ったら成功</b>。考えている時間です。先に喋らないでください。</div></div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 14 質問④ -->
+<section class="slide">
+  <div class="kicker">質問④　解決したら、どうなるかを聞く</div>
+  <h2>ここで<span class="greenc">上の線</span>が引かれる</h2>
+  <div class="qlist">
+    <div class="ql"><div class="n">1</div><div class="t">「もし、それが全部解決したら、まず何をしたいですか」</div></div>
+    <div class="ql hot"><div class="n">2</div><div class="t"><b>「そうなったとき、誰に一番喜んでほしいですか」</b><em>ここで感情が動きます</em></div></div>
+    <div class="ql"><div class="n">3</div><div class="t">「それができている自分は、いまとどこが違いますか」</div></div>
+  </div>
+  <div class="warn"><span class="wh">やりがちな失敗</span><div class="wb"><b>③を飛ばして、④だけ聞く。</b>その場は盛り上がりますが、翌日に冷めます。前回お話しした<b>「そのうち客」の製造</b>です。</div></div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 15 実例（前半） -->
+<section class="slide">
+  <div class="kicker">実演　韓国ファッションのバイヤー講座で聞くと</div>
+  <h2>実際の会話にすると、こうなります</h2>
+  <div class="ex">
+    <div class="e">
+      <div class="lb"><div class="n">①</div><div class="w">状況</div></div>
+      <div class="bd">
+        <div class="qq">「韓国、お好きなんですね。年に何回くらい行かれるんですか」</div>
+        <div class="aa">→ 「好きで、年に何回か行ってます。ファッションも好きで」</div>
+      </div>
+    </div>
+    <div class="e">
+      <div class="lb"><div class="n">②</div><div class="w">問題</div></div>
+      <div class="bd">
+        <div class="qq">「じゃあ、そのままでいいじゃないですか。なんで今日いらしたんですか」</div>
+        <div class="aa">→ 「実は、行きすぎてお金がないんです」「時間も無駄にしている気がして」</div>
+      </div>
+    </div>
+  </div>
+  <div class="point">ここまで、商品の話は<span class="gold">ゼロ</span>。</div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 16 実例（後半） -->
+<section class="slide">
+  <div class="kicker">実演　韓国ファッションのバイヤー講座で聞くと</div>
+  <h2>③と④で、落差が開きます</h2>
+  <div class="ex">
+    <div class="e hot">
+      <div class="lb"><div class="n">③</div><div class="w">放置</div></div>
+      <div class="bd">
+        <div class="qq">「それ、このまま行くとどうなりますか」</div>
+        <div class="aa">→ 「どんどん貯金が減ります」「結婚して子どもができたら、好きなことができなくなる」</div>
+      </div>
+    </div>
+    <div class="e hot">
+      <div class="lb"><div class="n">④</div><div class="w">解決</div></div>
+      <div class="bd">
+        <div class="qq">「もし解決したら、どうなりたいですか」</div>
+        <div class="aa">→ 「毎月、韓国に行きたい」「収入が100万あったら」「韓国にもマンションを持ちたい」</div>
+      </div>
+    </div>
+  </div>
+  <div class="point">下の線も、上の線も、<span class="gold">全部ご本人の口から出ています。</span></div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 17 種明かし -->
+<section class="slide center">
+  <div class="tag">いま、何が起きたか</div>
+  <h1 style="font-size:1.95em;">私は一度も<br><span class="grad">「この講座はいいですよ」</span><br>と言っていません。</h1>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 18 ギャップが開くと -->
+<section class="slide">
+  <div class="kicker">ギャップが開いた瞬間に、起きること</div>
+  <h2>お客様のほうから、こう言われます</h2>
+  <div class="say">
+    <div class="s1">「で、結局それ、どうすればいいんですか？」</div>
+    <div class="s2">ここまで来たら、売り込みは要りません。<br>あとは、段取りと金額をお伝えするだけです。</div>
+  </div>
+  <ul class="clean sm" style="margin-top:14px;">
+    <li>説得が必要ということは、<b>ギャップが開いていない</b>ということ<small>足りないのは話術ではなく、質問です</small></li>
+  </ul>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 19 岡崎自身の例 -->
+<section class="slide">
+  <div class="kicker">実話　私が「買った側」だったとき</div>
+  <h2>出版オーディションのLINEに、システムを入れた話</h2>
+  <ul class="clean sm">
+    <li><b>①</b>　手間が、ものすごくかかっていた<small>LINE公式の運用を、ずっと人の手でやっていた</small></li>
+    <li><b>②</b>　そこに、自分の時間を使い続けている<small>ほかにやるべきことがあるのに</small></li>
+    <li><b>③</b>　このまま続けたら、大事なリソースを削られ続ける<small>—— これを、私が自分で言葉にしました</small></li>
+    <li><b>④</b>　自動化できたら、その時間をもっと大事なことに使える<small>—— これも、私が言いました</small></li>
+  </ul>
+  <div class="point">私から「<span class="gold">どうすればいいですか</span>」と聞きました。説得はゼロ。</div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 20 早見表 -->
+<section class="slide">
+  <div class="kicker">持ち帰り　①　4つの質問・早見表</div>
+  <h2>明日から、この順番で聞いてください</h2>
+  <table class="mtbl">
+    <thead><tr><th style="width:148px;">聞くこと</th><th>そのまま使う言葉</th><th style="width:236px;">何が起きるか</th></tr></thead>
+    <tbody>
+      <tr><th class="rowh">① 今の状況</th><td>「いま、どんなことをやられているんですか」</td><td>どこにいる人か<br>分かるようになる</td></tr>
+      <tr><th class="rowh">② 何が問題か</th><td>「そのままで、いいんですかね」＋<b>「ほかには？」</b></td><td>問題が3つ出る</td></tr>
+      <tr><th class="rowh">③ 放置したら</th><td><b>「そのまま1年経つと、どうなりそうですか」</b></td><td><b>下の線</b>が引かれる<br>（ニーズ）</td></tr>
+      <tr><th class="rowh">④ 解決したら</th><td><b>「誰に一番喜んでほしいですか」</b></td><td><b>上の線</b>が引かれる<br>（ウォンツ）</td></tr>
+    </tbody>
+  </table>
+  <div class="point">③と④の落差が、<span class="gold">お客様が買うもの</span>。</div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 21 やってはいけない -->
+<section class="slide">
+  <div class="kicker">持ち帰り　②</div>
+  <h2>やってはいけないこと、5つ</h2>
+  <table class="mtbl">
+    <thead><tr><th style="width:360px;">やりがち</th><th>なぜダメか</th></tr></thead>
+    <tbody>
+      <tr><th class="rowh">商品の説明から始める</th><td>相手がどこにいるか分からないまま話すので、ほぼ外す</td></tr>
+      <tr><th class="rowh">①を長く聞きすぎる</th><td>調べれば分かることを聞くと、信頼が減る</td></tr>
+      <tr><th class="rowh">②で1つ聞いて満足する</th><td>1つ目は本音ではない。2つ目・3つ目に本音が出る</td></tr>
+      <tr><th class="rowh">③を自分で言う</th><td><b>正論の追い打ち。</b>友達をなくすクロージング</td></tr>
+      <tr><th class="rowh">④だけ聞く</th><td>盛り上がって翌日冷める。<b>そのうち客の製造</b></td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 22 ワーク：今日の題材 -->
+<section class="slide">
+  <div class="kicker">ロープレ　今日の題材</div>
+  <h2>「結婚式に、着ていく服がない」</h2>
+  <div class="say">
+    <div class="s1">「来月、友人の結婚式に参列します。<br>クローゼットを開けたら、<br>着ていける服がありませんでした」</div>
+    <div class="s2">お客様役は、この人になりきってください（細かい設定は自由に）</div>
+  </div>
+  <div class="point">この方は、前回でいう<span class="gold">「お悩み客」</span>。<br>必要なのは分かっているが、欲しいわけではない。</div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 23 ワーク：やり方 -->
+<section class="slide">
+  <div class="kicker">ロープレ　14分 ・ 2人1組（奇数なら3人1組）</div>
+  <h2>さっきの4つの質問で、聞いてみてください</h2>
+  <div class="qlist">
+    <div class="ql"><div class="n">1</div><div class="t">じゃんけんで、<b>聞き役</b>と<b>お客様役</b>を決める<em>30秒で決めてください</em></div></div>
+    <div class="ql"><div class="n">2</div><div class="t">お客様役は、<b>結婚式に着ていく服がない人</b>になりきる<em>最初は「別に、手持ちのやつでいいかな」くらいの温度で</em></div></div>
+    <div class="ql hot"><div class="n">3</div><div class="t">聞き役は<b>服選びを手伝う側</b>。<b>①〜④の質問だけ</b>をする　<b>4分</b><em>「こちらがおすすめです」は言わない。商品の話はゼロのまま進めます</em></div></div>
+    <div class="ql"><div class="n">4</div><div class="t">交代して、もう<b>4分</b></div></div>
+  </div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 24 ワーク：ルールと観察 -->
+<section class="slide">
+  <div class="kicker">ロープレ　聞き役が守ること</div>
+  <h2>この3つだけ、守ってください</h2>
+  <div class="three">
+    <div class="c a1"><div class="tt">① 商品の話をしない</div><div class="dd">自分の商品の説明は、<br>一切しない。<br>質問だけです。</div></div>
+    <div class="c a2"><div class="tt">② ③を自分で言わない</div><div class="dd">「大変ですよ」は禁止。<br>相手が言うまで、<br>黙って待ちます。</div></div>
+    <div class="c a3"><div class="tt">③「ほかには？」を入れる</div><div class="dd">②で必ず1回。<br>1つ目の答えで<br>終わらせない。</div></div>
+  </div>
+  <div class="saybox"><b>終わったら思い出してください。</b>　相手は③で黙りましたか（黙ったら成功）／④で誰かの名前が出ましたか／自分は途中で喋りたくなりませんでしたか（それが売り込みの正体です）</div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 25 共有 -->
+<section class="slide center">
+  <div class="tag">共有　5分</div>
+  <h1 style="font-size:1.9em;">④で、相手の口から<br><span class="grad">どんな言葉</span>が出ましたか。</h1>
+  <p class="lead fragment" style="margin-top:26px;">その言葉が、その方の「買う理由」です。</p>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 26 まとめ -->
+<section class="slide center">
+  <div class="tag">今日のまとめ</div>
+  <h1 class="fragment" style="font-size:1.85em;">ギャップは、売り手がつくらない。<br>お客様が、<span class="grad">自分の口でつくる</span>。</h1>
+  <p class="lead fragment" style="margin-top:26px;">我々がやるのは、そのお手伝いです。</p>
+  <div class="point fragment" style="max-width:880px;">質問 ① ② ③ ④。<br><span class="gold">売り込まなくていい。聞く順番を守るだけ。</span></div>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 27 連絡 -->
+<section class="slide">
+  <div class="kicker">お知らせ</div>
+  <h2>次回と、録画について</h2>
+  <ul class="clean">
+    <li>次回は<b>10月</b>。日程はメールでご案内します<small>テーマは「検討します」の越え方を予定しています</small></li>
+    <li>今日の録画は、<b>会員サイトのアーカイブ</b>に残ります<small>「セールス勉強会」のグループをご覧ください</small></li>
+    <li>感想を、それぞれの<b>グループに投稿</b>していただけると嬉しいです<small>ほかの方の学びにもなります</small></li>
+  </ul>
+  <div class="foot"><span>セールストレーニング 第2回</span><span>岡崎かつひろ</span></div>
+</section>
+
+<!-- 28 締め -->
+<section class="slide center nofrag">
+  <h1>語るのをやめて、<br><span class="grad">聞く</span>。</h1>
+  <p class="lead" style="margin-top:28px;">ありがとうございました。<br>また次回、お会いしましょう。</p>
+  <div class="foot"><span>セールストレーニング 第2回　2026.9.26</span><span>岡崎かつひろ</span></div>
+</section>
+
+</div>
+<script>
+(function(){
+  // ===== 順次表示の自動付与（大項目→クリックで中項目を1つずつ／1つ目も対象） =====
+  var SEL = ['ul.clean > li','.mtbl tbody tr','.three .c','.steps .s','.qlist .ql',
+             '.quad .q','.quad .edu','.quad .arw','.saybox','.point','.quiz','.qnote','.ex .e','.warn','.ba2 .bx','.say','.auto-frag'];
+  Array.prototype.forEach.call(document.querySelectorAll('.slide'),function(sl){
+    if(sl.classList.contains('nofrag')) return;
+    SEL.forEach(function(s){
+      Array.prototype.forEach.call(sl.querySelectorAll(s),function(el){ el.classList.add('fragment'); });
+    });
+  });
+
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var counter=document.getElementById('counter');
+  var prog=document.getElementById('prog');
+  var hint=document.getElementById('hint');
+  var bgm=document.getElementById('bgm');
+  var bgmBtn=document.getElementById('bgmBtn');
+  var bgmTrack=document.getElementById('bgmTrack');
+  var bgmVol=document.getElementById('bgmVol');
+  var bgmVolNum=document.getElementById('bgmVolNum');
+  var bgmbar=document.querySelector('.bgmbar');
+  var TRACKS=[
+    {name:'ハッピータイム',   file:'audio/happytime.mp3'},
+    {name:'ウキウキららら',   file:'audio/ukiukilalala.mp3'},
+    {name:'シンプルスタイル', file:'audio/simplestyle.mp3'},
+    {name:'夏色のキャンパス', file:'audio/natsuironocampus.mp3'}
+  ];
+  if(bgmTrack){
+    TRACKS.forEach(function(t,i){ var o=document.createElement('option'); o.value=i; o.textContent=t.name; bgmTrack.appendChild(o); });
+    if(bgm) bgm.src=TRACKS[0].file;
+    bgmTrack.addEventListener('change',function(e){ e.stopPropagation(); var was=bgm&&!bgm.paused; bgm.src=TRACKS[bgmTrack.value].file; if(was) bgm.play().catch(function(){}); });
+  }
+  function applyVol(){ if(bgm) bgm.volume=Number(bgmVol.value)/100; if(bgmVolNum) bgmVolNum.textContent=bgmVol.value+'%'; }
+  if(bgmVol){ bgmVol.addEventListener('input',function(e){ e.stopPropagation(); applyVol(); }); applyVol(); }
+  if(bgmbar){ bgmbar.addEventListener('click',function(e){ e.stopPropagation(); }); }
+
+  var si=0, fi=0;
+  function frags(s){return Array.prototype.slice.call(s.querySelectorAll('.fragment'));}
+  function setBgmLabel(on){ if(!bgmBtn) return; bgmBtn.classList.toggle('on',on); bgmBtn.textContent = on ? '🎵 BGM 停止' : '🎵 BGMを流す'; }
+  function render(){
+    slides.forEach(function(s,i){s.classList.toggle('active', i===si);});
+    var f=frags(slides[si]);
+    f.forEach(function(el,i){el.classList.toggle('show', i<fi);});
+    counter.textContent=(si+1)+' / '+slides.length;
+    prog.style.width=((si)/(slides.length-1)*100)+'%';
+    if(si!==0 && bgm && !bgm.paused){ bgm.pause(); setBgmLabel(false); }
+  }
+  function next(){var f=frags(slides[si]);if(fi<f.length){fi++;render();return;}if(si<slides.length-1){si++;fi=0;render();}}
+  function prev(){if(fi>0){fi--;render();return;}if(si>0){si--;fi=frags(slides[si]).length;render();}}
+  function fit(){var sx=window.innerWidth/1280, sy=window.innerHeight/720;stage.style.setProperty('--scale', Math.min(sx,sy));}
+  window.addEventListener('resize',fit);
+  if(bgmBtn){
+    bgmBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(bgm.paused){ bgm.play().then(function(){setBgmLabel(true);}).catch(function(){setBgmLabel(false);}); }
+      else { bgm.pause(); setBgmLabel(false); }
+    });
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){si=0;fi=0;render();}
+    else if(e.key==='End'){si=slides.length-1;fi=frags(slides[si]).length;render();}
+    else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+    else if(e.key==='p'||e.key==='P'){window.print();}
+  });
+  document.addEventListener('click',function(e){
+    if(e.clientX < window.innerWidth*0.25) prev(); else next();
+  });
+  setTimeout(function(){hint.style.opacity='0';},5000);
+  fit();render();
+})();
+</script>
+</body>
+</html>
