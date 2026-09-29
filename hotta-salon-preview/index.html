@@ -22,6 +22,9 @@
   p{margin:0 0 1em;}
   strong{color:#c94e10;}
   .kome{font-size:.8em;color:#6b7280;line-height:1.7;}
+  .note{background:#fff6ef;border:1px solid #f6d3bd;border-left:5px solid #e8621c;border-radius:10px;
+    padding:14px 18px;margin:16px 0 0;font-size:.92em;line-height:1.8;color:#8a431a;}
+  .note b{color:#c94e10;}
 
   .todo{display:inline-block;background:#fff3cd;border:1px dashed #d19b00;color:#8a6100;
     font-size:.7em;font-weight:800;padding:2px 10px;border-radius:999px;margin-left:6px;vertical-align:2px;white-space:nowrap;}
@@ -184,13 +187,15 @@
   .price-sec .pbox .freeband .s{font-size:.84em;margin-top:6px;opacity:.96;}
   .price-sec .pbox .pnote{margin-top:16px;font-size:.84em;color:#c6d2e2;line-height:1.8;}
   .price-sec .pbox .pnote b{color:#e9b64d;}
-  .price-sec .note{font-size:.86em;color:#c6d2e2;margin:16px 0 0;}
+  .price-sec .note{font-size:.86em;color:#c6d2e2;margin:16px 0 0;background:none;border:none;padding:0;}
 
   /* ===== staff ===== */
   .staff{background:#fff;}
   .staff .box{display:flex;gap:16px;align-items:center;border:1px solid #dfe3e9;border-radius:14px;padding:18px;}
   .staff .box .ph{flex:0 0 96px;padding:0;height:96px;border-radius:50%;display:flex;align-items:center;
     justify-content:center;font-size:.66em;}
+  .staff .box .face{flex:0 0 96px;width:96px;height:96px;border-radius:50%;object-fit:cover;
+    border:3px solid #e8621c;box-shadow:0 6px 18px rgba(16,36,60,.18);}
   .staff .box .tx b{display:block;font-size:1.14em;color:#10243c;margin-bottom:4px;}
   .staff .box .tx span{font-size:.9em;color:#5b6472;}
   .staff .role{font-size:.76em;font-weight:800;color:#e8621c;letter-spacing:.1em;margin-bottom:4px;}
@@ -477,14 +482,16 @@
 <section class="staff">
   <h2 class="center"><span>運営から</span></h2>
   <div class="box">
-    <div class="ph">［ 写真 ］</div>
+    <img class="face" src="img/takagi.jpg" alt="高木ゆうき">
     <div class="tx">
       <div class="role">SUPPORT</div>
-      <b>高木 有紀</b>
-      <span>イベント主催・企画プロデュース。<br>皆さまが楽しく続けられる場づくりを担当します。</span>
+      <b>高木ゆうき</b>
+      <span>レジェンドメンターセミナー 主催</span>
     </div>
   </div>
-  <p class="kome" style="margin-top:14px;">※ プロフィール文と写真は差し替えます。<span class="todo">★素材待ち</span></p>
+  <p style="margin-top:16px;font-size:.94em;color:#4b5563;">高卒・就職経験なしの専業主婦から、人生を大きく転換。起業3ヶ月で7桁売上を達成し、その後はリアルな人とのつながりを大切にした集客スタイルで成果を生み出してきました。</p>
+  <p style="margin:0;font-size:.94em;color:#4b5563;">「人生を変えるメンターとの出会いを、日本中に増やしたい」という想いのもと、イベントの企画・運営を通じて、挑戦する人を次のステージへ導く場をつくっています。</p>
+  <div class="note" style="margin-top:16px;">このサロンでは、皆さまが楽しく続けられる場づくりを担当します。交流会も朝活も、遠慮なく声をかけてください。</div>
 </section>
 
 <!-- ========== FAQ ========== -->
