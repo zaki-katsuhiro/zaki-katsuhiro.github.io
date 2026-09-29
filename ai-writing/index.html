@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>時給2万円を実現するAIライティング｜岡崎かつひろ 無料オンラインセミナー</title>
+<meta name="description" content="AIを学ぶだけで終わらせない。取材・文字起こし・構成づくりをAIに任せて、ライティングの時給を1,500円から2万円以上に変えた方法を岡崎かつひろが解説。2026年10月18日(日)20:00〜オンライン開催。">
+<style>
+  :root{
+    --bg:#f5f3ee;
+    --card:#ffffff;
+    --ink:#1f2330;
+    --muted:#666a77;
+    --navy:#1c2a4a;
+    --navy-deep:#111a30;
+    --orange:#e8742a;
+    --orange-deep:#c95a14;
+    --line:#e4e0d6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;background:var(--bg);color:var(--ink);line-height:1.9;-webkit-font-smoothing:antialiased;padding-bottom:84px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px}
+  section{padding:56px 0}
+  h2{font-size:1.45em;text-align:center;font-weight:800;line-height:1.5;margin-bottom:28px;text-wrap:balance}
+  h2 .en{display:block;font-size:.5em;letter-spacing:.3em;color:var(--orange);margin-bottom:6px}
+  .nowrap{white-space:nowrap}
+  .tbd{display:inline-block;font-size:.62em;color:#fff;background:#c0392b;border-radius:5px;padding:2px 8px;margin-left:6px;vertical-align:middle;font-weight:700;white-space:nowrap}
+
+  /* HERO */
+  .hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-deep) 100%);color:#fff;text-align:center;padding:56px 0 60px}
+  .hero .eyebrow{display:inline-block;font-size:.74em;letter-spacing:.2em;border:1px solid rgba(255,255,255,.6);border-radius:999px;padding:5px 16px;margin-bottom:22px;font-weight:700}
+  .hero .kicker{font-size:1.05em;font-weight:700;color:#ffd9bd;margin-bottom:10px}
+  .hero h1{font-size:2.3em;line-height:1.35;font-weight:900;letter-spacing:.02em;text-wrap:balance}
+  .hero h1 .accent{color:var(--orange)}
+  .hero .catch{margin:30px auto 0;display:inline-flex;align-items:center;gap:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:14px 22px}
+  .hero .catch .from{font-size:1.05em;color:#c9cfdd;text-decoration:line-through;text-decoration-color:rgba(255,255,255,.5)}
+  .hero .catch .arrow{color:var(--orange);font-size:1.3em;font-weight:900}
+  .hero .catch .to{font-size:1.6em;font-weight:900;color:#fff}
+  .hero .catch small{display:block;font-size:.66em;color:#c9cfdd;font-weight:600}
+
+  /* FACTS */
+  .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:34px;text-align:center}
+  .facts div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:14px 10px}
+  .facts .label{font-size:.68em;letter-spacing:.18em;color:#ffd9bd;font-weight:700}
+  .facts .value{font-size:1.08em;font-weight:800;line-height:1.4}
+  .facts .value small{display:block;font-size:.66em;color:#c9cfdd;font-weight:600}
+
+  /* CTA */
+  .cta{text-align:center;margin-top:34px}
+  .btn{display:inline-block;background:var(--orange);color:#fff;text-decoration:none;font-weight:800;font-size:1.12em;padding:18px 34px;border-radius:999px;box-shadow:0 8px 22px rgba(232,116,42,.35);width:100%;max-width:440px}
+  .btn:hover{background:var(--orange-deep)}
+  .btn small{display:block;font-size:.66em;font-weight:700;opacity:.95}
+  .cta .note{font-size:.82em;color:var(--muted);margin-top:10px}
+  .hero .cta .note{color:#c9cfdd}
+
+  /* STORY */
+  .story p{margin-bottom:1.2em;text-wrap:pretty}
+  .story strong{background:linear-gradient(transparent 62%,#ffd9bd 62%)}
+
+  /* BEFORE / AFTER */
+  .ba{display:grid;grid-template-columns:1fr;gap:14px}
+  .ba .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .ba .box h3{font-size:1em;font-weight:800;margin-bottom:10px}
+  .ba .before h3{color:var(--muted)}
+  .ba .after{border:2px solid var(--orange)}
+  .ba .after h3{color:var(--orange-deep)}
+  .ba ul{list-style:none}
+  .ba li{padding-left:1.3em;position:relative;margin-bottom:6px;font-size:.96em}
+  .ba .before li::before{content:"×";position:absolute;left:0;color:#9a9aa4;font-weight:800}
+  .ba .after li::before{content:"○";position:absolute;left:0;color:var(--orange);font-weight:800}
+  .ba .rate{margin-top:12px;font-weight:800;text-align:right}
+  .ba .after .rate{color:var(--orange-deep);font-size:1.2em}
+
+  /* POINTS */
+  .point{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--navy);border-radius:14px;padding:22px 22px 22px 24px;margin-bottom:14px}
+  .point .num{font-size:.7em;letter-spacing:.25em;color:var(--orange);font-weight:800}
+  .point h3{font-size:1.12em;font-weight:800;line-height:1.5;margin:4px 0 8px}
+  .point p{color:var(--muted);font-size:.95em}
+
+  /* FOR YOU */
+  .check{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;list-style:none}
+  .check li{padding:10px 0 10px 2em;position:relative;border-bottom:1px dashed var(--line)}
+  .check li:last-child{border-bottom:none}
+  .check li::before{content:"✓";position:absolute;left:0;top:9px;width:1.4em;height:1.4em;line-height:1.4em;text-align:center;background:var(--navy);color:#fff;border-radius:50%;font-size:.85em;font-weight:800}
+
+  /* PROFILE */
+  .profile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;gap:20px;align-items:flex-start}
+  .profile img{width:120px;height:150px;object-fit:cover;object-position:top;border-radius:12px;flex-shrink:0}
+  .profile .name{font-size:1.25em;font-weight:900}
+  .profile .role{font-size:.8em;color:var(--orange-deep);font-weight:700;margin-bottom:8px}
+  .profile p{font-size:.92em;color:var(--muted)}
+
+  /* OUTLINE */
+  table.outline{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .outline th,.outline td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:.95em}
+  .outline th{width:32%;background:#faf8f3;color:var(--navy);font-weight:800;white-space:nowrap}
+  .outline tr:last-child th,.outline tr:last-child td{border-bottom:none}
+  .outline .price-old{text-decoration:line-through;color:var(--muted)}
+  .outline .price-new{color:var(--orange-deep);font-weight:900;font-size:1.1em}
+  .outline small{color:var(--muted)}
+
+  /* FAQ */
+  .faq dt{font-weight:800;margin-top:18px;padding-left:1.8em;position:relative}
+  .faq dt::before{content:"Q";position:absolute;left:0;color:var(--orange);font-weight:900}
+  .faq dd{padding-left:1.8em;position:relative;color:var(--muted);font-size:.95em;margin-top:4px}
+  .faq dd::before{content:"A";position:absolute;left:0;color:var(--navy);font-weight:900}
+
+  .final{background:var(--navy);color:#fff;text-align:center}
+  .final h2{color:#fff}
+  .final p{color:#dfe3ec;margin-bottom:1em}
+  .disclaimer{font-size:.76em;color:var(--muted);text-align:center;padding:24px 0 10px}
+  footer{text-align:center;font-size:.8em;color:var(--muted);padding:16px 0 30px}
+
+  /* ヘッダー一枚絵 */
+  .hero-img{display:block;width:100%;max-width:1100px;margin:0 auto;height:auto}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .hero{padding-top:0}
+  .hero .wrap{padding-top:30px}
+
+  /* 写真 */
+  .photo{margin:0 0 28px;border-radius:16px;overflow:hidden;box-shadow:0 10px 26px rgba(17,26,48,.12)}
+  .photo img{display:block;width:100%;height:240px;object-fit:cover}
+  .photo figcaption{background:var(--card);font-size:.84em;color:var(--muted);padding:10px 16px}
+  .photo-band{position:relative;height:220px;background:center/cover no-repeat;display:flex;align-items:center;justify-content:center;text-align:center}
+  .photo-band::before{content:"";position:absolute;inset:0;background:rgba(17,26,48,.62)}
+  .photo-band p{position:relative;color:#fff;font-weight:900;font-size:1.35em;line-height:1.6;padding:0 20px;text-wrap:balance}
+  .photo-band p span{color:var(--orange)}
+
+  /* 主催者 */
+  .host{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .host-head{display:flex;gap:18px;align-items:center;margin-bottom:14px}
+  .host-head img{width:110px;height:110px;border-radius:50%;object-fit:cover;flex-shrink:0;border:3px solid #fff;box-shadow:0 4px 14px rgba(17,26,48,.15)}
+  .host .label{display:inline-block;font-size:.72em;font-weight:800;color:#fff;background:var(--navy);border-radius:5px;padding:2px 10px;margin-bottom:4px}
+  .host .name{font-size:1.3em;font-weight:900;line-height:1.4}
+  .host .name small{font-size:.6em;color:var(--muted);font-weight:600;margin-left:6px}
+  .host .role{font-size:.8em;color:var(--orange-deep);font-weight:700;line-height:1.6}
+  .host p.bio{font-size:.92em;color:var(--muted);margin-bottom:.8em}
+  .books{display:flex;gap:18px;justify-content:center;margin-top:18px}
+  .books figure{width:130px;text-align:center}
+  .books img{width:100%;height:auto;border-radius:4px;box-shadow:0 8px 18px rgba(0,0,0,.2)}
+  .books figcaption{font-size:.72em;color:var(--muted);margin-top:8px;line-height:1.5}
+  .tie{margin-top:18px;background:#fff6ef;border:1px dashed var(--orange);border-radius:12px;padding:14px 16px;font-size:.92em}
+
+  /* 申込ボタンをフルフル */
+  @keyframes furufuru{
+    0%,78%,100%{transform:translateX(0) rotate(0)}
+    80%{transform:translateX(-3px) rotate(-1.5deg)}
+    83%{transform:translateX(3px) rotate(1.5deg)}
+    86%{transform:translateX(-3px) rotate(-1deg)}
+    89%{transform:translateX(3px) rotate(1deg)}
+    92%{transform:translateX(-1px) rotate(0)}
+  }
+  .btn,.sticky a{animation:furufuru 2.4s ease-in-out infinite}
+  .btn:hover,.sticky a:hover{animation-play-state:paused}
+  @media (prefers-reduced-motion:reduce){.btn,.sticky a{animation:none}}
+
+  /* 岡崎の著書 */
+  .profile-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .profile-card .profile{background:none;border:none;border-radius:0;padding:0}
+  .okz-books{margin-top:20px;padding-top:18px;border-top:1px dashed var(--line)}
+  .okz-books-label{font-size:.78em;font-weight:800;color:var(--navy);text-align:center;margin-bottom:12px;letter-spacing:.1em}
+  .okz-books-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+  .okz-books-grid img{width:calc((100% - 48px) / 7);aspect-ratio:2/3;object-fit:cover;border-radius:3px;box-shadow:0 3px 8px rgba(0,0,0,.18)}
+  @media (max-width:480px){.okz-books-grid{gap:6px}.okz-books-grid img{width:calc((100% - 24px) / 5)}}
+
+  /* 追従CTA */
+  .sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(17,26,48,.96);padding:12px 16px;text-align:center;z-index:50}
+  .sticky a{display:block;max-width:440px;margin:0 auto;background:var(--orange);color:#fff;text-decoration:none;font-weight:800;padding:13px;border-radius:999px}
+
+  @media (max-width:480px){
+    .hero h1{font-size:1.8em}
+    h2{font-size:1.28em}
+    .profile{flex-direction:column;align-items:center;text-align:center}
+    .host-head{flex-direction:column;text-align:center}
+    .photo img{height:200px}
+    .photo-band{height:190px}
+    .photo-band p{font-size:1.12em}
+    .outline th{white-space:normal;width:34%}
+    .hero .catch{gap:8px;padding:12px 14px}
+    .hero .catch .from{font-size:.9em;white-space:nowrap}
+    .hero .catch .to{font-size:1.25em;white-space:nowrap}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <img class="hero-img" src="img/hero.jpg" alt="AIを学ぶだけで終わらせない！時給2万円を実現するAIライティング。時給1,500円から時給2万円以上へ。10/18(日)20:00〜オンライン 無料ご招待">
+  <div class="wrap">
+    <h1 class="sr-only">AIを学ぶだけで終わらせない！時給2万円を実現するAIライティング</h1>
+    <div class="facts" style="margin-top:0">
+      <div><p class="label">日時</p><p class="value">10月18日(日)<small>20:00〜22:00</small></p></div>
+      <div><p class="label">会場</p><p class="value">オンライン<small>Zoom</small></p></div>
+      <div><p class="label">参加費</p><p class="value">無料ご招待<small>通常3,000円</small></p></div>
+      <div><p class="label">アーカイブ</p><p class="value">なし<small>当日ライブのみ</small></p></div>
+    </div>
+
+    <div class="cta">
+      <a class="btn" href="#entry">無料で参加を申し込む<small>通常3,000円 → 10/11(日)までなら0円</small></a>
+      <p class="note">※録画配信はありません（当日ライブのみ）</p>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STORY ============ -->
+<section class="story">
+  <div class="wrap">
+    <figure class="photo"><img src="img/ph_interview.jpg" alt="マイクを置いて取材をしている様子"><figcaption>取材して、文字起こしして、まとめる。ここがいちばん時間を食っていた</figcaption></figure>
+    <h2><span class="en">STORY</span>いちばんやりたくなかった仕事が<br>いちばん割のいい仕事になった</h2>
+    <p>正直に言うと、僕がいちばんやりたくなかった仕事はライターの仕事です。特にブックライター。</p>
+    <p>理由ははっきりしていて、取材をして、文字起こしをして、それをまとめる。この工程がとにかく面倒だったからです。</p>
+    <p>正確な文字起こしさえ手元にあれば、あとは自分のアイデアで組み立てられる。でも以前は、その文字起こしまで全部自分でやるしかありませんでした。</p>
+    <p>いまは違います。Zoomを使えば文字起こしはすぐ終わる。企画の項目を整理したり、取材内容を章ごとに割り振ったりする作業も、AIに任せられるようになりました。</p>
+    <p>なかでも大きかったのが、<strong>クロードコードのようなAIエージェントの登場</strong>です。こちらが指示を出すと、自分で考えて仕事を先に進めてくれる。</p>
+    <p>その結果、AIを使う前は<strong>時給1,500円ほどだったライターの仕事が、いまは時給2万円を超えています</strong>。これは実際に僕の身に起きていることです。</p>
+  </div>
+</section>
+
+<!-- ============ BEFORE / AFTER ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <figure class="photo"><img src="img/ph_laptopbook.jpg" alt="ノートパソコンと開いたノート"><figcaption>下ごしらえはAIに。人は「何を書くか」に時間を使う</figcaption></figure>
+    <h2><span class="en">BEFORE / AFTER</span>同じライティングの仕事で<br>何が変わったのか</h2>
+    <div class="ba">
+      <div class="box before">
+        <h3>AIを使う前</h3>
+        <ul>
+          <li>取材の録音を聞き直して、自分で文字起こし</li>
+          <li>膨大なメモから企画の項目を手作業で整理</li>
+          <li>どの話をどの章に入れるか、毎回ゼロから考える</li>
+        </ul>
+        <p class="rate">時給 約1,500円</p>
+      </div>
+      <div class="box after">
+        <h3>いま</h3>
+        <ul>
+          <li>文字起こしはZoomでほぼ自動</li>
+          <li>企画の項目整理と取材内容の割り振りはAIが下ごしらえ</li>
+          <li>クロードコードが段取りを考えて作業を進める。僕は「中身の判断」に集中</li>
+        </ul>
+        <p class="rate">時給 2万円以上</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="photo-band" style="background-image:url(img/ph_ainenon.jpg)"><p>AIとライティングは<br><span>いちばん相性がいい</span>組み合わせ</p></div>
+
+<!-- ============ POINTS ============ -->
+<section>
+  <div class="wrap">
+    <h2><span class="en">CONTENTS</span>このセミナーでお伝えすること</h2>
+    <div class="point">
+      <p class="num">POINT 01</p>
+      <h3>取材の文字起こしを「待つだけ」にする</h3>
+      <p>Zoomで取材するだけで、正確な文字起こしが手に入る流れ。いちばん時間を食っていた工程をまるごと手放します。</p>
+    </div>
+    <div class="point">
+      <p class="num">POINT 02</p>
+      <h3>企画の項目整理と取材内容の割り振りをAIに任せる</h3>
+      <p>どの話をどこに入れるか。頭を抱えていた仕分け作業を、AIにどう頼めば一発で形になるのかを実例で見せます。</p>
+    </div>
+    <div class="point">
+      <p class="num">POINT 03</p>
+      <h3>クロードコード（AIエージェント）に段取りごと任せる</h3>
+      <p>「使い方を覚えるAI」ではなく「自分で考えて動くAI」。ライティングの仕事がどこまで任せられるのか、実際の画面でお見せします。</p>
+    </div>
+    <div class="point">
+      <p class="num">POINT 04</p>
+      <h3>時給2万円を超えるライティングの全体像</h3>
+      <p>AIを学んだのに仕事の単価が変わらない。そこから抜け出すために、僕がどこを人間の仕事として残しているのかをお話しします。</p>
+    </div>
+
+    <div class="cta">
+      <a class="btn" href="#entry">無料で参加を申し込む<small>当日ライブのみ・アーカイブなし</small></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOR YOU ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2><span class="en">FOR YOU</span>こんな方におすすめです</h2>
+    <ul class="check">
+      <li>AIの勉強はしてきたけれど、仕事や収入にはまだ結びついていない</li>
+      <li>ライターやブックライターの仕事をしている、またはこれから始めたい</li>
+      <li>取材・文字起こし・まとめ作業に時間をとられている</li>
+      <li>クロードコードやAIエージェントが実際どう役立つのか、具体例で知りたい</li>
+      <li>自分の本や記事を書くスピードを上げたい</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ HOST ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2><span class="en">ORGANIZER</span>主催</h2>
+    <div class="host">
+      <div class="host-head">
+        <img src="img/tanaka_rs.jpg" alt="田中克成">
+        <div>
+          <span class="label">主催</span>
+          <p class="name">田中克成<small>たなか・かつなり</small></p>
+          <p class="role"><span class="nowrap">ファンマーケティングの専門家</span>／<span class="nowrap">コミュニティプロデューサー</span>／<span class="nowrap">出版プロデューサー</span>／<span class="nowrap">カードゲームGIFT考案者</span></p>
+        </div>
+      </div>
+      <p class="bio">株式会社ANDRYU代表取締役、一般社団法人GIFT WORLD代表理事、ANDBOOKS CEO。これまで累計25億円以上のコンテンツプロデュースに携わる。34名の新人著者をプロデュースし、累計発行部数は41万部。</p>
+      <p class="bio">リヤカーで日本一周の行商を行い<span class="nowrap">1万3447冊</span>を販売した「リヤカー出版社」としても話題に。自著<span class="nowrap">『成功のバイオリズム［超進化論］』</span>は全国書店ランキング1位、『自分をよろこばせる習慣』は「読者が選ぶビジネス書大賞2024」総合5位・自己啓発部門2位。“たなかつ”の愛称で親しまれている。</p>
+      <div class="books">
+        <figure><img src="img/book_4799111027.jpg" alt="自分をよろこばせる習慣"><figcaption>『自分をよろこばせる習慣』<br>（すばる舎）</figcaption></figure>
+        <figure><img src="img/book_490707249X.jpg" alt="成功のバイオリズム［超進化論］"><figcaption>『成功のバイオリズム［超進化論］』<br>（きずな出版）</figcaption></figure>
+      </div>
+      <p class="tie">岡崎は、田中さんの本づくりでライターを担当しています。今回お話しするAIライティングのやり方も、実際にその現場で使っているものです。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROFILE ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2><span class="en">SPEAKER</span>講師</h2>
+    <div class="profile-card"><div class="profile">
+      <img src="img/okazaki.jpg" alt="岡崎かつひろ">
+      <div>
+        <p class="name">岡崎かつひろ</p>
+        <p class="role">全国出版オーディション主宰／ブックライター</p>
+        <p>自著の執筆に加え、ブックライターとして他の著者の本づくりも手がける。全国出版オーディションを主宰し、これから本を出す人の企画づくりを支援。AIとクロードコードを日々の執筆・編集の仕事に取り入れ、その実践をセミナーで伝えている。</p>
+      </div>
+    </div>
+    <div class="okz-books">
+      <p class="okz-books-label">岡崎かつひろの著書</p>
+      <div class="okz-books-grid">
+        <img src="img/okz_books/b01.jpg" alt="自分を安売りするのは“いますぐ”やめなさい。" title="自分を安売りするのは“いますぐ”やめなさい。" loading="lazy">
+        <img src="img/okz_books/b02.jpg" alt="言いなりの人生は“いますぐ”やめなさい。" title="言いなりの人生は“いますぐ”やめなさい。" loading="lazy">
+        <img src="img/okz_books/b03.jpg" alt="憂鬱な毎日は“いますぐ”やめなさい。" title="憂鬱な毎日は“いますぐ”やめなさい。" loading="lazy">
+        <img src="img/okz_books/b04.jpg" alt="なぜ、あの人は「お金」にも「時間」にも余裕があるのか？" title="なぜ、あの人は「お金」にも「時間」にも余裕があるのか？" loading="lazy">
+        <img src="img/okz_books/b05.jpg" alt="うまくいく人がやっている 1億円会話術" title="うまくいく人がやっている 1億円会話術" loading="lazy">
+        <img src="img/okz_books/b06.jpg" alt="“好き”を仕事にできる人の本当の考え方" title="“好き”を仕事にできる人の本当の考え方" loading="lazy">
+        <img src="img/okz_books/b07.jpg" alt="お金に困らない人が学んでいること" title="お金に困らない人が学んでいること" loading="lazy">
+        <img src="img/okz_books/b08.jpg" alt="「好かれる人」になる55のコツ（単行本）" title="「好かれる人」になる55のコツ（単行本）" loading="lazy">
+        <img src="img/okz_books/b09.jpg" alt="「好かれる人」になる55のコツ（王様文庫）" title="「好かれる人」になる55のコツ（王様文庫）" loading="lazy">
+        <img src="img/okz_books/b10.jpg" alt="ChatGPTで一番ラクして頭のいい人になる" title="ChatGPTで一番ラクして頭のいい人になる" loading="lazy">
+        <img src="img/okz_books/b11.jpg" alt="人生中盤からの成功戦略" title="人生中盤からの成功戦略" loading="lazy">
+        <img src="img/okz_books/b12.jpg" alt="いつも機嫌よくいられる本" title="いつも機嫌よくいられる本" loading="lazy">
+        <img src="img/okz_books/b13.jpg" alt="要領のいい人が最初に考えること" title="要領のいい人が最初に考えること" loading="lazy">
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTLINE ============ -->
+<section style="padding-top:0" id="entry">
+  <div class="wrap">
+    <h2><span class="en">OUTLINE</span>開催概要</h2>
+    <table class="outline">
+      <tr><th>セミナー名</th><td>AIを学ぶだけで終わらせない！<br>時給2万円を実現するAIライティング</td></tr>
+      <tr><th>日時</th><td>2026年10月18日(日) 20:00〜22:00（2時間）</td></tr>
+      <tr><th>会場</th><td>オンライン（Zoom）<br><small>参加URLはお申し込み後にメールでお送りします</small></td></tr>
+      <tr><th>参加費</th><td><span class="price-old">3,000円</span> → <span class="price-new">無料ご招待</span><br><small>10月11日(日)までにお申し込みの方が対象です</small></td></tr>
+      <tr><th>アーカイブ</th><td>なし<br><small>録画の配信はありません。当日リアルタイムでご参加ください</small></td></tr>
+      <tr><th>講師</th><td>岡崎かつひろ</td></tr>
+      <tr><th>主催</th><td>田中克成</td></tr>
+    </table>
+
+    <div class="cta">
+      <a class="btn" href="#">無料で参加を申し込む<small>通常3,000円 → 10/11(日)まで0円</small></a>
+      <p class="note">申込フォームのリンク先<span class="tbd">田中さんと確認後に設定</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2><span class="en">FAQ</span>よくあるご質問</h2>
+    <dl class="faq">
+      <dt>AIを使ったことがほとんどなくても大丈夫ですか？</dt>
+      <dd>大丈夫です。専門用語はなるべく使わず、実際の画面をお見せしながら進めます。</dd>
+      <dt>ライターの仕事をしていなくても参加できますか？</dt>
+      <dd>はい。ご自身の本やブログ、SNSの文章を書く方にもそのまま使える内容です。</dd>
+      <dt>録画は見られますか？</dt>
+      <dd>アーカイブ配信はありません。当日20時からのライブにご参加ください。</dd>
+      <dt>本当に無料ですか？</dt>
+      <dd>通常3,000円のところ、10月11日(日)までにお申し込みいただいた方は無料でご招待します。</dd>
+    </dl>
+  </div>
+</section>
+
+<div class="photo-band" style="background-image:url(img/ph_typing.jpg)"><p>空いた時間を<br><span>書く中身</span>に使う</p></div>
+
+<!-- ============ FINAL ============ -->
+<section class="final">
+  <div class="wrap">
+    <h2>AIは、学んだあとに<br>「どう稼ぎに変えるか」で差がつく</h2>
+    <p>取材も文字起こしも、もう自分で抱え込まなくていい。<br>空いた時間を、書く中身に使う。<br>その具体的なやり方を10月18日にお見せします。</p>
+    <div class="cta">
+      <a class="btn" href="#">無料で参加を申し込む<small>10/18(日)20:00〜22:00 オンライン</small></a>
+      <p class="note">※アーカイブはありません</p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <p class="disclaimer">※時給の数字は講師本人の実例です。同じ成果を保証するものではありません。</p>
+</div>
+<footer>主催：田中克成</footer>
+
+<div class="sticky"><a href="#">無料で参加する（10/18 20:00〜）</a></div>
+
+</body>
+</html>
