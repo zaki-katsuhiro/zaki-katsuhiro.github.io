@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プロデュースの極意</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1f2933;
+    --sub: #5b6472;
+    --accent: #1f6feb;
+    --accent-dark: #1553b8;
+    --accent-soft: #e8f0fe;
+    --orange: #f59e0b;
+    --orange-soft: #fff4e0;
+    --line: #dfe3ea;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #2b2f36; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  /* 1600×900 の画面を、ウィンドウの大きさに合わせて拡大縮小する */
+  .stage {
+    position: absolute; top: 50%; left: 50%;
+    width: 1600px; height: 900px;
+    transform-origin: center center;
+  }
+  .slide {
+    display: none;
+    width: 1600px; height: 900px;
+    background: var(--bg);
+    padding: 64px 100px 70px;
+    flex-direction: column;
+    justify-content: flex-start;   /* 本文は全枚 上揃え */
+    position: relative;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  /* ページ番号 */
+  .slide::after {
+    content: attr(data-no);
+    position: absolute; right: 44px; bottom: 26px;
+    font-size: 20px; color: var(--sub); z-index: 3;
+  }
+  /* 上端の青い帯（本文スライドだけ） */
+  .slide.body::before {
+    content: ""; position: absolute; left: 0; top: 0; right: 0; height: 10px; background: var(--accent);
+  }
+
+  .kicker {
+    font-size: 24px; font-weight: 800; color: var(--accent); letter-spacing: .08em;
+    white-space: nowrap; margin-bottom: 6px;
+  }
+  h1 { font-size: 64px; line-height: 1.35; font-weight: 800; }
+  h2 { font-size: 50px; line-height: 1.35; font-weight: 800; margin-bottom: 34px; white-space: nowrap; }
+  p, li { font-size: 32px; line-height: 1.6; }
+  .sub { color: var(--sub); }
+  .accent { color: var(--accent); }
+  .orange { color: #c27400; }
+  b, strong { font-weight: 800; }
+  .nw { white-space: nowrap; }
+
+  /* ── 箇条書き ── */
+  ul.pts { list-style: none; }
+  ul.pts li { position: relative; padding: 6px 0 6px 36px; }
+  ul.pts li::before {
+    content: ""; position: absolute; left: 4px; top: 25px;
+    width: 14px; height: 14px; border-radius: 50%; background: var(--accent);
+  }
+  ul.pts li.sm { font-size: 28px; }
+
+  /* ── カード（左右に並べる） ── */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  .three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
+  .card {
+    border: 3px solid var(--line); border-radius: 18px; padding: 26px 32px; background: #fff;
+  }
+  .card.blue { border-color: var(--accent); background: var(--accent-soft); }
+  .card.orange { border-color: var(--orange); background: var(--orange-soft); }
+  .card .ttl {
+    font-size: 34px; font-weight: 800; margin-bottom: 12px; white-space: nowrap;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .card .ttl .tag {
+    font-size: 22px; color: #fff; background: var(--accent); padding: 4px 16px; border-radius: 999px;
+  }
+  .card.orange .ttl .tag { background: #b86200; }
+  .card p, .card li { font-size: 28px; line-height: 1.55; }
+  .card ul.pts li::before { top: 21px; width: 12px; height: 12px; }
+
+  /* ── 結論ボックス ── */
+  .point {
+    margin-top: 30px; background: var(--accent); color: #fff; border-radius: 16px;
+    padding: 22px 36px; font-size: 36px; font-weight: 800; line-height: 1.5;
+  }
+  .point small { display: block; font-size: 26px; font-weight: 600; opacity: .92; margin-top: 4px; }
+
+  /* ── 矢印でつなぐ流れ ── */
+  .chain { display: flex; align-items: stretch; gap: 0; }
+  .chain .st {
+    flex: 1; border: 3px solid var(--line); border-radius: 16px; padding: 20px 18px; text-align: center;
+    display: flex; flex-direction: column; justify-content: center; background: #fff;
+  }
+  .chain .st .n { font-size: 22px; color: var(--sub); font-weight: 700; }
+  .chain .st .t { font-size: 32px; font-weight: 800; line-height: 1.4; white-space: nowrap; }
+  .chain .st .d { font-size: 23px; color: var(--sub); line-height: 1.45; margin-top: 6px; }
+  .chain .st.hl { border-color: var(--accent); background: var(--accent-soft); }
+  .chain .st.hl .t { color: var(--accent); }
+  .chain .arw {
+    flex: none; width: 54px; display: flex; align-items: center; justify-content: center;
+    font-size: 40px; color: var(--accent); font-weight: 800;
+  }
+
+  /* ── 表 ── */
+  table.tbl { width: 100%; border-collapse: collapse; }
+  table.tbl th, table.tbl td { border: 2px solid var(--line); padding: 14px 20px; font-size: 27px; line-height: 1.5; text-align: left; vertical-align: top; }
+  table.tbl th { background: var(--accent-soft); color: var(--accent-dark); font-weight: 800; white-space: nowrap; }
+  table.tbl td.h { font-weight: 800; white-space: nowrap; background: #f7f8fa; }
+
+  /* ── 未決の枠 ── */
+  .todo {
+    border: 3px dashed #b8c0cc; border-radius: 16px; padding: 18px 28px; margin-top: 24px;
+    color: var(--sub); font-size: 26px; line-height: 1.5; background: #fafbfc;
+  }
+  .todo b { color: var(--text); }
+
+  /* ── 表紙 ── */
+  .cover { justify-content: center; padding: 80px 130px; background: linear-gradient(120deg, #ffffff 0%, #ffffff 55%, #eaf2ff 100%); }
+  .cover .pre { font-size: 34px; color: var(--accent); font-weight: 800; letter-spacing: .1em; }
+  .cover h1 { font-size: 132px; line-height: 1.2; margin: 10px 0 0; white-space: nowrap; }
+  .cover h1::after {
+    content: ""; display: block; width: 140px; height: 10px;
+    background: var(--accent); margin-top: 36px; border-radius: 5px;
+  }
+  .cover .lead { font-size: 40px; margin-top: 40px; font-weight: 700; }
+  .cover .who { font-size: 40px; margin-top: 70px; font-weight: 800; }
+
+  /* ── 章の区切り（青の全面） ── */
+  .section {
+    justify-content: center; color: #fff;
+    background: linear-gradient(90deg, #1553b8 0%, #1f6feb 60%, #5b9bff 100%);
+  }
+  .section .label { font-size: 34px; opacity: .85; margin-bottom: 14px; font-weight: 700; letter-spacing: .1em; }
+  .section h1 { font-size: 92px; line-height: 1.3; white-space: nowrap; }
+  .section .lead { font-size: 36px; margin-top: 30px; opacity: .95; }
+  .section::after { color: rgba(255,255,255,.75); }
+
+  /* ── 講師紹介 ── */
+  .profile { flex-direction: row; align-items: center; gap: 80px; padding: 70px 110px; }
+  .profile img { height: 700px; width: auto; border-radius: 18px; flex: none; }
+  .profile .role { font-size: 32px; color: var(--accent); font-weight: 800; }
+  .profile .name { font-size: 84px; font-weight: 800; line-height: 1.3; margin-bottom: 30px; white-space: nowrap; }
+
+  /* ── 問いかけ ── */
+  .ask2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 10px; }
+  .ask2 .q {
+    border: 4px solid var(--accent); border-radius: 22px; padding: 44px 40px; text-align: center; background: var(--accent-soft);
+  }
+  .ask2 .q .hand { font-size: 90px; }
+  .ask2 .q .t { font-size: 44px; font-weight: 800; line-height: 1.4; margin-top: 10px; }
+
+  /* ── 役割分担の図 ── */
+  .roles { display: grid; grid-template-columns: 1fr 120px 1fr; align-items: stretch; }
+  .roles .who {
+    border-radius: 20px; padding: 26px 30px; text-align: center; color: #fff;
+  }
+  .roles .who.a { background: #3b82f6; }
+  .roles .who.b { background: var(--accent-dark); }
+  .roles .who .r { font-size: 26px; opacity: .9; font-weight: 700; }
+  .roles .who .t { font-size: 46px; font-weight: 800; white-space: nowrap; }
+  .roles .who .d { font-size: 26px; line-height: 1.5; margin-top: 8px; }
+  .roles .mid { display: flex; align-items: center; justify-content: center; font-size: 60px; color: var(--accent); font-weight: 800; }
+
+  /* ── 立ち上げと回収のグラフ ── */
+  .curve { display: flex; gap: 44px; align-items: flex-start; }
+  .curve svg { flex: none; }
+  .curve .txt { flex: 1; }
+
+  /* ── セールスファネル ── */
+  .funnel-wrap { display: flex; gap: 40px; align-items: flex-start; }
+  .funnel { width: 760px; flex: none; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .funnel .lv {
+    height: 138px; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .funnel .lv .t { font-size: 36px; font-weight: 800; white-space: nowrap; }
+  .funnel .lv .d { font-size: 22px; opacity: .95; white-space: nowrap; }
+  .funnel .l1 { width: 760px; background: #4a86e8; clip-path: polygon(0 0, 100% 0, calc(100% - 50px) 100%, 50px 100%); }
+  .funnel .l2 { width: 652px; background: #2468d8; clip-path: polygon(0 0, 100% 0, calc(100% - 50px) 100%, 50px 100%); }
+  .funnel .l3 { width: 544px; background: #1a52b0; clip-path: polygon(0 0, 100% 0, calc(100% - 50px) 100%, 50px 100%); }
+  .funnel .l4 { width: 436px; background: #0f3a80; clip-path: polygon(0 0, 100% 0, calc(100% - 50px) 100%, 50px 100%); }
+  .funnel-side { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .funnel-side .row {
+    height: 138px; display: flex; flex-direction: column; justify-content: center;
+    border-left: 6px solid var(--line); padding-left: 24px;
+  }
+  .funnel-side .row .t { font-size: 27px; font-weight: 800; white-space: nowrap; }
+  .funnel-side .row .d { font-size: 23px; color: var(--sub); line-height: 1.45; }
+  .funnel-side .row.hl { border-left-color: var(--accent); }
+  .funnel-side .row.hl .t { color: var(--accent); }
+
+  /* ── 4マスの図 ── */
+  .mx-wrap { display: flex; gap: 50px; align-items: flex-start; }
+  .mx { display: grid; grid-template-columns: 70px 340px 340px; grid-template-rows: 230px 230px 60px; flex: none; }
+  .mx .yl {
+    grid-row: 1 / 3; grid-column: 1; writing-mode: vertical-rl; display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: 800; color: var(--accent-dark); letter-spacing: .1em;
+    border-right: 5px solid var(--accent-dark); margin-right: 10px;
+  }
+  .mx .xl {
+    grid-row: 3; grid-column: 2 / 4; display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: 800; color: var(--accent-dark); border-top: 5px solid var(--accent-dark); margin-top: 8px;
+  }
+  .mx .c {
+    margin: 6px; border-radius: 16px; border: 3px solid var(--line); background: #f7f8fa;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 12px;
+  }
+  .mx .c .k { font-size: 21px; color: var(--sub); font-weight: 700; white-space: nowrap; }
+  .mx .c .t { font-size: 32px; font-weight: 800; line-height: 1.35; white-space: nowrap; }
+  .mx .c .d { font-size: 21px; color: var(--sub); line-height: 1.4; margin-top: 4px; }
+  .mx .c.best { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .mx .c.best .k, .mx .c.best .d { color: #e3edff; }
+  .mx-side { flex: 1; }
+
+  /* ── CTA ── */
+  .cta-box {
+    display: flex; gap: 50px; align-items: center;
+    border: 4px solid var(--accent); border-radius: 24px; padding: 40px 50px; background: var(--accent-soft);
+  }
+  .cta-box .qr {
+    width: 260px; height: 260px; flex: none; border: 4px dashed #9fb6dd; border-radius: 16px; background: #fff;
+    display: flex; align-items: center; justify-content: center; text-align: center; font-size: 24px; color: var(--sub);
+  }
+  .cta-box img.qrimg { width: 270px; height: 270px; flex: none; border-radius: 12px; background: #fff; padding: 8px; }
+  .cta-box .kw { display: inline-block; font-size: 40px; font-weight: 800; color: #fff; background: var(--accent); padding: 8px 28px; border-radius: 14px; margin-top: 16px; white-space: nowrap; }
+  .cover .endqr { position: absolute; right: 130px; top: 50%; transform: translateY(-50%); text-align: center; }
+  .cover .endqr img { width: 300px; height: 300px; display: block; border: 4px solid var(--accent); border-radius: 16px; padding: 8px; background: #fff; }
+  .cover .endqr p { font-size: 26px; font-weight: 800; margin-top: 12px; line-height: 1.45; }
+  .cta-box img.book { height: 330px; width: auto; box-shadow: 0 12px 30px rgba(0,0,0,.2); flex: none; }
+  .cta-box .t { font-size: 44px; font-weight: 800; line-height: 1.4; }
+  .cta-box .d { font-size: 28px; line-height: 1.6; margin-top: 12px; }
+  .cta-box .url { font-size: 30px; font-weight: 800; color: var(--accent); margin-top: 18px; white-space: nowrap; }
+
+
+  /* ── 名言スライド ── */
+  .qwrap { display: flex; gap: 60px; align-items: flex-start; margin-top: 10px; }
+  .qwrap img { width: 340px; height: 430px; object-fit: cover; object-position: center 20%; border-radius: 20px; flex: none; box-shadow: 0 10px 28px rgba(0,0,0,.15); }
+  .qwrap img.gray { filter: grayscale(1); }
+  .qtxt { flex: 1; position: relative; padding-top: 30px; }
+  .qmark { position: absolute; top: -40px; left: -16px; font-size: 160px; line-height: 1; color: var(--accent-soft); font-family: Georgia, serif; font-weight: 800; z-index: 0; }
+  .qt { position: relative; z-index: 1; font-size: 42px; line-height: 1.6; font-weight: 800; }
+  .qname { font-size: 32px; font-weight: 800; margin-top: 30px; white-space: nowrap; }
+  .qname span { font-size: 24px; color: var(--sub); font-weight: 600; margin-left: 16px; }
+  .qsrc { font-size: 22px; color: var(--sub); margin-top: 6px; }
+
+  /* ── 理論スライド ── */
+  .th { display: flex; gap: 44px; align-items: flex-start; }
+  .ppl { display: flex; gap: 22px; flex: none; }
+  .ppl figure { width: 220px; text-align: center; }
+  .ppl img { width: 220px; height: 270px; object-fit: cover; object-position: center 20%; border-radius: 16px; display: block; }
+  .ppl figcaption { font-size: 20px; font-weight: 800; margin-top: 8px; line-height: 1.35; white-space: nowrap; }
+  .ppl figcaption span { display: block; font-size: 17px; color: var(--sub); font-weight: 600; }
+  .ico-box { width: 260px; height: 270px; flex: none; border-radius: 16px; background: var(--accent-soft); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .ico-box .i { font-size: 100px; line-height: 1.1; }
+  .ico-box .c { font-size: 22px; font-weight: 800; color: var(--accent-dark); margin-top: 10px; line-height: 1.4; }
+  .th .thtxt { flex: 1; }
+  .badge-th { display: inline-block; font-size: 22px; font-weight: 800; color: #fff; background: var(--accent-dark); padding: 4px 16px; border-radius: 999px; margin-right: 12px; vertical-align: middle; }
+
+  /* 写真の出典 */
+  .credit-list { columns: 2; column-gap: 48px; font-size: 20px; line-height: 1.8; color: var(--sub); }
+
+  .hint { position: fixed; left: 16px; bottom: 12px; font-size: 14px; color: #9aa3ae; z-index: 10; }
+  .hint a { color: #6aa5ff; font-weight: 700; }
+
+  /* ── 指している場所が青く光るポインター ── */
+  #glow {
+    position: fixed; left: 0; top: 0; width: 110px; height: 110px;
+    margin: -55px 0 0 -55px; border-radius: 50%;
+    pointer-events: none; z-index: 1000;
+    background: radial-gradient(circle,
+      rgba(80,150,255,.95) 0%, rgba(31,111,235,.6) 14%,
+      rgba(31,111,235,.28) 38%, rgba(31,111,235,0) 70%);
+    opacity: 0; transition: opacity .25s;
+  }
+  #glow.show { opacity: 1; }
+
+  @media print {
+    @page { size: 1600px 900px; margin: 0; }
+    html, body { background: #fff; overflow: visible; height: auto; }
+    .stage { position: static; transform: none !important; }
+    .slide { display: flex !important; page-break-after: always; }
+    .hint, #glow { display: none; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .todo { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+
+  <!-- ■ 表紙 -->
+  <section class="slide cover">
+    <p class="pre">する側も、される側も、やってきて分かったこと</p>
+    <h1>プロデュースの極意</h1>
+    <p class="lead">任せる人・任される人が、長く組んで成果を出すために</p>
+    <p class="who">岡崎かつひろ</p>
+  </section>
+
+  <!-- ■ 講師紹介 -->
+  <section class="slide profile">
+    <img src="img/profile_gray.jpg" alt="岡崎かつひろ">
+    <div>
+      <p class="role">作家・講演家</p>
+      <p class="name">岡崎かつひろ</p>
+      <ul class="pts">
+        <li>全国出版オーディション 主宰</li>
+        <li>出版企画書勉強会 主宰</li>
+        <li>プロデュース<b>する側</b>も<b>される側</b>も経験</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ■ つかみ -->
+  <section class="slide body">
+    <p class="kicker">はじめに</p>
+    <h2>まず、手を挙げてみてください</h2>
+    <div class="ask2">
+      <div class="q"><div class="hand">🙋</div><p class="t">プロデュース<br><span class="accent">してもらいたい</span>人？</p></div>
+      <div class="q"><div class="hand">🙋‍♂️</div><p class="t">いつか<br><span class="accent">プロデュースする側</span>に<br>回りたい人？</p></div>
+    </div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">はじめに</p>
+    <h2>どちらも、理由は同じ。<span class="accent">楽をしたいから</span></h2>
+    <div class="two">
+      <div class="card">
+        <p class="ttl"><span class="tag">する側</span>の楽</p>
+        <ul class="pts">
+          <li>自分でコンテンツを作らなくていい</li>
+          <li>やることは基本マーケティング</li>
+          <li>中身（人・テーマ）が変わっても<br>やり方は同じ</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="ttl"><span class="tag">される側</span>の楽</p>
+        <ul class="pts">
+          <li>コンテンツを出すことだけに集中できる</li>
+          <li>集客・販売など残りは<br>任せられるケースが多い</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">僕はどちらもやってきました。<br>今日は両方の本音をお話しします。</div>
+  </section>
+
+  <!-- ■ 資料プレゼント（CTA①） -->
+  <section class="slide body">
+    <p class="kicker">資料プレゼント</p>
+    <h2>今日の内容は、話しきれません</h2>
+    <div class="cta-box">
+      <img class="qrimg" src="img/line_qr.png" alt="LINE公式 友だち追加QRコード">
+      <div>
+        <p class="t">完全版の資料を<br>LINE公式でプレゼントします</p>
+        <p class="d">時間内に話せなかった部分も、全部入っています。<br>QRコードで友だち追加して、このキーワードを送ってください。</p>
+        <p class="kw">ゆうちゃん大好き</p>
+        <p class="d" style="font-size:24px;">LINE ID：@okazaki_official</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ■ 1. プロデュースとは -->
+  <section class="slide section">
+    <p class="label">1</p>
+    <h1>プロデュースとは何か</h1>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">1　プロデュースとは何か</p>
+    <h2>1人でビジネスをやると、<span class="accent">2つの仕事</span>を抱える</h2>
+    <div class="two">
+      <div class="card">
+        <p class="ttl"><span class="tag">作る</span>コンテンツ制作</p>
+        <ul class="pts">
+          <li>講座・本・サービスの中身</li>
+          <li>コンテンツを持っている人は<br>ここが得意</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <p class="ttl"><span class="tag">売る</span>販売・プロモーション</p>
+        <ul class="pts">
+          <li>集客・告知</li>
+          <li>申込から決済までの流れ</li>
+          <li>大変で、<b>できればやりたくない</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">「売る」を得意な人に渡す。これがプロデュース</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">1　プロデュースとは何か</p>
+    <h2>プロデュース＝<span class="accent">役割分担</span></h2>
+    <div class="roles">
+      <div class="who a">
+        <p class="r">される側（コンテンツを持つ人）</p>
+        <p class="t">作る</p>
+        <p class="d">良いコンテンツを出すことに<br>集中する</p>
+      </div>
+      <div class="mid">＋</div>
+      <div class="who b">
+        <p class="r">する側（プロデューサー）</p>
+        <p class="t">売る</p>
+        <p class="d">集客・販売・プロモーションを<br>組んで回す</p>
+      </div>
+    </div>
+    <div class="point">プロデューサーが入るメリットは、<br>才能を足してもらうことではなく、役割を分けられること</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">1　プロデュースとは何か｜理論の裏付け</p>
+    <h2>分業の力：<span class="accent">アダム・スミス</span>のピン工場</h2>
+    <div class="th">
+      <div class="ppl"><figure><img src="img/people/smith.jpg" alt="アダム・スミス"><figcaption>アダム・スミス<span>経済学者</span></figcaption></figure></div>
+      <div class="thtxt">
+        <ul class="pts">
+          <li class="sm">『国富論』（1776年）の有名なたとえ話</li>
+          <li class="sm">ピンを作る工程を18に分け、10人で分担すると<b>1日4万8,000本以上</b>作れた</li>
+          <li class="sm">1人ですべてやると、<b>1日20本も作れない</b>だろうと書いている</li>
+          <li class="sm">得意な人が得意な工程に集中すると、全体の成果は何倍にもなる</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">「作る」と「売る」を分けるのは、手抜きではなく成果を最大にする方法</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">1　プロデュースとは何か｜理論の裏付け｜名言</p>
+    <div class="qwrap">
+      <img class="gray" src="img/people/drucker.jpg" alt="ピーター・ドラッカー">
+      <div class="qtxt">
+        <p class="qmark">“</p>
+        <p class="qt">マーケティングの目的は、<br>販売を不要にすることである。</p>
+        <p class="qname">ピーター・ドラッカー<span>経営学者</span></p>
+        <p class="qsrc">『マネジメント』より（要旨）</p>
+      </div>
+    </div>
+    <div class="point">「売る」は、そこだけで1つの専門分野。だから得意な人に任せる価値がある</div>
+  </section>
+
+  <!-- ■ 2. される側の経験 -->
+  <section class="slide section">
+    <p class="label">2</p>
+    <h1>される側をやってみて</h1>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">2　される側をやってみて</p>
+    <h2>良かったこと、もどかしかったこと</h2>
+    <div class="two">
+      <div class="card blue">
+        <p class="ttl"><span class="tag">良かった</span></p>
+        <ul class="pts">
+          <li>良いコンテンツを出すことだけに<br>集中できた</li>
+          <li>苦手な「売る」を考えなくてよかった</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <p class="ttl"><span class="tag">もどかしかった</span></p>
+        <ul class="pts">
+          <li>集客を任せると、自分の手が届かない<br>部分が増える</li>
+          <li>思うように進まず、やきもきした</li>
+          <li>「もっとこうすれば」と思っても、<br>関係性を考えると言いにくい</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">2　される側をやってみて</p>
+    <h2>口を出すと、どうなるか</h2>
+    <div class="chain">
+      <div class="st"><p class="n">される側が</p><p class="t">口を出す</p><p class="d">「もっとこうしたら？」</p></div>
+      <div class="arw">→</div>
+      <div class="st"><p class="n">うまくいかないと</p><p class="t">言い訳が生まれる</p><p class="d">「言う通りにやらなかったから」</p></div>
+      <div class="arw">→</div>
+      <div class="st hl"><p class="n">だから</p><p class="t">100%任せる</p><p class="d">プロデューサーの言うことを<br>そのままやるのが大前提</p></div>
+    </div>
+    <div class="point">任せきるなら、任せる相手を間違えられない<small>される側の極意＝誰に頼むかがいちばん大事</small></div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">2　される側をやってみて｜名言</p>
+    <div class="qwrap">
+      <img src="img/people/collins.jpg" alt="ジム・コリンズ">
+      <div class="qtxt">
+        <p class="qmark">“</p>
+        <p class="qt">最初に人を選び、<br>その後に目標を選ぶ。</p>
+        <p class="qname">ジム・コリンズ<span>経営学者</span></p>
+        <p class="qsrc">『ビジョナリー・カンパニー2 飛躍の法則』より</p>
+      </div>
+    </div>
+    <div class="point">何をやるかより先に、誰とやるか。プロデューサー選びも同じ</div>
+  </section>
+
+  <!-- ■ 3. する側に回ろう -->
+  <section class="slide section">
+    <p class="label">3</p>
+    <h1>する側に回ろう</h1>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">3　する側に回ろう</p>
+    <h2>今日の提案：<span class="accent">プロデュースする側</span>へ</h2>
+    <div class="two">
+      <div class="card blue">
+        <p class="ttl"><span class="tag">提案</span>する側に回る</p>
+        <ul class="pts">
+          <li>自分でコンテンツを作らなくていい</li>
+          <li>組み立て方は、中身が変わっても同じ</li>
+          <li>一度身につけると何度でも使える</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="ttl"><span class="tag">ただし</span>される側も経験する</p>
+        <ul class="pts">
+          <li>任せたときのもどかしさ</li>
+          <li>言いたいことが言えない気持ち</li>
+          <li>これが分かるプロデューサーは強い</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">いま「される側」の人も、その経験はムダにならない</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">3　する側に回ろう</p>
+    <h2>する側の現実：<span class="accent">回収は立ち上げの後</span></h2>
+    <div class="curve">
+      <svg width="700" height="440" viewBox="0 0 700 440" aria-label="立ち上げ期は赤字、立ち上がった後に回収期に入る図">
+        <line x1="60" y1="20" x2="60" y2="400" stroke="#1f2933" stroke-width="3"/>
+        <line x1="60" y1="230" x2="680" y2="230" stroke="#1f2933" stroke-width="3"/>
+        <text x="20" y="40" font-size="22" fill="#5b6472">利益</text>
+        <text x="610" y="270" font-size="22" fill="#5b6472">時間</text>
+        <rect x="62" y="232" width="250" height="166" fill="#fff4e0"/>
+        <rect x="312" y="22" width="366" height="206" fill="#e8f0fe"/>
+        <path d="M60 230 C 130 330, 220 380, 290 300 S 420 120, 680 50" fill="none" stroke="#1f6feb" stroke-width="6"/>
+        <text x="110" y="385" font-size="28" font-weight="800" fill="#c27400">立ち上げ期</text>
+        <text x="100" y="420" font-size="20" fill="#5b6472">いちばん大変・持ち出し</text>
+        <text x="420" y="200" font-size="28" font-weight="800" fill="#1f6feb">回収期</text>
+        <text x="390" y="180" font-size="20" fill="#5b6472"></text>
+        <line x1="312" y1="20" x2="312" y2="400" stroke="#9aa3ae" stroke-width="2" stroke-dasharray="8 8"/>
+      </svg>
+      <div class="txt">
+        <ul class="pts">
+          <li>プロデュースは<b>立ち上げがいちばん大変</b></li>
+          <li>利益を回収できるのは、しっかり立ち上がった後</li>
+          <li>いちばん困るのは、<b>長く一緒に仕事ができない</b>こと</li>
+          <li>「長く続けてほしい」と言われる関係と、提供し続ける仕組みが要る</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">コンテンツを作るのとは、また違う大変さがある</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">3　する側に回ろう｜理論の裏付け</p>
+    <h2>顧客維持の法則：<span class="accent">続くほど利益が出る</span></h2>
+    <div class="th">
+      <div class="ico-box"><p class="i">📈</p><p class="c">フレデリック・<br>ライクヘルド<br><span style="font-weight:600;font-size:18px;">ベイン・アンド・カンパニー</span></p></div>
+      <div class="thtxt">
+        <ul class="pts">
+          <li class="sm">ライクヘルドらの研究：顧客の維持率を<b>5%上げるだけで、利益が25〜95%増える</b></li>
+          <li class="sm">新しいお客様を集めるのは、今のお客様に続けてもらうより<b>何倍もお金がかかる</b>（よく「1：5の法則」と呼ばれる）</li>
+          <li class="sm">つまり、利益の多くは「続いた後」に生まれる</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">プロデュースも同じ。長く続く関係をつくれるかで、回収できるかが決まる</div>
+  </section>
+
+  <!-- ■ 4. 売る仕事の全体図 -->
+  <section class="slide section">
+    <p class="label">4</p>
+    <h1>売る仕事の全体図</h1>
+    <p class="lead">セールスファネル</p>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">4　売る仕事の全体図</p>
+    <h2>セールスファネル：<span class="accent">4つの段</span></h2>
+    <div class="funnel-wrap">
+      <div class="funnel">
+        <div class="lv l1"><p class="t">拡散</p><p class="d">SNS・発信・活動</p></div>
+        <div class="lv l2"><p class="t">リスト獲得</p><p class="d">LINE公式・メルマガ</p></div>
+        <div class="lv l3"><p class="t">フロント商品</p><p class="d">体験会・入門講座</p></div>
+        <div class="lv l4"><p class="t">バックエンド</p><p class="d">本命の商品</p></div>
+      </div>
+      <div class="funnel-side">
+        <div class="row hl"><p class="t">← 極意①　役に立つ×面白い</p><p class="d">知ってもらう。いちばん広い入口</p></div>
+        <div class="row hl"><p class="t">← メールを必ず取る</p><p class="d">こちらから届けられる関係をつくる</p></div>
+        <div class="row"><p class="t">手に取りやすい最初の商品</p><p class="d">体験してもらい、信頼を深める</p></div>
+        <div class="row hl"><p class="t">← 極意②　ウォンツ×ニーズ</p><p class="d">ここで利益が出る。今すぐ客に売る</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">4　売る仕事の全体図</p>
+    <h2>ファネルの<span class="accent">上部ほど具体性</span>が求められる</h2>
+    <table class="tbl">
+      <tr><th style="width:22%">段</th><th style="width:34%">相手の状態</th><th>求められること</th></tr>
+      <tr><td class="h">上（拡散）</td><td>まだ興味がない</td><td>「何が得られるか」が<b>一目で具体的に</b>分かること。<br>分からないと素通りされる</td></tr>
+      <tr><td class="h">中（リスト・フロント）</td><td>少し興味がある</td><td>続きを受け取りたい、試してみたいと思える理由</td></tr>
+      <tr><td class="h">下（バックエンド）</td><td>すでに興味がある</td><td>深い話ができる。本気で変わりたい人に応える中身</td></tr>
+    </table>
+    <div class="point">プロデューサーが引き受けるのは、このファネル全体を組んで回すこと<small>だから扱うコンテンツが変わっても、やることは同じ</small></div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">4　売る仕事の全体図｜名言</p>
+    <div class="qwrap">
+      <img class="gray" src="img/people/ogilvy.jpg" alt="デイヴィッド・オグルヴィ">
+      <div class="qtxt">
+        <p class="qmark">“</p>
+        <p class="qt">平均すると、見出しは<br>本文の5倍の人に読まれる。</p>
+        <p class="qname">デイヴィッド・オグルヴィ<span>「広告の父」と呼ばれた広告人</span></p>
+        <p class="qsrc">『ある広告人の告白』より（要旨）</p>
+      </div>
+    </div>
+    <div class="point">入口で伝わらなければ、その先は読まれない。だから入口ほど具体的に</div>
+  </section>
+
+  <!-- ■ 5. 極意① -->
+  <section class="slide section">
+    <p class="label">5　極意①</p>
+    <h1>本人が本気になる<br>状況をつくる</h1>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">5　極意①　本人が本気になる状況をつくる</p>
+    <h2>「任せる」と「お任せ」は<span class="accent">別物</span></h2>
+    <div class="two">
+      <div class="card blue">
+        <p class="ttl"><span class="tag">○</span>任せる</p>
+        <ul class="pts">
+          <li>売り方はプロデューサーの<br>言うとおりにやる</li>
+          <li>自分の持ち場には本気で取り組む</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <p class="ttl"><span class="tag">×</span>お任せ</p>
+        <ul class="pts">
+          <li>「プロデューサーがついたから、<br>あとはよろしく」</li>
+          <li>自分の持ち場まで手放してしまう</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">お任せになった瞬間、うまくいかなくなる</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">5　極意①｜理論の裏付け</p>
+    <h2>コミットメントと一貫性の原理</h2>
+    <div class="th">
+      <div class="ppl"><figure><img src="img/people/cialdini.jpg" alt="ロバート・チャルディーニ"><figcaption>ロバート・チャルディーニ<span>社会心理学者</span></figcaption></figure></div>
+      <div class="thtxt">
+        <ul class="pts">
+          <li class="sm">『影響力の武器』で紹介された原理</li>
+          <li class="sm">人は一度「やる」と自分で決めて表明すると、<b>その決定に沿って行動し続けようとする</b></li>
+          <li class="sm">あわせて「IKEA効果」（行動経済学者ノートンらの研究）：自分で手を動かして作ったものほど、価値を高く感じる</li>
+          <li class="sm">「お任せ」は、本人が自分で決める場面も、手を動かす場面も奪ってしまう</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">本人が自分で決め、自分の持ち場で手を動かす。それが本気を生む</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">5　極意①　本人が本気になる状況をつくる</p>
+    <h2>広告だけでは、人は集まらない</h2>
+    <p class="sub" style="font-size:28px; margin:-14px 0 22px;">広告は外せない。でも広告だけで集客できるのは、よほど尖ったコンテンツだけ</p>
+    <div class="chain">
+      <div class="st"><p class="n">1</p><p class="t">広告で知る</p><p class="d">プロデューサーの持ち場</p></div>
+      <div class="arw">→</div>
+      <div class="st hl"><p class="n">2</p><p class="t">SNSで調べる</p><p class="d">本人の発信を見る</p></div>
+      <div class="arw">→</div>
+      <div class="st hl"><p class="n">3</p><p class="t">信用する</p><p class="d">「この人なら」</p></div>
+      <div class="arw">→</div>
+      <div class="st"><p class="n">4</p><p class="t">体験会に申込</p><p class="d">フロント商品へ</p></div>
+    </div>
+    <ul class="pts" style="margin-top:26px;">
+      <li class="sm">SNSでの発信は本人にしかできない。プロデューサーが代わりに書いても信用は生まれない</li>
+      <li class="sm">SNSで売れたからと広告だけに乗り換え、発信をやめた人はうまくいかなくなる</li>
+    </ul>
+    <div class="point" style="margin-top:22px;">役割分担しても「信用を積む」仕事は本人の手元に残る</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">5　極意①｜理論の裏付け</p>
+    <h2>人は買う前に<span class="accent">「調べる」</span></h2>
+    <div class="th">
+      <div class="ico-box"><p class="i">🔍</p><p class="c">ZMOT<br><span style="font-weight:600;font-size:18px;">ゼロ番目の真実の瞬間</span></p></div>
+      <div class="thtxt">
+        <ul class="pts">
+          <li class="sm"><b>ZMOT</b>（Google 2011年）：お客様は広告を見てから買うまでの間に、ネットで調べて判断している</li>
+          <li class="sm"><b>単純接触効果</b>（心理学者ザイアンス 1968年）：人は、何度も目にするものに好意を持ちやすい</li>
+          <li class="sm">広告は「知ってもらう」きっかけ。信用は、調べた先の発信と、くり返しの接触で生まれる</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">調べた先に、本人の発信がたまっているか。ここは本人にしかつくれない</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">5　極意①　本人が本気になる状況をつくる</p>
+    <h2>集客は<span class="accent">「役に立つ×面白い」</span>で判断する</h2>
+    <div class="mx-wrap">
+      <div class="mx">
+        <div class="yl"><span style="writing-mode:horizontal-tb">▲</span>役に立つ</div>
+        <div class="c"><p class="k">役に立つ だけ</p><p class="t">人が集まらない</p><p class="d">内容は正しいのに<br>入口で素通りされる</p></div>
+        <div class="c best"><p class="k">役に立つ × 面白い</p><p class="t">集まる・広がる</p><p class="d">ここを狙う</p></div>
+        <div class="c"><p class="k">どちらでもない</p><p class="t">届かない</p><p class="d">誰の目にも留まらない</p></div>
+        <div class="c"><p class="k">面白い だけ</p><p class="t">集まるが<br>つながらない</p><p class="d">リストや商品に進まない</p></div>
+        <div class="xl">面白い（楽しい）　▶</div>
+      </div>
+      <div class="mx-side">
+        <ul class="pts">
+          <li class="sm">役に立つだけだと売れない、というより<b>そもそも人が集まらない</b></li>
+          <li class="sm">ファネルのいちばん上は、面白さがないと入口にすら立ってもらえない</li>
+          <li class="sm">本人の発信が「役に立つ×面白い」になっているか。<b>ここも本人の持ち場</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">5　極意①｜理論の裏付け</p>
+    <h2>なぜ「あれ」は広がるのか</h2>
+    <div class="th">
+      <div class="ppl"><figure><img src="img/people/berger.jpg" alt="ジョーナ・バーガー"><figcaption>ジョーナ・バーガー<span>ペンシルベニア大学 教授</span></figcaption></figure></div>
+      <div class="thtxt">
+        <ul class="pts">
+          <li class="sm">『なぜ「あれ」は流行るのか』で、広がる情報の6つの原則を示した</li>
+          <li class="sm">その中に<b>「実用的価値」（役に立つ）</b>と<b>「感情」（心が動く）</b>がある</li>
+          <li class="sm">バーガーらがニューヨーク・タイムズの記事を分析した研究では、<b>感情を強く動かす記事ほどよくシェアされていた</b></li>
+          <li class="sm">役に立つだけでは、人に教えたくなるほど心は動かない</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">「役に立つ」に「面白い」が重なったとき、人は集まり、広がる</div>
+  </section>
+
+  
+  <!-- ■ 6. 極意② -->
+  <section class="slide section">
+    <p class="label">6　極意②</p>
+    <h1>長く戦える<br>コンテンツを選ぶ</h1>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">6　極意②　長く戦えるコンテンツを選ぶ</p>
+    <h2>強いコンテンツ＝<span class="accent">ウォンツとニーズ</span>を両方つかむ</h2>
+    <div class="mx-wrap">
+      <div class="mx">
+        <div class="yl"><span style="writing-mode:horizontal-tb">▲</span>ウォンツ（快）</div>
+        <div class="c"><p class="k">ウォンツ だけ</p><p class="t">そのうち客</p><p class="d">憧れはあるが<br>急がない</p></div>
+        <div class="c best"><p class="k">ウォンツ × ニーズ</p><p class="t">今すぐ客</p><p class="d">バックエンドはここに売る</p></div>
+        <div class="c"><p class="k">どちらでもない</p><p class="t">客にならない</p></div>
+        <div class="c"><p class="k">ニーズ だけ</p><p class="t">困っているが<br>動かない</p><p class="d">お金を払う気持ちまで<br>いかない</p></div>
+        <div class="xl">ニーズ（不快）　▶</div>
+      </div>
+      <div class="mx-side">
+        <ul class="pts">
+          <li class="sm"><b>ウォンツ</b>＝強烈な「こうなりたい」という願望（<b>快</b>を得たい）</li>
+          <li class="sm"><b>ニーズ</b>＝強烈な困りごと（<b>不快</b>を避けたい）</li>
+          <li class="sm">両方を解決する手段を持っていること＝<b>商品力</b></li>
+          <li class="sm">フロント商品やリストへの案内で、片方しかない人を両方そろった状態に育てていく</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">6　極意②｜理論の裏付け</p>
+    <h2><span class="accent">快・不快の法則</span></h2>
+    <div class="th">
+      <div class="ppl"><figure><img src="img/people/bentham.jpg" alt="ジェレミー・ベンサム"><figcaption>ジェレミー・ベンサム<span>哲学者</span></figcaption></figure><figure><img src="img/people/robbins.jpg" alt="アンソニー・ロビンズ"><figcaption>アンソニー・ロビンズ<span>コーチ・作家</span></figcaption></figure></div>
+      <div class="thtxt">
+        <ul class="pts">
+          <li class="sm">人は<b>快を得たい</b>、<b>不快を避けたい</b>という2つの力で動く。とてもシンプルだが、とても強力</li>
+          <li class="sm">ベンサム「自然は人類を、苦痛と快楽という2人の君主の支配のもとに置いた」（『道徳および立法の諸原理序説』1789年）</li>
+          <li class="sm">ロビンズも著書や講演で、人の行動は「苦痛を避けたい」「快楽を得たい」の2つで決まると説いている</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">ウォンツ＝快、ニーズ＝不快。お客様に<b>両方とも</b>感じてもらうことが大事</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">6　極意②｜理論の裏付け</p>
+    <h2>不快は、快の<span class="accent">約2倍</span>強く感じる</h2>
+    <div class="th">
+      <div class="ppl"><figure><img src="img/people/kahneman.jpg" alt="ダニエル・カーネマン"><figcaption>ダニエル・カーネマン<span>心理学者・ノーベル経済学賞</span></figcaption></figure></div>
+      <div class="thtxt">
+        <ul class="pts">
+          <li class="sm"><b>プロスペクト理論</b>（カーネマンとトヴェルスキー 1979年）</li>
+          <li class="sm">同じ金額でも、<b>失う痛みは、得る喜びの約2倍</b>強く感じる（損失回避）</li>
+          <li class="sm">「こうなりたい」だけでは、人はなかなか動かない</li>
+          <li class="sm">「このままだと困る」という不快が重なったとき、今すぐ動く理由が生まれる</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">快だけでも、不快だけでも弱い。両方そろった人が「今すぐ客」になる</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">6　極意②　長く戦えるコンテンツを選ぶ</p>
+    <h2>長く続けられるか（<span class="accent">エバーグリーン</span>か）</h2>
+    <div class="two">
+      <div class="card blue">
+        <p class="ttl"><span class="tag">基本</span>長く続けられるテーマ</p>
+        <ul class="pts">
+          <li>今しかできないものは、回収に入る前に終わってしまう</li>
+          <li>例：全国出版オーディション、出版企画書勉強会<br>＝長く続けられると判断して選んだ</li>
+        </ul>
+      </div>
+      <div class="card orange">
+        <p class="ttl"><span class="tag">例外</span>短期でも引きが強いもの</p>
+        <ul class="pts">
+          <li>例：クロードコード。AIエージェントが広まるには時間がかかるので比較的長くやれそう。ただ今ほどの引きの強さは、いずれ落ちる</li>
+          <li>目的は単発の利益ではなく<b>リストを一気に集めること</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">選び方は2つ<small>① 長く続けられるテーマを探す　② 短期でも、リストを一気に集められるものを攻める</small></div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">6　極意②｜名言</p>
+    <div class="qwrap">
+      <img src="img/people/bezos.jpg" alt="ジェフ・ベゾス">
+      <div class="qtxt">
+        <p class="qmark">“</p>
+        <p class="qt">「10年後に何が変わるか」はよく聞かれる。<br>でも「10年後も変わらないものは何か」は<br>ほとんど聞かれない。<br>本当に大事なのは、後のほうだ。</p>
+        <p class="qname">ジェフ・ベゾス<span>Amazon 創業者</span></p>
+        <p class="qsrc">2012年の講演より（要旨）</p>
+      </div>
+    </div>
+    <div class="point">変わらないものの上に立てた事業は、長く戦える</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">6　極意②｜理論の裏付け</p>
+    <h2><span class="accent">リンディ効果</span>：長く続いたものは、これからも続く</h2>
+    <div class="th">
+      <div class="ppl"><figure><img src="img/people/taleb.jpg" alt="ナシーム・ニコラス・タレブ"><figcaption>ナシーム・ニコラス・<br>タレブ<span>思想家・元トレーダー</span></figcaption></figure></div>
+      <div class="thtxt">
+        <ul class="pts">
+          <li class="sm">タレブが『反脆弱性』などで広めた考え方</li>
+          <li class="sm">本やアイデアのように朽ちないものは、<b>これまで長く残ってきたものほど、この先も長く残りやすい</b></li>
+          <li class="sm">流行りものは、引きは強いが寿命が短い</li>
+          <li class="sm">「出版」や「企画書」のように昔から求められてきたテーマは、これからも求められる</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">長く続けられるテーマを選ぶ。短期のテーマは、リストを集める目的で攻める</div>
+  </section>
+
+  <!-- ■ 7. リスト -->
+  <section class="slide section">
+    <p class="label">7</p>
+    <h1>リストは<br>メールを必ず取る</h1>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">7　リストはメールを必ず取る</p>
+    <h2>メールアドレスは<span class="accent">固定の住所</span></h2>
+    <table class="tbl">
+      <tr><th style="width:20%"></th><th style="width:40%">LINE公式・SNS</th><th>メール</th></tr>
+      <tr><td class="h">変わりやすさ</td><td>変わっていく</td><td>今はアドレスをコロコロ変える人がいない</td></tr>
+      <tr><td class="h">届かなくなる</td><td>ブロックされたら届かない</td><td>手元のリストから送り続けられる</td></tr>
+      <tr><td class="h">アカウント停止</td><td>止められたら<b>一瞬でゼロ</b></td><td>配信業者に追い出されても、<b>リストは自分の手元に残る</b></td></tr>
+    </table>
+    <div class="point">原則は両方取る。ただし長くやるなら、メールは必ず取る</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">7　リストはメールを必ず取る｜名言</p>
+    <div class="qwrap">
+      <img src="img/people/godin.jpg" alt="セス・ゴーディン">
+      <div class="qtxt">
+        <p class="qmark">“</p>
+        <p class="qt">パーミッション・マーケティングとは、<br>受け取りたいと思っている人に、<br>期待され、個人的で、関連のあるメッセージを<br>届ける特権である。権利ではない。</p>
+        <p class="qname">セス・ゴーディン<span>マーケター・作家</span></p>
+        <p class="qsrc">『パーミッション・マーケティング』の考え方より（要旨）</p>
+      </div>
+    </div>
+    <div class="point">「届けていいですよ」という許可がリスト。その許可を、自分の手元に持っておく</div>
+  </section>
+
+  <!-- ■ まとめ -->
+  <section class="slide section">
+    <p class="label">まとめ</p>
+    <h1>プロデュースの極意</h1>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">まとめ</p>
+    <h2>今日のおさらい</h2>
+    <table class="tbl">
+      <tr><td class="h">プロデュースとは</td><td>役割分担。「作る」と「売る」を分ける</td></tr>
+      <tr><td class="h">される側の極意</td><td>相手を選んだら、100%任せる。だから誰に頼むかがいちばん大事</td></tr>
+      <tr><td class="h">売る仕事の全体図</td><td>拡散 → リスト獲得 → フロント → バックエンド。上部ほど具体性</td></tr>
+      <tr><td class="h">する側の極意①</td><td>本人が本気になる状況をつくる。集客は「役に立つ×面白い」</td></tr>
+      <tr><td class="h">する側の極意②</td><td>長く戦えるコンテンツを選ぶ。バックエンドは「ウォンツ×ニーズ」の今すぐ客へ</td></tr>
+      <tr><td class="h">リスト</td><td>メールは固定の住所。必ず取る</td></tr>
+    </table>
+    <div class="point">プロデュースは、長く続いて初めて実る</div>
+  </section>
+
+  <!-- ■ 出版へ（CTA②） -->
+    <section class="slide body">
+    <p class="kicker">最後に｜理論の裏付け</p>
+    <h2><span class="accent">ハロー効果</span>と<span class="accent">権威の原理</span></h2>
+    <div class="th">
+      <div class="ppl"><figure><img src="img/people/cialdini.jpg" alt="ロバート・チャルディーニ"><figcaption>ロバート・チャルディーニ<span>社会心理学者</span></figcaption></figure></div>
+      <div class="thtxt">
+        <ul class="pts">
+          <li class="sm"><b>ハロー効果</b>（心理学者ソーンダイク 1920年）：目立つ1つの特徴が、その人全体の評価を引き上げる</li>
+          <li class="sm"><b>権威の原理</b>（チャルディーニ『影響力の武器』）：人は専門家・権威とみなした人の話を信じやすい</li>
+          <li class="sm">「本を出している」は、その両方を一度に満たす</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">調べた先に本がある。それだけで、信用の積み上がり方が変わる</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">最後に</p>
+    <h2>本人にしか積めない信用の決定版＝<span class="accent">出版</span></h2>
+    <div class="two">
+      <div class="card blue">
+        <p class="ttl"><span class="tag">信用</span>調べた先に本がある</p>
+        <ul class="pts">
+          <li>広告で知る → SNSで調べる → 信用する</li>
+          <li>調べた先に本があると、信用が一気に上がる</li>
+          <li>本は何年も売れ続ける、長く戦えるコンテンツ</li>
+        </ul>
+      </div>
+      <div class="card">
+        <p class="ttl"><span class="tag">経験</span>される側を体験できる</p>
+        <ul class="pts">
+          <li>出版は、編集者というプロデューサーと<br>組んで1冊つくる仕事</li>
+          <li>「一度はされる側を」の実践の場になる</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point">出版の第一歩は、企画書から</div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">ご案内</p>
+    <h2>出版企画書勉強会</h2>
+    <div class="cta-box">
+      <img class="qrimg" src="img/line_qr.png" alt="LINE公式 友だち追加QRコード">
+      <div>
+        <p class="t">企画書が書ける、<br>あなたになりませんか？</p>
+        <p class="d">毎月1回、出版社・編集者をゲストに迎える勉強会。<br>企画書を提出すると、編集者に共有されます。</p>
+        <p class="d"><b>3ヶ月無料</b>　その後は月3,850円（税込）</p>
+        <p class="url">お申し込みは、LINE公式のメニューから</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide cover">
+    <p class="pre">ありがとうございました</p>
+    <h1 style="font-size:96px;">プロデュースの極意</h1>
+    <p class="lead">完全版の資料は、<br>LINE公式でお受け取りください</p>
+    <p class="who">岡崎かつひろ</p>
+    <div class="endqr"><img src="img/line_qr.png" alt="LINE公式 友だち追加QRコード"><p>キーワード<br><span class="accent">ゆうちゃん大好き</span></p></div>
+  </section>
+
+  <section class="slide body">
+    <p class="kicker">写真の出典</p>
+    <h2 style="font-size:40px;">写真：Wikimedia Commons</h2>
+    <div class="credit-list">
+      アダム・スミス：作者不詳（パブリックドメイン）<br>
+      ピーター・ドラッカー：Jeff McNeill（CC BY-SA 2.0）<br>
+      ジム・コリンズ：Ijon（CC BY-SA 4.0）／一部を切り抜き<br>
+      デイヴィッド・オグルヴィ：Advertising Hall of Fame<br>
+      ロバート・チャルディーニ：Viktorbuehler（CC BY-SA 3.0）<br>
+      ジョーナ・バーガー：Jonah Berger（CC BY-SA 3.0）<br>
+      ジェレミー・ベンサム：Henry William Pickersgill（パブリックドメイン）／一部を切り抜き<br>
+      アンソニー・ロビンズ：Randy Stewart（CC BY-SA 2.0）<br>
+      ダニエル・カーネマン：nrkbeta（CC BY-SA 2.0）<br>
+      ジェフ・ベゾス：米国国防総省（パブリックドメイン）<br>
+      ナシーム・ニコラス・タレブ：Sarah Josephine Taleb（Attribution）<br>
+      セス・ゴーディン：Joi Ito（CC BY 2.0）
+    </div>
+  </section>
+</div>
+
+<div class="hint">→ / スペース / クリック：次へ　← ：戻る　｜　<a href="produce_gokui_okazaki.pdf" download onclick="event.stopPropagation()">PDFをダウンロード</a></div>
+<div id="glow"></div>
+
+<script>
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  slides.forEach((s, i) => s.dataset.no = (i + 1) + ' / ' + slides.length);
+
+  // ※クリックで1つずつ出す演出は、内容が確定してから付ける
+  let cur = Math.min(Math.max(parseInt(location.hash.slice(1)) - 1 || 0, 0), slides.length - 1);
+
+
+  function show(i) {
+    cur = Math.min(Math.max(i, 0), slides.length - 1);
+    slides.forEach((s, j) => s.classList.toggle('active', j === cur));
+    history.replaceState(null, '', '#' + (cur + 1));
+  }
+  const next = () => show(cur + 1);
+  const prev = () => show(cur - 1);
+
+  // ── 光るポインター ──
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    glow.classList.add('show');
+  });
+  document.addEventListener('mouseleave', () => glow.classList.remove('show'));
+
+  function fit() {
+    const scale = Math.min(innerWidth / 1600, innerHeight / 900);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'ArrowDown', ' ', 'PageDown', 'Enter'].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+    if (e.key === 'p' || e.key === 'P') window.print();
+  });
+  document.addEventListener('click', next);
+  addEventListener('resize', fit);
+
+  fit();
+  show(cur);
+</script>
+</body>
+</html>
