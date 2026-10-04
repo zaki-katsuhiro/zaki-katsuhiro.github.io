@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自己紹介 岡崎かつひろ</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1f2933;
+    --sub: #6b7280;
+    --accent: #1f6feb;
+    --accent-soft: #e8f0fe;
+    --line: #e5e7eb;
+    --orange: #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #2b2f36; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  /* 1600×900 の画面を、ウィンドウの大きさに合わせて拡大縮小する */
+  .stage {
+    position: absolute; top: 50%; left: 50%;
+    width: 1600px; height: 900px;
+    transform-origin: center center;
+  }
+  .slide {
+    display: none;
+    width: 1600px; height: 900px;
+    background: var(--bg);
+    padding: 72px 120px 60px;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+  /* 上の青い帯 */
+  .slide::before {
+    content: ""; position: absolute; left: 0; top: 0; right: 0; height: 12px;
+    background: linear-gradient(90deg, var(--accent) 0%, #6ea8ff 100%);
+  }
+  .slide::after {
+    content: attr(data-no);
+    position: absolute; right: 48px; bottom: 30px;
+    font-size: 20px; color: var(--sub);
+  }
+
+  .kicker {
+    font-size: 28px; font-weight: 800; color: var(--accent);
+    letter-spacing: .12em; white-space: nowrap;
+  }
+  h2 { font-size: 56px; line-height: 1.35; font-weight: 800; margin: 8px 0 0; white-space: nowrap; }
+  .accent { color: var(--accent); }
+
+  /* ── 1枚目：会社と経歴 ── */
+  .who { display: flex; align-items: baseline; gap: 40px; margin-top: 10px; }
+  .who .name { font-size: 104px; font-weight: 800; line-height: 1.2; white-space: nowrap; }
+  .who .co {
+    font-size: 36px; font-weight: 700; white-space: nowrap;
+    padding: 10px 28px; border-radius: 999px; background: var(--accent-soft); color: var(--accent);
+  }
+  .timeline { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; margin-top: 64px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 34px; height: 6px;
+    background: var(--line); border-radius: 3px;
+  }
+  .step { position: relative; text-align: center; }
+  .step .yr {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 150px; height: 74px; padding: 0 22px; border-radius: 999px;
+    background: #fff; border: 5px solid var(--accent);
+    font-size: 32px; font-weight: 800; color: var(--accent); white-space: nowrap;
+  }
+  .step .ttl { font-size: 34px; font-weight: 800; line-height: 1.4; margin-top: 28px; white-space: nowrap; }
+  .step .dsc { font-size: 27px; color: var(--sub); line-height: 1.55; margin-top: 12px; white-space: nowrap; }
+  .step.now .yr { background: var(--accent); color: #fff; }
+  .step.now .ttl { color: var(--accent); }
+  .works { display: flex; align-items: center; gap: 22px; margin-top: 70px; padding-top: 40px; border-top: 3px solid var(--accent-soft); }
+  .works .lbl { font-size: 30px; font-weight: 800; color: var(--sub); white-space: nowrap; margin-right: 10px; }
+  .works .chip {
+    font-size: 34px; font-weight: 800; white-space: nowrap;
+    padding: 14px 32px; border-radius: 16px; border: 4px solid var(--accent); color: var(--accent); background: #fff;
+  }
+
+  /* ── 2枚目：著書 ── */
+  .shelf { display: flex; flex-direction: column; align-items: center; gap: 26px; margin-top: 40px; }
+  .shelf .row { display: flex; gap: 26px; }
+  .shelf img {
+    height: 218px; width: 148px; object-fit: cover; display: block;
+    box-shadow: 0 8px 20px rgba(0,0,0,.20); border-radius: 2px;
+  }
+  .total {
+    align-self: center; margin-top: 38px;
+    display: flex; align-items: baseline; gap: 28px;
+    background: var(--accent); color: #fff; border-radius: 24px;
+    padding: 14px 64px 18px; box-shadow: 0 12px 30px rgba(31,111,235,.30);
+  }
+  .total .lbl { font-size: 38px; font-weight: 700; white-space: nowrap; }
+  .total .num { font-size: 92px; font-weight: 800; line-height: 1; white-space: nowrap; }
+  .total .num small { font-size: 48px; margin-left: 4px; }
+
+  /* ── 3枚目：オーディションと勉強会 ── */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; }
+  .card {
+    border: 4px solid var(--line); border-radius: 24px; padding: 40px 42px 30px;
+    background: #fff;
+  }
+  .card .tag {
+    display: inline-block; font-size: 28px; font-weight: 800; color: #fff; background: var(--accent);
+    padding: 6px 20px; border-radius: 999px; white-space: nowrap;
+  }
+  .card .ttl { font-size: 50px; font-weight: 800; line-height: 1.3; margin-top: 16px; white-space: nowrap; }
+  .card ul { list-style: none; margin-top: 22px; border-top: 3px solid var(--accent-soft); padding-top: 10px; }
+  .card li {
+    font-size: 34px; line-height: 1.45; padding: 24px 0 24px 52px; position: relative; white-space: nowrap;
+  }
+  .card li::before {
+    content: "✓"; position: absolute; left: 0; top: 24px;
+    width: 38px; height: 38px; border-radius: 50%; background: var(--accent-soft);
+    color: var(--accent); font-size: 24px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; line-height: 1;
+    margin-top: 5px;
+  }
+  .card li b { color: var(--accent); }
+
+  .hint { position: fixed; left: 16px; bottom: 12px; font-size: 13px; color: #9aa3ae; }
+
+  @media print {
+    @page { size: 1600px 900px; margin: 0; }
+    html, body { background: #fff; overflow: visible; height: auto; }
+    .stage { position: static; transform: none !important; }
+    .slide { display: flex !important; page-break-after: always; }
+    .slide::after, .hint { display: none; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- 1枚目：会社と経歴 -->
+  <section class="slide">
+    <div class="kicker">自己紹介</div>
+    <div class="who">
+      <div class="name">岡崎かつひろ</div>
+      <div class="co">株式会社XYZ 代表取締役</div>
+    </div>
+    <div class="timeline">
+      <div class="step">
+        <div class="yr">1980</div>
+        <div class="ttl">埼玉県生まれ</div>
+      </div>
+      <div class="step">
+        <div class="yr">大学卒業</div>
+        <div class="ttl">ソフトバンク入社</div>
+        <div class="dsc">東京理科大学 経営学部</div>
+      </div>
+      <div class="step">
+        <div class="yr">2008</div>
+        <div class="ttl">飲食店を経営</div>
+        <div class="dsc">元バーテンダー<br>5店舗を運営</div>
+      </div>
+      <div class="step">
+        <div class="yr">2010</div>
+        <div class="ttl">株式会社XYZ設立</div>
+        <div class="dsc">セミナー・出版の<br>企画運営</div>
+      </div>
+      <div class="step now">
+        <div class="yr">現在</div>
+        <div class="ttl">作家・講演家</div>
+        <div class="dsc">全国出版オーディション<br>主宰</div>
+      </div>
+    </div>
+    <div class="works">
+      <span class="lbl">いまの仕事</span>
+      <span class="chip">講演・研修</span>
+      <span class="chip">本の執筆</span>
+      <span class="chip">書籍プロデュース</span>
+      <span class="chip">出版の挑戦者を応援</span>
+    </div>
+  </section>
+
+  <!-- 2枚目：著書 -->
+  <section class="slide">
+    <div class="kicker">著書</div>
+    <h2>これまでに書いてきた本</h2>
+    <div class="shelf">
+      <div class="row">
+        <img src="img/book01.jpg" alt=""><img src="img/book02.jpg" alt=""><img src="img/book03.jpg" alt=""><img src="img/book04.jpg" alt=""><img src="img/book05.jpg" alt=""><img src="img/book06.jpg" alt=""><img src="img/book07.jpg" alt="">
+      </div>
+      <div class="row">
+        <img src="img/book08.jpg" alt=""><img src="img/book09.jpg" alt=""><img src="img/book10.jpg" alt=""><img src="img/book11.jpg" alt=""><img src="img/book12.jpg" alt=""><img src="img/book13.jpg" alt="">
+      </div>
+    </div>
+    <div class="total">
+      <span class="lbl">著書13冊・累計</span>
+      <span class="num">28万<small>部</small></span>
+    </div>
+  </section>
+
+  <!-- 3枚目：全国出版オーディションと出版企画書勉強会 -->
+  <section class="slide">
+    <div class="kicker">いま力を入れていること</div>
+    <h2>本を出したい人を<span class="accent">応援しています</span></h2>
+    <div class="two">
+      <div class="card">
+        <div>
+          <span class="tag">年2回開催</span>
+          <div class="ttl">全国出版オーディション</div>
+        </div>
+        <ul>
+          <li>優勝者は<b>商業出版100％保証</b></li>
+          <li>優勝を逃しても出版オファー多数</li>
+          <li>現役編集長の企画書セミナー付き</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div>
+          <span class="tag">毎月開催・オンライン</span>
+          <div class="ttl">出版企画書勉強会</div>
+        </div>
+        <ul>
+          <li>毎月ちがう<b>現役編集者</b>が登壇</li>
+          <li>本になった企画書を本人が解説</li>
+          <li>会員の企画書をその場で添削</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+<div class="hint">→ / クリック：次へ　← ：戻る　F：全画面　P：印刷</div>
+
+<script>
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  slides.forEach((s, i) => s.dataset.no = (i + 1) + ' / ' + slides.length);
+
+  let cur = Math.min(Math.max(parseInt(location.hash.slice(1)) - 1 || 0, 0), slides.length - 1);
+  function show(i) {
+    cur = Math.min(Math.max(i, 0), slides.length - 1);
+    slides.forEach((s, j) => s.classList.toggle('active', j === cur));
+    history.replaceState(null, '', '#' + (cur + 1));
+  }
+  function next() { show(cur + 1); }
+  function prev() { show(cur - 1); }
+  function fit() {
+    const scale = Math.min(innerWidth / 1600, innerHeight / 900);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'ArrowDown', ' ', 'Enter', 'PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
+    else if (e.key === 'f' || e.key === 'F') {
+      document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    } else if (e.key === 'p' || e.key === 'P') window.print();
+  });
+  document.addEventListener('click', next);
+  document.addEventListener('contextmenu', e => { e.preventDefault(); prev(); });
+  addEventListener('resize', fit);
+  fit(); show(cur);
+</script>
+</body>
+</html>
