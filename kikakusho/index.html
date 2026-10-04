@@ -145,6 +145,9 @@
   .gphoto .frame img{width:100%;height:100%;object-fit:cover;}
   .gphoto .pcap{font-size:11px;color:#8a857c;margin-top:6px;}
   @media(max-width:560px){ .guest{flex-direction:column-reverse;} .gphoto{flex-basis:auto;width:100%;} .gphoto .frame{width:100%;height:230px;} }
+  /* 顔写真のかわりに書影を出すカード（スマホで横に伸びすぎないように） */
+  .gphoto.bookshot .frame{background:#fff;}
+  @media(max-width:560px){ .gphoto.bookshot .frame{width:186px;height:264px;margin:0 auto;} }
   .foot{margin-top:50px;text-align:center;color:#55555a;font-size:13px;}
   @media(max-width:520px){ .hero-inner{max-width:100%;} .hero h1{font-size:29px;} h2{font-size:20px;} .price .free{font-size:32px;} }
   /* ヘッダー画像＋ブルブル震えるボタン */
@@ -208,7 +211,7 @@
 
   <!-- 登壇ゲスト ラインナップ -->
   <h2>毎月の登壇ゲスト</h2>
-  <p class="lineup-lead">毎月ちがう出版社の編集者が登壇します。<strong>10月は2回開催</strong>。8月にご登壇いただいたすばる舎・小寺編集長には、10月7日に再登壇いただきます。11月はあさ出版の星野編集統括です。<br><span style="font-size:13px;">（当日扱う企画書は、回ごとに追って公開します）</span></p>
+  <p class="lineup-lead">毎月ちがう出版社の編集者が登壇します。<strong>10月は2回開催</strong>。8月にご登壇いただいたすばる舎・小寺編集長には、10月7日に再登壇いただきます。11月はあさ出版の星野編集統括、12月は三笠書房の大渕取締役です。<br><span style="font-size:13px;">（当日扱う企画書は、回ごとに追って公開します）</span></p>
   <div class="lineup">
     <div class="guest">
       <div class="gmain">
@@ -291,6 +294,19 @@
       <div class="gphoto">
         <div class="frame"><img src="images/guests/hoshino.jpg" alt="星野 美紀" style="object-position:50% 22%;"></div>
         <div class="pcap">星野 美紀（あさ出版）</div>
+      </div>
+    </div>
+    <div class="guest">
+      <div class="gmain">
+        <div class="ghead">
+          <span class="gmon">12月</span>
+          <div class="gwho"><div class="pub">三笠書房</div><div class="gname">大渕 隆 さん<span class="yomi">取締役</span></div><div class="gdate">開催：12月11日（金）20:00〜22:00</div></div>
+        </div>
+        <div class="gnote">株式会社三笠書房 取締役。12月は『医師が教える「健幸」になる休み方　沖縄式リトリート』（城所望）をご紹介いただきます。著者の城所さんは、全国出版オーディション第7回の優勝者。オーディションから生まれた一冊を、世に出した側の視点で語っていただきます。</div>
+      </div>
+      <div class="gphoto bookshot">
+        <div class="frame"><img src="images/books/obuchi/okinawa_retreat.jpg" alt="医師が教える「健幸」になる休み方 沖縄式リトリート" style="object-fit:contain;padding:10px;"></div>
+        <div class="pcap">12月にご紹介いただく本</div>
       </div>
     </div>
   </div>
