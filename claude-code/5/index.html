@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>第1期 第5回｜ビジネスを仕組み化して、自動収益をつくる｜岡崎かつひろ</title>
+<style>
+  :root{
+    --bg:#0a1020; --panel:#0f1830; --ink:#f2f5fb; --sub:#9fb0c8;
+    --gold:#f0c26a; --gold-deep:#caa14e; --accent:#ff6a3d; --teal:#5fc7b8; --line:#1d2a45;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#000;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Noto Sans JP",Meiryo,sans-serif;color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased;}
+  #stage{position:absolute;top:50%;left:50%;width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center center;}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:flex-start;padding:72px 84px 64px;background:var(--bg);color:var(--ink);font-size:30px;overflow:hidden;}
+  .slide.active{display:flex;}
+  .slide.center{align-items:center;text-align:center;justify-content:center;padding:64px 84px;}
+
+  .kicker{font-size:.92em;letter-spacing:.22em;font-weight:800;color:var(--accent);margin-bottom:18px;white-space:nowrap;}
+  h1{font-size:2.35em;line-height:1.32;letter-spacing:.01em;font-weight:900;}
+  h2{font-size:1.5em;line-height:1.4;margin-bottom:18px;letter-spacing:.01em;font-weight:800;}
+  p{font-size:1.3em;line-height:1.7;color:var(--ink);}
+  .sub{font-size:1.0em;color:var(--sub);line-height:1.65;}
+  .lead{font-size:1.15em;color:#c9d4e6;line-height:1.7;}
+  .big{font-size:1.75em;font-weight:800;line-height:1.45;}
+  .nowrap{white-space:nowrap;}
+  .gold{color:var(--gold);} .accentc{color:var(--accent);} .teal{color:var(--teal);}
+  strong{color:var(--gold);font-weight:800;}
+  .grad{background:linear-gradient(100deg,var(--accent),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .bar{width:64px;height:7px;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--gold));margin:0 0 22px;}
+  .center .bar{margin:0 auto 22px;}
+
+  .photo{justify-content:center;}
+  .photo .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .photo .scrim{position:absolute;inset:0;z-index:1;}
+  .scrim.c{background:radial-gradient(ellipse at 50% 50%,rgba(5,9,18,.42) 0%,rgba(5,9,18,.88) 80%);}
+  .photo .content{position:relative;z-index:2;width:100%;}
+  .credit{position:absolute;top:14px;left:18px;z-index:3;font-size:.5em;color:rgba(255,255,255,.45);letter-spacing:.04em;}
+
+  .tag{display:inline-block;font-size:.82em;font-weight:800;letter-spacing:.12em;background:linear-gradient(100deg,var(--accent),var(--gold));color:#1a0e06;padding:7px 20px;border-radius:999px;margin-bottom:22px;white-space:nowrap;box-shadow:0 8px 22px rgba(255,106,61,.28);}
+
+  ul.clean{list-style:none;}
+  ul.clean li{font-size:1.24em;line-height:1.5;margin:16px 0;padding-left:38px;position:relative;color:var(--ink);}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.5em;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--gold));}
+  ul.clean.sm li{font-size:1.06em;margin:11px 0;line-height:1.45;}
+  ul.clean.sm li::before{width:13px;height:13px;top:.45em;}
+
+  .three{display:flex;gap:22px;margin-top:10px;width:100%;max-width:1080px;align-self:center;}
+  .three .c{flex:1;background:rgba(255,255,255,.045);border:2px solid #26334f;border-radius:18px;padding:24px 22px 26px;}
+  .three .c .tt{font-size:1.12em;font-weight:900;margin-bottom:8px;}
+  .three .c.a1{border-color:var(--accent);} .three .c.a2{border-color:var(--gold);} .three .c.a3{border-color:var(--teal);}
+  .three .c.a1 .tt{color:var(--accent);} .three .c.a2 .tt{color:var(--gold);} .three .c.a3 .tt{color:var(--teal);}
+  .three .c .dd{font-size:.84em;color:#b9c5da;line-height:1.55;}
+  .three .c .ic{font-size:2.3em;line-height:1;margin-bottom:12px;}
+  .three.compact .c{padding:16px 20px 18px;}
+
+  .steps{display:flex;gap:22px;margin-top:10px;width:100%;max-width:1080px;align-self:center;}
+  .steps .s{flex:1;background:rgba(255,255,255,.045);border:2px solid #26334f;border-radius:18px;padding:22px 22px 24px;text-align:center;}
+  .steps .s .n{font-size:1.5em;font-weight:900;color:var(--gold);margin-bottom:10px;}
+  .steps .s .t{font-size:1.0em;font-weight:800;line-height:1.5;}
+  .steps .s .d{margin-top:10px;font-size:.78em;color:var(--sub);line-height:1.55;}
+
+  /* セールスファネル（横一列） */
+  .funnel{display:flex;align-items:stretch;justify-content:center;gap:0;width:100%;max-width:1140px;align-self:center;margin-top:8px;}
+  .funnel .fstep{flex:1;background:rgba(255,255,255,.05);border:2px solid #2a3a58;border-radius:14px;padding:16px 8px;text-align:center;font-weight:800;font-size:.82em;line-height:1.4;display:flex;flex-direction:column;justify-content:center;}
+  .funnel .fstep .fn{display:block;font-size:.66em;color:var(--sub);font-weight:700;margin-bottom:4px;}
+  .funnel .fstep.auto{border-color:var(--teal);background:rgba(95,199,184,.10);}
+  .funnel .fstep.hand{border-color:var(--accent);background:rgba(255,106,61,.12);}
+  .funnel .arw{display:flex;align-items:center;color:#5a6a88;font-weight:900;font-size:1.0em;padding:0 6px;}
+  .brk{display:flex;width:100%;max-width:1140px;align-self:center;margin-top:10px;gap:0;}
+  .brk .l{text-align:center;font-weight:900;font-size:.82em;border-radius:10px;padding:8px 6px;}
+  .brk .l.auto{color:var(--teal);background:rgba(95,199,184,.10);border:2px solid var(--teal);}
+  .brk .l.hand{color:var(--accent);background:rgba(255,106,61,.12);border:2px solid var(--accent);}
+
+  /* ランク表 */
+  .rtbl{width:100%;max-width:1140px;align-self:center;border-collapse:collapse;margin-top:6px;font-size:.72em;}
+  .rtbl th,.rtbl td{border:1px solid #26334f;padding:7px 12px;text-align:left;vertical-align:middle;line-height:1.38;}
+  .rtbl thead th{background:rgba(255,255,255,.06);color:var(--gold);font-weight:800;font-size:.96em;}
+  .rtbl td.rk{font-weight:900;text-align:center;font-size:1.3em;width:54px;}
+  .rtbl td.rk.s{color:var(--accent);} .rtbl td.rk.a{color:var(--gold);} .rtbl td.rk.b{color:var(--teal);} .rtbl td.rk.c{color:#8fa0bb;}
+  .rtbl td.md{font-weight:800;color:#fff;white-space:nowrap;}
+  .rtbl td.nt{color:#b9c5da;font-size:.96em;}
+  .rtbl td.nt b{color:var(--gold);font-weight:800;}
+
+  /* 大きな言い方ボックス */
+  .saybox{margin-top:18px;max-width:960px;align-self:center;background:rgba(0,0,0,.28);border:2px solid var(--teal);border-radius:16px;padding:20px 34px;font-size:1.12em;line-height:1.6;color:#eaf3f1;}
+  .saybox b{color:var(--gold);font-weight:900;}
+  .saybox .q{font-size:.62em;font-weight:900;letter-spacing:.14em;color:var(--teal);margin-bottom:8px;}
+
+  /* スクショ等の枠 */
+  .reveal{margin-top:14px;align-self:center;width:100%;max-width:860px;height:300px;border:3px dashed var(--gold);border-radius:20px;background:rgba(240,194,106,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;}
+  .reveal .ic{font-size:3.2em;line-height:1;}
+  .reveal .t{font-size:1.02em;font-weight:900;color:var(--gold);}
+  .reveal .d{font-size:.8em;color:var(--sub);line-height:1.55;}
+
+  /* 方程式（クロードコードを使える ＝ やり方 × 考え方）— 冒頭の前提 */
+  .eq{text-align:center;margin-top:4px;}
+  .eq .eq-head{font-size:1.5em;font-weight:900;color:#fff;margin-bottom:24px;line-height:1.3;}
+  .eq .eq-head b{color:var(--gold);}
+  .eq .eq-body{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px 20px;}
+  .eq .eq-eq{font-size:2.2em;font-weight:900;color:var(--sub);}
+  .eq .eq-t{font-size:2.2em;font-weight:900;line-height:1.1;padding:14px 34px;border:3px solid #2a3a58;border-radius:20px;background:rgba(255,255,255,.05);}
+  .eq .eq-t.gold{border-color:var(--gold);color:var(--gold);background:rgba(240,194,106,.08);}
+  .eq .eq-x{font-size:2.6em;font-weight:900;}
+
+  /* 注意ボックス */
+  .warn{align-self:center;max-width:980px;margin-top:16px;background:rgba(255,106,61,.12);border:2px solid var(--accent);border-radius:16px;padding:18px 30px;font-size:1.06em;line-height:1.6;color:#ffe6dd;}
+  .warn b{color:var(--accent);font-weight:900;}
+  .warn .h{font-size:.66em;font-weight:900;letter-spacing:.14em;color:var(--accent);margin-bottom:8px;}
+
+  .foot{position:absolute;bottom:22px;left:84px;right:84px;z-index:3;display:flex;justify-content:space-between;align-items:center;font-size:.62em;color:#67789a;letter-spacing:.04em;}
+  .photo .foot{color:rgba(255,255,255,.55);}
+  .progress{position:absolute;bottom:0;left:0;height:5px;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .25s;z-index:60;}
+
+  /* 待機スライド */
+  .waiting{background:radial-gradient(ellipse at 50% 30%,#12203c 0%,#0a1020 70%);padding-top:50px;padding-bottom:50px;}
+  .waiting h1{font-size:2.0em;}
+  .bgmbtn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:2px solid var(--gold);background:rgba(255,255,255,.06);color:var(--gold);font-weight:800;font-size:.78em;padding:10px 24px;border-radius:999px;letter-spacing:.06em;transition:all .2s;}
+  .bgmbtn:hover{background:rgba(255,255,255,.12);}
+  .bgmbtn.on{background:linear-gradient(100deg,var(--accent),var(--gold));color:#1a0e06;border-color:transparent;box-shadow:0 8px 22px rgba(255,106,61,.32);}
+  /* 待機：4つのお願い（2×2） */
+  .please{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:1060px;align-self:center;margin-top:12px;text-align:left;}
+  .please .p{background:rgba(255,255,255,.05);border:2px solid #26334f;border-radius:14px;padding:12px 20px;font-size:.9em;font-weight:800;line-height:1.4;color:#f2f5fb;}
+  .please .p b{color:var(--accent);margin-right:8px;}
+  .please .p span{display:block;font-size:.76em;font-weight:600;color:#9fb0c8;margin-top:4px;line-height:1.5;}
+  .please .pnote{grid-column:1 / -1;text-align:center;font-size:.82em;font-weight:800;color:var(--gold);margin-top:2px;}
+  /* 待機：BGM操作バー（曲選択＋音量） */
+  .bgmbar{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:14px;background:rgba(255,255,255,.05);border:2px solid #2a3a58;border-radius:18px;padding:12px 22px;align-self:center;max-width:1040px;}
+  .bgmbar label{font-size:.6em;font-weight:800;color:var(--sub);letter-spacing:.04em;}
+  .bgmbar select{font:inherit;font-size:.6em;font-weight:700;color:#1a2436;background:#fff;border:2px solid var(--gold);border-radius:8px;padding:5px 10px;cursor:pointer;}
+  .bgmbar input[type=range]{width:140px;accent-color:var(--accent);cursor:pointer;}
+  .bgmbar .vbtn{cursor:pointer;border:2px solid #2a3a58;background:rgba(255,255,255,.06);color:var(--ink);font-weight:900;font-size:.6em;width:26px;height:26px;border-radius:8px;line-height:1;}
+  .bgmbar .vbtn:hover{border-color:var(--gold);}
+  .bgmbar .volnum{font-size:.58em;font-weight:900;color:var(--gold);width:3em;text-align:right;}
+  .bgmbar .hint{flex-basis:100%;text-align:center;font-size:.55em;color:var(--sub);font-weight:600;margin-top:2px;}
+  .bgmcredit{position:absolute;bottom:22px;left:84px;z-index:4;font-size:.52em;color:#67789a;letter-spacing:.04em;}
+
+  /* アニメーション完全オフ（順次表示なし・最初から全部表示） */
+  .slide.active > *{animation:none!important;}
+  .fragment{opacity:1;transition:none;transform:none;}
+  .fragment.show{opacity:1;}
+
+  #hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#a9b8d4;font-size:12px;background:rgba(0,0,0,.4);padding:6px 14px;border-radius:20px;z-index:80;transition:opacity .5s;}
+  #counter{position:fixed;top:14px;right:18px;color:#8595b4;font-size:13px;z-index:80;letter-spacing:.05em;}
+
+  @media print{
+    @page{size:1280px 720px;margin:0;}
+    body{background:#fff;overflow:visible;}
+    #stage{position:static;transform:none;width:1280px;height:auto;}
+    .slide{display:flex!important;position:relative;page-break-after:always;height:720px;}
+    .fragment{opacity:1!important;transform:none!important;}
+    .slide *{animation:none!important;}
+    #hint,#counter,.progress,.bgmbtn,.bgmbar{display:none!important;}
+  }
+</style>
+</head>
+<body>
+<div id="counter"></div>
+<div id="hint">← → / Space で進む ・ F で全画面 ・ P で印刷</div>
+
+<div id="stage">
+
+  <!-- 1 待機スライド（開始前・参加のお願い＋BGM：魔王魂） -->
+  <section class="slide waiting center" style="padding-top:46px;padding-bottom:46px;">
+    <div class="content">
+      <div class="kicker">まもなく始まります ・ クロードコード実践セミナー 第1期 第5回</div>
+      <h1 style="font-size:1.8em;">ようこそ！<span class="grad"> はじめに、4つのお願い</span></h1>
+      <div class="please">
+        <div class="p"><b>①</b>できればカメラをONに<span>顔が見えると、場があたたまります</span></div>
+        <div class="p"><b>②</b>表示名を、お名前に変えてください<span>参加者一覧 › ご自分の名前 › 詳細 › 名前の変更</span></div>
+        <div class="p"><b>③</b>顔出しが難しい方は、お名前の前に「👂」を<span>「聞いています」の合図。聞き役での参加も大歓迎です</span></div>
+        <div class="p"><b>④</b>リアクションは大きめに<span>拍手も 👍 も、どんどんお願いします</span></div>
+        <div class="pnote">ここは学ぶ場であり、つながる場でもあります。</div>
+      </div>
+    </div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 2 タイトル -->
+  <section class="slide photo center">
+    <img class="bg" src="img/city_evening.jpg" alt="">
+    <div class="scrim c"></div>
+    <div class="content">
+      <div class="kicker">第1期 第5回 ・ 2026.10.13</div>
+      <h1>ビジネスを<span class="grad">仕組み化</span>して、<br><span class="grad">自動収益</span>をつくる。</h1>
+      <p class="lead" style="margin-top:24px;">― 自分が寝ている間も、回っているものを持つ ―</p>
+      <p class="sub" style="margin-top:26px;">クロードコード実践セミナー 全6回｜岡崎かつひろ</p>
+    </div>
+    <div class="credit">photo: Unsplash</div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- ★ 冒頭の前提：やり方はもう終わった。ここからは「考え方」 -->
+  <section class="slide center">
+    <div class="content">
+      <div class="kicker">本題の前に、ひとつだけ</div>
+      <h1 style="font-size:1.9em;">やり方は、もう<span class="grad">充分</span>です。<br>あなたは、クロードコードを<span class="grad">使えます</span>。</h1>
+      <p class="lead fragment" style="margin-top:28px;">ここから先で差がつくのは ――<br><strong>「やり方」より「考え方」</strong>。</p>
+    </div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- ★ 方程式：クロードコードを使える ＝ やり方 × 考え方 -->
+  <section class="slide center">
+    <div class="content">
+      <div class="kicker">この講座で、持って帰ってほしい式</div>
+      <div class="eq">
+        <div class="eq-head">クロードコードを<b>使える</b></div>
+        <div class="eq-body">
+          <span class="eq-eq">＝</span>
+          <span class="eq-t">やり方</span>
+          <span class="eq-x grad">×</span>
+          <span class="eq-t gold">考え方</span>
+        </div>
+      </div>
+      <p class="sub fragment" style="margin-top:30px;">足し算ではなく、<strong>かけ算</strong>。<br>やり方が満点でも、<strong>考え方がゼロなら、結果はゼロ</strong>です。</p>
+    </div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- ============ ① なぜ今、ビジネスの話なのか ============ -->
+
+  <!-- 3 前回まで -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">ここまでの、おさらい</div>
+    <h2 style="text-align:center;">道具は、もうそろいました</h2>
+    <div class="steps" style="max-width:1120px;">
+      <div class="s"><div class="n">1</div><div class="t">育てる</div><div class="d">ルール・スキル<br>プロジェクト</div></div>
+      <div class="s"><div class="n">2</div><div class="t">分けて手放す</div><div class="d">/compact<br>ルーチン</div></div>
+      <div class="s"><div class="n">3</div><div class="t">つなぐ</div><div class="d">ブラウザ・画像<br>サービス連携</div></div>
+      <div class="s"><div class="n">4</div><div class="t">作る</div><div class="d">LP・ページ<br>を形にする</div></div>
+    </div>
+    <p class="sub" style="text-align:center;margin-top:18px;">残っているのは、<strong>「何をやらせるか」</strong>だけ。今日は、そこを全員で考えます。</p>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 4 なぜ今ビジネスの話 -->
+  <section class="slide center">
+    <div class="content">
+      <div class="kicker">最終回の、ひとつ手前で</div>
+      <h1>なぜいま、<br><span class="grad">「ビジネスの話」</span>なのか。</h1>
+      <p class="lead fragment" style="margin-top:24px;">道具の使い方は、もう終わり。<br><strong>いちばん差がつくのは、「何をやらせるか」</strong>だから。</p>
+      <p class="sub fragment" style="margin-top:16px;">自動化は手段。目的は ――<strong>自分が寝ている間も回っているもの</strong>を持つこと。</p>
+    </div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- ============ ② 本気で決めた日 ============ -->
+
+  <!-- 5 競馬予想note -->
+  <section class="slide center">
+    <div class="content">
+      <div class="kicker">岡崎が、本気でやろうと決めた日</div>
+      <h1>競馬予想の記事を、<br><span class="grad">自動で作って売る</span>人。</h1>
+      <p class="lead fragment" style="margin-top:24px;">驚いたのは、儲かっていることではない。<br>その人が<strong>「記事を書く人」ではなかった</strong>こと。</p>
+      <p class="sub fragment" style="margin-top:16px;">＝<strong>「記事が生まれる仕組み」</strong>を持っている人だった。</p>
+    </div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 6 気づき -->
+  <section class="slide center">
+    <div class="content">
+      <div class="tag">そこで気づいた</div>
+      <h1 class="fragment">自分が働くのをやめた瞬間に<br><span class="grad">止まる商売</span>は、</h1>
+      <p class="big fragment gold" style="margin-top:22px;">どれだけ上手くても、積み上がらない。</p>
+    </div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- ============ ③ ビジネスの仕組み＝ファネル ============ -->
+
+  <!-- 7 章扉 -->
+  <section class="slide photo center">
+    <img class="bg" src="img/desk_minimal.jpg" alt="">
+    <div class="scrim c"></div>
+    <div class="content">
+      <div class="kicker">CHAPTER 1</div>
+      <h1>そもそも、<span class="grad">ビジネスの仕組み</span>とは。</h1>
+    </div>
+    <div class="credit">photo: Unsplash</div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 8 ファネル図 -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">ビジネス＝セールスファネル</div>
+    <h2 style="text-align:center;">お客さまは、この順番で進みます</h2>
+    <div class="funnel">
+      <div class="fstep"><span class="fn">入口</span>拡散</div>
+      <div class="arw">→</div>
+      <div class="fstep">リスト獲得</div>
+      <div class="arw">→</div>
+      <div class="fstep">個別対応</div>
+      <div class="arw">→</div>
+      <div class="fstep">フロント<br>商品</div>
+      <div class="arw">→</div>
+      <div class="fstep"><span class="fn">本命</span>バック<br>エンド</div>
+    </div>
+    <p class="sub" style="text-align:center;margin-top:18px;">この「流れ」を、どこまで自動で回せるか ―― が今日のテーマです。</p>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 9 フロントまでを自動化 -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">現実的な、自動化の線引き</div>
+    <h2 style="text-align:center;">「フロント商品を売るところまで」を自動化する</h2>
+    <div class="funnel" style="margin-top:4px;">
+      <div class="fstep auto"><span class="fn">入口</span>拡散</div>
+      <div class="arw">→</div>
+      <div class="fstep auto">リスト獲得</div>
+      <div class="arw">→</div>
+      <div class="fstep auto">個別対応</div>
+      <div class="arw">→</div>
+      <div class="fstep auto">フロント<br>商品</div>
+      <div class="arw">→</div>
+      <div class="fstep hand"><span class="fn">本命</span>バック<br>エンド</div>
+    </div>
+    <div class="brk">
+      <div class="l auto" style="flex:0 0 calc(80% + 0px);margin-right:2%;">ここまでを自動化（AIが得意）</div>
+      <div class="l hand" style="flex:1;">ここは人の手</div>
+    </div>
+    <p class="sub" style="text-align:center;margin-top:14px;">効いてくるのは入口＝<strong>拡散（SNS）</strong>と、<strong>プラットフォームでの商品掲載・販売</strong>。</p>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 10 ポイント -->
+  <section class="slide center">
+    <div class="content">
+      <div class="tag">ポイント</div>
+      <h1 class="fragment"><span class="grad">自分が動かないと止まるもの</span>を、<br>動かなくても回るものに。</h1>
+      <p class="lead fragment" style="margin-top:24px;">そのために、まず<strong>「自分にしかできない部分」</strong>と<br><strong>「渡せる部分」</strong>を分ける（＝第2回の"細分化"の商売版）。</p>
+    </div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- ============ ④ 自動収益の型＋ランク表 ============ -->
+
+  <!-- 11 章扉 -->
+  <section class="slide photo center">
+    <img class="bg" src="img/work_coding.jpg" alt="">
+    <div class="scrim c"></div>
+    <div class="content">
+      <div class="kicker">CHAPTER 2</div>
+      <h1>自動収益の、<span class="grad">型とランク</span>。</h1>
+    </div>
+    <div class="credit">photo: Unsplash</div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 12 3つの型 -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">大きく分けると、3つ</div>
+    <h2 style="text-align:center;">自動収益の「型」</h2>
+    <div class="three">
+      <div class="c a1"><div class="tt">コンテンツを売る</div><div class="dd">決まった形の情報を<br>毎回作って売る<br><span style="color:#8fa0bb;">例：note（競馬予想）</span></div></div>
+      <div class="c a2"><div class="tt">納品を請ける</div><div class="dd">依頼→作る→納品を<br>ほぼ自動で回す<br><span style="color:#8fa0bb;">例：サムネ販売</span></div></div>
+      <div class="c a3"><div class="tt">見られて稼ぐ</div><div class="dd">見られること自体が<br>収益になる<br><span style="color:#8fa0bb;">例：X運用</span></div></div>
+    </div>
+    <p class="sub" style="text-align:center;margin-top:16px;">＋ 入口を支える<strong>「広告でリスト取り」</strong>。この型ごとに、実現しやすさを見ていきます。</p>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 13 ランク表 ① S・A -->
+  <section class="slide" style="padding-top:48px;padding-bottom:44px;">
+    <div class="kicker" style="text-align:center;align-self:center;margin-bottom:8px;">実現可能性ランク（S＝かなり現実的 ／ A＝現実的）</div>
+    <h2 style="text-align:center;margin-bottom:8px;font-size:1.35em;">やりやすい順に、ならべました ①</h2>
+    <table class="rtbl">
+      <thead><tr><th>ランク</th><th>モデル</th><th>ひとこと</th></tr></thead>
+      <tbody>
+        <tr><td class="rk s">S</td><td class="md">YouTubeサムネ 制作販売</td><td class="nt">相場3〜5千円を<b>500円</b>で。制作は自動化◎（受付は半手動）</td></tr>
+        <tr><td class="rk s">S</td><td class="md">ブログ/記事の量産＋自動投稿</td><td class="nt">制作〜投稿まで自動。<b>収益化は3〜6ヶ月</b></td></tr>
+        <tr><td class="rk a">A</td><td class="md">X運用（インプレ収益）</td><td class="nt">下書き・分析はAI、最後は自分の言葉。<b>★2026/9変更</b></td></tr>
+        <tr><td class="rk a">A</td><td class="md">note販売（競馬予想型）</td><td class="nt">作るのは自動。<b>売れるネタ選び</b>が勝負</td></tr>
+        <tr><td class="rk a">A</td><td class="md">広告でリスト取り（自分の集客）</td><td class="nt">ファネルの<b>入口</b>を自動化。予算の最終GOは人</td></tr>
+        <tr><td class="rk a">A</td><td class="md">広告運用 代行（受託）</td><td class="nt">覚えて依頼を受け、運用をAIで。<b>継続収入</b></td></tr>
+        <tr><td class="rk a">A</td><td class="md">Kindle出版 ／ AI占い・診断</td><td class="nt">在庫ゼロ・鑑定文は得意。<b>最終品質と差別化は人</b></td></tr>
+      </tbody>
+    </table>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 14 ランク表 ② B・C -->
+  <section class="slide" style="padding-top:48px;padding-bottom:44px;">
+    <div class="kicker" style="text-align:center;align-self:center;margin-bottom:8px;">実現可能性ランク（B＝要・工夫 ／ C＝自動化しづらい）</div>
+    <h2 style="text-align:center;margin-bottom:8px;font-size:1.35em;">やりやすい順に、ならべました ②</h2>
+    <table class="rtbl">
+      <thead><tr><th>ランク</th><th>モデル</th><th>ひとこと</th></tr></thead>
+      <tbody>
+        <tr><td class="rk b">B</td><td class="md">政治ニュースの裏取り記事</td><td class="nt">差別化は大きい。<b>事実確認は人</b></td></tr>
+        <tr><td class="rk b">B</td><td class="md">AI画像販売（PIXTA等）</td><td class="nt">薄利多売・大量出品が前提。規約注意</td></tr>
+        <tr><td class="rk b">B</td><td class="md">ショート動画 量産</td><td class="nt">作れるが、量産規制・質で伸び悩みやすい</td></tr>
+        <tr><td class="rk b">B</td><td class="md">LINE構築・Bot 代行</td><td class="nt">単価は高め。<b>運用に人の手</b></td></tr>
+        <tr><td class="rk b">B</td><td class="md">物販サイト（在庫あり）</td><td class="nt"><b>フロントは自動／物流（仕入・発送）は人</b></td></tr>
+        <tr><td class="rk c">C</td><td class="md">無在庫・ドロップシッピング</td><td class="nt">メルカリ禁止・アカBANリスク。<b>非推奨</b></td></tr>
+        <tr><td class="rk c">C</td><td class="md">バックエンドの全自動化</td><td class="nt">信頼構築は人＝今日"やらない"側</td></tr>
+      </tbody>
+    </table>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- ============ ⑤ X運用の最新事情 ============ -->
+
+  <!-- 15 章扉 -->
+  <section class="slide center">
+    <div class="content">
+      <div class="kicker">CHAPTER 3 ・ 見られて稼ぐ</div>
+      <h1>X運用の、<span class="grad">最新事情</span>。</h1>
+      <p class="lead fragment" style="margin-top:24px;">インプレッションが伸びれば、収益になる。<br>だから、Xをしっかり回すのは<strong>現実的</strong>。</p>
+    </div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 16 制度変更 -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">2026年9月に、仕組みが変わりました</div>
+    <h2 style="text-align:center;">ここだけは、間違えないで</h2>
+    <div class="three" style="max-width:960px;">
+      <div class="c a1"><div class="tt">リプ稼ぎ</div><div class="dd">伸びた投稿にコメントして稼ぐ<br>→ <strong>もう収益にならない</strong></div></div>
+      <div class="c a1"><div class="tt">全自動の投稿</div><div class="dd">自動で作って・投稿したもの<br>→ <strong>報酬の対象外</strong></div></div>
+    </div>
+    <div class="saybox" style="margin-top:16px;">出すのは<b>自分</b>。支えるのが<b>AI</b>。<br><span style="font-size:.86em;">ネタ探し・下書き・分析はAIに渡し、最後は自分の言葉で出す ―― 岡崎のXと同じ形。</span></div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 17 岡崎のインプレ変化（スクショ） -->
+  <section class="slide">
+    <div class="tag" style="align-self:center;">実例 ・ 岡崎のX</div>
+    <h2 style="text-align:center;">クロードコードを使う前 → 後</h2>
+    <img src="img/x_impressions.png" alt="Xインプレッション数の推移（1年）" style="display:block;align-self:center;margin-top:8px;max-width:940px;width:100%;max-height:360px;object-fit:contain;border:2px solid #26334f;border-radius:14px;background:#fff;">
+    <p class="sub" style="text-align:center;margin-top:14px;">グラフ後半＝<strong>クロードコードを使い始めてから</strong>。<strong>出すのは自分、支えるのがAI</strong>。</p>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- ============ ⑥ 広告運用の自動化 ============ -->
+
+  <!-- 18 章扉 -->
+  <section class="slide photo center">
+    <img class="bg" src="img/busy_office.jpg" alt="">
+    <div class="scrim c"></div>
+    <div class="content">
+      <div class="kicker">CHAPTER 4 ・ ファネルの入口</div>
+      <h1>広告で、<span class="grad">リスト取りを自動化</span>。</h1>
+    </div>
+    <div class="credit">photo: Unsplash</div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 19 広告の自動化 -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">これは「売る」の手前＝入口の自動化</div>
+    <h2 style="text-align:center;">広告運用は、AIで回せる</h2>
+    <div class="three">
+      <div class="c a3"><div class="tt">AIに渡せる</div><div class="dd">広告文・画像案<br>ターゲ設計・初期設定<br>結果の分析・改善案<br>レポート</div></div>
+      <div class="c a1"><div class="tt">人が残す</div><div class="dd"><strong>予算の最終GO</strong><br>（お金が出る操作）<br>媒体の審査対応<br>アカウント管理</div></div>
+      <div class="c a2"><div class="tt">岡崎の実証</div><div class="dd"><strong>LINE広告</strong>は基本設定を<br>ほぼ全部クロードコードで。<br>Facebook（Meta）<br>も同様</div></div>
+    </div>
+    <p class="sub" style="text-align:center;margin-top:16px;">"完全放置"ではなく、<strong>監督つきの自動化</strong>。<br>入口が回れば、ビジネス全体が動き出す。</p>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 20 2つの稼ぎ方＋安全 -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">広告の自動化は、2つの稼ぎ方に化ける</div>
+    <h2 style="text-align:center;">自分の集客 ／ 人の集客</h2>
+    <div class="three" style="max-width:900px;">
+      <div class="c a2"><div class="tt">① 自分の集客</div><div class="dd">自分のリスト取りを<br>自動で回す</div></div>
+      <div class="c a3"><div class="tt">② 広告運用 代行</div><div class="dd">覚えて依頼を受け、<br>運用をAIで回す<br><span style="color:#8fa0bb;">＝継続収入</span></div></div>
+    </div>
+    <div class="warn" style="margin-top:16px;">
+      <div class="h">安全の約束（今日ずっと同じ）</div>
+      <b>勝手に「送信・購入・出稿・課金」はさせない。</b> 予算と最終GOは、必ず自分で。
+    </div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- ============ ⑦ ワーク ============ -->
+
+  <!-- 21 章扉 -->
+  <section class="slide photo center">
+    <img class="bg" src="img/two_collab.jpg" alt="">
+    <div class="scrim c"></div>
+    <div class="content">
+      <div class="kicker">ワーク ・ ブレイクアウト</div>
+      <h1>では、<span class="grad">あなたの商売</span>で。</h1>
+      <p class="lead" style="margin-top:24px;">自分の商売を1つ、仕組みに落としてみましょう。</p>
+    </div>
+    <div class="credit">photo: Unsplash</div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 22 ワーク手順 -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">班で、1つ選んで書き出す</div>
+    <h2 style="text-align:center;">4つだけ、埋めてください</h2>
+    <div class="steps" style="max-width:1120px;">
+      <div class="s"><div class="n">1</div><div class="t">どの型か</div><div class="d">売る／請ける／<br>見られる／広告</div></div>
+      <div class="s"><div class="n">2</div><div class="t">自分にしか<br>できない部分</div><div class="d">残すところ</div></div>
+      <div class="s"><div class="n">3</div><div class="t">AIに<br>渡せる部分</div><div class="d">手放すところ</div></div>
+      <div class="s"><div class="n">4</div><div class="t">最初の1つ</div><div class="d">今週、手をつける<br>なら どこ？</div></div>
+    </div>
+    <p class="sub" style="text-align:center;margin-top:16px;">班で1つ選んで発表。岡崎が巡回して「それ、渡せますよ」と口を挟みます。</p>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- ============ ⑧ 次回案内・締め ============ -->
+
+  <!-- 23 次回予告 -->
+  <section class="slide center">
+    <div class="content">
+      <div class="tag">次回 ・ 最終回</div>
+      <h1>第6回は、<span class="grad">成果報告会</span>。</h1>
+      <p class="lead fragment" style="margin-top:24px;">10月27日（火）20:00〜。<br><strong>「できるようになったこと」を、ひとつ</strong>話してください。</p>
+      <p class="sub fragment" style="margin-top:14px;">大げさなことでなくて大丈夫。小さな変化こそ、聞きたいです。</p>
+    </div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 24 締め -->
+  <section class="slide photo center">
+    <img class="bg" src="img/mountain_top.jpg" alt="">
+    <div class="scrim c"></div>
+    <div class="content">
+      <p class="lead">道具は、もうあなたの手にある。</p>
+      <h1 class="fragment" style="margin-top:20px;">あとは、<br><span class="grad">何をやらせるか</span>。</h1>
+      <p class="lead fragment" style="margin-top:26px;">自分が寝ている間も回るものを、1つ。<br>今日が、その設計図です。</p>
+    </div>
+    <div class="credit">photo: Unsplash</div>
+    <div class="foot"><span>第1期 第5回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+</div>
+
+<div class="progress" id="prog"></div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var counter=document.getElementById('counter');
+  var prog=document.getElementById('prog');
+  var hint=document.getElementById('hint');
+  var bgm=document.getElementById('bgm');
+  var bgmBtn=document.getElementById('bgmBtn');
+  var bgmTrack=document.getElementById('bgmTrack');
+  var bgmVol=document.getElementById('bgmVol');
+  var bgmVolNum=document.getElementById('bgmVolNum');
+  var bgmDown=document.getElementById('bgmDown');
+  var bgmUp=document.getElementById('bgmUp');
+  var bgmbar=document.querySelector('.bgmbar');
+  // 魔王魂 アコースティック3曲（CC BY 4.0・クレジット「BGM：魔王魂」）
+  var TRACKS=[
+    {name:'明るい（acoustic35）',   file:'bgm/acoustic35.mp3'},
+    {name:'さわやか（acoustic32）', file:'bgm/acoustic32.mp3'},
+    {name:'おしゃれ（acoustic41）', file:'bgm/acoustic41.mp3'}
+  ];
+  if(bgmTrack){
+    TRACKS.forEach(function(t,i){ var o=document.createElement('option'); o.value=i; o.textContent=t.name; bgmTrack.appendChild(o); });
+    if(bgm) bgm.src=TRACKS[0].file;
+    bgmTrack.addEventListener('change',function(e){ e.stopPropagation(); var was=bgm&&!bgm.paused; bgm.src=TRACKS[bgmTrack.value].file; if(was) bgm.play().catch(function(){}); });
+  }
+  function applyVol(){ var v=Math.max(0,Math.min(100,Number(bgmVol.value))); bgmVol.value=v; if(bgm) bgm.volume=v/100; if(bgmVolNum) bgmVolNum.textContent=v+'%'; }
+  if(bgmVol){ bgmVol.addEventListener('input',function(e){ e.stopPropagation(); applyVol(); }); applyVol(); }
+  if(bgmDown){ bgmDown.addEventListener('click',function(e){ e.stopPropagation(); bgmVol.value=Number(bgmVol.value)-5; applyVol(); }); }
+  if(bgmUp){ bgmUp.addEventListener('click',function(e){ e.stopPropagation(); bgmVol.value=Number(bgmVol.value)+5; applyVol(); }); }
+  if(bgmbar){ bgmbar.addEventListener('click',function(e){ e.stopPropagation(); }); }
+  var si=0, fi=0, fadeTimer=null;
+  // アニメーション不要：順次表示は無効（1スライド＝1画面で全部表示、クリックで次へ）
+  function frags(s){return [];}
+  function setBgmLabel(on){ if(!bgmBtn) return; bgmBtn.classList.toggle('on',on); bgmBtn.textContent = on ? '🎵 BGM 停止' : '🎵 BGMを流す'; }
+  function fadeOutStop(){
+    if(!bgm || bgm.paused) return;
+    if(fadeTimer) clearInterval(fadeTimer);
+    var start=bgm.volume;
+    fadeTimer=setInterval(function(){
+      if(bgm.volume>0.04){ bgm.volume=Math.max(0,bgm.volume-start/12); }
+      else { bgm.pause(); bgm.volume=Number(bgmVol.value)/100; setBgmLabel(false); clearInterval(fadeTimer); fadeTimer=null; }
+    },40);
+  }
+  function render(){
+    slides.forEach(function(s,i){s.classList.toggle('active', i===si);});
+    var f=frags(slides[si]);
+    f.forEach(function(el,i){el.classList.toggle('show', i<fi);});
+    counter.textContent=(si+1)+' / '+slides.length;
+    prog.style.width=((si)/(slides.length-1)*100)+'%';
+    if(si!==0 && bgm && !bgm.paused){ fadeOutStop(); }
+  }
+  function next(){var f=frags(slides[si]);if(fi<f.length){fi++;render();return;}if(si<slides.length-1){si++;fi=0;render();}}
+  function prev(){if(fi>0){fi--;render();return;}if(si>0){si--;fi=frags(slides[si]).length;render();}}
+  function fit(){var sx=window.innerWidth/1280, sy=window.innerHeight/720;stage.style.setProperty('--scale', Math.min(sx,sy));}
+  window.addEventListener('resize',fit);
+  if(bgmBtn){
+    bgmBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(fadeTimer){ clearInterval(fadeTimer); fadeTimer=null; bgm.volume=Number(bgmVol.value)/100; }
+      if(bgm.paused){ bgm.play().then(function(){setBgmLabel(true);}).catch(function(){setBgmLabel(false);}); }
+      else { bgm.pause(); setBgmLabel(false); }
+    });
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){si=0;fi=0;render();}
+    else if(e.key==='End'){si=slides.length-1;fi=frags(slides[si]).length;render();}
+    else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+    else if(e.key==='p'||e.key==='P'){window.print();}
+  });
+  document.addEventListener('click',function(e){
+    if(e.clientX < window.innerWidth*0.25) prev(); else next();
+  });
+  setTimeout(function(){hint.style.opacity='0';},5000);
+  fit();render();
+})();
+</script>
+</body>
+</html>
