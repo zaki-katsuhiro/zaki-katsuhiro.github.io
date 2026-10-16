@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>セールス勉強会 第3回｜岡崎かつひろ</title>
+<style>
+  :root{
+    --bg:#ffffff; --text:#1f2933; --sub:#6b7280;
+    --accent:#1f6feb; --soft:#e8f0fe; --line:#e5e7eb;
+    --warm:#f59e0b; --warmsoft:#fef3c7; --ng:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;background:#2b2f36;}
+  body{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;color:var(--text);overflow:hidden;-webkit-font-smoothing:antialiased;}
+
+  #stage{position:absolute;top:50%;left:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center center;}
+  .slide{display:none;position:absolute;inset:0;width:1600px;height:900px;background:var(--bg);
+         padding:84px 110px 76px;flex-direction:column;justify-content:flex-start;overflow:hidden;}
+  .slide.active{display:flex;}
+  .slide.center{align-items:center;justify-content:center;text-align:center;}
+  .slide::after{content:attr(data-no);position:absolute;right:44px;bottom:28px;font-size:20px;color:var(--sub);z-index:5;}
+
+  .kicker{font-size:26px;font-weight:800;letter-spacing:.14em;color:var(--accent);margin-bottom:14px;white-space:nowrap;}
+  h1{font-size:76px;line-height:1.32;font-weight:800;letter-spacing:.01em;}
+  h2{font-size:50px;line-height:1.36;font-weight:800;margin-bottom:34px;letter-spacing:.01em;}
+  p{font-size:34px;line-height:1.65;}
+  .lead{font-size:34px;color:#45505e;line-height:1.7;}
+  .sub{color:var(--sub);}
+  .ac{color:var(--accent);} .wa{color:#b45309;} .ng{color:var(--ng);}
+  .nw{white-space:nowrap;}
+  strong{color:var(--accent);font-weight:800;}
+  .tag{display:inline-block;font-size:24px;font-weight:800;letter-spacing:.12em;background:var(--accent);color:#fff;padding:8px 26px;border-radius:999px;margin-bottom:24px;white-space:nowrap;}
+
+  ul.clean{list-style:none;width:100%;max-width:1300px;align-self:center;}
+  ul.clean li{font-size:34px;line-height:1.5;margin:18px 0;padding-left:46px;position:relative;}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.5em;width:18px;height:18px;border-radius:50%;background:var(--accent);}
+  ul.clean li small{display:block;font-size:24px;color:var(--sub);line-height:1.5;margin-top:6px;}
+  ul.clean.sm li{font-size:30px;margin:13px 0;}
+
+  .mtbl{width:100%;max-width:1360px;align-self:center;border-collapse:collapse;font-size:28px;}
+  .mtbl th,.mtbl td{border:2px solid var(--line);padding:14px 22px;text-align:left;vertical-align:middle;line-height:1.5;}
+  .mtbl thead th{background:var(--soft);color:var(--accent);font-weight:800;}
+  .mtbl th.rowh{background:#f8fafc;font-weight:800;white-space:nowrap;}
+  .mtbl td b{color:var(--accent);}
+  .mtbl small{color:var(--sub);font-size:24px;}
+
+  .point{margin-top:30px;width:100%;max-width:1300px;align-self:center;background:var(--soft);
+         border-left:12px solid var(--accent);border-radius:0 16px 16px 0;padding:22px 34px;
+         font-size:36px;font-weight:800;line-height:1.5;}
+  .warn{margin-top:26px;width:100%;max-width:1300px;align-self:center;background:var(--warmsoft);
+        border-left:12px solid var(--warm);border-radius:0 16px 16px 0;padding:20px 34px;}
+  .warn .wh{display:block;font-size:24px;font-weight:800;letter-spacing:.1em;color:#b45309;margin-bottom:6px;}
+  .warn .wb{font-size:30px;line-height:1.55;}
+  .warn .wb b{color:#b45309;}
+  .quote{margin-top:24px;width:100%;max-width:1280px;align-self:center;background:#f8fafc;border:3px solid var(--line);
+         border-radius:18px;padding:26px 38px;font-size:30px;line-height:1.6;}
+  .quote .src{display:block;font-size:22px;color:var(--sub);margin-top:12px;}
+
+  .ba{display:flex;gap:30px;margin-top:8px;width:100%;max-width:1360px;align-self:center;}
+  .ba .bx{flex:1;border:3px solid var(--line);border-radius:18px;padding:22px 28px;background:#fff;}
+  .ba .bx .hd{font-size:30px;font-weight:800;margin-bottom:12px;white-space:nowrap;}
+  .ba .bx .bd{font-size:28px;line-height:1.6;color:#45505e;}
+  .ba .bx.ng{border-color:#fecaca;background:#fef2f2;} .ba .bx.ng .hd{color:var(--ng);}
+  .ba .bx.ok{border-color:#bfdbfe;background:#eff6ff;} .ba .bx.ok .hd{color:var(--accent);}
+
+  .three{display:flex;gap:26px;margin-top:8px;width:100%;max-width:1360px;align-self:center;}
+  .three .c{flex:1;border:3px solid var(--line);border-radius:18px;padding:22px 26px;background:#fff;}
+  .three .c .tt{font-size:30px;font-weight:800;color:var(--accent);margin-bottom:10px;white-space:nowrap;}
+  .three .c .dd{font-size:25px;line-height:1.55;color:#45505e;}
+
+  .qlist{width:100%;max-width:1340px;align-self:center;display:flex;flex-direction:column;gap:14px;}
+  .qlist .ql{display:flex;gap:22px;align-items:flex-start;border:3px solid var(--line);border-radius:16px;padding:16px 26px;background:#fff;}
+  .qlist .ql .n{flex:0 0 auto;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;
+                font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .qlist .ql .t{flex:1;font-size:30px;font-weight:700;line-height:1.5;}
+  .qlist .ql .t em{display:block;font-style:normal;font-size:24px;color:var(--sub);margin-top:5px;}
+  .qlist .ql.hot{border-color:var(--accent);background:var(--soft);}
+
+  /* イエスの階段 */
+  .stairs{width:100%;max-width:1280px;align-self:center;margin-top:10px;display:flex;align-items:flex-end;gap:18px;height:360px;}
+  .stairs .st{flex:1;background:var(--soft);border:3px solid #bfdbfe;border-top-color:var(--accent);border-radius:14px 14px 0 0;
+              display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px 10px;color:var(--accent);font-weight:800;}
+  .stairs .st .lb{font-size:25px;line-height:1.35;text-align:center;}
+  .stairs .st.s1{height:130px;} .stairs .st.s2{height:190px;} .stairs .st.s3{height:250px;} .stairs .st.s4{height:310px;}
+  .stairs .st.big{height:360px;background:var(--accent);color:#fff;border-color:var(--accent);}
+
+  /* 数字の対比 */
+  .nums{display:flex;gap:40px;align-items:center;justify-content:center;margin-top:16px;width:100%;}
+  .nums .nb{text-align:center;}
+  .nums .nb .v{font-size:110px;font-weight:800;line-height:1;}
+  .nums .nb .k{font-size:26px;color:var(--sub);margin-top:10px;}
+  .nums .nb.a .v{color:var(--sub);} .nums .nb.b .v{color:var(--accent);}
+  .nums .arw{font-size:60px;color:var(--accent);}
+
+  /* ===== つかみスライド（ここだけアニメーション） ===== */
+  .hook .scene{position:absolute;inset:0;transition:opacity .5s;}
+  .hook .anim{position:relative;width:100%;height:560px;margin-top:6px;overflow:hidden;border-radius:20px;background:linear-gradient(180deg,#f0f6ff 0%,#ffffff 70%);border:3px solid var(--line);}
+  .hook .road{position:absolute;left:0;right:0;bottom:92px;height:4px;background:var(--line);}
+  .hook .desk{position:absolute;left:50%;transform:translateX(-50%);bottom:86px;width:620px;height:26px;border-radius:8px;background:#d7dee8;opacity:0;transition:opacity .5s;}
+  .hook .person{position:absolute;bottom:96px;width:120px;}
+  .hook .fig{position:relative;height:210px;transition:transform .45s;}
+  .hook .fig .head{position:absolute;left:50%;transform:translateX(-50%);top:0;width:64px;height:64px;border-radius:50%;}
+  .hook .fig .body{position:absolute;left:50%;transform:translateX(-50%);top:72px;width:104px;height:138px;border-radius:52px 52px 18px 18px;}
+  .hook .me .head,.hook .me .body{background:#1f6feb;}
+  .hook .you .head,.hook .you .body{background:#9aa5b1;}
+  .hook .me{left:-160px;} .hook .you{left:1500px;}
+  @keyframes walkMe{to{left:520px;}}
+  @keyframes walkYou{to{left:840px;}}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  .hook.active .me{animation:walkMe 2.1s ease-out forwards;}
+  .hook.active .you{animation:walkYou 2.1s ease-out forwards;}
+  .hook.active .fig{animation:bob .45s ease-in-out 0s 5;}
+
+  .hook .bubble{position:absolute;left:50%;top:40px;transform:translateX(-50%) scale(.3);opacity:0;
+                background:#fff;border:5px solid var(--accent);border-radius:999px;padding:22px 56px;
+                font-size:46px;font-weight:800;color:var(--accent);white-space:nowrap;
+                box-shadow:0 14px 36px rgba(31,111,235,.22);
+                transition:transform .36s cubic-bezier(.2,1.5,.4,1),opacity .28s;}
+  .hook .mark{position:absolute;left:880px;top:120px;font-size:72px;font-weight:800;color:var(--sub);opacity:0;transition:opacity .3s;}
+  .hook .verdict{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);opacity:0;transition:opacity .35s;
+                 font-size:46px;font-weight:800;color:var(--ng);white-space:nowrap;}
+  .hook .gotcha{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);opacity:0;transition:opacity .35s;
+                font-size:48px;font-weight:800;color:var(--accent);white-space:nowrap;}
+  .hook .ctl{position:absolute;width:0;height:0;overflow:hidden;}
+
+  .hook:has(.c1.show) .me .fig{transform:scaleX(-1);}
+  .hook:has(.c2.show) .b1{opacity:1;transform:translateX(-50%) scale(1);}
+  .hook:has(.c3.show) .mark{opacity:1;}
+  .hook:has(.c3.show) .verdict{opacity:1;}
+  .hook:has(.c4.show) .b1{opacity:0;transform:translateX(-50%) scale(.3);}
+  .hook:has(.c4.show) .mark{opacity:0;}
+  .hook:has(.c4.show) .verdict{opacity:0;}
+  .hook:has(.c4.show) .road{opacity:0;}
+  .hook:has(.c4.show) .desk{opacity:1;}
+  .hook:has(.c4.show) .me{left:430px;} .hook:has(.c4.show) .you{left:940px;}
+  .hook:has(.c4.show) .me .fig{transform:none;}
+  .hook:has(.c4.show) .person{transition:left .5s;}
+  .hook:has(.c5.show) .b2{opacity:1;transform:translateX(-50%) scale(1);}
+  .hook:has(.c6.show) .gotcha{opacity:1;}
+
+  /* 待機スライド */
+  .waiting{padding:56px 100px 44px;background:linear-gradient(160deg,#f5f9ff 0%,#ffffff 60%);}
+  .waiting .wl{font-size:26px;color:var(--accent);font-weight:800;letter-spacing:.1em;}
+  .waiting h2{font-size:52px;margin:6px 0 28px;}
+  .asks{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;width:100%;}
+  .ask{display:flex;align-items:center;gap:22px;background:#fff;border:3px solid var(--line);border-radius:18px;padding:18px 26px;height:150px;}
+  .ask .ico{flex:none;width:80px;height:80px;border-radius:50%;background:var(--soft);font-size:42px;display:flex;align-items:center;justify-content:center;}
+  .ask .t{font-size:30px;font-weight:800;line-height:1.35;}
+  .ask .d{font-size:21px;color:var(--sub);margin-top:6px;line-height:1.45;}
+  .asknote{grid-column:1/-1;text-align:center;font-size:26px;font-weight:800;color:var(--accent);margin-top:2px;}
+  .bgm{margin-top:22px;align-self:center;display:flex;align-items:center;gap:12px;background:#fff;border:2px solid var(--line);
+       border-radius:999px;padding:10px 22px;box-shadow:0 6px 20px rgba(31,111,235,.10);}
+  .bgm button{font:inherit;font-size:20px;cursor:pointer;border:2px solid var(--line);background:#fff;color:var(--text);border-radius:999px;padding:5px 16px;}
+  .bgm .bgm-label{font-size:20px;font-weight:800;color:var(--accent);margin-right:2px;}
+  .bgm .trk.on{background:var(--soft);border-color:var(--accent);color:var(--accent);font-weight:700;}
+  .bgm .play{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;min-width:118px;}
+  .bgm .vol{display:flex;align-items:center;gap:7px;margin-left:8px;}
+  .bgm .vol button{width:40px;padding:4px 0;}
+  .bgm input[type=range]{width:200px;accent-color:var(--accent);}
+  .bgm #volNum{font-size:20px;width:56px;text-align:right;}
+  .bgm .hint{flex-basis:100%;text-align:center;font-size:19px;color:var(--sub);margin-top:2px;}
+  .credit{position:absolute;left:44px;bottom:26px;font-size:18px;color:var(--sub);}
+
+  /* 無料説明会スライド：左に案内、右にQR */
+  .qrwrap{display:flex;gap:56px;align-items:flex-start;width:100%;max-width:1380px;align-self:center;}
+  .qrwrap .qrleft{flex:1;min-width:0;}
+  .qrwrap .qrbox{flex:none;width:400px;text-align:center;border:3px solid var(--line);border-radius:20px;padding:22px 20px 18px;background:#fff;}
+  .qrwrap .qrbox img{width:300px;height:300px;display:block;margin:0 auto;}
+  .qrwrap .qrbox .qt{font-size:28px;font-weight:800;color:var(--accent);margin-bottom:14px;white-space:nowrap;}
+  .qrwrap .qrbox .qu{font-size:17px;color:var(--sub);margin-top:12px;word-break:break-all;line-height:1.45;}
+
+  /* 次回予告（書影＋Amazon QR） */
+  .nxt{display:flex;gap:46px;align-items:flex-start;width:100%;max-width:1380px;align-self:center;}
+  .nxt .nxtL{flex:1;min-width:0;}
+  .nxt .nxtR{flex:none;display:flex;gap:26px;align-items:flex-start;}
+  .nxt .bookcv{width:200px;display:block;border:2px solid var(--line);border-radius:6px;box-shadow:0 10px 26px rgba(31,41,51,.18);}
+  .nxt .abox{width:232px;text-align:center;border:3px solid var(--line);border-radius:18px;padding:16px 14px 12px;background:#fff;}
+  .nxt .abox .qt{font-size:24px;font-weight:800;color:var(--accent);margin-bottom:10px;white-space:nowrap;}
+  .nxt .abox img{width:190px;height:190px;display:block;margin:0 auto;}
+  .nxt .abox .qu{font-size:18px;color:var(--sub);margin-top:10px;line-height:1.45;}
+  .nxt .anote{font-size:16px;color:var(--sub);margin-top:9px;text-align:center;line-height:1.4;}
+
+  .foot{position:absolute;bottom:28px;left:110px;font-size:20px;color:var(--sub);letter-spacing:.03em;}
+  .progress{position:absolute;bottom:0;left:0;height:6px;background:var(--accent);transition:width .25s;z-index:60;}
+
+  .fragment{opacity:0;transition:opacity .22s;}
+  .fragment.show{opacity:1;}
+
+  #hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#cbd5e1;font-size:13px;background:rgba(0,0,0,.45);padding:6px 14px;border-radius:20px;z-index:80;transition:opacity .5s;}
+  #counter{position:fixed;top:14px;right:18px;color:#94a3b8;font-size:13px;z-index:80;}
+
+  @media print{
+    @page{size:1600px 900px;margin:0;}
+    body{background:#fff;overflow:visible;}
+    #stage{position:static;transform:none;width:1600px;height:auto;}
+    .slide{display:flex!important;position:relative;page-break-after:always;height:900px;}
+    .fragment{opacity:1!important;}
+    #hint,#counter,.progress,.bgm{display:none!important;}
+    .hook .b1,.hook .mark,.hook .verdict,.hook .road{opacity:0!important;}
+    .hook .b2,.hook .gotcha,.hook .desk{opacity:1!important;}
+    .hook .b2{transform:translateX(-50%) scale(1)!important;}
+    .hook .me{left:430px!important;} .hook .you{left:940px!important;}
+  }
+</style>
+</head>
+<body>
+<div id="counter"></div>
+<div id="hint">← → / Space で進む ・ F で全画面 ・ P で印刷</div>
+
+<div id="stage">
+<div class="progress" id="prog"></div>
+
+<!-- 1 待機 -->
+<section class="slide waiting nofrag">
+  <div class="wl">まもなく始まります ・ セールス勉強会 第3回</div>
+  <h2>ようこそ。はじめに、<span class="ac">4つのお願い</span></h2>
+  <div class="asks">
+    <div class="ask"><div class="ico">📷</div><div><div class="t">できれば、カメラをONに</div><div class="d">顔が見えると、場があたたまります</div></div></div>
+    <div class="ask"><div class="ico">✏️</div><div><div class="t">表示名を、お名前に変えてください</div><div class="d">参加者一覧 › ご自分の名前 › 詳細 › 名前の変更</div></div></div>
+    <div class="ask"><div class="ico">👂</div><div><div class="t">顔出しが難しい方は、<br>お名前の前に「👂」を</div><div class="d">「聞いています」の合図。聞き役での参加も大歓迎です</div></div></div>
+    <div class="ask"><div class="ico">👏</div><div><div class="t">リアクションは大きめに</div><div class="d">拍手も 👍 も、どんどんお願いします</div></div></div>
+    <div class="asknote">ここは学ぶ場であり、つながる場でもあります。</div>
+  </div>
+</section>
+
+<!-- 2 タイトル -->
+<section class="slide center nofrag">
+  <div class="kicker">セールス勉強会 第3回 ・ 2026.10.17</div>
+  <h1>「検討します」と<br><span class="ac">言われない</span>ために。</h1>
+  <p class="lead" style="margin-top:28px;">― 小さなイエスを積み重ねる ―</p>
+  <p class="sub" style="margin-top:26px;font-size:28px;">岡崎かつひろ</p>
+</section>
+
+<!-- 3 つかみ（アニメーション） -->
+<section class="slide hook">
+  <div class="kicker">はじめに</div>
+  <h2>こんなこと、していませんか</h2>
+  <div class="anim">
+    <div class="road"></div>
+    <div class="desk"></div>
+    <div class="person me"><div class="fig"><div class="head"></div><div class="body"></div></div></div>
+    <div class="person you"><div class="fig"><div class="head"></div><div class="body"></div></div></div>
+    <div class="bubble b1">結婚してください</div>
+    <div class="bubble b2">この商品、いかがですか？</div>
+    <div class="mark">！？</div>
+    <div class="verdict">✕　100%、断られます</div>
+    <div class="gotcha">…………やっていませんか？</div>
+  </div>
+  <i class="fragment ctl c1"></i><i class="fragment ctl c2"></i><i class="fragment ctl c3"></i>
+  <i class="fragment ctl c4"></i><i class="fragment ctl c5"></i><i class="fragment ctl c6"></i>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 4 つかみの答え -->
+<section class="slide center">
+  <div class="tag">今日の出発点</div>
+  <h1 style="font-size:60px;">相手がまだ、<br>何ひとつイエスを出していないのに、<br><span class="ac">いちばん大きなイエス</span>を取りにいっている。</h1>
+  <div class="point fragment" style="max-width:1180px;margin-top:40px;text-align:center;">
+    「検討します」は、断りではありません。<br><span class="ac">「まだ、あなたを知りません」</span>という意味です。
+  </div>
+</section>
+
+<!-- 5 今日の背骨 -->
+<section class="slide">
+  <div class="kicker">今日の背骨</div>
+  <h2>大きなイエスは、<span class="ac">小さなイエスの上</span>にしか乗らない</h2>
+  <div class="stairs">
+    <div class="st s1"><div class="lb">ラポール<br>「聞いてもいい」</div></div>
+    <div class="st s2"><div class="lb">小さな<br>イエス</div></div>
+    <div class="st s3"><div class="lb">小さな<br>イエス</div></div>
+    <div class="st s4"><div class="lb">小さな<br>イエス</div></div>
+    <div class="st big"><div class="lb">大きな<br>イエス<br>（成約）</div></div>
+  </div>
+  <div class="point">いちばん最初のイエスは「<span class="ac">この人の話を聞いてもいい</span>」。<br>これがラポールです。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 6 一貫性の原理 -->
+<section class="slide">
+  <div class="kicker">なぜ小さなイエスが効くのか</div>
+  <h2>人は、一度言ったことと<span class="ac">矛盾したくない</span></h2>
+  <ul class="clean">
+    <li>小さなイエスを口にした人は、<b>そのあともイエスの側に立ち続けようとする</b><small>自分の発言と行動を、一致させておきたいから</small></li>
+    <li>これを<b>一貫性の原理</b>といいます<small>ロバート・チャルディーニ『影響力の武器』</small></li>
+    <li>だから、<b>先に小さなイエスを置いておく</b><small>イエスセット話法／アセンディングクローズ</small></li>
+  </ul>
+  <div class="point">だんだん大きくしていく。<span class="ac">一発で取りにいかない。</span></div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 7 実験 -->
+<section class="slide">
+  <div class="kicker">証拠になる実験</div>
+  <h2>庭に、大きな「安全運転」の看板を立てさせてください</h2>
+  <div class="quote fragment" style="padding:20px 34px;font-size:28px;">
+    庭に<b>大きな看板</b>を立てさせてほしいと、いきなり頼む。OKは <b>17%</b>。<br>
+    別のグループには、先に「<b>窓に小さなステッカーを</b>」とだけ頼んだ。ほぼ全員がOK。<br>
+    2週間後、同じ看板の話を持っていくと──
+    <span class="src">Freedman &amp; Fraser（1966）／フット・イン・ザ・ドア</span>
+  </div>
+  <div class="nums" style="margin-top:6px;">
+    <div class="nb a fragment"><div class="v" style="font-size:84px;">17<span style="font-size:40px;">%</span></div><div class="k">いきなり頼む</div></div>
+    <div class="arw fragment">→</div>
+    <div class="nb b fragment"><div class="v" style="font-size:84px;">76<span style="font-size:40px;">%</span></div><div class="k">先に小さなイエスをもらう</div></div>
+  </div>
+  <div class="point" style="margin-top:20px;">やったのは、<span class="ac">先に小さなイエスを一つもらっただけ</span>。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 8 具体例 -->
+<section class="slide">
+  <div class="kicker">やってみると、こうなる</div>
+  <h2>階段を4段つくってから、最後の一段を出す</h2>
+  <div class="ba">
+    <div class="bx ng">
+      <div class="hd">✕　一発で取りにいく</div>
+      <div class="bd">「この勉強会、<br>申し込みませんか？」<br><br>相手はまだ、一度もうなずいていません。</div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">○　積み上げる</div>
+      <div class="bd">
+      「本を出したいと思われているんですよね？」→ <b>はい</b><br>
+      「企画書は、まだ書かれたことがない？」→ <b>はい</b><br>
+      「書き方を知りたいとは思われますか？」→ <b>はい</b><br>
+      「学べる場があるなら、のぞいてみたいですよね」→ <b>はい</b><br>
+      <b>「実は、そういう場があるんです」</b></div>
+    </div>
+  </div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 9 注意 -->
+<section class="slide">
+  <div class="kicker">ここを間違えると、逆効果</div>
+  <h2>どうでもいい質問でイエスを取らない</h2>
+  <ul class="clean sm">
+    <li>「今日は暑いですね」で3回うなずかせる、という古いやり方があります<small>いまは、すぐ気づかれます</small></li>
+    <li><b>気づかれた瞬間、それまでのイエスが全部無効になります</b><small>人は、操られていると感じると反発する（心理的リアクタンス）</small></li>
+  </ul>
+  <div class="warn">
+    <span class="wh">本当に効くイエス</span>
+    <div class="wb">相手が話した中身を、<b>こちらが確認する</b>イエス。<br>「つまり、いまは時間のほうが課題ということですね？」 →「そうです」<br>これは誘導ではなく、<b>ちゃんと聞いていた証拠</b>です。</div>
+  </div>
+  <div class="point">だから次は、<span class="ac">聞き方</span>の話をします。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 10 ラポール -->
+<section class="slide">
+  <div class="kicker">最初のイエスをもらう</div>
+  <h2>ラポールとは、好かれることではない</h2>
+  <ul class="clean">
+    <li>相手が「<b>この人の話を聞いてもいい</b>」と思っている状態<small>いちばん最初の、いちばん大きな「小さなイエス」</small></li>
+    <li>ここが取れていない相手からは、<b>何を聞いてもイエスは出ません</b></li>
+    <li>相手が構えを解くのは、<b>肯定されたと感じたとき</b><small>カール・ロジャーズ／無条件の肯定的関心</small></li>
+  </ul>
+  <div class="point">だから「<span class="ac">しっかり聞く</span>」ことが、いちばんの肯定になる。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 11 聞くと何が起きるか -->
+<section class="slide">
+  <div class="kicker">なぜ、聞くと心が開くのか</div>
+  <h2>人は<span class="ac">自分のことを話しているとき</span>、脳が喜んでいる</h2>
+  <div class="quote fragment">
+    自分のことを話しているとき、<b>脳の報酬系が活性化する</b>。<br>
+    食べ物やお金を受け取ったときと、<b>同じ回路</b>が反応する。
+    <span class="src">ハーバード大学 Tamir &amp; Mitchell（2012）</span>
+  </div>
+  <div class="point">つまり、<span class="ac">聞くという行為そのものが、相手への報酬</span>。<br>こちらが何も与えなくても、聞くだけで相手は満たされます。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 12 ラポールのつくり方 -->
+<section class="slide">
+  <div class="kicker">ラポールのつくり方</div>
+  <h2>「聞く」と「返す」</h2>
+  <div class="ba">
+    <div class="bx ok">
+      <div class="hd">聞く（土台）</div>
+      <div class="bd">① しっかり話を聞く（遮らない）<br>② うなずく<br>③ オウム返し<br>④ <b>要約</b></div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">返す（加速装置）</div>
+      <div class="bd">⑤ 感謝を伝える<br>⑥ 褒める<br><br><span style="font-size:24px;color:#6b7280;">チャルディーニ「好意の原理」</span></div>
+    </div>
+  </div>
+  <div class="point">★<span class="ac">要約がいちばん効きます</span>。<br>「つまり、〜ということですね」→「そうです」＝ これがイエスです。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 13 ひとつ足すなら -->
+<section class="slide center">
+  <div class="tag">ひとつだけ足すなら</div>
+  <h1 style="font-size:62px;">相手の言葉を、<br><span class="ac">そのまま使う</span>。</h1>
+  <p class="lead fragment" style="margin-top:36px;">「売上」と言った人に、「収益」と返さない。<br>言い換えた瞬間、相手は「分かってもらえていない」と感じます。</p>
+</section>
+
+<!-- 14 オンライン -->
+<section class="slide">
+  <div class="kicker">オンラインのラポール</div>
+  <h2>画面の向こうでは、<span class="ac">伝わり方が変わる</span></h2>
+  <table class="mtbl">
+    <thead><tr><th style="width:300px;">直すところ</th><th>なぜ</th></tr></thead>
+    <tbody>
+      <tr><th class="rowh">① 画面の明るさ</th><td>顔が暗いと<b>表情が読めない</b>。うなずいても伝わらない<small>　照明は正面から。窓を背にしない</small></td></tr>
+      <tr><th class="rowh">② カメラの高さ</th><td>見下ろすと威圧的、見上げると頼りなく見える<small>　パソコンの下に本を積むだけで変わります</small></td></tr>
+      <tr><th class="rowh">③ 角度・距離</th><td>近すぎると圧、遠すぎると他人事。<b>胸から上</b>が目安</td></tr>
+      <tr><th class="rowh">④ うなずきの大きさ</th><td>画面では小さく見える。<b>2倍大きく</b>。いつもどおりだと「無反応」に映る</td></tr>
+      <tr><th class="rowh">⑤ 音</th><td>聞き取りにくい声は、<b>話の中身まで低く評価される</b><small>　Newman &amp; Schwarz（2018）／マイクはラポールの道具</small></td></tr>
+    </tbody>
+  </table>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 15 質問の2種類 -->
+<section class="slide">
+  <div class="kicker">イエスが取れる質問のつくり方</div>
+  <h2>質問には、2種類しかない</h2>
+  <table class="mtbl">
+    <thead><tr><th style="width:290px;"></th><th style="width:330px;">答え方</th><th>使いどころ</th><th style="width:300px;">弱点</th></tr></thead>
+    <tbody>
+      <tr><th class="rowh">オープン<br>クエスチョン</th><td>自由に答える<br><small>何を・どのように・なぜ</small></td><td><b>話してもらう</b>。情報を集める<small>　前回の「4つの質問」はこちら</small></td><td><b>イエスが取れない</b></td></tr>
+      <tr><th class="rowh">クローズド<br>クエスチョン</th><td>はい／いいえ</td><td><b>イエスを取る</b>。確認する。前へ進める</td><td>連発すると尋問になる</td></tr>
+    </tbody>
+  </table>
+  <div class="point">使い方は<span class="ac">往復</span>です。話してもらって、イエスに変える。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 16 往復の例 -->
+<section class="slide">
+  <div class="kicker">往復の例</div>
+  <h2>オープンで話してもらい、クローズドでイエスに変える</h2>
+  <div class="qlist" style="gap:11px;">
+    <div class="ql"><div class="n">O</div><div class="t">「いま、どんなことでお困りですか？」　<span class="sub" style="font-size:24px;">→ 相手が話す</span></div></div>
+    <div class="ql hot"><div class="n">C</div><div class="t">「つまり、<b>○○が課題</b>ということですね？」<em>→ <b>はい</b>　＝ イエスが1つ積まれた</em></div></div>
+    <div class="ql"><div class="n">O</div><div class="t">「それが解決したら、まず何をされたいですか？」</div></div>
+    <div class="ql hot"><div class="n">C</div><div class="t">「そこまでいけたら、うれしいですよね？」<em>→ <b>はい</b>　＝ もう1つ積まれた</em></div></div>
+  </div>
+  <div class="point" style="margin-top:20px;">これをくり返して、<span class="ac">階段をつくります</span>。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 17 ダブルバインド -->
+<section class="slide">
+  <div class="kicker">ダブルバインド</div>
+  <h2>どちらを選んでも「イエス」になる聞き方</h2>
+  <div class="ba">
+    <div class="bx ng">
+      <div class="hd">✕　ノーの余地が残る</div>
+      <div class="bd" style="font-size:30px;">「新橋で会えますか？<br>大丈夫ですか？」<br><br><span style="color:#6b7280;font-size:26px;">→「ちょっと厳しいかも」と言える</span></div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">○　来るのが前提になる</div>
+      <div class="bd" style="font-size:30px;">「新橋で19時のお約束でしたね。<br><b>烏森口と銀座口</b>だったら、<br>どちらのほうが来やすいですか？」<br><br><span style="color:#6b7280;font-size:26px;">→ どちらを選んでも「来る」</span></div>
+    </div>
+  </div>
+  <div class="point">ノーの置き場所を、<span class="ac">質問から消します</span>。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 18 言い換え例 -->
+<section class="slide">
+  <div class="kicker">言い換えの練習帳</div>
+  <h2>いつもの一言を、書き換える</h2>
+  <table class="mtbl">
+    <thead><tr><th style="width:460px;">いつもの一言</th><th>ダブルバインドにすると</th></tr></thead>
+    <tbody>
+      <tr><td>ご検討いただけますか？</td><td>月曜と木曜でしたら、<b>どちらがご都合よろしいですか？</b></td></tr>
+      <tr><td>資料をお送りしましょうか？</td><td>資料はメールとLINE、<b>どちらがお手元で見やすいですか？</b></td></tr>
+      <tr><td>体験会、来られますか？</td><td>体験会、今月と来月だと<b>どちらが動きやすいですか？</b></td></tr>
+      <tr><td>企画書、見ていただけますか？</td><td>企画書、全体と第1章だけだと、<b>どちらから見ていただけますか？</b></td></tr>
+    </tbody>
+  </table>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 19 使いどころ -->
+<section class="slide">
+  <div class="kicker">使いどころを間違えないために</div>
+  <h2>ダブルバインドは、<span class="ac">最後に使う</span></h2>
+  <ul class="clean sm">
+    <li>先に小さなイエスが積まれていて、はじめて効きます</li>
+    <li>まだ迷っている人に使うと、<b>逃げ場を奪って詰めている印象</b>になります<small>第1回でお話しした「まだまだ客への売り込み」と同じで、嫌われます</small></li>
+  </ul>
+  <div class="warn">
+    <span class="wh">使うのはここだけ</span>
+    <div class="wb"><b>来たい気持ちはあるのに、決めきれない人の背中を押すとき。</b></div>
+  </div>
+  <div class="point">ラポール　→　小さなイエス　→　<span class="ac">最後にダブルバインド</span>。<br>今日の順番が、そのまま現場の順番です。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 20 ワーク -->
+<section class="slide">
+  <div class="kicker">ワーク　12分</div>
+  <h2>自分の「いつもの一言」を書き換える</h2>
+  <div class="qlist">
+    <div class="ql"><div class="n">1</div><div class="t">いつも言っている<b>クローズの一言</b>を、1つ書き出す　<b>3分</b><em>「ご検討ください」「よかったら来てください」「資料お送りします」など</em></div></div>
+    <div class="ql hot"><div class="n">2</div><div class="t">それを<b>ダブルバインドに書き換える</b></div></div>
+    <div class="ql"><div class="n">3</div><div class="t">グループで、ひとりずつ<b>声に出して読む</b>　<b>7分</b><em>聞いた人が返すのは一点だけ ──「ノーと言う余地が、残っていませんか？」</em></div></div>
+  </div>
+  <div class="warn">
+    <span class="wh">お題が思いつかない方へ</span>
+    <div class="wb">① 次回の勉強会に、友人を誘う　② 編集者に、企画書を見てもらう約束を取る　③ 家族に、出版への挑戦を応援してもらう</div>
+  </div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 21 共有 -->
+<section class="slide center">
+  <div class="tag">共有</div>
+  <h1 style="font-size:58px;">書き換えてみて、<br><span class="ac">言いやすく</span>なりましたか。<br>言いにくくなりましたか。</h1>
+  <p class="lead fragment" style="margin-top:34px;">言いやすくなった、という方が多いはずです。<br>ノーを受ける恐怖が、減るからです。</p>
+</section>
+
+<!-- 22 まとめ -->
+<section class="slide center">
+  <div class="tag">今日のまとめ</div>
+  <h1 class="fragment" style="font-size:58px;">「検討します」は、<br>最後に出る言葉ではない。<br><span class="ac">最初から、小さなイエスが<br>一つもなかっただけ。</span></h1>
+  <div class="point fragment" style="max-width:1100px;margin-top:38px;text-align:center;">大きなイエスは、小さなイエスの上にしか乗らない。</div>
+</section>
+
+<!-- 23 着地・章扉 -->
+<section class="slide center">
+  <div class="tag">最後に、ご提案</div>
+  <h1>練習の場として、<br><span class="ac">いちばん効くもの</span>があります。</h1>
+</section>
+
+<!-- 24 オーディション -->
+<section class="slide">
+  <div class="kicker">第12回 全国出版オーディション</div>
+  <h2>エントリーして、<span class="ac">自分の企画を売り込む</span></h2>
+  <ul class="clean sm">
+    <li>企画書を書き、人前でプレゼンし、<b>投票してもらう</b><small>ウェブ投票・YouTube部門・本選</small></li>
+    <li>つまり、<b>今日やったことを全部使う場</b>です<small>ラポール・小さなイエス・聞く・背中を押す</small></li>
+    <li>エントリー受付中　<b>2026年11月1日〜</b>／本選 2027年7月24日（土）</li>
+  </ul>
+  <div class="point">練習ではなく、<span class="ac">本番で鍛える</span>。<br>これ以上の教材は、なかなかありません。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 25 会員特典 -->
+<section class="slide">
+  <div class="kicker">出版企画書勉強会の会員の方へ</div>
+  <h2>エントリーされる方には、<span class="ac">2つお付けします</span></h2>
+  <div class="ba">
+    <div class="bx ok">
+      <div class="hd">① 企画書コンサル　1回</div>
+      <div class="bd">エントリー前に、<b>岡崎が個別で</b>企画書を見ます。<br><br>出す前に直せるので、スタートの位置が変わります。</div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">② 勝ち抜くためのグループコンサル</div>
+      <div class="bd">「<b>全国出版オーディションで勝ち抜くために</b>」<br><br>予選スタートまでの準備を、一緒にやります。</div>
+    </div>
+  </div>
+  <div class="point">会員のみなさんだけの枠です。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 26 やると何が起きるか -->
+<section class="slide">
+  <div class="kicker">挑戦すると、何が起きるか</div>
+  <h2>いいことしか、ありません</h2>
+  <div class="three">
+    <div class="c"><div class="tt">セールス力が上がる</div><div class="dd">人に伝えて、動いてもらう。今日の話を、毎週使うことになります</div></div>
+    <div class="c"><div class="tt">企画の売り込みになる</div><div class="dd">編集者に見てもらえる。通らなくても、企画が磨かれます</div></div>
+    <div class="c"><div class="tt">見込み客が増える</div><div class="dd">投票をお願いする過程で、自分を知ってもらえます</div></div>
+  </div>
+  <div class="three" style="margin-top:22px;">
+    <div class="c"><div class="tt">ファンが増える</div><div class="dd">挑戦している人は、応援されます</div></div>
+    <div class="c"><div class="tt">実績になる</div><div class="dd">結果が出れば、そのまま次の仕事につながります</div></div>
+    <div class="c"><div class="tt">何より、変わる</div><div class="dd">人前で自分の企画を語った人は、もとに戻れません</div></div>
+  </div>
+  <div class="point">ご自身の<span class="ac">ステージを上げる</span>ために、強くおすすめします。</div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 27 説明会 -->
+<section class="slide">
+  <div class="kicker">まずは、ここから</div>
+  <h2><span class="ac">60分の無料説明会</span>に出てみてください</h2>
+  <div class="qrwrap">
+    <div class="qrleft">
+      <ul class="clean sm" style="max-width:none;">
+        <li>初回　<b>10月28日（水）13:00〜</b>　オンライン（Zoom）<small>そのほかの日程もご用意しています</small></li>
+        <li>費用はかかりません。<b>聞いてから決めていただけます</b></li>
+        <li>その場で決めなくて大丈夫です<small>内容を聞いて、持ち帰ってご判断ください</small></li>
+      </ul>
+      <div class="point" style="margin-top:26px;">迷っているなら、<span class="ac">説明会だけ</span>のぞいてみる。<br>それが、いちばん小さなイエスです。</div>
+    </div>
+    <div class="qrbox">
+      <div class="qt">無料説明会はこちら</div>
+      <img src="qr_seminar.png" alt="無料説明会のお申し込みQRコード">
+      <div class="qu">zaki-katsuhiro.github.io<br>/audition12/seminar/</div>
+    </div>
+  </div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 28 次回予告 -->
+<section class="slide">
+  <div class="kicker">次回　10月31日（土）朝7:00〜8:00</div>
+  <h2>ゲスト講義　<span class="ac">山崎雅行さん</span>をお迎えします</h2>
+  <div class="nxt">
+    <div class="nxtL">
+      <ul class="clean sm" style="max-width:none;">
+        <li>大手ハウスメーカーで<b>営業個人成績 全国No.1を2回</b><small>営業所成績も全国No.1。29歳で店長に</small></li>
+        <li>いまは <b>M&amp;M connect 代表</b><small>営業・若手・管理職の研修を、全国で</small></li>
+        <li>新刊が<b>10月14日に発売</b>されたばかり<small>出たてのうちに、著者から直接</small></li>
+      </ul>
+      <div class="point" style="max-width:none;">テーマは「<span class="ac">10分で売れる人になる方法</span>」。<br>今日の小さなイエスの、その先の話です。</div>
+    </div>
+    <div class="nxtR">
+      <div><img class="bookcv" src="book_yamazaki.jpg" alt="『営業は最初の10分で決まる』書影"></div>
+      <div>
+        <div class="abox">
+          <div class="qt">Amazonはこちら</div>
+          <img src="qr_amazon.png" alt="Amazonの商品ページへのQRコード">
+          <div class="qu">あさ出版　1,760円</div>
+        </div>
+        <div class="anote">※Amazonアソシエイトを<br>利用しています</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">セールス勉強会 第3回</div>
+</section>
+
+<!-- 29 締め -->
+<section class="slide center nofrag">
+  <h1>大きなイエスは、<br><span class="ac">小さなイエスの上</span>にしか乗らない。</h1>
+  <p class="lead" style="margin-top:36px;">ありがとうございました。<br>次回は<b>10月31日（土）朝7時</b>、山崎雅行さんです。</p>
+  <div class="foot" style="left:50%;transform:translateX(-50%);">セールス勉強会 第3回　2026.10.17　岡崎かつひろ</div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  /* 順次表示は「つかみ」のアニメーションだけ。ほかのページは一度に全部出す */
+  Array.prototype.forEach.call(document.querySelectorAll('.fragment'),function(el){
+    if(!el.classList.contains('ctl')) el.classList.remove('fragment');
+  });
+
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  slides.forEach(function(s,i){ s.dataset.no=(i+1)+' / '+slides.length; });
+  var counter=document.getElementById('counter');
+  var prog=document.getElementById('prog');
+  var hint=document.getElementById('hint');
+
+  /* BGMは公開版では使いません（音源を再配布しないため） */
+
+  var si=0, fi=0;
+  function frags(s){ return Array.prototype.slice.call(s.querySelectorAll('.fragment')); }
+  function render(){
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===si); });
+    var f=frags(slides[si]);
+    f.forEach(function(el,i){ el.classList.toggle('show', i<fi); });
+    counter.textContent=(si+1)+' / '+slides.length;
+    prog.style.width=((si)/(slides.length-1)*100)+'%';
+    if(si!==0) stopFade();
+  }
+  function next(){ var f=frags(slides[si]); if(fi<f.length){ fi++; render(); return; } if(si<slides.length-1){ si++; fi=0; render(); } }
+  function prev(){ if(fi>0){ fi--; render(); return; } if(si>0){ si--; fi=frags(slides[si]).length; render(); } }
+  function fit(){ stage.style.setProperty('--scale', Math.min(window.innerWidth/1600, window.innerHeight/900)); }
+  window.addEventListener('resize',fit);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ si=0; fi=0; render(); }
+    else if(e.key==='End'){ si=slides.length-1; fi=frags(slides[si]).length; render(); }
+    else if(e.key==='f'||e.key==='F'){ document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen(); }
+    else if(e.key==='p'||e.key==='P'){ window.print(); }
+  });
+  document.addEventListener('click',function(e){ if(e.clientX<window.innerWidth*0.25) prev(); else next(); });
+  setTimeout(function(){ hint.style.opacity='0'; },5000);
+  fit(); render();
+})();
+</script>
+</body>
+</html>
