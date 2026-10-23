@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>人生を効率よく生きるコツ</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1f2933;
+    --sub: #6b7280;
+    --accent: #1f6feb;
+    --accent-soft: #e8f0fe;
+    --orange: #f59e0b;
+    --line: #e5e7eb;
+    --green: #06c755;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #2b2f36; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  /* 1600×900 の画面を、ウィンドウの大きさに合わせて拡大縮小する */
+  .stage {
+    position: absolute; top: 50%; left: 50%;
+    width: 1600px; height: 900px;
+    transform-origin: center center;
+  }
+  .slide {
+    display: none;
+    width: 1600px; height: 900px;
+    background: var(--bg);
+    padding: 80px 120px;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  /* ページ番号 */
+  .slide::after {
+    content: attr(data-no);
+    position: absolute; right: 48px; bottom: 32px;
+    font-size: 22px; color: var(--sub); z-index: 3;
+  }
+
+  h1 { font-size: 64px; line-height: 1.35; font-weight: 800; }
+  h2 { font-size: 56px; line-height: 1.4; font-weight: 800; margin-bottom: 40px; white-space: nowrap; }
+  p { font-size: 40px; line-height: 1.6; }
+  .sub { color: var(--sub); }
+  .accent { color: var(--accent); }
+  .orange { color: var(--orange); }
+  .kicker { font-size: 30px; font-weight: 800; color: var(--accent); letter-spacing: .08em; margin-bottom: 10px; }
+
+  /* ── 表紙：左に題名、右に絵 ── */
+  .cover { flex-direction: row; align-items: center; padding: 60px 40px 60px 110px; gap: 10px; }
+  .cover-text { flex: none; width: 640px; }
+  .cover-text .pre { font-size: 34px; color: var(--accent); font-weight: 800; margin-bottom: 18px; }
+  .cover-text h1 { font-size: 92px; line-height: 1.25; }
+  .cover-text h1::after {
+    content: ""; display: block; width: 120px; height: 8px;
+    background: var(--accent); margin-top: 30px; border-radius: 4px;
+  }
+  .cover-text .subt { font-size: 38px; margin-top: 30px; font-weight: 700; line-height: 1.5; }
+  .cover-text .by { margin-top: 56px; font-size: 36px; font-weight: 800; }
+  .cover-text .by small { display: block; font-size: 26px; color: var(--sub); font-weight: 600; margin-top: 8px; }
+  .cover > img { flex: 1; min-width: 0; max-height: 820px; object-fit: contain; }
+
+  /* ── 講師プロフィール ── */
+  .profile { flex-direction: row; align-items: center; gap: 70px; padding: 60px 100px; }
+  .profile .photos { position: relative; width: 700px; height: 780px; flex: none; }
+  .profile .photos .main { position: absolute; left: 0; top: 0; height: 780px; width: auto; object-fit: contain; border-radius: 16px; }
+  .profile .bar {
+    position: absolute; right: 0; bottom: 0; width: 280px;
+    background: #fff; padding: 14px 14px 10px; border-radius: 10px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.25); transform: rotate(3deg);
+  }
+  .profile .bar img { width: 100%; height: 400px; object-fit: cover; object-position: center 35%; border-radius: 4px; display: block; }
+  .profile .bar figcaption { font-size: 24px; text-align: center; padding-top: 8px; color: var(--sub); }
+  .profile .role { font-size: 34px; color: var(--accent); font-weight: 700; }
+  .profile .name { font-size: 88px; font-weight: 800; line-height: 1.3; margin-bottom: 34px; white-space: nowrap; }
+  .profile ul { list-style: none; }
+  .profile li { font-size: 40px; line-height: 1.5; padding: 12px 0 12px 40px; position: relative; white-space: nowrap; }
+  .profile li::before { content: ""; position: absolute; left: 4px; top: 34px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); }
+
+  /* ── 著書 ── */
+  .books { padding: 56px 130px 70px; }
+  .books h2 { text-align: center; margin-bottom: 36px; }
+  .book-layout { flex: 1; display: flex; align-items: center; justify-content: center; gap: 70px; }
+  .featured { display: flex; gap: 36px; }
+  .featured figure { position: relative; }
+  .featured img { height: 560px; width: auto; display: block; box-shadow: 0 14px 34px rgba(0,0,0,.22); }
+  .featured .badge {
+    position: absolute; top: -18px; left: -14px; z-index: 1;
+    background: var(--accent); color: #fff; font-size: 26px; font-weight: 800;
+    padding: 8px 22px; border-radius: 999px; box-shadow: 0 4px 12px rgba(0,0,0,.2); white-space: nowrap;
+  }
+  .featured .badge.best { background: var(--orange); }
+  .others { display: grid; grid-template-columns: repeat(4, 112px); gap: 18px 16px; }
+  .others img { width: 112px; height: auto; display: block; box-shadow: 0 5px 12px rgba(0,0,0,.16); }
+
+  /* ── 手を挙げてください ── */
+  .hands { flex-direction: row; gap: 50px; padding: 70px 90px 70px 110px; }
+  .hands .left { flex: none; width: 860px; display: flex; flex-direction: column; }
+  .hands > img { flex: 1; min-width: 0; object-fit: contain; align-self: center; max-height: 640px; }
+  .q { display: flex; align-items: center; gap: 26px; background: #fff; border: 3px solid var(--line);
+       border-radius: 20px; padding: 26px 32px; margin-bottom: 26px; }
+  .q .no { flex: none; width: 74px; height: 74px; border-radius: 50%; background: var(--accent); color: #fff;
+           font-size: 40px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .q .t { font-size: 40px; font-weight: 800; line-height: 1.4; }
+
+  /* ── イラスト＋ひと言（左右） ── */
+  .il { flex-direction: row; align-items: center; gap: 40px; padding: 60px 100px 60px 60px; }
+  .il > img { width: 54%; flex: none; max-height: 760px; object-fit: contain; }
+  .il .txt { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .il.rev { flex-direction: row-reverse; padding: 60px 60px 60px 110px; }
+  .tag {
+    align-self: flex-start; white-space: nowrap;
+    font-size: 30px; font-weight: 800; color: #fff; background: var(--accent);
+    padding: 8px 26px; border-radius: 999px; margin-bottom: 30px;
+  }
+  .tag.or { background: var(--orange); }
+  .msg { font-size: 64px; line-height: 1.4; font-weight: 800; }
+  .note { font-size: 36px; color: var(--sub); margin-top: 30px; line-height: 1.6; }
+
+  /* ── 大きなひと言＋イラスト（上下） ── */
+  .ilc { align-items: center; text-align: center; padding: 60px 120px 30px; }
+  .ilc .small { font-size: 38px; color: var(--sub); font-weight: 700; margin-bottom: 6px; }
+  .ilc .msg { font-size: 70px; }
+  .ilc > img { flex: 1; min-height: 0; width: 100%; object-fit: contain; margin-top: 20px; }
+
+  /* ── 文字だけで言い切る ── */
+  .big { justify-content: center; align-items: center; text-align: center;
+         background: linear-gradient(160deg, #f5f9ff 0%, #ffffff 65%); }
+  .big .small { font-size: 40px; color: var(--sub); font-weight: 700; margin-bottom: 24px; }
+  .big .msg { font-size: 84px; line-height: 1.4; }
+  .big .after { font-size: 46px; margin-top: 40px; font-weight: 700; color: var(--accent); }
+  .mark { background: linear-gradient(transparent 62%, #ffe7b0 62%); }
+
+  /* ── 章の区切り：青 ── */
+  .section { justify-content: center; color: #fff; padding-left: 140px;
+             background: linear-gradient(90deg, #1f6feb 0%, #3b82f6 55%, #93c5fd 100%); }
+  .section .label { font-size: 40px; opacity: .9; margin-bottom: 16px; font-weight: 800; position: relative; z-index: 2; }
+  .section h1 { font-size: 80px; line-height: 1.3; max-width: 820px; white-space: nowrap; position: relative; z-index: 2; }
+  .section > img { position: absolute; right: 70px; top: 50%; transform: translateY(-50%); width: 640px; height: auto; max-height: 720px;
+                   object-fit: contain; background: #fff; border-radius: 30px; padding: 18px; box-shadow: 0 20px 50px rgba(0,0,0,.18); }
+  .section::after { color: rgba(255,255,255,.8); }
+
+  /* ── 流れ図（横に並ぶ箱と矢印） ── */
+  .chain { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 30px; }
+  .chain .st { background: var(--accent-soft); border: 3px solid var(--accent); border-radius: 22px;
+               padding: 30px 26px; min-width: 210px; text-align: center; font-size: 44px; font-weight: 800; white-space: nowrap; }
+  .chain .st.now { background: var(--accent); color: #fff; }
+  .chain .st.fut { background: #fff7e6; border-color: var(--orange); color: #b45309; }
+  .chain .arw { font-size: 54px; color: var(--accent); font-weight: 800; }
+  .chain-note { display: flex; justify-content: center; gap: 60px; margin-top: 60px; }
+  .chain-note p { font-size: 40px; font-weight: 800; background: #fff; border-left: 10px solid var(--accent);
+                  padding: 14px 28px; box-shadow: 0 6px 20px rgba(0,0,0,.06); white-space: nowrap; }
+  .chain-note p.f { border-color: var(--orange); }
+
+  /* ── 良かれの階段 ── */
+  .yokare { flex: 1; display: flex; align-items: flex-end; gap: 22px; padding: 0 30px 20px; }
+  .yokare .s { flex: 1; background: var(--accent-soft); border: 3px solid var(--accent); border-radius: 16px 16px 0 0;
+               display: flex; align-items: flex-start; justify-content: center; padding-top: 22px;
+               font-size: 38px; font-weight: 800; color: var(--accent); white-space: nowrap; }
+  .yokare .s.now { background: var(--accent); color: #fff; font-size: 48px; }
+
+  /* ── 写真2枚で比べる ── */
+  .compare-slide { padding: 60px 110px 70px; }
+  .compare-slide h2 { text-align: center; margin-bottom: 30px; }
+  .compare { display: flex; gap: 48px; flex: 1; min-height: 0; }
+  .compare figure { flex: 1; display: flex; flex-direction: column; border-radius: 20px; overflow: hidden; border: 4px solid var(--line); }
+  .compare img { width: 100%; flex: 1; min-height: 0; object-fit: cover; }
+  .compare figcaption { font-size: 44px; font-weight: 800; text-align: center; padding: 20px 0; white-space: nowrap; }
+  .compare figure.bad figcaption { background: #f3f4f6; color: var(--sub); }
+  .compare figure.good { border-color: var(--accent); }
+  .compare figure.good figcaption { background: var(--accent); color: #fff; }
+
+  /* ── 2：8 の図 ── */
+  .people { display: grid; grid-template-columns: repeat(10, 1fr); gap: 26px 30px; margin: 30px 40px 0; }
+  .people .p { display: flex; flex-direction: column; align-items: center; }
+  .people .p i { display: block; width: 46px; height: 46px; border-radius: 50%; background: #cbd5e1; }
+  .people .p b { display: block; width: 76px; height: 70px; border-radius: 38px 38px 10px 10px; background: #cbd5e1; margin-top: 6px; }
+  .people .p.top i, .people .p.top b { background: var(--accent); }
+  .ratio { display: flex; margin: 50px 40px 0; height: 120px; border-radius: 18px; overflow: hidden; font-size: 44px; font-weight: 800; }
+  .ratio .a { width: 20%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
+  .ratio .b { flex: 1; background: #e5e7eb; color: var(--sub); display: flex; align-items: center; justify-content: center; white-space: nowrap; }
+  .ratio-cap { display: flex; margin: 16px 40px 0; font-size: 32px; font-weight: 700; color: var(--sub); }
+  .ratio-cap span:first-child { width: 20%; text-align: center; color: var(--accent); }
+  .ratio-cap span:last-child { flex: 1; text-align: center; }
+
+  .tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; margin-top: 20px; }
+  .tiles div { height: 230px; border-radius: 22px; background: #f3f4f6; border: 3px solid #e5e7eb;
+               display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 700; color: #9ca3af; white-space: nowrap; }
+  .tiles div.k { background: var(--accent); border-color: var(--accent); color: #fff; font-size: 40px; font-weight: 800; }
+
+  /* ── 緊急／重要の図 ── */
+  .mx-wrap { flex: 1; display: flex; gap: 50px; align-items: stretch; min-height: 0; }
+  .mx { position: relative; flex: none; width: 980px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+        gap: 16px; padding: 0 0 54px 74px; }
+  .mx .ax-y { position: absolute; left: 0; top: 0; bottom: 54px; width: 60px; display: flex; flex-direction: column; justify-content: space-around;
+              align-items: center; font-size: 28px; font-weight: 800; color: var(--sub); }
+  .mx .ax-y span { writing-mode: vertical-rl; }
+  .mx .ax-x { position: absolute; left: 74px; right: 0; bottom: 0; height: 46px; display: flex; justify-content: space-around;
+              font-size: 28px; font-weight: 800; color: var(--sub); }
+  .mx .c { border-radius: 20px; padding: 22px 26px; background: #f3f4f6; border: 3px solid #e5e7eb; display: flex; flex-direction: column; }
+  .mx .c .n { font-size: 26px; font-weight: 800; color: var(--sub); }
+  .mx .c .t { font-size: 36px; white-space: nowrap; font-weight: 800; line-height: 1.35; margin-top: 4px; }
+  .mx .c .e { font-size: 24px; white-space: nowrap; color: var(--sub); margin-top: 10px; line-height: 1.5; }
+  .mx .c.q1 { background: #fff1f0; border-color: #fca5a5; }
+  .mx .c.q2 { background: var(--accent-soft); border-color: var(--accent); }
+  .mx .c.q2.hot { box-shadow: 0 0 0 8px rgba(31,111,235,.25); }
+  .mx-side { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
+  .mx-side .msg { font-size: 54px; }
+  .src { position: absolute; left: 120px; bottom: 30px; font-size: 22px; color: var(--sub); }
+
+  /* ── 日報の一日 ── */
+  .day { flex: 1; display: flex; gap: 30px; align-items: stretch; margin-top: 10px; }
+  .day .tm { flex: 1; border-radius: 22px; border: 3px solid var(--line); padding: 28px; display: flex; flex-direction: column; align-items: center; }
+  .day .tm .clock { font-size: 64px; font-weight: 800; }
+  .day .tm .lbl { font-size: 32px; color: var(--sub); font-weight: 700; }
+  .day .tm .card { margin-top: auto; width: 100%; border-radius: 18px; padding: 26px 10px; text-align: center; font-size: 38px; font-weight: 800; white-space: nowrap; }
+  .day .tm.a .card { background: var(--accent-soft); color: var(--accent); }
+  .day .tm.b .card { background: #fff7e6; color: #b45309; }
+  .day .tm.c .card { background: #fff1f0; color: #dc2626; }
+  .day .tm .meter { width: 100%; height: 26px; background: #f3f4f6; border-radius: 13px; margin: 26px 0; overflow: hidden; }
+  .day .tm .meter i { display: block; height: 100%; border-radius: 13px; }
+  .day .tm.a .meter i { width: 20%; background: var(--accent); }
+  .day .tm.b .meter i { width: 60%; background: var(--orange); }
+  .day .tm.c .meter i { width: 100%; background: #ef4444; }
+  .day .tm .ml { font-size: 26px; color: var(--sub); }
+
+  /* ── 大きな数字 ── */
+  .num-slide { flex-direction: row; align-items: center; gap: 50px; padding: 60px 90px 60px 120px; }
+  .num-slide .txt { flex: none; width: 720px; }
+  .num-slide .num { font-size: 210px; font-weight: 900; color: var(--accent); line-height: 1; white-space: nowrap; }
+  .num-slide .num small { font-size: 80px; }
+  .num-slide > img { flex: 1; min-width: 0; max-height: 720px; object-fit: contain; }
+
+  /* ── まとめの流れ（縦） ── */
+  .sum { display: flex; flex-direction: column; gap: 16px; margin-top: 10px; }
+  .sum .row { display: flex; align-items: center; gap: 24px; font-size: 42px; font-weight: 800; }
+  .sum .row .n { flex: none; width: 66px; height: 66px; border-radius: 50%; background: var(--accent); color: #fff;
+                 display: flex; align-items: center; justify-content: center; font-size: 34px; }
+  .sum .row .w { white-space: nowrap; }
+
+  /* ── LINE プレゼント ── */
+  .gift { flex-direction: row; align-items: center; gap: 60px; padding: 60px 100px 60px 110px;
+          background: linear-gradient(160deg, #f0fff5 0%, #ffffff 60%); }
+  .gift .txt { flex: 1; }
+  .gift .lead { font-size: 34px; font-weight: 800; color: var(--green); }
+  .gift .msg { font-size: 66px; margin: 8px 0 30px; }
+  .gift .kw { display: inline-block; font-size: 30px; color: var(--sub); font-weight: 700; }
+  .gift .kwbox { margin-top: 10px; display: inline-block; font-size: 64px; font-weight: 900; color: #fff; background: var(--green);
+                 border-radius: 20px; padding: 16px 40px; white-space: nowrap; box-shadow: 0 10px 26px rgba(6,199,85,.3); }
+  .gift .how { font-size: 32px; color: var(--sub); margin-top: 26px; line-height: 1.6; }
+  .gift .qr { flex: none; width: 470px; text-align: center; }
+  .gift .qr img { width: 420px; height: 420px; border: 6px solid var(--green); border-radius: 26px; background: #fff; padding: 10px; }
+  .gift .qr p { font-size: 28px; font-weight: 800; margin-top: 14px; white-space: nowrap; }
+
+  /* ── 講師の体験談メモ（投影時は小さく） ── */
+  .story { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%);
+           font-size: 22px; color: #9ca3af; border: 2px dashed #d1d5db; border-radius: 999px; padding: 6px 22px; white-space: nowrap; z-index: 4; }
+
+  .hint { position: fixed; left: 16px; bottom: 12px; font-size: 13px; color: #9aa3ae; }
+
+  /* ── クリックで1かたまりずつ出す ── */
+  .frag { opacity: 0; }
+  .frag.on { animation: pop .8s cubic-bezier(.2, .9, .3, 1.25) both; }
+  .frag.on.instant { animation: none; opacity: 1; }
+  @keyframes pop {
+    0%   { opacity: 0;  transform: translateY(40px) scale(.9); filter: blur(6px); }
+    55%  { opacity: 1;  filter: blur(0); }
+    100% { opacity: 1;  transform: none; }
+  }
+
+  #glow {
+    position: fixed; left: 0; top: 0; width: 110px; height: 110px;
+    margin: -55px 0 0 -55px; border-radius: 50%; pointer-events: none; z-index: 1000;
+    background: radial-gradient(circle, rgba(80,150,255,.95) 0%, rgba(31,111,235,.6) 14%, rgba(31,111,235,.28) 38%, rgba(31,111,235,0) 70%);
+    opacity: 0; transition: opacity .25s;
+  }
+  #glow.show { opacity: 1; }
+
+  @media print {
+    @page { size: 1600px 900px; margin: 0; }
+    html, body { background: #fff; overflow: visible; height: auto; }
+    .stage { position: static; transform: none !important; }
+    .slide { display: flex !important; page-break-after: always; }
+    .hint, #glow, .story { display: none !important; }
+    .frag { opacity: 1 !important; animation: none !important; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .slide::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- 表紙 -->
+  <section class="slide cover">
+    <div class="cover-text">
+      <p class="pre">下村志保美さん コラボ講演会</p>
+      <h1>人生を<br>効率よく<br>生きるコツ</h1>
+      <p class="subt">効率よく生きる人は<br><span class="accent">「迷う回数」</span>が少ない</p>
+      <p class="by">岡崎かつひろ</p>
+    </div>
+    <img src="images/cover.jpg" alt="">
+  </section>
+
+  <!-- ■ 自己紹介（順次表示なし） -->
+  <section class="slide profile nofrag">
+    <div class="photos">
+      <img class="main" src="images/profile.jpg" alt="岡崎かつひろ">
+      <figure class="bar">
+        <img src="images/bartender.jpg" alt="">
+        <figcaption>飲食店時代</figcaption>
+      </figure>
+    </div>
+    <div class="txt">
+      <p class="role">作家・講演家</p>
+      <p class="name">岡崎かつひろ</p>
+      <ul>
+        <li>ソフトバンクに入社</li>
+        <li>飲食店を経営</li>
+        <li>いまは執筆と講演</li>
+        <li>全国出版オーディション主宰</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide books">
+    <h2>著書</h2>
+    <div class="book-layout">
+      <div class="featured">
+        <figure>
+          <span class="badge">今日のお話はこの本から</span>
+          <img src="images/books/13.jpg" alt="要領のいい人が最初に考えること">
+        </figure>
+        <figure>
+          <span class="badge best">いちばん人気</span>
+          <img src="images/books/12.jpg" alt="いつも機嫌よくいられる本">
+        </figure>
+      </div>
+      <div class="others">
+        <img src="images/books/01.jpg" alt=""><img src="images/books/02.jpg" alt=""><img src="images/books/03.jpg" alt=""><img src="images/books/04.jpg" alt="">
+        <img src="images/books/05.jpg" alt=""><img src="images/books/06.jpg" alt=""><img src="images/books/07.jpg" alt=""><img src="images/books/08.jpg" alt="">
+        <img src="images/books/09.jpg" alt=""><img src="images/books/10.jpg" alt=""><img src="images/books/11.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+  <!-- ■ 手を挙げてください -->
+  <section class="slide hands">
+    <div class="left">
+      <p class="kicker">ひとつでも当てはまったら</p>
+      <h2>手を挙げてください</h2>
+      <div class="q"><span class="no">1</span><span class="t">いつも仕事や家事に<br>追われている</span></div>
+      <div class="q"><span class="no">2</span><span class="t">「やらなきゃ」と思いつつ<br>つい後回しにしてしまう</span></div>
+      <div class="q"><span class="no">3</span><span class="t">自分が本当はどうしたいのか<br>実はよくわからない</span></div>
+    </div>
+    <img src="images/hands.jpg" alt="">
+  </section>
+
+  <section class="slide big">
+    <p class="small">そんなあなたのために</p>
+    <p class="msg">今日の講演を<br>させていただきます</p>
+  </section>
+
+  <!-- ■ LINEプレゼント（1回目） -->
+  <section class="slide gift">
+    <div class="txt">
+      <p class="lead">🎁 今日のスライドをプレゼント</p>
+      <p class="msg">このスライドを<br>そのまま差し上げます</p>
+      <p class="kw">LINE公式に、このキーワードを送ってください</p><br>
+      <span class="kwbox">下村さん大好き</span>
+      <p class="how">① 右のQRで友だち追加<br>② トークに「下村さん大好き」と送る</p>
+    </div>
+    <div class="qr">
+      <img src="images/line_qr.png" alt="LINE公式 友だち追加QR">
+      <p>岡崎かつひろ LINE公式</p>
+    </div>
+  </section>
+
+  <!-- ■ 1. 人生は選択である -->
+  <section class="slide section">
+    <p class="label">1</p>
+    <h1>人生は<br>選択である</h1>
+    <img src="images/choices.jpg" alt="">
+  </section>
+
+  <section class="slide il">
+    <img src="images/mentor.jpg" alt="">
+    <div class="txt">
+      <span class="tag">26歳のとき</span>
+      <p class="msg">メンターから<br>言われた<br>ひと言</p>
+    </div>
+    <p class="story">体験談：26歳、独立のときにメンターから聞いた話</p>
+  </section>
+
+  <section class="slide il rev">
+    <img src="images/choices.jpg" alt="">
+    <div class="txt">
+      <p class="msg">人生は<br>選択の<br>積み重ね</p>
+      <p class="note">朝起きてから寝るまで<br>人は選び続けている</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">選択には、必ず「基準」がある</p>
+    <h2>今は、どうやってできたのか</h2>
+    <div class="chain">
+      <div class="st">基準</div><div class="arw">→</div>
+      <div class="st">選択</div><div class="arw">→</div>
+      <div class="st">行動</div><div class="arw">→</div>
+      <div class="st now">今</div><div class="arw">→</div>
+      <div class="st fut">未来</div>
+    </div>
+    <div class="chain-note">
+      <p>今は、選択の積み重ね</p>
+      <p class="f">未来は、その延長線上</p>
+    </div>
+  </section>
+
+  <section class="slide ilc">
+    <p class="small">ひとつ質問です</p>
+    <p class="msg">「人生を悪くしてやろう」と<br>選ぶ人はいますか？</p>
+    <img src="images/good.jpg" alt="">
+  </section>
+
+  <section class="slide">
+    <p class="kicker">人はいつも、自分にとって良い方を選んでいる</p>
+    <h2>良かれと思って積み重ねた結果が「今」</h2>
+    <div class="yokare">
+      <div class="s" style="height:22%">良かれ</div>
+      <div class="s" style="height:36%">良かれ</div>
+      <div class="s" style="height:50%">良かれ</div>
+      <div class="s" style="height:64%">良かれ</div>
+      <div class="s" style="height:78%">良かれ</div>
+      <div class="s now" style="height:92%">今</div>
+    </div>
+  </section>
+
+  <section class="slide il">
+    <img src="images/wonder.jpg" alt="">
+    <div class="txt">
+      <p class="msg">もし今が<br>最高でない<br>としたら…</p>
+    </div>
+  </section>
+
+  <section class="slide big">
+    <p class="small">それは</p>
+    <p class="msg">選択の<span class="mark">「基準」</span>が<br>間違っているのかもしれない</p>
+  </section>
+
+  <!-- ■ 2. 迷う回数 -->
+  <section class="slide section">
+    <p class="label">2</p>
+    <h1>効率よく生きる人は<br>迷う回数が少ない</h1>
+    <img src="images/closet.jpg" alt="">
+  </section>
+
+  <section class="slide il">
+    <img src="images/closet.jpg" alt="">
+    <div class="txt">
+      <p class="msg">時間を<br>奪っているのは<br><span class="accent">「迷い」</span></p>
+    </div>
+  </section>
+
+  <section class="slide il rev">
+    <img src="images/bubbles.jpg" alt="">
+    <div class="txt">
+      <p class="msg">何を着る？<br>何を食べる？<br>何からやる？</p>
+      <p class="note">1日のうちに<br>小さな迷いがいくつもある</p>
+    </div>
+  </section>
+
+  <section class="slide il">
+    <img src="images/books/13.jpg" alt="" style="width:34%; box-shadow:0 14px 34px rgba(0,0,0,.2);">
+    <div class="txt" style="padding-left:40px;">
+      <span class="tag">『要領のいい人が最初に考えること』より</span>
+      <p class="msg">要領のよさは<br>才能ではなく<br><span class="accent">技術</span></p>
+      <p class="note">迷わない人は<br>「基準」を持っている</p>
+    </div>
+  </section>
+
+  <!-- ■ 3. 基準＝ゴール -->
+  <section class="slide section">
+    <p class="label">3</p>
+    <h1>迷わないために<br>いちばん大事なこと</h1>
+    <img src="images/menu.jpg" alt="">
+  </section>
+
+  <section class="slide il">
+    <img src="images/menu.jpg" alt="">
+    <div class="txt">
+      <span class="tag">例1　食事</span>
+      <p class="msg">何を食べるか<br>迷ってしまう</p>
+    </div>
+  </section>
+
+  <section class="slide il rev">
+    <img src="images/diet.jpg" alt="">
+    <div class="txt">
+      <span class="tag">でも</span>
+      <p class="msg">「10キロ痩せる」<br>と決めていたら？</p>
+      <p class="note">迷わず<br>カロリーの低いものを選べる</p>
+    </div>
+  </section>
+
+  <section class="slide il">
+    <img src="images/hitch.jpg" alt="">
+    <div class="txt">
+      <span class="tag">例2　ヒッチハイク</span>
+      <p class="msg">東京から<br>大阪へ<br>向かうとき</p>
+    </div>
+  </section>
+
+  <section class="slide compare-slide">
+    <h2>止まってくれた車が…</h2>
+    <div class="compare">
+      <figure class="bad">
+        <img src="images/car_north.jpg" alt="">
+        <figcaption>「北海道行きです」→ 乗らない</figcaption>
+      </figure>
+      <figure class="good">
+        <img src="images/car_nagoya.jpg" alt="">
+        <figcaption>「名古屋行きです」→ ぜひ！</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="slide big">
+    <p class="small">ゴールが明確なとき</p>
+    <p class="msg">人は迷わず<br>選ぶことができる</p>
+    <p class="after">ゴールが「基準」になる</p>
+  </section>
+
+  <!-- ■ 4. 2：8の法則 -->
+  <section class="slide section">
+    <p class="label">4</p>
+    <h1>本当に大事なのは<br>「2割」</h1>
+    <img src="images/ants.jpg" alt="">
+  </section>
+
+  <section class="slide">
+    <p class="kicker">パレートの法則（2：8の法則）</p>
+    <h2>会社の利益の8割は、2割の営業マンがつくる</h2>
+    <div class="people">
+      <div class="p top"><i></i><b></b></div><div class="p top"><i></i><b></b></div><div class="p"><i></i><b></b></div><div class="p"><i></i><b></b></div><div class="p"><i></i><b></b></div>
+      <div class="p"><i></i><b></b></div><div class="p"><i></i><b></b></div><div class="p"><i></i><b></b></div><div class="p"><i></i><b></b></div><div class="p"><i></i><b></b></div>
+    </div>
+    <div class="ratio"><div class="a">8割の利益</div><div class="b">2割の利益</div></div>
+    <div class="ratio-cap"><span>2割の人</span><span>8割の人</span></div>
+  </section>
+
+  <section class="slide il">
+    <img src="images/ants.jpg" alt="">
+    <div class="txt">
+      <span class="tag">アリの世界でも</span>
+      <p class="msg">よく働くのは<br>全体の<span class="accent">2割</span></p>
+      <p class="note">残りは、ふつうに働くアリと<br>ほとんど働かないアリ</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">人生も同じ</p>
+    <h2>本当に重要なことは、2割しかない</h2>
+    <div class="tiles">
+      <div class="k">本当に大事</div><div>やること</div><div>やること</div><div>やること</div><div>やること</div>
+      <div>やること</div><div>やること</div><div class="k">本当に大事</div><div>やること</div><div>やること</div>
+    </div>
+  </section>
+
+  <section class="slide big">
+    <p class="small">効率よく生きるとは</p>
+    <p class="msg">本当に大事な<span class="mark">2割</span>に<br>集中すること</p>
+  </section>
+
+  <!-- ■ 5. 緊急／重要 -->
+  <section class="slide section">
+    <p class="label">5</p>
+    <h1 style="font-size:66px;">じゃあ<br>「本当に大事なこと」<br>って？</h1>
+    <img src="images/morning_evening.jpg" alt="">
+  </section>
+
+  <section class="slide">
+    <p class="kicker">時間の使い方の4つの部屋</p>
+    <h2>あなたの時間は、どこに使われていますか？</h2>
+    <div class="mx-wrap">
+      <div class="mx">
+        <div class="ax-y"><span>重要</span><span>重要でない</span></div>
+        <div class="ax-x"><span>緊急</span><span>緊急でない</span></div>
+        <div class="c q1"><span class="n">第1領域</span><span class="t">緊急かつ重要</span><span class="e">締切・トラブル・病気</span></div>
+        <div class="c q2"><span class="n">第2領域</span><span class="t">緊急ではないが重要</span><span class="e">健康・学び・準備・家族との時間</span></div>
+        <div class="c"><span class="n">第3領域</span><span class="t">緊急だが重要でない</span><span class="e">急な誘い・多くの電話やメール</span></div>
+        <div class="c"><span class="n">第4領域</span><span class="t">緊急でも重要でもない</span><span class="e">だらだらスマホ・ひまつぶし</span></div>
+      </div>
+      <div class="mx-side">
+        <p class="msg">大事なのは<br><span class="accent">第2領域</span></p>
+      </div>
+    </div>
+    <p class="src">出典：スティーブン・R・コヴィー『7つの習慣』</p>
+  </section>
+
+  <section class="slide il rev">
+    <img src="images/morning_evening.jpg" alt="">
+    <div class="txt">
+      <span class="tag or">ここがポイント</span>
+      <p class="msg">「緊急ではないが<br>重要」は<br>放っておくと<br>「緊急」に変わる</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">例：日報・週報</p>
+    <h2>同じ日報が、時間とともに変わっていく</h2>
+    <div class="day">
+      <div class="tm a"><span class="clock">9:00</span><span class="lbl">朝</span><div class="meter"><i></i></div><span class="ml">あせり度</span><div class="card">緊急ではないが重要</div></div>
+      <div class="tm b"><span class="clock">13:00</span><span class="lbl">昼すぎ</span><div class="meter"><i></i></div><span class="ml">あせり度</span><div class="card">そろそろ…</div></div>
+      <div class="tm c"><span class="clock">17:00</span><span class="lbl">夕方</span><div class="meter"><i></i></div><span class="ml">あせり度</span><div class="card">緊急かつ重要</div></div>
+    </div>
+  </section>
+
+  <section class="slide il">
+    <img src="images/early.jpg" alt="">
+    <div class="txt">
+      <p class="msg">重要だと<br>わかっているなら<br><span class="accent">先に先に</span><br>進めておく</p>
+    </div>
+  </section>
+
+  <!-- ■ 6. 人の力を借りる -->
+  <section class="slide section">
+    <p class="label">6</p>
+    <h1>ゴールを<br>はっきりさせるには</h1>
+    <img src="images/fog.jpg" alt="">
+  </section>
+
+  <section class="slide il">
+    <img src="images/fog.jpg" alt="">
+    <div class="txt">
+      <p class="msg">ひとりで<br>考えても<br>ゴールは<br>なかなか見えない</p>
+    </div>
+  </section>
+
+  <section class="slide il rev">
+    <img src="images/coaching.jpg" alt="">
+    <div class="txt">
+      <span class="tag">だから</span>
+      <p class="msg">人の力を<br>借りる</p>
+      <p class="note">それが<span class="accent" style="font-weight:800;">コーチング</span></p>
+    </div>
+  </section>
+
+  <section class="slide num-slide">
+    <div class="txt">
+      <p class="kicker">自分の基準をつくってきた時間</p>
+      <p class="num">年間<br>100<small>日</small></p>
+      <p class="note">能力開発のセミナーに通い<br>自分のゴールと基準をつくってきた</p>
+    </div>
+    <img src="images/seminar.jpg" alt="">
+    <p class="story">体験談：能力開発セミナーで得たもの</p>
+  </section>
+
+  <!-- ■ まとめ -->
+  <section class="slide section">
+    <p class="label">まとめ</p>
+    <h1>人生を<br>効率よく生きるコツ</h1>
+    <img src="images/summit.jpg" alt="">
+  </section>
+
+  <section class="slide">
+    <h2>今日のお話</h2>
+    <div class="sum">
+      <div class="row"><span class="n">1</span><span class="w">人生は選択の積み重ね。選択には基準がある</span></div>
+      <div class="row"><span class="n">2</span><span class="w">効率よく生きる人は、迷う回数が少ない</span></div>
+      <div class="row"><span class="n">3</span><span class="w">ゴールが明確になると、それが基準になる</span></div>
+      <div class="row"><span class="n">4</span><span class="w">本当に大事な2割に集中する</span></div>
+      <div class="row"><span class="n">5</span><span class="w">重要なことは、先に先に進めておく</span></div>
+      <div class="row"><span class="n">6</span><span class="w">ゴールをはっきりさせるには、人の力を借りる</span></div>
+    </div>
+  </section>
+
+  <section class="slide ilc">
+    <p class="msg">ゴールが決まれば<br>人生は迷わない</p>
+    <img src="images/summit.jpg" alt="">
+  </section>
+
+  <!-- ■ LINEプレゼント（2回目） -->
+  <section class="slide gift">
+    <div class="txt">
+      <p class="lead">🎁 お忘れなく</p>
+      <p class="msg">今日のスライドを<br>プレゼントします</p>
+      <p class="kw">LINE公式に、このキーワードを送ってください</p><br>
+      <span class="kwbox">下村さん大好き</span>
+      <p class="how">① 右のQRで友だち追加<br>② トークに「下村さん大好き」と送る</p>
+    </div>
+    <div class="qr">
+      <img src="images/line_qr.png" alt="LINE公式 友だち追加QR">
+      <p>岡崎かつひろ LINE公式</p>
+    </div>
+  </section>
+
+  <section class="slide big">
+    <p class="msg">ありがとうございました</p>
+    <p class="after">このあとは 下村志保美さん</p>
+  </section>
+
+</div>
+
+<div class="hint">→ / スペース / クリック：次へ　← ：戻る　F：全画面　P：印刷</div>
+<div id="glow"></div>
+
+<script>
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  slides.forEach((s, i) => s.dataset.no = (i + 1) + ' / ' + slides.length);
+
+  // ── 文字を「意味のかたまり」ごとに順番づけする（イラストは出しっぱなし）──
+  const steps = slides.map(s => {
+    const q = sel => [...s.querySelectorAll(sel)];
+    const groups = [];
+    const add = els => { els = els.filter(Boolean); if (els.length) groups.push(els); };
+    const has = c => s.classList.contains(c);
+
+    // いまはアニメーションなし（true にすると、クリックで1つずつ出す形に戻る）
+    const ANIMATE = false;
+    if (!ANIMATE || has('cover') || has('nofrag') || has('books')) return groups;
+
+    if (has('hands')) {
+      q('.q').forEach(e => add([e]));
+    } else if (has('section')) {
+      add(q('.label, h1'));
+    } else if (has('il') || has('ilc') || has('num-slide')) {
+      add(q('.tag, .small, .msg, .num'));
+      add(q('.note'));
+    } else if (has('big')) {
+      add(q('.small, .msg'));
+      add(q('.after'));
+    } else if (has('gift')) {
+      add(q('.kw, .kwbox, .how'));
+    } else if (has('compare-slide')) {
+      q('figcaption').forEach(c => add([c]));
+    } else if (s.querySelector('.chain')) {
+      q('.chain > *').forEach(e => add([e]));
+      q('.chain-note p').forEach(e => add([e]));
+    } else if (s.querySelector('.yokare')) {
+      q('.yokare .s').forEach(e => add([e]));
+    } else if (s.querySelector('.people')) {
+      add(q('.people'));
+      add(q('.ratio, .ratio-cap'));
+    } else if (s.querySelector('.tiles')) {
+      add(q('.tiles div:not(.k)'));
+      add(q('.tiles .k'));
+    } else if (s.querySelector('.mx')) {
+      q('.mx .c').forEach(e => add([e]));
+      add(q('.mx-side'));
+    } else if (s.querySelector('.day')) {
+      q('.day .tm').forEach(e => add([e]));
+    } else if (s.querySelector('.sum')) {
+      q('.sum .row').forEach(e => add([e]));
+    }
+    groups.flat().forEach(el => el.classList.add('frag'));
+    return groups;
+  });
+
+  let cur = Math.min(Math.max(parseInt(location.hash.slice(1)) - 1 || 0, 0), slides.length - 1);
+  let step = 0;
+
+  function setStep(n, animate) {
+    step = n;
+    steps[cur].forEach((g, k) => g.forEach(el => {
+      el.classList.toggle('on', k < n);
+      el.classList.toggle('instant', k < n && !(animate && k === n - 1));
+    }));
+  }
+  function show(i, atEnd) {
+    cur = Math.min(Math.max(i, 0), slides.length - 1);
+    slides.forEach((s, j) => s.classList.toggle('active', j === cur));
+    setStep(atEnd ? steps[cur].length : 0, false);
+    history.replaceState(null, '', '#' + (cur + 1));
+  }
+  function next() {
+    if (step < steps[cur].length) setStep(step + 1, true);
+    else if (cur < slides.length - 1) show(cur + 1);
+  }
+  function prev() {
+    if (step > 0) setStep(step - 1, false);
+    else if (cur > 0) show(cur - 1, true);
+  }
+
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    glow.classList.add('show');
+  });
+  document.addEventListener('mouseleave', () => glow.classList.remove('show'));
+
+  function fit() {
+    const scale = Math.min(innerWidth / 1600, innerHeight / 900);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'ArrowDown', ' ', 'PageDown', 'Enter'].includes(e.key)) { e.preventDefault(); next(); }
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(slides.length - 1, true);
+    else if (e.key === 'f' || e.key === 'F') {
+      document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    } else if (e.key === 'p' || e.key === 'P') window.print();
+  });
+  document.addEventListener('click', next);
+  addEventListener('resize', fit);
+
+  fit();
+  show(cur);
+</script>
+</body>
+</html>
