@@ -43,6 +43,14 @@ input[type=email]{width:100%;font-size:18px;padding:14px;border:2px solid var(--
 .foot a{color:var(--sub)}
 .done{text-align:center}
 .done .ok{display:inline-block;background:#e8f7ee;color:#04913f;font-weight:bold;border-radius:999px;padding:2px 14px;font-size:14px}
+@keyframes buru{0%,60%,100%{transform:translate(0,0) rotate(0)}63%{transform:translate(-4px,0) rotate(-1.5deg)}66%{transform:translate(4px,0) rotate(1.5deg)}69%{transform:translate(-4px,0) rotate(-1.5deg)}72%{transform:translate(4px,0) rotate(1.5deg)}75%{transform:translate(-2px,0) rotate(-.5deg)}78%{transform:translate(0,0) rotate(0)}}
+.buru{animation:buru 2.4s ease-in-out infinite}
+.top{padding:18px 18px 22px;text-align:center}
+.top h1{font-size:24px;margin:8px 0 6px}
+.top p{font-size:15px;color:var(--sub);margin:0 0 14px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);border-top:1px solid var(--line);padding:10px 14px;z-index:9}
+.bar .btn{max-width:600px;margin:0 auto;font-size:18px;padding:13px 12px}
+.wrap.hasbar{padding-bottom:96px}
 </style>
 </head>
 <body>
@@ -51,13 +59,13 @@ input[type=email]{width:100%;font-size:18px;padding:14px;border:2px solid var(--
 <div class="sec done">
 <span class="ok">✓ メール登録ありがとうございます</span>
 <h1>出版の秘訣「虎の巻」をどうぞ</h1>
-<a class="btn mail" href="toranomaki.pdf" target="_blank" rel="noopener">「虎の巻」をダウンロード<small>PDF・5ページ</small></a>
+<a class="btn mail buru" href="toranomaki.pdf" target="_blank" rel="noopener">「虎の巻」をダウンロード<small>PDF・5ページ</small></a>
 <p class="note">ご登録のメールアドレスにも、ご案内をお送りしています。</p>
 </div>
 <div class="sec alt done">
 <h2>LINE登録がまだの方へ</h2>
 <p>現役編集長の企画書づくり動画（全6本）は、LINEでお届けしています。</p>
-<a class="btn line" href="https://lin.ee/iX0mhDL" target="_blank" rel="noopener">LINEで動画を受け取る<small>友だち追加で、すぐに届きます</small></a>
+<a class="btn line buru" href="https://lin.ee/iX0mhDL" target="_blank" rel="noopener">LINEで動画を受け取る<small>友だち追加で、すぐに届きます</small></a>
 <div class="qr">パソコンの方は、スマホでこのQRコードを読み取ってください<img src="../line_qr.png" alt="LINE友だち追加のQRコード"></div>
 <p class="cheer">はじめての出版挑戦を応援しています。</p>
 </div>
