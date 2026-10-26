@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>出版企画書勉強会 第4回 ｜ 2026.10.26</title>
+<style>
+  :root{
+    --bg:#FBF6EE; --ink:#2B2420; --sub:#6B5E54;
+    --orange:#F26419; --gold:#E5A100; --green:#2A9D8F;
+    --line:#E6DCCB; --dark:#241C17; --cream:#FBF6EE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#0e0b09;
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Noto Sans JP",Meiryo,sans-serif;
+    color:var(--ink); overflow:hidden; -webkit-font-smoothing:antialiased;}
+
+  #stage{position:absolute; top:50%; left:50%; width:1280px; height:720px;
+    transform:translate(-50%,-50%) scale(var(--scale,1)); transform-origin:center center;}
+
+  /* 本文スライドは上揃え固定。中央寄せは全面スライドだけ */
+  .slide{position:absolute; inset:0; display:none; flex-direction:column;
+    justify-content:flex-start; padding:72px 84px 84px;
+    background:var(--bg); color:var(--ink); font-size:30px;}
+  .slide.active{display:flex;}
+  .slide.dark{background:var(--dark);color:var(--cream);}
+  .slide.dark .sub{color:#C9BBAD;}
+  .slide.dark .kicker{color:var(--gold);}
+  .slide.center{align-items:center;text-align:center;justify-content:center;padding-top:72px;}
+
+  .kicker{font-size:1.0em; letter-spacing:.18em; font-weight:700; color:var(--orange);
+    margin-bottom:14px; white-space:nowrap;}
+  h1{font-size:2.05em; line-height:1.34;}
+  h2{font-size:1.5em; line-height:1.4; margin:0 0 18px; letter-spacing:.01em;}
+  h2 .hl{color:var(--orange);}
+  .slide.dark h2 .hl{color:var(--gold);}
+  p{font-size:1.24em; line-height:1.66;}
+  .slide.dark p{color:#EAE0D2;}
+  .sub{font-size:1.0em; color:var(--sub); line-height:1.6;}
+  .nowrap{white-space:nowrap;}
+  .big{font-size:1.7em; font-weight:800; line-height:1.44;}
+  .huge{font-size:2.3em; font-weight:900; line-height:1.3;}
+  .orange{color:var(--orange);} .gold{color:var(--gold);}
+  .slide.dark p.gold{color:var(--gold);} .slide p.orange{color:var(--orange);}
+  strong{color:var(--orange);} .slide.dark strong{color:var(--gold);}
+  .bar{width:68px;height:8px;border-radius:4px;background:var(--orange);margin:0 0 22px;}
+  .slide.dark .bar{background:var(--gold);}
+
+  ul.clean{list-style:none;margin-top:4px;}
+  ul.clean li{font-size:1.2em; line-height:1.5; margin:11px 0; padding-left:38px; position:relative;}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.5em;width:16px;height:16px;
+    border-radius:50%;background:var(--orange);}
+  .slide.dark ul.clean li::before{background:var(--gold);}
+  ul.clean li .s{display:block;font-size:.72em;color:var(--sub);margin-top:4px;line-height:1.55;}
+  .slide.dark ul.clean li .s{color:#B7A992;}
+
+  .quote{border-left:9px solid var(--gold); padding:6px 0 6px 28px; margin:8px 0;
+    font-size:1.45em; line-height:1.55; font-weight:700;}
+
+  .three{display:flex;gap:24px;margin-top:14px;width:100%;max-width:1060px;margin-left:auto;margin-right:auto;}
+  .three .item{flex:1;background:#FFF3E2;border:2px solid var(--orange);border-radius:18px;
+    padding:18px 16px;text-align:center;}
+  .slide.dark .three .item{background:rgba(255,255,255,.06);border-color:rgba(229,161,0,.5);}
+  .three .n{font-size:1.9em;font-weight:900;color:var(--orange);line-height:1;}
+  .slide.dark .three .n{color:var(--gold);}
+  .three .lab{margin-top:12px;font-size:1.05em;font-weight:800;line-height:1.45;}
+  .three .s{margin-top:10px;font-size:.8em;color:var(--sub);line-height:1.55;}
+  .slide.dark .three .s{color:#B7A992;}
+
+  .five{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;width:100%;max-width:1080px;
+    margin-left:auto;margin-right:auto;}
+  .five .item{flex:0 0 calc(33.333% - 11px);background:#FFF3E2;border:2px solid var(--orange);
+    border-radius:16px;padding:15px 14px;text-align:center;}
+  .five .lab{font-size:1.0em;font-weight:800;line-height:1.4;}
+  .five .s{margin-top:7px;font-size:.76em;color:var(--sub);line-height:1.5;}
+
+  .four{display:flex;gap:14px;margin-top:14px;width:100%;max-width:1080px;
+    margin-left:auto;margin-right:auto;}
+  .four .item{flex:1;background:#FFF3E2;border:2px solid var(--orange);
+    border-radius:16px;padding:16px 12px;text-align:center;}
+  .slide.dark .four .item{background:rgba(255,255,255,.06);border-color:rgba(229,161,0,.5);}
+  .four .lab{font-size:.98em;font-weight:800;line-height:1.4;}
+  .four .s{margin-top:8px;font-size:.74em;color:var(--sub);line-height:1.5;}
+  .slide.dark .four .s{color:#B7A992;}
+
+  .ba{display:flex;gap:24px;margin-top:14px;align-items:stretch;width:100%;max-width:1060px;margin-left:auto;margin-right:auto;}
+  .card{flex:1;border-radius:16px;padding:22px 24px;line-height:1.5;}
+  .card .lab{font-size:.9em;font-weight:800;letter-spacing:.08em;margin-bottom:10px;white-space:nowrap;}
+  .card.before{background:#F0E7D8;border:2px solid var(--line);}
+  .card.before .lab{color:var(--sub);}
+  .card.after{background:#FFF3E2;border:3px solid var(--orange);}
+  .card.after .lab{color:var(--orange);}
+  .card p{font-size:1.02em;}
+  .slide.dark .card p{color:var(--ink);}
+  .slide.dark .card strong{color:#C4470E;}
+  .slide.dark .card p span{color:var(--sub);}
+  .arrow{align-self:center;font-size:2em;color:var(--orange);font-weight:900;}
+
+  .tag{display:inline-block;background:var(--orange);color:#fff;font-size:.9em;font-weight:800;
+    padding:6px 18px;border-radius:22px;letter-spacing:.08em;margin-bottom:18px;white-space:nowrap;}
+  .slide.dark .tag{background:var(--gold);color:#241C17;}
+
+  .split{display:flex; gap:48px; align-items:center; margin-top:10px;}
+  .split .txt{flex:1; min-width:0;}
+  .split .media img{height:306px;border-radius:6px;box-shadow:0 18px 40px rgba(0,0,0,.35);}
+
+  .box{margin-top:14px;background:#FFF3E2;border:3px solid var(--orange);border-radius:18px;
+    padding:18px 28px;max-width:1060px;}
+  .slide.dark .box{background:rgba(229,161,0,.14);border-color:var(--gold);}
+  .box .bt{font-size:1.2em;font-weight:900;color:var(--orange);margin-bottom:10px;}
+  .slide.dark .box .bt{color:var(--gold);}
+  .box p{font-size:1.05em;}
+
+  /* 表紙＋4つのお願い */
+  .slide.opening-slide{justify-content:center;}
+  .opening{display:flex;gap:52px;align-items:center;width:100%;}
+  .opening .ttl{flex:0 0 auto;}
+  .opening .ttl h1{font-size:1.9em;line-height:1.3;}
+  .opening .ttl .huge{font-size:1.9em;}
+  .opening .asks{flex:1;min-width:0;background:#FFF8EE;color:var(--ink);
+    border:3px solid var(--gold);border-radius:22px;padding:24px 30px;}
+  .opening .asks .at{font-size:1.02em;font-weight:900;color:#C4470E;margin-bottom:13px;}
+  .opening .asks ol{list-style:none;counter-reset:n;}
+  .opening .asks li{counter-increment:n;position:relative;padding-left:2.4em;margin-bottom:10px;
+    font-size:.93em;font-weight:700;line-height:1.5;color:var(--ink);}
+  .opening .asks li:last-child{margin-bottom:0;}
+  .opening .asks li::before{content:counter(n);position:absolute;left:0;top:.02em;
+    width:1.65em;height:1.65em;border-radius:50%;background:var(--orange);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:.78em;font-weight:900;}
+  .opening .asks li span{display:block;font-size:.76em;font-weight:500;color:var(--sub);margin-top:3px;line-height:1.5;}
+  .opening .asks .an{margin-top:14px;padding-top:12px;border-top:2px dashed #EBD8B4;
+    font-size:.84em;font-weight:700;color:#C4470E;}
+
+  .qrwrap{display:flex;gap:44px;align-items:center;margin-top:8px;}
+  .qrwrap .qr{width:270px;height:270px;border:8px solid #fff;border-radius:14px;
+    box-shadow:0 14px 32px rgba(0,0,0,.18);background:#fff;}
+  .qrwrap .qrtxt{flex:1;min-width:0;}
+  .qrwrap .url{font-size:1.02em;font-weight:800;color:#C4470E;word-break:break-all;
+    background:#FFF3E2;border:2px solid var(--orange);border-radius:12px;padding:12px 16px;}
+  .qrwrap ul.clean li{font-size:1.06em;margin:12px 0;}
+
+  .steps{display:flex;gap:18px;margin-top:22px;align-items:stretch;}
+  .steps .st{flex:1;background:#fff;border:2px solid var(--line);border-radius:16px;padding:20px 18px;text-align:center;}
+  .steps .st .sn{display:inline-block;background:var(--orange);color:#fff;font-size:.8em;font-weight:900;
+    padding:4px 14px;border-radius:20px;margin-bottom:12px;white-space:nowrap;}
+  .steps .st .sd{font-size:.95em;font-weight:700;line-height:1.5;}
+  .steps .arw{align-self:center;font-size:1.6em;color:var(--orange);font-weight:900;}
+
+  .foot{position:absolute;bottom:24px;left:84px;right:84px;display:flex;justify-content:space-between;
+    align-items:center;font-size:.68em;color:var(--sub);letter-spacing:.05em;}
+  .slide.dark .foot{color:#9c8f7d;}
+  .progress{position:absolute;bottom:0;left:0;height:6px;background:var(--orange);transition:width .25s;}
+
+  .fragment{opacity:0;transition:opacity .35s ease, transform .35s ease;transform:translateY(8px);}
+  .fragment.show{opacity:1;transform:none;}
+
+  #hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#8a8175;font-size:12px;
+    background:rgba(0,0,0,.35);padding:6px 14px;border-radius:20px;z-index:50;transition:opacity .4s;}
+  #counter{position:fixed;top:14px;right:18px;color:#9a8f7e;font-size:13px;z-index:50;}
+
+  /* BGM操作バー：マウスを止めると消える。画面共有しても目立たない */
+  #bgmbar{position:fixed;left:18px;bottom:16px;z-index:60;display:flex;align-items:center;gap:12px;
+    background:rgba(255,255,255,.95);border:2px solid #E6DCCB;border-radius:999px;padding:8px 16px;
+    box-shadow:0 8px 22px rgba(0,0,0,.35);white-space:nowrap;
+    opacity:0;pointer-events:none;transition:opacity .35s;}
+  body.showui #bgmbar{opacity:1;pointer-events:auto;}
+  #bgmbar > *{flex:none;}
+  #bgmbar button{font:inherit;font-family:inherit;font-size:14px;font-weight:800;border:0;border-radius:999px;
+    background:#F26419;color:#fff;padding:8px 18px;cursor:pointer;}
+  #bgmbar button.off{background:#C9B79E;}
+  #bgmbar label{font-size:12px;font-weight:700;color:#6B5E54;}
+  #bgmbar input[type=range]{width:130px;accent-color:#F26419;}
+  #bgmbar .vnum{font-size:12px;font-weight:800;color:#C4470E;width:3.2em;text-align:right;}
+  #bgmbar select{font:inherit;font-size:13px;font-weight:700;border:2px solid #E6DCCB;border-radius:8px;padding:3px 6px;}
+
+  @media print{
+    @page{size:1280px 720px;margin:0;}
+    body{background:#fff;overflow:visible;}
+    #stage{position:static;transform:none;width:1280px;height:auto;}
+    .slide{position:relative;display:flex !important;page-break-after:always;height:720px;}
+    .fragment{opacity:1 !important;transform:none !important;}
+    #hint,#counter,.progress{display:none;}
+  }
+
+  /* ===== 待機スライド（オンライン用・1枚目） ===== */
+  .wait{display:flex;gap:46px;align-items:center;width:100%;}
+  .wait .left{flex:0 0 452px;}
+  .wait .left .wt{font-size:1.9em;font-weight:900;line-height:1.3;}
+  .wait .left .wd{margin-top:18px;font-size:1.0em;font-weight:800;color:var(--gold);line-height:1.6;}
+  .wait .left .wn{margin-top:16px;font-size:.82em;color:#C9BBAD;line-height:1.65;}
+  .wait .right{flex:1;min-width:0;background:#FFF8EE;color:var(--ink);
+    border:3px solid var(--gold);border-radius:22px;padding:22px 28px;}
+  .wait .right .at{font-size:1.0em;font-weight:900;color:#C4470E;margin-bottom:12px;}
+  .wait .right ol{list-style:none;counter-reset:n;}
+  .wait .right li{counter-increment:n;position:relative;padding-left:2.4em;margin-bottom:9px;
+    font-size:.9em;font-weight:700;line-height:1.5;color:var(--ink);}
+  .wait .right li:last-child{margin-bottom:0;}
+  .wait .right li::before{content:counter(n);position:absolute;left:0;top:.02em;
+    width:1.65em;height:1.65em;border-radius:50%;background:var(--orange);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:.76em;font-weight:900;}
+  .wait .right li span{display:block;font-size:.76em;font-weight:500;color:var(--sub);margin-top:3px;line-height:1.5;}
+  .wait .right .an{margin-top:13px;padding-top:11px;border-top:2px dashed #EBD8B4;
+    font-size:.82em;font-weight:700;color:#C4470E;}
+
+  /* 待機スライドの中のBGMパネル */
+  .bgmpanel{margin-top:22px;background:rgba(255,255,255,.07);border:2px solid rgba(229,161,0,.55);
+    border-radius:16px;padding:14px 18px;}
+  .bgmpanel .bl{font-size:.8em;font-weight:900;color:var(--gold);letter-spacing:.08em;margin-bottom:10px;}
+  .bgmpanel .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .bgmpanel button{font:inherit;font-size:.72em;font-weight:800;border:0;border-radius:999px;
+    background:var(--orange);color:#fff;padding:7px 16px;cursor:pointer;white-space:nowrap;}
+  .bgmpanel button.pick{background:rgba(255,255,255,.14);color:#F4E7D4;border:2px solid rgba(229,161,0,.5);}
+  .bgmpanel button.pick.on{background:var(--gold);color:#241C17;border-color:var(--gold);}
+  .bgmpanel .row2{margin-top:11px;display:flex;align-items:center;gap:9px;}
+  .bgmpanel input[type=range]{width:150px;accent-color:var(--gold);}
+  .bgmpanel .vnum{font-size:.72em;font-weight:900;color:var(--gold);width:3.4em;text-align:right;}
+  .bgmpanel .vb{font:inherit;font-size:.72em;font-weight:900;border:2px solid rgba(229,161,0,.5);
+    border-radius:8px;background:rgba(255,255,255,.1);color:#F4E7D4;width:2em;cursor:pointer;}
+  .credit{position:absolute;bottom:14px;left:84px;right:84px;font-size:.56em;color:#8d8172;letter-spacing:.04em;line-height:1.5;}
+
+  /* 5つの気づき */
+  .pts{display:flex;flex-direction:column;gap:11px;margin-top:10px;width:100%;max-width:1070px;}
+  .pts .pt{display:flex;gap:16px;align-items:flex-start;background:#FFF3E2;
+    border:2px solid var(--orange);border-radius:14px;padding:13px 20px;}
+  .slide.dark .pts .pt{background:rgba(229,161,0,.12);border-color:rgba(229,161,0,.55);}
+  .pts .pn{flex:0 0 auto;width:1.7em;height:1.7em;border-radius:50%;background:var(--orange);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:1.0em;font-weight:900;margin-top:.1em;}
+  .slide.dark .pts .pn{background:var(--gold);color:#241C17;}
+  .pts .px{flex:1;min-width:0;font-size:1.02em;font-weight:800;line-height:1.45;}
+  .pts .px span{display:block;font-size:.78em;font-weight:500;color:var(--sub);margin-top:4px;line-height:1.55;}
+  .slide.dark .pts .px span{color:#B7A992;}
+
+</style>
+</head>
+<body>
+<div id="stage">
+
+
+<!-- 01 待機スライド（オンライン用） -->
+<section class="slide dark wait-slide" style="justify-content:center">
+  <div class="wait">
+    <div class="left">
+      <div class="wt">出版企画書<br>勉強会</div>
+      <div class="wd">第4回<br><span class="nowrap">2026年10月26日（月）20:00〜22:00</span></div>
+      <div class="wn">ゲスト：富田 志乃さん（KKロングセラーズ）<br>そろそろ始まります。音と画面の確認をどうぞ。</div>
+      <div class="bgmpanel">
+        <div class="bl">BGM</div>
+        <div class="row">
+          <button class="pick on" data-t="0">明るい</button>
+          <button class="pick" data-t="1">さわやか</button>
+          <button class="pick" data-t="2">おしゃれ</button>
+          <button id="bgmplay">▶ 再生</button>
+        </div>
+        <div class="row2">
+          <button class="vb" id="vdn">−</button>
+          <input type="range" id="bgmvol" min="0" max="100" value="30">
+          <button class="vb" id="vup">＋</button>
+          <span class="vnum" id="bgmvnum">30%</span>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="at">はじめに、4つのお願い</div>
+      <ol>
+        <li>できれば、カメラをONに<span>顔が見えると、場があたたまります</span></li>
+        <li><span class="nowrap">表示名を、お名前に変えてください</span><span>参加者一覧 › ご自分の名前 › 詳細 › 名前の変更</span></li>
+        <li><span class="nowrap">顔出しが難しい方は、お名前の前に 👂 を</span><span>「聞いています」の合図です。聞き役での参加も大歓迎です</span></li>
+        <li>リアクションは大きめに<span>拍手も 👍 も、どんどんお願いします</span></li>
+      </ol>
+      <div class="an">ここは学ぶ場であり、つながる場でもあります。</div>
+    </div>
+  </div>
+  <div class="credit">BGM：魔王魂　／　画面共有時は「コンピュータの音声を共有」にチェックを入れるとBGMが届きます</div>
+</section>
+
+<section class="slide dark center">
+  <h1 class="nowrap">出版企画書勉強会</h1>
+  <p class="huge gold" style="margin-top:20px">第4回</p>
+  <p class="sub" style="margin-top:26px;font-size:1.15em">2026年10月26日（月）　ゲスト：富田 志乃さん（KKロングセラーズ）</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">今夜の流れ</div>
+  <h2>5つ、やります</h2>
+  <ul class="clean">
+    <li>この会の、いまの体制のお話</li>
+    <li>まずは、みなさんで話してみる</li>
+    <li>提出いただいた企画書を読んで、見えてきたこと</li>
+    <li>富田さんに、企画書の裏側をうかがう</li>
+    <li>提出いただいた企画書に、フィードバック</li>
+  </ul>
+  <p class="sub" style="margin-top:18px">22時までの2時間です。アーカイブも残ります。</p>
+  <div class="foot"><span>出版企画書勉強会</span><span>2026.10.26</span></div>
+</section>
+
+<section class="slide dark center">
+  <div class="kicker">お知らせ</div>
+  <h1>3週間前に<br>お話ししたこと、<br><span class="hl">揃いました</span></h1>
+  <p class="sub" style="margin-top:24px;font-size:1.15em">「会費はそのままで、中身を増やしていきます」</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">なぜ増やすのか</div>
+  <h2>本を書けただけでは、<br><span class="hl">続きません</span></h2>
+  <p>本は出た。けれど、そこから先が動かない。<br>
+  この話を、僕は何度も聞いてきました。</p>
+  <div class="quote" style="margin-top:22px">本を含めた「売れていく流れ」が、できていない。</div>
+  <div class="foot"><span>出版企画書勉強会</span><span>2026.10.26</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">この会で起きていること</div>
+  <h2>書く人の会から、<br><span class="hl">出す人の会</span>になってきました</h2>
+  <ul class="clean">
+    <li>すでに本が出た方がいます</li>
+    <li>出ることが決まった方がいます</li>
+    <li>企画書を出版社に持ち込んでいる方がいます</li>
+  </ul>
+  <p style="margin-top:18px">その方たちに必要なのは、企画書の書き方ではありません。<br>
+  <strong>出したあとの進め方</strong>です。</p>
+  <div class="foot"><span>出版企画書勉強会</span><span>2026.10.26</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">いまの体制</div>
+  <h2>柱が、<span class="hl">7つ</span>になりました</h2>
+  <div class="five">
+    <div class="item"><div class="lab">企画書解説</div><div class="s">編集者ゲスト／月2回</div></div>
+    <div class="item"><div class="lab">マーケティング</div><div class="s">売れていく流れを作る</div></div>
+    <div class="item"><div class="lab">外部講師セミナー</div><div class="s">その道のプロに学ぶ</div></div>
+    <div class="item"><div class="lab">セールス</div><div class="s">毎週土曜 朝7時</div></div>
+    <div class="item"><div class="lab">SNS</div><div class="s">SNS部として始動</div></div>
+    <div class="item"><div class="lab">販売戦略会議</div><div class="s">販促をみんなで考える</div></div>
+    <div class="item"><div class="lab">グループコンサル</div><div class="s">ひとりずつ、月1回</div></div>
+  </div>
+  <p class="sub" style="margin-top:16px">ひとつずつ、中身をお話しします。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">柱 1・2・3</div>
+  <h2>学ぶところを、<span class="hl">広げました</span></h2>
+  <div class="three">
+    <div class="item"><div class="n">1</div><div class="lab">企画書解説</div><div class="s">現役編集者に、企画書の裏側を聞く会。<br><strong>月2回</strong>に増やします。<br>11月は11日（星野 美紀さん）と<br>28日（中西 航大さん）</div></div>
+    <div class="item"><div class="n">2</div><div class="lab">マーケティング</div><div class="s">11月2日（月）20:00<br>「販売導線の作り方」<br>本を出したあと、全体をどう設計するか</div></div>
+    <div class="item"><div class="n">3</div><div class="lab">外部講師セミナー</div><div class="s">11月9日（月）20:00<br>ゲスト：大谷 由里子さん<br>「講師依頼のくる企画の作り方」</div></div>
+  </div>
+  <div class="foot"><span>出版企画書勉強会</span><span>2026.10.26</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">柱 4・5</div>
+  <h2>売る力は、<span class="hl">別で鍛えます</span></h2>
+  <div class="ba">
+    <div class="card after">
+      <div class="lab">4　セールス</div>
+      <p><strong>毎週土曜 朝7:00〜8:00</strong><br>
+      さおり塾のみなさんと合同。<br>
+      11月は14日と28日。<br>
+      <span>申し込みは要りません。アーカイブも残ります。</span></p>
+    </div>
+    <div class="card after">
+      <div class="lab">5　SNS</div>
+      <p><strong>SNS部として始めます</strong><br>
+      10月30日（金）22:00 第1回。<br>
+      発信はひとりだと続きません。<br>
+      <span>仲間とやると、話がまったく変わります。</span></p>
+    </div>
+  </div>
+  <div class="foot"><span>出版企画書勉強会</span><span>2026.10.26</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">柱 6・7</div>
+  <h2>出したあとを、<span class="hl">ひとりにしません</span></h2>
+  <div class="ba">
+    <div class="card after">
+      <div class="lab">6　販売戦略会議</div>
+      <p><strong>10月31日（土）11:00 第1回</strong><br>
+      本を出すのが決まっている方の販促を、みんなで考える会議です。<br>
+      次回は11月21日（土）朝7:00。<br>
+      <span>申し込みは要りません。手ぶらでも、聞くだけでも大丈夫です。</span></p>
+    </div>
+    <div class="card after">
+      <div class="lab">7　グループコンサル</div>
+      <p><strong>月1回・次回は11月19日（木）20:00</strong><br>
+      ひとりずつ、いま困っていることを出していただいて、その場でお答えします。<br>
+      <span>出版のことでなくてかまいません。</span></p>
+    </div>
+  </div>
+  <div class="foot"><span>出版企画書勉強会</span><span>2026.10.26</span></div>
+</section>
+
+<section class="slide center" style="padding-top:36px">
+  <h2 style="margin-bottom:10px">11月は、<span class="hl">こうなります</span></h2>
+  <img src="img/calendar_11_top.png" alt="11月のイベントカレンダー" style="max-height:540px;width:auto;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.14)">
+</section>
+
+<section class="slide">
+  <div class="kicker">会費のこと</div>
+  <h2>いまの会費は、<br><span class="hl">これからも上げません</span></h2>
+  <p>中身は増やしますが、<strong>月額3,850円のまま</strong>です。<br>
+  続けてくださっている方の会費は、ずっとこのままにします。</p>
+  <div class="box" style="margin-top:20px">
+    <p>ひとつだけ、先にお伝えしておきます。<br>
+    いったん離れて入り直す場合は、3か月無料はつかず <strong>月額5,500円</strong> になります。</p>
+  </div>
+  <p class="sub" style="margin-top:14px">引き止めたいのではなく、あとで知って驚く方が出ないように、先にお話ししました。</p>
+  <div class="foot"><span>出版企画書勉強会</span><span>2026.10.26</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="tag">お誘い</div>
+  <h2>SNS部は、<span class="hl">これから一緒に作ります</span></h2>
+  <p>部長を立てて、みなさんと作っていく部活です。<br>
+  できあがったものに入るのではありません。</p>
+  <ul class="clean" style="margin-top:10px">
+    <li>いいねやコメントをし合うと、最初の伸びが変わります</li>
+    <li>誰かが投稿していると「よし、自分も」となります</li>
+  </ul>
+  <div class="quote" style="margin-top:16px">ぜひ積極的にご参加ください。</div>
+  <p class="sub" style="margin-top:12px">第1回ミーティング　10月30日（金）22:00〜23:00　／　Zoomはいつもの勉強会と同じ</p>
+</section>
+
+<section class="slide center">
+  <div class="kicker">ブレイクアウトルーム</div>
+  <h1>いま、自分がいちばん<br><span class="hl">欲しいのはどれですか</span></h1>
+  <div class="four" style="margin-top:26px">
+    <div class="item"><div class="lab">企画書</div></div>
+    <div class="item"><div class="lab">売る流れ</div></div>
+    <div class="item"><div class="lab">話す力</div></div>
+    <div class="item"><div class="lab">仲間</div></div>
+  </div>
+  <p class="sub" style="margin-top:24px">ひとり1分ずつ、全員がしゃべってください。<br>戻ってきたら、選んだものをチャットに一言だけ。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">今月の提出から</div>
+  <h2>全部、<span class="hl">読みました</span></h2>
+  <p>そこで見えたことを、先にお話しします。</p>
+  <ul class="clean" style="margin-top:16px">
+    <li>（当日、提出された企画書を読んでから記入）</li>
+    <li>（同上）</li>
+    <li>（同上）</li>
+  </ul>
+  <p class="sub" style="margin-top:16px">※この1枚は、19時の締切後に差し替えます。</p>
+  <div class="foot"><span>出版企画書勉強会</span><span>2026.10.26</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="kicker">今夜のゲスト</div>
+  <h2>富田 志乃さん<span class="sub" style="font-size:.6em">　KKロングセラーズ</span></h2>
+  <div class="split">
+    <div class="txt">
+      <p>じつは、<strong>僕の本の担当編集者</strong>です。</p>
+      <p style="margin-top:14px">『すぐできるのに99％の人はやっていない<br>
+      「好かれる人」になる55のコツ』</p>
+      <p class="sub" style="margin-top:14px">だから今夜は、こう聞けます。<br>
+      <strong>この企画書は、どう読まれたのか。</strong></p>
+    </div>
+    <div class="media"><img src="img/book_sukareru.jpg" alt="「好かれる人」になる55のコツ"></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">今夜読み解く企画書</div>
+  <h2>この企画書が、<span class="hl">11月11日に本になります</span></h2>
+  <div class="ba">
+    <div class="card before">
+      <div class="lab">企画書のタイトル案</div>
+      <p>影響力のある人は<br>共通して“声”がいい<br>
+      <span>サブタイトル：母音を響かせることで、人の心を動かし、伝わり方が劇的に変わる！</span></p>
+    </div>
+    <div class="arrow">→</div>
+    <div class="card after">
+      <div class="lab">本になったタイトル</div>
+      <p><strong>えっ?と聞き返されたら<br>読む本</strong><br>
+      <span>中嶋 晃子／ロングセラーズ<br>2026年11月11日発売</span></p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:16px">この企画書には、<strong>富田さんの赤が19か所</strong>入っています。<br>どこをどう直して、この本になったのか。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">対談</div>
+  <h2>企画書の<span class="hl">裏側</span>を、うかがいます</h2>
+  <ul class="clean">
+    <li>どの段階で「これはいける」と思ったか</li>
+    <li>企画書の、どこを最初に見るか</li>
+    <li>タイトルは、どう決まったか<span class="s">「影響力のある人は共通して“声”がいい」から、なぜあのタイトルへ</span></li>
+    <li>KKロングセラーズは、どんな本を探しているか</li>
+    <li>実績のない人の企画を、どう見るか</li>
+    <li>読んで会いたくなる人と、ならない人の差</li>
+  </ul>
+  <div class="foot"><span>出版企画書勉強会</span><span>2026.10.26</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="tag">今夜の特典</div>
+  <h2><span class="hl">赤入りの企画書</span>、差し上げます</h2>
+  <div class="split">
+    <div class="txt">
+      <p>『えっ?と聞き返されたら読む本』を<br>
+      <strong>Amazonでご予約</strong>くださった方に、<br>
+      この企画書をPDFでお送りします。</p>
+      <div class="box">
+        <p>書き方の解説を何度聞くより、<br>
+        <strong>赤の入った企画書を1枚読むほうが早い</strong>。</p>
+      </div>
+      <p class="sub" style="margin-top:12px;font-size:.84em">会員限定の配布です。<br>転載・再配布・SNS掲載・転送はご遠慮ください。</p>
+    </div>
+    <div class="media"><img src="img/book_kikikaesare.jpg" alt="えっ?と聞き返されたら読む本"></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">受け取り方</div>
+  <h2>予約して、<span class="hl">このフォームへ</span></h2>
+  <div class="qrwrap">
+    <img class="qr" src="img/qr_form.png" alt="申し込みフォームのQRコード">
+    <div class="qrtxt">
+      <p class="url">https://forms.gle/GaAzmuW5CkMPuqnJ8</p>
+      <ul class="clean">
+        <li><span class="nowrap">『えっ?と聞き返されたら読む本』</span><br>
+          中嶋 晃子／ロングセラーズ・11月11日発売</li>
+        <li>お名前・送り先メール・<strong>注文番号</strong><br>
+          <span class="s">ログインは要りません</span></li>
+        <li><strong>10月29日（木）24時まで</strong><br>締切後にPDFをお送りします</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>会員限定・転載はご遠慮ください</span><span>2026.10.26</span></div>
+</section>
+
+<section class="slide dark center">
+  <div class="kicker">ここから</div>
+  <h1>提出いただいた企画書に、<br><span class="hl">フィードバック</span></h1>
+  <p class="sub" style="margin-top:24px;font-size:1.1em">画面に映してよいと答えてくださった方のぶんだけ、お名前とあわせて拝見します。<br>
+  直しどころは、その場で書き換えます。</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">このあとの日程</div>
+  <h2>11月も、<span class="hl">お待ちしています</span></h2>
+  <ul class="clean" style="margin-top:0">
+    <li style="margin:8px 0">11月2日（月）20:00　特別セミナー「販売導線の作り方」</li>
+    <li style="margin:8px 0">11月9日（月）20:00　特別セミナー　ゲスト：大谷 由里子さん</li>
+    <li style="margin:8px 0">11月11日（水）20:00　第5回　ゲスト：星野 美紀さん</li>
+    <li style="margin:8px 0">11月19日（木）20:00　グループコンサル</li>
+    <li style="margin:8px 0">11月21日（土）7:00　販売戦略会議</li>
+    <li style="margin:8px 0">11月28日（土）8:00　ゲスト：中西 航大さん（三笠書房）</li>
+  </ul>
+  <p class="sub" style="margin-top:8px;font-size:.9em">セールスは毎週土曜 朝7時（11月は14日・28日）／SNS部は10月30日（金）22時から</p>
+</section>
+
+<section class="slide dark center">
+  <h1 class="huge gold">一緒に<br>出版挑戦して<br>いきましょう！</h1>
+  <p class="sub" style="margin-top:30px;font-size:1.15em">出版企画書勉強会　主宰　岡崎かつひろ</p>
+</section>
+
+<div class="progress" id="prog"></div>
+</div>
+
+<div id="counter"></div>
+<div id="hint">クリック / → で進む　F=全画面　P=印刷</div>
+<audio id="bgm" loop></audio>
+
+<script>
+(function(){
+  /* ---- BGM（魔王魂・CC BY 4.0／クレジット表記あり） ---- */
+  var TRACKS=['bgm/acoustic35.mp3','bgm/acoustic32.mp3','bgm/acoustic41.mp3'];
+  var au=document.getElementById('bgm'),
+      vol=document.getElementById('bgmvol'), vnum=document.getElementById('bgmvnum'),
+      pb=document.getElementById('bgmplay'),
+      vup=document.getElementById('vup'), vdn=document.getElementById('vdn'),
+      picks=Array.prototype.slice.call(document.querySelectorAll('.bgmpanel .pick'));
+  var baseVol=30, faded=false;
+  au.src=TRACKS[0];
+  function applyVol(){baseVol=+vol.value; au.volume=baseVol/100; vnum.textContent=baseVol+'%';}
+  vol.addEventListener('input',applyVol); applyVol();
+  function nudge(d){vol.value=Math.min(100,Math.max(0,(+vol.value)+d)); applyVol();}
+  vup.addEventListener('click',function(e){e.stopPropagation();nudge(5);});
+  vdn.addEventListener('click',function(e){e.stopPropagation();nudge(-5);});
+  picks.forEach(function(b){
+    b.addEventListener('click',function(e){
+      e.stopPropagation();
+      picks.forEach(function(x){x.classList.remove('on');}); b.classList.add('on');
+      var playing=!au.paused; au.src=TRACKS[+b.dataset.t]; au.volume=baseVol/100;
+      if(playing) au.play().catch(function(){});
+    });
+  });
+  pb.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(au.paused){au.play().catch(function(){}); pb.textContent='■ 停止';}
+    else{au.pause(); pb.textContent='▶ 再生';}
+  });
+  vol.addEventListener('click',function(e){e.stopPropagation();});
+  // 待機スライドを離れたら、自動でフェードアウトして止める
+  function fadeOut(){
+    if(faded||au.paused)return; faded=true;
+    var v=au.volume;
+    var t=setInterval(function(){
+      v-=0.04;
+      if(v<=0){clearInterval(t); au.pause(); au.volume=baseVol/100; pb.textContent='▶ 再生';}
+      else au.volume=v;
+    },90);
+  }
+
+  // 表示方式＝1枚まるごと一括表示（2026-08-31 岡崎氏指示で順次表示をやめた）
+
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var counter=document.getElementById('counter');
+  var prog=document.getElementById('prog');
+  var hint=document.getElementById('hint');
+  var si=0, fi=0;
+  function frags(s){return Array.prototype.slice.call(s.querySelectorAll('.fragment'));}
+  function render(){
+    slides.forEach(function(s,i){s.classList.toggle('active', i===si);});
+    var f=frags(slides[si]);
+    f.forEach(function(el,i){el.classList.toggle('show', i<fi);});
+    counter.textContent=(si+1)+' / '+slides.length;
+    prog.style.width=((si)/(slides.length-1)*100)+'%';
+    if(si>0) fadeOut();
+  }
+  function next(){var f=frags(slides[si]);
+    if(fi<f.length){fi++;render();return;}
+    if(si<slides.length-1){si++;fi=0;render();}}
+  function prev(){if(fi>0){fi--;render();return;}
+    if(si>0){si--;fi=frags(slides[si]).length;render();}}
+  function fit(){stage.style.setProperty('--scale', Math.min(window.innerWidth/1280, window.innerHeight/720));}
+  window.addEventListener('resize',fit);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){si=0;fi=0;render();}
+    else if(e.key==='End'){si=slides.length-1;fi=frags(slides[si]).length;render();}
+    else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+    else if(e.key==='p'||e.key==='P'){window.print();}
+  });
+  document.addEventListener('click',function(e){
+    if(e.target.closest && e.target.closest('.bgmpanel')) return;   // 音楽の操作ではめくらない
+    if(e.clientX < window.innerWidth*0.25) prev(); else next();});
+  setTimeout(function(){hint.style.opacity='0';},5000);
+  fit();render();
+})();
+</script>
+</body>
+</html>
