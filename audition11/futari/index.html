@@ -80,7 +80,7 @@ details summary{cursor:pointer;font-weight:800;color:var(--navy)}
 document.querySelectorAll('.rfu').forEach(function(e){e.value=location.href});
 document.querySelectorAll('.ru').forEach(function(e){e.value=document.referrer});
 (function(){
-  var open=new Date('2026-11-03T09:00:00+09:00');
+  var open=new Date('2026-10-26T00:00:00+09:00');
   if(new Date()<open){
     document.querySelectorAll('form button').forEach(function(b){b.disabled=true;b.innerHTML='受付開始前です<small>11月3日（火・祝）9:00から受け付けます</small>'});
   }
