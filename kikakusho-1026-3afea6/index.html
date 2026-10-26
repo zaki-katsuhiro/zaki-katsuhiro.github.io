@@ -245,21 +245,6 @@
       <div class="wt">出版企画書<br>勉強会</div>
       <div class="wd">第4回<br><span class="nowrap">2026年10月26日（月）20:00〜22:00</span></div>
       <div class="wn">ゲスト：富田 志乃さん（KKロングセラーズ）<br>そろそろ始まります。音と画面の確認をどうぞ。</div>
-      <div class="bgmpanel">
-        <div class="bl">BGM</div>
-        <div class="row">
-          <button class="pick on" data-t="0">明るい</button>
-          <button class="pick" data-t="1">さわやか</button>
-          <button class="pick" data-t="2">おしゃれ</button>
-          <button id="bgmplay">▶ 再生</button>
-        </div>
-        <div class="row2">
-          <button class="vb" id="vdn">−</button>
-          <input type="range" id="bgmvol" min="0" max="100" value="30">
-          <button class="vb" id="vup">＋</button>
-          <span class="vnum" id="bgmvnum">30%</span>
-        </div>
-      </div>
     </div>
     <div class="right">
       <div class="at">はじめに、4つのお願い</div>
@@ -272,7 +257,7 @@
       <div class="an">ここは学ぶ場であり、つながる場でもあります。</div>
     </div>
   </div>
-  <div class="credit">BGM：魔王魂　／　画面共有時は「コンピュータの音声を共有」にチェックを入れるとBGMが届きます</div>
+  <div class="credit">出版企画書勉強会　会員限定の資料です。転載・再配布はご遠慮ください。</div>
 </section>
 
 <section class="slide dark center">
@@ -565,48 +550,10 @@
 
 <div id="counter"></div>
 <div id="hint">クリック / → で進む　F=全画面　P=印刷</div>
-<audio id="bgm" loop></audio>
 
 <script>
 (function(){
-  /* ---- BGM（魔王魂・CC BY 4.0／クレジット表記あり） ---- */
-  var TRACKS=['bgm/acoustic35.mp3','bgm/acoustic32.mp3','bgm/acoustic41.mp3'];
-  var au=document.getElementById('bgm'),
-      vol=document.getElementById('bgmvol'), vnum=document.getElementById('bgmvnum'),
-      pb=document.getElementById('bgmplay'),
-      vup=document.getElementById('vup'), vdn=document.getElementById('vdn'),
-      picks=Array.prototype.slice.call(document.querySelectorAll('.bgmpanel .pick'));
-  var baseVol=30, faded=false;
-  au.src=TRACKS[0];
-  function applyVol(){baseVol=+vol.value; au.volume=baseVol/100; vnum.textContent=baseVol+'%';}
-  vol.addEventListener('input',applyVol); applyVol();
-  function nudge(d){vol.value=Math.min(100,Math.max(0,(+vol.value)+d)); applyVol();}
-  vup.addEventListener('click',function(e){e.stopPropagation();nudge(5);});
-  vdn.addEventListener('click',function(e){e.stopPropagation();nudge(-5);});
-  picks.forEach(function(b){
-    b.addEventListener('click',function(e){
-      e.stopPropagation();
-      picks.forEach(function(x){x.classList.remove('on');}); b.classList.add('on');
-      var playing=!au.paused; au.src=TRACKS[+b.dataset.t]; au.volume=baseVol/100;
-      if(playing) au.play().catch(function(){});
-    });
-  });
-  pb.addEventListener('click',function(e){
-    e.stopPropagation();
-    if(au.paused){au.play().catch(function(){}); pb.textContent='■ 停止';}
-    else{au.pause(); pb.textContent='▶ 再生';}
-  });
-  vol.addEventListener('click',function(e){e.stopPropagation();});
-  // 待機スライドを離れたら、自動でフェードアウトして止める
-  function fadeOut(){
-    if(faded||au.paused)return; faded=true;
-    var v=au.volume;
-    var t=setInterval(function(){
-      v-=0.04;
-      if(v<=0){clearInterval(t); au.pause(); au.volume=baseVol/100; pb.textContent='▶ 再生';}
-      else au.volume=v;
-    },90);
-  }
+  function fadeOut(){}   /* アーカイブ版はBGMなし */
 
   // 表示方式＝1枚まるごと一括表示（2026-08-31 岡崎氏指示で順次表示をやめた）
 
