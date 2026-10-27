@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>第1期 第6回｜成果報告会｜岡崎かつひろ</title>
+<style>
+  :root{
+    --bg:#0a1020; --panel:#0f1830; --ink:#f2f5fb; --sub:#9fb0c8;
+    --gold:#f0c26a; --gold-deep:#caa14e; --accent:#ff6a3d; --teal:#5fc7b8; --line:#1d2a45;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{background:#000;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Noto Sans JP",Meiryo,sans-serif;color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased;}
+  #stage{position:absolute;top:50%;left:50%;width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center center;}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:flex-start;padding:72px 84px 64px;background:var(--bg);color:var(--ink);font-size:30px;overflow:hidden;}
+  .slide.active{display:flex;}
+  .slide.center{align-items:center;text-align:center;justify-content:center;padding:64px 84px;}
+
+  .kicker{font-size:.92em;letter-spacing:.22em;font-weight:800;color:var(--accent);margin-bottom:18px;white-space:nowrap;}
+  h1{font-size:2.35em;line-height:1.32;letter-spacing:.01em;font-weight:900;}
+  h2{font-size:1.5em;line-height:1.4;margin-bottom:18px;letter-spacing:.01em;font-weight:800;}
+  p{font-size:1.3em;line-height:1.7;color:var(--ink);}
+  .sub{font-size:1.0em;color:var(--sub);line-height:1.65;}
+  .lead{font-size:1.15em;color:#c9d4e6;line-height:1.7;}
+  .big{font-size:1.75em;font-weight:800;line-height:1.45;}
+  .nowrap{white-space:nowrap;}
+  .gold{color:var(--gold);} .accentc{color:var(--accent);} .teal{color:var(--teal);}
+  strong{color:var(--gold);font-weight:800;}
+  .grad{background:linear-gradient(100deg,var(--accent),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .bar{width:64px;height:7px;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--gold));margin:0 0 22px;}
+  .center .bar{margin:0 auto 22px;}
+
+  .photo{justify-content:center;}
+  .photo .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .photo .scrim{position:absolute;inset:0;z-index:1;}
+  .scrim.c{background:radial-gradient(ellipse at 50% 50%,rgba(5,9,18,.42) 0%,rgba(5,9,18,.88) 80%);}
+  .photo .content{position:relative;z-index:2;width:100%;}
+  .credit{position:absolute;top:14px;left:18px;z-index:3;font-size:.5em;color:rgba(255,255,255,.45);letter-spacing:.04em;}
+
+  .tag{display:inline-block;font-size:.82em;font-weight:800;letter-spacing:.12em;background:linear-gradient(100deg,var(--accent),var(--gold));color:#1a0e06;padding:7px 20px;border-radius:999px;margin-bottom:22px;white-space:nowrap;box-shadow:0 8px 22px rgba(255,106,61,.28);}
+
+  ul.clean{list-style:none;}
+  ul.clean li{font-size:1.24em;line-height:1.5;margin:16px 0;padding-left:38px;position:relative;color:var(--ink);}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.5em;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--gold));}
+  ul.clean.sm li{font-size:1.06em;margin:11px 0;line-height:1.45;}
+  ul.clean.sm li::before{width:13px;height:13px;top:.45em;}
+
+  .three{display:flex;gap:22px;margin-top:10px;width:100%;max-width:1080px;align-self:center;}
+  .three .c{flex:1;background:rgba(255,255,255,.045);border:2px solid #26334f;border-radius:18px;padding:24px 22px 26px;}
+  .three .c .tt{font-size:1.12em;font-weight:900;margin-bottom:8px;}
+  .three .c.a1{border-color:var(--accent);} .three .c.a2{border-color:var(--gold);} .three .c.a3{border-color:var(--teal);}
+  .three .c.a1 .tt{color:var(--accent);} .three .c.a2 .tt{color:var(--gold);} .three .c.a3 .tt{color:var(--teal);}
+  .three .c .dd{font-size:.84em;color:#b9c5da;line-height:1.55;}
+  .three .c .ic{font-size:2.3em;line-height:1;margin-bottom:12px;}
+  .three.compact .c{padding:16px 20px 18px;}
+
+  .steps{display:flex;gap:22px;margin-top:10px;width:100%;max-width:1080px;align-self:center;}
+  .steps .s{flex:1;background:rgba(255,255,255,.045);border:2px solid #26334f;border-radius:18px;padding:22px 22px 24px;text-align:center;}
+  .steps .s .n{font-size:1.5em;font-weight:900;color:var(--gold);margin-bottom:10px;}
+  .steps .s .t{font-size:1.0em;font-weight:800;line-height:1.5;}
+  .steps .s .d{margin-top:10px;font-size:.78em;color:var(--sub);line-height:1.55;}
+
+  /* 全6回の歩み（横一列ステップ） */
+  .journey{display:flex;align-items:stretch;justify-content:center;gap:0;width:100%;max-width:1160px;align-self:center;margin-top:10px;}
+  .journey .jstep{flex:1;background:rgba(255,255,255,.05);border:2px solid #2a3a58;border-radius:14px;padding:16px 8px;text-align:center;font-weight:800;font-size:.84em;line-height:1.4;display:flex;flex-direction:column;justify-content:center;}
+  .journey .jstep .jn{display:block;font-size:.66em;color:var(--sub);font-weight:700;margin-bottom:5px;}
+  .journey .jstep.last{border-color:var(--gold);background:rgba(240,194,106,.10);color:var(--gold);}
+  .journey .arw{display:flex;align-items:center;color:#5a6a88;font-weight:900;font-size:1.0em;padding:0 5px;}
+
+  /* 大きな言い方ボックス */
+  .saybox{margin-top:18px;max-width:980px;align-self:center;background:rgba(0,0,0,.28);border:2px solid var(--teal);border-radius:16px;padding:20px 34px;font-size:1.1em;line-height:1.6;color:#eaf3f1;}
+  .saybox b{color:var(--gold);font-weight:900;}
+  .saybox .q{font-size:.62em;font-weight:900;letter-spacing:.14em;color:var(--teal);margin-bottom:8px;}
+
+  /* 注意／お詫びボックス */
+  .warn{align-self:center;max-width:1000px;margin-top:16px;background:rgba(255,106,61,.12);border:2px solid var(--accent);border-radius:16px;padding:20px 32px;font-size:1.06em;line-height:1.66;color:#ffe6dd;}
+  .warn b{color:var(--accent);font-weight:900;}
+  .warn .h{font-size:.66em;font-weight:900;letter-spacing:.14em;color:var(--accent);margin-bottom:8px;}
+
+  /* 告知カード（横長） */
+  .promo{align-self:center;max-width:1040px;width:100%;margin-top:14px;background:rgba(255,255,255,.05);border:2px solid var(--gold);border-radius:20px;padding:26px 36px;}
+  .promo .pt{font-size:1.25em;font-weight:900;color:var(--gold);margin-bottom:12px;line-height:1.4;}
+  .promo .pd{font-size:1.0em;color:#dbe4f2;line-height:1.72;}
+  .promo .pd b{color:var(--gold);font-weight:800;}
+  .promo .price{display:inline-block;margin-top:14px;font-size:.92em;font-weight:900;color:#1a0e06;background:linear-gradient(100deg,var(--accent),var(--gold));padding:7px 22px;border-radius:999px;}
+
+  .foot{position:absolute;bottom:22px;left:84px;right:84px;z-index:3;display:flex;justify-content:space-between;align-items:center;font-size:.62em;color:#67789a;letter-spacing:.04em;}
+  .photo .foot{color:rgba(255,255,255,.55);}
+  .progress{position:absolute;bottom:0;left:0;height:5px;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .25s;z-index:60;}
+
+  /* 待機スライド */
+  .waiting{background:radial-gradient(ellipse at 50% 30%,#12203c 0%,#0a1020 70%);padding-top:50px;padding-bottom:50px;}
+  .waiting h1{font-size:2.0em;}
+  .bgmbtn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:2px solid var(--gold);background:rgba(255,255,255,.06);color:var(--gold);font-weight:800;font-size:.78em;padding:10px 24px;border-radius:999px;letter-spacing:.06em;transition:all .2s;}
+  .bgmbtn:hover{background:rgba(255,255,255,.12);}
+  .bgmbtn.on{background:linear-gradient(100deg,var(--accent),var(--gold));color:#1a0e06;border-color:transparent;box-shadow:0 8px 22px rgba(255,106,61,.32);}
+  /* 待機：4つのお願い（2×2） */
+  .please{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:1060px;align-self:center;margin-top:12px;text-align:left;}
+  .please .p{background:rgba(255,255,255,.05);border:2px solid #26334f;border-radius:14px;padding:12px 20px;font-size:.9em;font-weight:800;line-height:1.4;color:#f2f5fb;}
+  .please .p b{color:var(--accent);margin-right:8px;}
+  .please .p span{display:block;font-size:.76em;font-weight:600;color:#9fb0c8;margin-top:4px;line-height:1.5;}
+  .please .pnote{grid-column:1 / -1;text-align:center;font-size:.82em;font-weight:800;color:var(--gold);margin-top:2px;}
+  /* 待機：BGM操作バー（曲選択＋音量） */
+  .bgmbar{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:14px;background:rgba(255,255,255,.05);border:2px solid #2a3a58;border-radius:18px;padding:12px 22px;align-self:center;max-width:1040px;}
+  .bgmbar label{font-size:.6em;font-weight:800;color:var(--sub);letter-spacing:.04em;}
+  .bgmbar select{font:inherit;font-size:.6em;font-weight:700;color:#1a2436;background:#fff;border:2px solid var(--gold);border-radius:8px;padding:5px 10px;cursor:pointer;}
+  .bgmbar input[type=range]{width:140px;accent-color:var(--accent);cursor:pointer;}
+  .bgmbar .vbtn{cursor:pointer;border:2px solid #2a3a58;background:rgba(255,255,255,.06);color:var(--ink);font-weight:900;font-size:.6em;width:26px;height:26px;border-radius:8px;line-height:1;}
+  .bgmbar .vbtn:hover{border-color:var(--gold);}
+  .bgmbar .volnum{font-size:.58em;font-weight:900;color:var(--gold);width:3em;text-align:right;}
+  .bgmbar .hint{flex-basis:100%;text-align:center;font-size:.55em;color:var(--sub);font-weight:600;margin-top:2px;}
+  .bgmcredit{position:absolute;bottom:22px;left:84px;z-index:4;font-size:.52em;color:#67789a;letter-spacing:.04em;}
+
+  /* アニメーション完全オフ（順次表示なし・最初から全部表示） */
+  .slide.active > *{animation:none!important;}
+  .fragment{opacity:1;transition:none;transform:none;}
+  .fragment.show{opacity:1;}
+
+  #hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#a9b8d4;font-size:12px;background:rgba(0,0,0,.4);padding:6px 14px;border-radius:20px;z-index:80;transition:opacity .5s;}
+  #counter{position:fixed;top:14px;right:18px;color:#8595b4;font-size:13px;z-index:80;letter-spacing:.05em;}
+
+  @media print{
+    @page{size:1280px 720px;margin:0;}
+    body{background:#fff;overflow:visible;}
+    #stage{position:static;transform:none;width:1280px;height:auto;}
+    .slide{display:flex!important;position:relative;page-break-after:always;height:720px;}
+    .fragment{opacity:1!important;transform:none!important;}
+    .slide *{animation:none!important;}
+    #hint,#counter,.progress,.bgmbtn,.bgmbar{display:none!important;}
+  }
+</style>
+</head>
+<body>
+<div id="counter"></div>
+<div id="hint">← → / Space で進む ・ F で全画面 ・ P で印刷</div>
+
+<div id="stage">
+
+  <!-- 1 待機スライド（開始前・参加のお願い＋BGM：魔王魂） -->
+  <section class="slide waiting center" style="padding-top:46px;padding-bottom:46px;">
+    <div class="content">
+      <div class="kicker">まもなく始まります ・ クロードコード実践セミナー 第1期 第6回</div>
+      <h1 style="font-size:1.8em;">ようこそ！<span class="grad"> 最終回・成果報告会です</span></h1>
+      <div class="please">
+        <div class="p"><b>①</b>できればカメラをONに<span>顔が見えると、場があたたまります</span></div>
+        <div class="p"><b>②</b>表示名を、お名前に変えてください<span>参加者一覧 › ご自分の名前 › 詳細 › 名前の変更</span></div>
+        <div class="p"><b>③</b>顔出しが難しい方は、お名前の前に「👂」を<span>「聞いています」の合図。聞き役での参加も大歓迎です</span></div>
+        <div class="p"><b>④</b>今日は、発表し合う日<span>拍手も 👍 も、どんどんお願いします</span></div>
+        <div class="pnote">全6回、本当にお疲れさまでした。最後まで、あたたかい場にしましょう。</div>
+      </div>
+      <div class="bgmbar">
+        <button id="bgmBtn" class="bgmbtn" type="button">🎵 BGMを流す</button>
+        <label>曲</label><select id="bgmTrack"></select>
+        <label>音量</label>
+        <button class="vbtn" id="bgmDown" type="button">－</button>
+        <input type="range" id="bgmVol" min="0" max="100" step="1" value="30">
+        <button class="vbtn" id="bgmUp" type="button">＋</button>
+        <span class="volnum" id="bgmVolNum">30%</span>
+        <div class="hint">※ZoomでBGMを届けるには、画面共有時「コンピュータの音声を共有」にチェック</div>
+      </div>
+    </div>
+    <div class="foot"><span>BGM：魔王魂</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 2 タイトル -->
+  <section class="slide photo center">
+    <img class="bg" src="img/sunrise_path.jpg" alt="">
+    <div class="scrim c"></div>
+    <div class="content">
+      <div class="kicker">第1期 第6回 ・ 最終回 ・ 2026.10.27</div>
+      <h1>成果報告会。<br><span class="grad">できるようになったこと</span>を、話そう。</h1>
+      <p class="lead" style="margin-top:24px;">― ここまで歩いてきた道を、みんなで振り返る ―</p>
+      <p class="sub" style="margin-top:26px;">クロードコード実践セミナー 全6回｜岡崎かつひろ</p>
+    </div>
+    <div class="credit">photo: Unsplash</div>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 3 お疲れさまでした -->
+  <section class="slide center">
+    <div class="content">
+      <div class="kicker">まず、はじめに</div>
+      <h1>全6回、<br><span class="grad">本当におつかれさまでした</span>。</h1>
+      <p class="lead" style="margin-top:26px;">ここまで続けられたこと自体が、もう大きな一歩です。<br>今日は、その成果を <strong>お互いに見せ合う</strong> 日にします。</p>
+    </div>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 4 全6回の歩み -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">この6回で、ここまで来ました</div>
+    <h2 style="text-align:center;">道具をそろえ、何をやらせるかまで</h2>
+    <div class="journey">
+      <div class="jstep"><span class="jn">第1回</span>育てる</div>
+      <div class="arw">→</div>
+      <div class="jstep"><span class="jn">第2回</span>分けて<br>手放す</div>
+      <div class="arw">→</div>
+      <div class="jstep"><span class="jn">第3回</span>つなぐ</div>
+      <div class="arw">→</div>
+      <div class="jstep"><span class="jn">第4回</span>作る</div>
+      <div class="arw">→</div>
+      <div class="jstep last"><span class="jn">第5回</span>仕組みに<br>する</div>
+    </div>
+    <p class="sub" style="text-align:center;margin-top:18px;">全部つながっています。今日は、<strong>これを使って何が変わったか</strong>を聞かせてください。</p>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 5 安心してください（2期以降も参加できる） -->
+  <section class="slide center">
+    <div class="content">
+      <div class="tag">安心してください</div>
+      <h1>この学びは、<br><span class="grad">ここで終わりません</span>。</h1>
+      <p class="lead" style="margin-top:24px;">第1期にご参加のみなさんは、<br><strong>第2期以降のライブにも、そのまま追加料金なしで参加できます</strong>。</p>
+      <p class="sub" style="margin-top:16px;">「1回で全部おぼえなきゃ」と気負わなくて大丈夫。<br>何度でも、好きなときに戻ってこられます。</p>
+    </div>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 6 書籍発送のお詫び -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">先に、ひとつお詫びを</div>
+    <h2 style="text-align:center;">書籍を、まだお届けできていない方へ</h2>
+    <div class="warn">
+      <div class="h">ごめんなさい ・ 発送が遅れています</div>
+      特典の<b>書籍20冊</b>、まだお手元に届いていない方が <b>100名ほど</b> いらっしゃいます。
+      一度にご用意できる数にかぎりがあり、<b>1件につき20冊を、少しずつ買い集めながら</b>、順番にお送りしています。
+      そのため、どうしても時間がかかってしまっています。
+    </div>
+    <p class="sub" style="text-align:center;margin-top:16px;"><strong>必ず全員にお届けします。</strong> もう少しだけ、お待ちいただけたら嬉しいです。</p>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 7 発表の前に、ひとつお願い（アーカイブ使用の確認） -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">発表の前に、ひとつだけお願いです</div>
+    <h2 style="text-align:center;">今日のお話を、紹介させてください</h2>
+    <div class="saybox" style="border-color:var(--gold);">
+      <div class="q" style="color:var(--gold);">お願い</div>
+      今日みなさんがお話ししてくださった<b>「できるようになったこと」</b>を、録画から少しだけ切り出して、
+      <b>第2期などの今後のご案内</b>で紹介させていただくことがあります。
+    </div>
+    <p class="sub" style="text-align:center;margin-top:16px;">
+      差し支えのある方は、<strong>チャットでも、終了後でも</strong>かまいませんので教えてください。<br>
+      無理のない範囲で大丈夫です。安心して、ありのままを話してください。
+    </p>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 8 今日の進め方（ブレイクアウト） -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">ここからが本番 ・ ブレイクアウト</div>
+    <h2 style="text-align:center;">班で話して、代表を1人選びましょう</h2>
+    <div class="steps" style="max-width:1120px;">
+      <div class="s" style="padding:16px 22px 18px;"><div class="n">1</div><div class="t">順番に<br>シェア</div><div class="d">班の中で、できるように<br>なったことを話す</div></div>
+      <div class="s" style="padding:16px 22px 18px;"><div class="n">2</div><div class="t">代表を<br>1人選ぶ</div><div class="d">「この人の話、いいね」を<br>班で1人</div></div>
+      <div class="s" style="padding:16px 22px 18px;"><div class="n">3</div><div class="t">全体で<br>発表</div><div class="d">選ばれた方が、<br>みんなの前で</div></div>
+    </div>
+    <div class="saybox" style="margin-top:10px;padding:13px 28px;font-size:.96em;">
+      <div class="q">話すのは、この3つだけ</div>
+      <b>①</b> 何ができるようになったか　／　<b>②</b> どれくらいラクになったか　／　<b>③</b> これから何をやるか
+    </div>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 9 発表どうぞ（進行・章扉） -->
+  <section class="slide photo center">
+    <img class="bg" src="img/two_collab.jpg" alt="">
+    <div class="scrim c"></div>
+    <div class="content">
+      <div class="kicker">全体発表 ・ 班の代表のみなさん</div>
+      <h1>では、<span class="grad">聞かせてください</span>。</h1>
+      <p class="lead" style="margin-top:24px;">小さな変化こそ、いちばん聞きたいところです。<br>うまく話そうとしなくて大丈夫。</p>
+    </div>
+    <div class="credit">photo: Unsplash</div>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 10 最後に、ご案内（章扉） -->
+  <section class="slide photo center">
+    <img class="bg" src="img/desk_minimal.jpg" alt="">
+    <div class="scrim c"></div>
+    <div class="content">
+      <div class="kicker">最後に ・ これからのご案内</div>
+      <h1>この続きを、<span class="grad">もっと先へ</span>。</h1>
+      <p class="lead" style="margin-top:24px;">クロードコードという"道具"は、もう手に入りました。<br>次は、それを<strong>何に活かすか</strong>です。</p>
+    </div>
+    <div class="credit">photo: Unsplash</div>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 11 告知① 出版企画書勉強会 -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">ご案内 ① ・ 知識を"もっといろいろ"に活かす場</div>
+    <h2 style="text-align:center;margin-bottom:12px;">出版企画書勉強会</h2>
+    <div class="promo" style="padding:22px 34px;">
+      <div class="pt" style="margin-bottom:10px;">「出版」と名はつきますが、中身は<span class="grad">岡崎のできること全部</span>です。</div>
+      <div class="pd">
+        <b>一点モノの講座ではなく、岡崎のノウハウをまるごと持ち帰れる場</b>。クロードコードで<b>"自分で作れる人"になった今</b>が、いちばん活きます。毎月1回の編集者ライブと、過去回のアーカイブが見放題。
+      </div>
+      <span class="price" style="margin-top:12px;">月 3,850円（税込）</span>
+    </div>
+    <p class="sub" style="text-align:center;margin-top:12px;"><strong>「ここにいれば、全部とれる」</strong>。それがこの会です。</p>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 12 告知② 全国出版オーディション 第12回 -->
+  <section class="slide">
+    <div class="kicker" style="text-align:center;align-self:center;">ご案内 ② ・ 本を出したい方へ</div>
+    <h2 style="text-align:center;margin-bottom:12px;">全国出版オーディション 第12回</h2>
+    <div class="promo" style="border-color:var(--teal);padding:22px 34px;">
+      <div class="pt" style="color:var(--teal);margin-bottom:10px;">いま、<span class="grad">エントリー募集中</span>です。</div>
+      <div class="pd">
+        あなたの企画書が、<b>現役の編集者に届く</b>オーディション。これまでにも、ここから多くの本が生まれています。<br>
+        まずは<b>無料のオンライン説明会</b>から。雰囲気を見てから、ゆっくり決めていただけます。
+      </div>
+      <span class="price" style="background:linear-gradient(100deg,var(--teal),var(--gold));margin-top:12px;">エントリー受付中 ・ 説明会は無料</span>
+    </div>
+    <p class="sub" style="text-align:center;margin-top:12px;">「いつか本を」と思う方は、ぜひ<strong>ご検討を</strong>。くわしくはチャットに貼ります。</p>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+  <!-- 13 締め -->
+  <section class="slide photo center">
+    <img class="bg" src="img/mountain_top.jpg" alt="">
+    <div class="scrim c"></div>
+    <div class="content">
+      <p class="lead">全6回、一緒に歩いてくれて、ありがとうございました。</p>
+      <h1 style="margin-top:20px;">ここからが、<br><span class="grad">本当のスタート</span>です。</h1>
+      <p class="lead" style="margin-top:26px;">道具は、もうあなたの手にある。<br>また、次の場所でお会いしましょう。</p>
+    </div>
+    <div class="credit">photo: Unsplash</div>
+    <div class="foot"><span>第1期 第6回</span><span>岡崎かつひろ</span></div>
+  </section>
+
+</div>
+
+<div class="progress" id="prog"></div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var counter=document.getElementById('counter');
+  var prog=document.getElementById('prog');
+  var hint=document.getElementById('hint');
+  var bgm=document.getElementById('bgm');
+  var bgmBtn=document.getElementById('bgmBtn');
+  var bgmTrack=document.getElementById('bgmTrack');
+  var bgmVol=document.getElementById('bgmVol');
+  var bgmVolNum=document.getElementById('bgmVolNum');
+  var bgmDown=document.getElementById('bgmDown');
+  var bgmUp=document.getElementById('bgmUp');
+  var bgmbar=document.querySelector('.bgmbar');
+  // 魔王魂 アコースティック3曲（CC BY 4.0・クレジット「BGM：魔王魂」）
+  var TRACKS=[
+    {name:'明るい（acoustic35）',   file:'bgm/acoustic35.mp3'},
+    {name:'さわやか（acoustic32）', file:'bgm/acoustic32.mp3'},
+    {name:'おしゃれ（acoustic41）', file:'bgm/acoustic41.mp3'}
+  ];
+  if(bgmTrack){
+    TRACKS.forEach(function(t,i){ var o=document.createElement('option'); o.value=i; o.textContent=t.name; bgmTrack.appendChild(o); });
+    if(bgm) bgm.src=TRACKS[0].file;
+    bgmTrack.addEventListener('change',function(e){ e.stopPropagation(); var was=bgm&&!bgm.paused; bgm.src=TRACKS[bgmTrack.value].file; if(was) bgm.play().catch(function(){}); });
+  }
+  function applyVol(){ var v=Math.max(0,Math.min(100,Number(bgmVol.value))); bgmVol.value=v; if(bgm) bgm.volume=v/100; if(bgmVolNum) bgmVolNum.textContent=v+'%'; }
+  if(bgmVol){ bgmVol.addEventListener('input',function(e){ e.stopPropagation(); applyVol(); }); applyVol(); }
+  if(bgmDown){ bgmDown.addEventListener('click',function(e){ e.stopPropagation(); bgmVol.value=Number(bgmVol.value)-5; applyVol(); }); }
+  if(bgmUp){ bgmUp.addEventListener('click',function(e){ e.stopPropagation(); bgmVol.value=Number(bgmVol.value)+5; applyVol(); }); }
+  if(bgmbar){ bgmbar.addEventListener('click',function(e){ e.stopPropagation(); }); }
+  var si=0, fi=0, fadeTimer=null;
+  // アニメーション不要：順次表示は無効（1スライド＝1画面で全部表示、クリックで次へ）
+  function frags(s){return [];}
+  function setBgmLabel(on){ if(!bgmBtn) return; bgmBtn.classList.toggle('on',on); bgmBtn.textContent = on ? '🎵 BGM 停止' : '🎵 BGMを流す'; }
+  function fadeOutStop(){
+    if(!bgm || bgm.paused) return;
+    if(fadeTimer) clearInterval(fadeTimer);
+    var start=bgm.volume;
+    fadeTimer=setInterval(function(){
+      if(bgm.volume>0.04){ bgm.volume=Math.max(0,bgm.volume-start/12); }
+      else { bgm.pause(); bgm.volume=Number(bgmVol.value)/100; setBgmLabel(false); clearInterval(fadeTimer); fadeTimer=null; }
+    },40);
+  }
+  function render(){
+    slides.forEach(function(s,i){s.classList.toggle('active', i===si);});
+    var f=frags(slides[si]);
+    f.forEach(function(el,i){el.classList.toggle('show', i<fi);});
+    counter.textContent=(si+1)+' / '+slides.length;
+    prog.style.width=((si)/(slides.length-1)*100)+'%';
+    if(si!==0 && bgm && !bgm.paused){ fadeOutStop(); }
+  }
+  function next(){var f=frags(slides[si]);if(fi<f.length){fi++;render();return;}if(si<slides.length-1){si++;fi=0;render();}}
+  function prev(){if(fi>0){fi--;render();return;}if(si>0){si--;fi=frags(slides[si]).length;render();}}
+  function fit(){var sx=window.innerWidth/1280, sy=window.innerHeight/720;stage.style.setProperty('--scale', Math.min(sx,sy));}
+  window.addEventListener('resize',fit);
+  if(bgmBtn){
+    bgmBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(fadeTimer){ clearInterval(fadeTimer); fadeTimer=null; bgm.volume=Number(bgmVol.value)/100; }
+      if(bgm.paused){ bgm.play().then(function(){setBgmLabel(true);}).catch(function(){setBgmLabel(false);}); }
+      else { bgm.pause(); setBgmLabel(false); }
+    });
+  }
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){si=0;fi=0;render();}
+    else if(e.key==='End'){si=slides.length-1;fi=frags(slides[si]).length;render();}
+    else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+    else if(e.key==='p'||e.key==='P'){window.print();}
+  });
+  document.addEventListener('click',function(e){
+    if(e.clientX < window.innerWidth*0.25) prev(); else next();
+  });
+  setTimeout(function(){hint.style.opacity='0';},5000);
+  fit();render();
+})();
+</script>
+</body>
+</html>
