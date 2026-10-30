@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>セールス勉強会 第4回｜ゲスト 山崎雅行さん</title>
+<style>
+  :root{
+    --bg:#ffffff; --text:#1f2933; --sub:#6b7280;
+    --accent:#1f6feb; --soft:#e8f0fe; --line:#e5e7eb;
+    --warm:#f59e0b; --warmsoft:#fef3c7; --ng:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;background:#2b2f36;}
+  body{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;color:var(--text);overflow:hidden;-webkit-font-smoothing:antialiased;}
+
+  #stage{position:absolute;top:50%;left:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center center;}
+  .slide{display:none;position:absolute;inset:0;width:1600px;height:900px;background:var(--bg);
+         padding:84px 110px 76px;flex-direction:column;justify-content:flex-start;overflow:hidden;}
+  .slide.active{display:flex;}
+  .slide.center{align-items:center;justify-content:center;text-align:center;}
+  .slide::after{content:attr(data-no);position:absolute;right:44px;bottom:28px;font-size:20px;color:var(--sub);z-index:5;}
+
+  .kicker{font-size:26px;font-weight:800;letter-spacing:.14em;color:var(--accent);margin-bottom:14px;white-space:nowrap;}
+  h1{font-size:76px;line-height:1.32;font-weight:800;letter-spacing:.01em;}
+  h2{font-size:50px;line-height:1.36;font-weight:800;margin-bottom:34px;letter-spacing:.01em;}
+  p{font-size:34px;line-height:1.65;}
+  .lead{font-size:34px;color:#45505e;line-height:1.7;}
+  .sub{color:var(--sub);}
+  .ac{color:var(--accent);} .wa{color:#b45309;} .ng{color:var(--ng);}
+  .nw{white-space:nowrap;}
+  strong{color:var(--accent);font-weight:800;}
+  .tag{display:inline-block;font-size:24px;font-weight:800;letter-spacing:.12em;background:var(--accent);color:#fff;padding:8px 26px;border-radius:999px;margin-bottom:24px;white-space:nowrap;}
+
+  ul.clean{list-style:none;width:100%;max-width:1300px;align-self:center;}
+  ul.clean li{font-size:34px;line-height:1.5;margin:18px 0;padding-left:46px;position:relative;}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.5em;width:18px;height:18px;border-radius:50%;background:var(--accent);}
+  ul.clean li small{display:block;font-size:24px;color:var(--sub);line-height:1.5;margin-top:6px;}
+  ul.clean.sm li{font-size:30px;margin:13px 0;}
+
+  .mtbl{width:100%;max-width:1360px;align-self:center;border-collapse:collapse;font-size:28px;}
+  .mtbl th,.mtbl td{border:2px solid var(--line);padding:14px 22px;text-align:left;vertical-align:middle;line-height:1.5;}
+  .mtbl thead th{background:var(--soft);color:var(--accent);font-weight:800;}
+  .mtbl th.rowh{background:#f8fafc;font-weight:800;white-space:nowrap;}
+  .mtbl td b{color:var(--accent);}
+  .mtbl small{color:var(--sub);font-size:24px;}
+
+  .point{margin-top:30px;width:100%;max-width:1300px;align-self:center;background:var(--soft);
+         border-left:12px solid var(--accent);border-radius:0 16px 16px 0;padding:22px 34px;
+         font-size:36px;font-weight:800;line-height:1.5;}
+  .warn{margin-top:26px;width:100%;max-width:1300px;align-self:center;background:var(--warmsoft);
+        border-left:12px solid var(--warm);border-radius:0 16px 16px 0;padding:20px 34px;}
+  .warn .wh{display:block;font-size:24px;font-weight:800;letter-spacing:.1em;color:#b45309;margin-bottom:6px;}
+  .warn .wb{font-size:30px;line-height:1.55;}
+  .warn .wb b{color:#b45309;}
+  .quote{margin-top:24px;width:100%;max-width:1280px;align-self:center;background:#f8fafc;border:3px solid var(--line);
+         border-radius:18px;padding:26px 38px;font-size:30px;line-height:1.6;}
+  .quote .src{display:block;font-size:22px;color:var(--sub);margin-top:12px;}
+
+  .ba{display:flex;gap:30px;margin-top:8px;width:100%;max-width:1360px;align-self:center;}
+  .ba .bx{flex:1;border:3px solid var(--line);border-radius:18px;padding:22px 28px;background:#fff;}
+  .ba .bx .hd{font-size:30px;font-weight:800;margin-bottom:12px;white-space:nowrap;}
+  .ba .bx .bd{font-size:28px;line-height:1.6;color:#45505e;}
+  .ba .bx.ng{border-color:#fecaca;background:#fef2f2;} .ba .bx.ng .hd{color:var(--ng);}
+  .ba .bx.ok{border-color:#bfdbfe;background:#eff6ff;} .ba .bx.ok .hd{color:var(--accent);}
+
+  .three{display:flex;gap:26px;margin-top:8px;width:100%;max-width:1360px;align-self:center;}
+  .three .c{flex:1;border:3px solid var(--line);border-radius:18px;padding:22px 26px;background:#fff;}
+  .three .c .tt{font-size:30px;font-weight:800;color:var(--accent);margin-bottom:10px;white-space:nowrap;}
+  .three .c .dd{font-size:25px;line-height:1.55;color:#45505e;}
+
+  .qlist{width:100%;max-width:1340px;align-self:center;display:flex;flex-direction:column;gap:14px;}
+  .qlist .ql{display:flex;gap:22px;align-items:flex-start;border:3px solid var(--line);border-radius:16px;padding:16px 26px;background:#fff;}
+  .qlist .ql .n{flex:0 0 auto;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;
+                font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .qlist .ql .t{flex:1;font-size:30px;font-weight:700;line-height:1.5;}
+  .qlist .ql .t em{display:block;font-style:normal;font-size:24px;color:var(--sub);margin-top:5px;}
+  .qlist .ql.hot{border-color:var(--accent);background:var(--soft);}
+
+  /* イエスの階段 */
+  .stairs{width:100%;max-width:1280px;align-self:center;margin-top:10px;display:flex;align-items:flex-end;gap:18px;height:360px;}
+  .stairs .st{flex:1;background:var(--soft);border:3px solid #bfdbfe;border-top-color:var(--accent);border-radius:14px 14px 0 0;
+              display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:16px 10px;color:var(--accent);font-weight:800;}
+  .stairs .st .lb{font-size:25px;line-height:1.35;text-align:center;}
+  .stairs .st.s1{height:130px;} .stairs .st.s2{height:190px;} .stairs .st.s3{height:250px;} .stairs .st.s4{height:310px;}
+  .stairs .st.big{height:360px;background:var(--accent);color:#fff;border-color:var(--accent);}
+
+  /* 数字の対比 */
+  .nums{display:flex;gap:40px;align-items:center;justify-content:center;margin-top:16px;width:100%;}
+  .nums .nb{text-align:center;}
+  .nums .nb .v{font-size:110px;font-weight:800;line-height:1;}
+  .nums .nb .k{font-size:26px;color:var(--sub);margin-top:10px;}
+  .nums .nb.a .v{color:var(--sub);} .nums .nb.b .v{color:var(--accent);}
+  .nums .arw{font-size:60px;color:var(--accent);}
+
+  /* 待機スライド */
+  .waiting{padding:56px 100px 44px;background:linear-gradient(160deg,#f5f9ff 0%,#ffffff 60%);}
+  .waiting .wl{font-size:26px;color:var(--accent);font-weight:800;letter-spacing:.1em;}
+  .waiting h2{font-size:52px;margin:6px 0 28px;}
+  .asks{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;width:100%;}
+  .ask{display:flex;align-items:center;gap:22px;background:#fff;border:3px solid var(--line);border-radius:18px;padding:18px 26px;height:150px;}
+  .ask .ico{flex:none;width:80px;height:80px;border-radius:50%;background:var(--soft);font-size:42px;display:flex;align-items:center;justify-content:center;}
+  .ask .t{font-size:30px;font-weight:800;line-height:1.35;}
+  .ask .d{font-size:21px;color:var(--sub);margin-top:6px;line-height:1.45;}
+  .asknote{grid-column:1/-1;text-align:center;font-size:26px;font-weight:800;color:var(--accent);margin-top:2px;}
+  .bgm{margin-top:22px;align-self:center;display:flex;align-items:center;gap:12px;background:#fff;border:2px solid var(--line);
+       border-radius:999px;padding:10px 22px;box-shadow:0 6px 20px rgba(31,111,235,.10);}
+  .bgm button{font:inherit;font-size:20px;cursor:pointer;border:2px solid var(--line);background:#fff;color:var(--text);border-radius:999px;padding:5px 16px;}
+  .bgm .bgm-label{font-size:20px;font-weight:800;color:var(--accent);margin-right:2px;}
+  .bgm .trk.on{background:var(--soft);border-color:var(--accent);color:var(--accent);font-weight:700;}
+  .bgm .play{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;min-width:118px;}
+  .bgm .vol{display:flex;align-items:center;gap:7px;margin-left:8px;}
+  .bgm .vol button{width:40px;padding:4px 0;}
+  .bgm input[type=range]{width:200px;accent-color:var(--accent);}
+  .bgm #volNum{font-size:20px;width:56px;text-align:right;}
+  .bgm .hint{flex-basis:100%;text-align:center;font-size:19px;color:var(--sub);margin-top:2px;}
+  .credit{position:absolute;left:44px;bottom:26px;font-size:18px;color:var(--sub);}
+
+  /* 無料説明会スライド：左に案内、右にQR */
+  .qrwrap{display:flex;gap:56px;align-items:flex-start;width:100%;max-width:1380px;align-self:center;}
+  .qrwrap .qrleft{flex:1;min-width:0;}
+  .qrwrap .qrbox{flex:none;width:400px;text-align:center;border:3px solid var(--line);border-radius:20px;padding:22px 20px 18px;background:#fff;}
+  .qrwrap .qrbox img{width:300px;height:300px;display:block;margin:0 auto;}
+  .qrwrap .qrbox .qt{font-size:28px;font-weight:800;color:var(--accent);margin-bottom:14px;white-space:nowrap;}
+  .qrwrap .qrbox .qu{font-size:17px;color:var(--sub);margin-top:12px;word-break:break-all;line-height:1.45;}
+
+  /* 次回予告（書影＋Amazon QR） */
+  .nxt{display:flex;gap:46px;align-items:flex-start;width:100%;max-width:1380px;align-self:center;}
+  .nxt .nxtL{flex:1;min-width:0;}
+  .nxt .nxtR{flex:none;display:flex;gap:26px;align-items:flex-start;}
+  .nxt .bookcv{width:200px;display:block;border:2px solid var(--line);border-radius:6px;box-shadow:0 10px 26px rgba(31,41,51,.18);}
+  .nxt .abox{width:232px;text-align:center;border:3px solid var(--line);border-radius:18px;padding:16px 14px 12px;background:#fff;}
+  .nxt .abox .qt{font-size:24px;font-weight:800;color:var(--accent);margin-bottom:10px;white-space:nowrap;}
+  .nxt .abox img{width:190px;height:190px;display:block;margin:0 auto;}
+  .nxt .abox .qu{font-size:18px;color:var(--sub);margin-top:10px;line-height:1.45;}
+  .nxt .anote{font-size:16px;color:var(--sub);margin-top:9px;text-align:center;line-height:1.4;}
+
+
+  /* ── 10/31 ゲスト回で足したもの ── */
+  .gstrip{display:flex;align-items:center;gap:26px;background:#fff;border:3px solid var(--accent);
+          border-radius:20px;padding:14px 26px;margin:2px 0 20px;}
+  .gstrip img{flex:none;width:92px;height:92px;border-radius:50%;object-fit:cover;object-position:50% 18%;border:3px solid var(--soft);}
+  .gstrip .gl{font-size:19px;font-weight:800;letter-spacing:.12em;color:var(--accent);}
+  .gstrip .gn{font-size:34px;font-weight:800;line-height:1.25;}
+  .gstrip .gn span{font-size:22px;color:var(--sub);font-weight:700;margin-left:12px;}
+  .gstrip .gt{margin-left:auto;flex:none;text-align:right;font-size:26px;font-weight:800;color:var(--accent);line-height:1.4;}
+  .gstrip .gt small{display:block;font-size:17px;color:var(--sub);font-weight:700;letter-spacing:.1em;}
+
+  .pf{display:flex;gap:46px;align-items:flex-start;width:100%;max-width:1380px;align-self:center;}
+  .pf .pfL{flex:1;min-width:0;}
+  .pf .pfR{flex:none;width:280px;}
+  .pf .pfR img{width:280px;display:block;border-radius:16px;border:3px solid var(--line);}
+  .pf .pfR .cap{font-size:17px;color:var(--sub);text-align:center;margin-top:8px;line-height:1.4;}
+
+  .stats{display:flex;gap:20px;width:100%;max-width:1380px;align-self:center;margin-top:22px;}
+  .stats .sb{flex:1;border:3px solid var(--line);border-radius:16px;background:#fff;padding:14px 10px;text-align:center;}
+  .stats .sb .k{font-size:19px;color:var(--sub);font-weight:700;white-space:nowrap;}
+  .stats .sb .v{font-size:38px;font-weight:800;color:var(--accent);line-height:1.2;margin-top:4px;white-space:nowrap;}
+
+  .res{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px 22px;width:100%;max-width:1380px;align-self:center;}
+  .res .rb{border:3px solid var(--line);border-radius:16px;background:#fff;padding:16px 20px;}
+  .res .rb .v{font-size:40px;font-weight:800;color:var(--accent);line-height:1.15;white-space:nowrap;}
+  .res .rb .t{font-size:23px;line-height:1.45;margin-top:6px;}
+  .res .rb .w{font-size:18px;color:var(--sub);margin-top:4px;}
+
+  .write{width:100%;max-width:1300px;align-self:center;margin-top:10px;}
+  .write .ln{border-bottom:3px solid var(--line);height:88px;}
+
+  .dts{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:4px;}
+  .dts .dt{font-size:29px;line-height:1.4;padding-left:34px;position:relative;}
+  .dts .dt::before{content:"";position:absolute;left:0;top:.52em;width:14px;height:14px;border-radius:50%;background:var(--accent);}
+  .dts .dt.now{font-weight:800;color:var(--accent);}
+  .dts .dt small{display:block;font-size:20px;color:var(--sub);}
+
+  .big{font-size:46px;font-weight:800;line-height:1.5;}
+  .price{display:inline-block;background:var(--warmsoft);border:3px solid var(--warm);border-radius:14px;
+         padding:6px 22px;font-size:30px;font-weight:800;color:#b45309;white-space:nowrap;}
+
+  .foot{position:absolute;bottom:28px;left:110px;font-size:20px;color:var(--sub);letter-spacing:.03em;}
+  .progress{position:absolute;bottom:0;left:0;height:6px;background:var(--accent);transition:width .25s;z-index:60;}
+
+  .fragment{opacity:0;transition:opacity .22s;}
+  .fragment.show{opacity:1;}
+
+  #hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#cbd5e1;font-size:13px;background:rgba(0,0,0,.45);padding:6px 14px;border-radius:20px;z-index:80;transition:opacity .5s;}
+  #counter{position:fixed;top:14px;right:18px;color:#94a3b8;font-size:13px;z-index:80;}
+
+  @media print{
+    @page{size:1600px 900px;margin:0;}
+    body{background:#fff;overflow:visible;}
+    #stage{position:static;transform:none;width:1600px;height:auto;}
+    .slide{display:flex!important;position:relative;page-break-after:always;height:900px;}
+    .fragment{opacity:1!important;}
+    #hint,#counter,.progress,.bgm{display:none!important;}
+  }
+</style>
+</head>
+<body>
+<div id="counter"></div>
+<div id="hint">← → / Space で進む ・ F で全画面 ・ P で印刷</div>
+
+<div id="stage">
+<div class="progress" id="prog"></div>
+
+<!-- 1 待機 -->
+<section class="slide waiting nofrag">
+  <div class="wl">まもなく始まります ・ セールス勉強会 第4回 ・ 2026.10.31</div>
+  <div class="gstrip">
+    <img src="yamazaki_portrait.png" alt="山崎雅行さん">
+    <div>
+      <div class="gl">本日のゲスト</div>
+      <div class="gn">山崎 雅行 さん<span>M&amp;M connect 代表</span></div>
+    </div>
+    <div class="gt">10分で売れる人になる方法<small>テーマ</small></div>
+  </div>
+  <h2 style="font-size:42px;margin:0 0 18px;">はじめに、<span class="ac">4つのお願い</span></h2>
+  <div class="asks">
+    <div class="ask"><div class="ico">📷</div><div><div class="t">できれば、カメラをONに</div><div class="d">顔が見えると、場があたたまります</div></div></div>
+    <div class="ask"><div class="ico">✏️</div><div><div class="t">表示名を、お名前に変えてください</div><div class="d">参加者一覧 › ご自分の名前 › 詳細 › 名前の変更</div></div></div>
+    <div class="ask"><div class="ico">👂</div><div><div class="t">顔出しが難しい方は、<br>お名前の前に「👂」を</div><div class="d">「聞いています」の合図。聞き役での参加も大歓迎です</div></div></div>
+    <div class="ask"><div class="ico">👏</div><div><div class="t">リアクションは大きめに</div><div class="d">拍手も 👍 も、どんどんお願いします</div></div></div>
+    <div class="asknote">今日はゲスト回です。ご質問は、チャットにどうぞ。</div>
+  </div>
+</section>
+
+<!-- 2 表紙 -->
+<section class="slide center nofrag">
+  <div class="kicker">セールス勉強会 第4回 ・ ゲスト講義 ・ 2026.10.31</div>
+  <h1>10分で<span class="ac">売れる人</span>に<br>なる方法。</h1>
+  <div style="display:flex;align-items:center;gap:30px;margin-top:40px;">
+    <img src="yamazaki_portrait.png" alt="山崎雅行さん" style="width:150px;border-radius:50%;border:4px solid var(--soft);object-fit:cover;object-position:50% 18%;height:150px;">
+    <div style="text-align:left;">
+      <div style="font-size:44px;font-weight:800;line-height:1.3;">山崎 雅行 さん</div>
+      <div style="font-size:26px;color:var(--sub);margin-top:6px;">M&amp;M connect 代表</div>
+    </div>
+  </div>
+  <div class="foot" style="left:50%;transform:translateX(-50%);">出版企画書勉強会　セールス勉強会</div>
+</section>
+
+<!-- 3 なぜ、今日この方なのか -->
+<section class="slide nofrag">
+  <div class="kicker">はじめに</div>
+  <h2>なぜ、今日この方なのか。</h2>
+  <p class="lead" style="max-width:1320px;width:100%;align-self:center;">
+    前回は、「検討します」と言われない<b>順番</b>の話をしました。<br>
+    小さなイエスを積まないまま、大きなイエスは取れない、と。
+  </p>
+  <p class="lead" style="max-width:1320px;width:100%;align-self:center;margin-top:28px;">
+    では、そのいちばん最初の<b>10分</b>で、<br>
+    何が起きているのか。
+  </p>
+  <div class="point">そこだけを、<span class="ac">30年</span>やってこられた方がいます。</div>
+  <div class="foot">セールス勉強会 第4回</div>
+</section>
+
+<!-- 4 山崎雅行さん -->
+<section class="slide nofrag">
+  <div class="kicker">本日のゲスト</div>
+  <h2>山崎 雅行 さん　<span class="sub" style="font-size:32px;font-weight:700;">M&amp;M connect 代表</span></h2>
+  <div class="pf">
+    <div class="pfL">
+      <ul class="clean sm" style="max-width:none;">
+        <li>大手住宅メーカーグループで <b>26年間</b>、住宅営業<small>3,000組を超えるお客様と向き合ってこられました</small></li>
+        <li>個人で <b>全国No.1 を2回</b>。営業所でも全国No.1<small>29歳で店長に。その後、地域商社の役員を経て独立</small></li>
+        <li>いまは「<b>初回接客10分メソッド</b>」として体系化し、全国で研修<small>住宅・建築・金融・ホテル・運輸・製造。業種を選びません</small></li>
+      </ul>
+    </div>
+    <div class="pfR">
+      <img src="yamazaki_portrait.png" alt="山崎雅行さん">
+      <div class="cap">山崎 雅行（やまざき まさゆき）</div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="sb"><div class="k">営業個人成績</div><div class="v">全国No.1 ×2回</div></div>
+    <div class="sb"><div class="k">営業所成績</div><div class="v">全国No.1</div></div>
+    <div class="sb"><div class="k">店長就任</div><div class="v">29歳</div></div>
+    <div class="sb"><div class="k">営業ひとすじ</div><div class="v">30年</div></div>
+  </div>
+  <div class="foot">セールス勉強会 第4回</div>
+</section>
+
+<!-- 5 研修の成果 -->
+<section class="slide nofrag">
+  <div class="kicker">数字で見る</div>
+  <h2>山崎さんの研修を受けた会社で、<br>起きていること。</h2>
+  <div class="res">
+    <div class="rb"><div class="v">2 → 8件</div><div class="t">初回アポイントが1か月で8件に</div><div class="w">住宅営業 30代</div></div>
+    <div class="rb"><div class="v">0 → 6棟</div><div class="t">前半0棟から、後半で6棟受注</div><div class="w">女性営業職 30代</div></div>
+    <div class="rb"><div class="v">＋20棟</div><div class="t">コンサル後7か月で過去最高</div><div class="w">住宅会社</div></div>
+    <div class="rb"><div class="v">初契約</div><div class="t">個別指導1回で初契約。さらに2件</div><div class="w">住宅営業 新卒2年目</div></div>
+    <div class="rb"><div class="v">発言 ↑</div><div class="t">社員が発言する会議になった</div><div class="w">製造業・宿泊業</div></div>
+    <div class="rb"><div class="v">約2倍</div><div class="t">社内の情報共有が2倍近くに</div><div class="w">運輸業 内勤</div></div>
+  </div>
+  <div class="foot">セールス勉強会 第4回</div>
+</section>
+
+<!-- 6 新刊 -->
+<section class="slide nofrag">
+  <div class="kicker">新刊　2026年10月14日 発売</div>
+  <h2>『営業は<span class="ac">最初の10分</span>で決まる』</h2>
+  <div class="nxt">
+    <div class="nxtL">
+      <div class="quote" style="margin-top:0;">
+        話し下手でも関係ない。<br>
+        「君に任せる」「御社に決めた」を引き出す、<br>
+        <b>オープニング10分の使い方。</b>
+        <span class="src">帯より</span>
+      </div>
+      <ul class="clean sm" style="max-width:none;margin-top:18px;">
+        <li>発売から<b>17日目</b>の本を、著者ご本人から<small>あさ出版／1,760円／200ページ</small></li>
+        <li>この本の担当編集・<b>星野美紀さん</b>が<br><b>11月11日（水）</b>の勉強会ライブに登壇されます<small>あさ出版 取締役 編集統括。10/31に著者、11/11に編集者</small></li>
+      </ul>
+    </div>
+    <div class="nxtR">
+      <div><img class="bookcv" src="book_yamazaki.jpg" alt="『営業は最初の10分で決まる』書影"></div>
+      <div>
+        <div class="abox">
+          <div class="qt">Amazonはこちら</div>
+          <img src="qr_amazon.png" alt="Amazonの商品ページへのQRコード">
+          <div class="qu">あさ出版　1,760円</div>
+        </div>
+        <div class="anote">※Amazonアソシエイトを<br>利用しています</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">セールス勉強会 第4回</div>
+</section>
+
+<!-- 7 書き込み -->
+<section class="slide nofrag">
+  <div class="kicker">ここまでで</div>
+  <h2>明日の商談で、ひとつだけ<br>試すとしたら。</h2>
+  <div class="write">
+    <div class="ln"></div>
+    <div class="ln"></div>
+    <div class="ln"></div>
+  </div>
+  <div class="point" style="margin-top:26px;">書けた方は、チャットに一行だけお願いします。</div>
+  <div class="foot">セールス勉強会 第4回</div>
+</section>
+
+<!-- 8 本は、いちばん強い営業ツール -->
+<section class="slide nofrag">
+  <div class="kicker">最後に、ひとつだけ</div>
+  <h2>本は、いちばん強い<span class="ac">営業ツール</span>です。</h2>
+  <p class="lead" style="max-width:1320px;width:100%;align-self:center;">
+    今日は、最初の10分の話でした。<br>
+    ただ、その10分に会える人数には<b>限りがあります</b>。
+  </p>
+  <p class="lead" style="max-width:1320px;width:100%;align-self:center;margin-top:26px;">
+    本は、そこを超えます。<br>
+    読んだ人のほうから、会いに来てくれる。
+  </p>
+  <div class="point">山崎さんも、本を出されたから<br>今日この場にいらっしゃいます。</div>
+  <div class="foot">セールス勉強会 第4回</div>
+</section>
+
+<!-- 9 オーディション -->
+<section class="slide nofrag">
+  <div class="kicker">ご案内</div>
+  <h2>第12回　全国出版オーディション</h2>
+  <p class="big" style="max-width:1320px;width:100%;align-self:center;">エントリー受付は、<span class="ac">明日 11月1日</span>からです。</p>
+  <ul class="clean sm" style="max-width:1320px;margin-top:22px;">
+    <li>エントリー費 <b>9,900円</b>（税込）<small>定価12,100円のところ、Webエントリー割引で</small></li>
+    <li>予選はYouTubeでの発表。本選は <b>2027年7月24日（土）</b><small>出版社の編集者が審査します</small></li>
+    <li>優勝したら、<b>商業出版100%保証</b><small>優勝を逃しても、編集者から声がかかることがあります</small></li>
+  </ul>
+  <div class="foot">セールス勉強会 第4回</div>
+</section>
+
+<!-- 10 会員特典 -->
+<section class="slide nofrag">
+  <div class="kicker">出版企画書勉強会の皆さんへ</div>
+  <h2>エントリーされた方には、<br><span class="ac">企画書コンサルを1回、無料で。</span></h2>
+  <p style="max-width:1320px;width:100%;align-self:center;margin-top:6px;text-align:center;">
+    <span class="price">通常　1回 50,000円</span>
+  </p>
+  <div class="point" style="margin-top:34px;">さらに、勝ち抜くための<br><span class="ac">グループコンサル</span>もご用意します。</div>
+  <p class="lead sub" style="max-width:1320px;width:100%;align-self:center;margin-top:28px;font-size:30px;">
+    企画書は、ひとりで書くと必ず迷います。<br>せっかく勉強会にいるのですから、使ってください。
+  </p>
+  <div class="foot">セールス勉強会 第4回</div>
+</section>
+
+<!-- 11 無料説明会 -->
+<section class="slide nofrag">
+  <div class="kicker">まずは、ここから</div>
+  <h2>60分の<span class="ac">無料説明会</span>があります。</h2>
+  <div class="qrwrap">
+    <div class="qrleft">
+      <p class="big" style="margin-bottom:20px;">いちばん近いのは、<span class="ac">このあと9時から</span>。</p>
+      <div class="dts">
+        <div class="dt now">10月31日（土）9:00<small>今日。この会が終わって1時間後です</small></div>
+        <div class="dt">11月2日（月）13:00</div>
+        <div class="dt">11月3日（火・祝）9:00</div>
+        <div class="dt">11月10日（火）10:00</div>
+        <div class="dt">11月15日（日）9:00</div>
+        <div class="dt">このあとも、朝・昼・夜で<small>週に2〜3回ひらいています</small></div>
+      </div>
+      <div class="point" style="margin-top:24px;max-width:none;">参加無料・Zoom・約60分。<br>企画書がまだ無くても大丈夫です。</div>
+    </div>
+    <div class="qrbox">
+      <div class="qt">お申し込みはこちら</div>
+      <img src="qr_seminar.png" alt="無料説明会の申込ページへのQRコード">
+      <div class="qu">ご都合のよい日を<br>フォームからお選びいただけます</div>
+    </div>
+  </div>
+  <div class="foot">セールス勉強会 第4回</div>
+</section>
+
+<!-- 12 締め -->
+<section class="slide center nofrag">
+  <h1>最初の10分を、<br><span class="ac">月曜から</span>変えてみる。</h1>
+  <p class="lead" style="margin-top:40px;">山崎さん、ありがとうございました。<br>次回は<b>11月14日（土）朝7時</b>です。</p>
+  <div class="foot" style="left:50%;transform:translateX(-50%);">セールス勉強会 第4回　2026.10.31　岡崎かつひろ</div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  /* 順次表示は「つかみ」のアニメーションだけ。ほかのページは一度に全部出す */
+  Array.prototype.forEach.call(document.querySelectorAll('.fragment'),function(el){
+    if(!el.classList.contains('ctl')) el.classList.remove('fragment');
+  });
+
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  slides.forEach(function(s,i){ s.dataset.no=(i+1)+' / '+slides.length; });
+  var counter=document.getElementById('counter');
+  var prog=document.getElementById('prog');
+  var hint=document.getElementById('hint');
+
+  var si=0, fi=0;
+  function frags(s){ return Array.prototype.slice.call(s.querySelectorAll('.fragment')); }
+  function render(){
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===si); });
+    var f=frags(slides[si]);
+    f.forEach(function(el,i){ el.classList.toggle('show', i<fi); });
+    counter.textContent=(si+1)+' / '+slides.length;
+    prog.style.width=((si)/(slides.length-1)*100)+'%';
+  }
+  function next(){ var f=frags(slides[si]); if(fi<f.length){ fi++; render(); return; } if(si<slides.length-1){ si++; fi=0; render(); } }
+  function prev(){ if(fi>0){ fi--; render(); return; } if(si>0){ si--; fi=frags(slides[si]).length; render(); } }
+  function fit(){ stage.style.setProperty('--scale', Math.min(window.innerWidth/1600, window.innerHeight/900)); }
+  window.addEventListener('resize',fit);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ si=0; fi=0; render(); }
+    else if(e.key==='End'){ si=slides.length-1; fi=frags(slides[si]).length; render(); }
+    else if(e.key==='f'||e.key==='F'){ document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen(); }
+    else if(e.key==='p'||e.key==='P'){ window.print(); }
+  });
+  document.addEventListener('click',function(e){ if(e.clientX<window.innerWidth*0.25) prev(); else next(); });
+  setTimeout(function(){ hint.style.opacity='0'; },5000);
+  fit(); render();
+})();
+</script>
+</body>
+</html>
