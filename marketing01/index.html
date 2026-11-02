@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>販売導線の作り方</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1f2933;
+    --sub: #6b7280;
+    --accent: #1f6feb;
+    --accent-soft: #e8f0fe;
+    --line: #e5e7eb;
+    --orange: #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #2b2f36; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  /* 1600×900 の画面を、ウィンドウの大きさに合わせて拡大縮小する */
+  .stage {
+    position: absolute; top: 50%; left: 50%;
+    width: 1600px; height: 900px;
+    transform-origin: center center;
+  }
+  .slide {
+    display: none;
+    width: 1600px; height: 900px;
+    background: var(--bg);
+    padding: 72px 120px 60px;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+  /* 上の青い帯 */
+  .slide::before {
+    content: ""; position: absolute; left: 0; top: 0; right: 0; height: 12px;
+    background: linear-gradient(90deg, var(--accent) 0%, #6ea8ff 100%);
+  }
+  .slide::after {
+    content: attr(data-no);
+    position: absolute; right: 48px; bottom: 30px;
+    font-size: 20px; color: var(--sub);
+  }
+
+  .kicker {
+    font-size: 28px; font-weight: 800; color: var(--accent);
+    letter-spacing: .12em; white-space: nowrap;
+  }
+  h2 { font-size: 56px; line-height: 1.35; font-weight: 800; margin: 8px 0 0; white-space: nowrap; }
+  .accent { color: var(--accent); }
+
+  /* ── 1枚目：会社と経歴 ── */
+  .who { display: flex; align-items: baseline; gap: 40px; margin-top: 10px; }
+  .who .name { font-size: 104px; font-weight: 800; line-height: 1.2; white-space: nowrap; }
+  .who .co {
+    font-size: 36px; font-weight: 700; white-space: nowrap;
+    padding: 10px 28px; border-radius: 999px; background: var(--accent-soft); color: var(--accent);
+  }
+  .timeline { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; margin-top: 64px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 34px; height: 6px;
+    background: var(--line); border-radius: 3px;
+  }
+  .step { position: relative; text-align: center; }
+  .step .yr {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 150px; height: 74px; padding: 0 22px; border-radius: 999px;
+    background: #fff; border: 5px solid var(--accent);
+    font-size: 32px; font-weight: 800; color: var(--accent); white-space: nowrap;
+  }
+  .step .ttl { font-size: 34px; font-weight: 800; line-height: 1.4; margin-top: 28px; white-space: nowrap; }
+  .step .dsc { font-size: 27px; color: var(--sub); line-height: 1.55; margin-top: 12px; white-space: nowrap; }
+  .step.now .yr { background: var(--accent); color: #fff; }
+  .step.now .ttl { color: var(--accent); }
+  .works { display: flex; align-items: center; gap: 22px; margin-top: 70px; padding-top: 40px; border-top: 3px solid var(--accent-soft); }
+  .works .lbl { font-size: 30px; font-weight: 800; color: var(--sub); white-space: nowrap; margin-right: 10px; }
+  .works .chip {
+    font-size: 34px; font-weight: 800; white-space: nowrap;
+    padding: 14px 32px; border-radius: 16px; border: 4px solid var(--accent); color: var(--accent); background: #fff;
+  }
+
+  /* ── 2枚目：著書 ── */
+  .shelf { display: flex; flex-direction: column; align-items: center; gap: 26px; margin-top: 40px; }
+  .shelf .row { display: flex; gap: 26px; }
+  .shelf img {
+    height: 218px; width: 148px; object-fit: cover; display: block;
+    box-shadow: 0 8px 20px rgba(0,0,0,.20); border-radius: 2px;
+  }
+  .total {
+    align-self: center; margin-top: 38px;
+    display: flex; align-items: baseline; gap: 28px;
+    background: var(--accent); color: #fff; border-radius: 24px;
+    padding: 14px 64px 18px; box-shadow: 0 12px 30px rgba(31,111,235,.30);
+  }
+  .total .lbl { font-size: 38px; font-weight: 700; white-space: nowrap; }
+  .total .num { font-size: 92px; font-weight: 800; line-height: 1; white-space: nowrap; }
+  .total .num small { font-size: 48px; margin-left: 4px; }
+
+  /* ── 3枚目：オーディションと勉強会 ── */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; }
+  .card {
+    border: 4px solid var(--line); border-radius: 24px; padding: 40px 42px 30px;
+    background: #fff;
+  }
+  .card .tag {
+    display: inline-block; font-size: 28px; font-weight: 800; color: #fff; background: var(--accent);
+    padding: 6px 20px; border-radius: 999px; white-space: nowrap;
+  }
+  .card .ttl { font-size: 50px; font-weight: 800; line-height: 1.3; margin-top: 16px; white-space: nowrap; }
+  .card ul { list-style: none; margin-top: 22px; border-top: 3px solid var(--accent-soft); padding-top: 10px; }
+  .card li {
+    font-size: 34px; line-height: 1.45; padding: 24px 0 24px 52px; position: relative; white-space: nowrap;
+  }
+  .card li::before {
+    content: "✓"; position: absolute; left: 0; top: 24px;
+    width: 38px; height: 38px; border-radius: 50%; background: var(--accent-soft);
+    color: var(--accent); font-size: 24px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; line-height: 1;
+    margin-top: 5px;
+  }
+  .card li b { color: var(--accent); }
+
+  .hint { position: fixed; left: 16px; bottom: 12px; font-size: 13px; color: #9aa3ae; }
+
+  
+  .slide.center { justify-content:center; align-items:center; text-align:center; }
+  .big { font-size:84px; font-weight:800; line-height:1.4; white-space:nowrap; }
+  .mid { font-size:40px; font-weight:800; color:var(--accent); margin-bottom:22px; white-space:nowrap; }
+  .mid2 { font-size:38px; font-weight:600; color:var(--sub); line-height:1.6; margin-top:36px; white-space:nowrap; }
+  .q-tag { font-size:32px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:26px; }
+  .slide.blue { background:var(--accent); color:#fff; }
+  .slide.blue::before { display:none; }
+  .slide.blue::after { color:#dbe7ff; }
+  .slide.blue .mid { color:#fff; opacity:.95; }
+  .slide.blue .mid2 { color:#fff; }
+
+  .waiting { padding:50px 110px 40px; background:linear-gradient(160deg,#f5f9ff 0%,#fff 60%); }
+  .w-lead { font-size:28px; color:var(--accent); font-weight:700; letter-spacing:.1em; }
+  .waiting h2 { font-size:52px; margin:4px 0 24px; }
+  .asks { display:grid; grid-template-columns:1fr 1fr; gap:20px 30px; }
+  .ask { display:flex; align-items:center; gap:22px; background:#fff; border:3px solid var(--line); border-radius:20px; padding:20px 24px; height:158px; }
+  .ask .ico { flex:none; width:84px; height:84px; border-radius:50%; background:var(--accent-soft); font-size:44px; display:flex; align-items:center; justify-content:center; }
+  .ask .t { font-size:30px; font-weight:800; line-height:1.35; }
+  .ask .d { font-size:20px; white-space:nowrap; color:var(--sub); margin-top:6px; line-height:1.4; }
+  .w-close { font-size:30px; font-weight:800; color:var(--accent); text-align:center; margin-top:22px; }
+  .bgm { margin-top:20px; align-self:center; display:flex; align-items:center; gap:14px; background:#fff; border:2px solid var(--line); border-radius:999px; padding:10px 24px; box-shadow:0 6px 20px rgba(31,111,235,.10); }
+  .bgm button { font:inherit; font-size:22px; cursor:pointer; border:2px solid var(--line); background:#fff; color:var(--text); border-radius:999px; padding:6px 18px; }
+  .bgm-label { font-size:22px; font-weight:800; color:var(--accent); margin-right:4px; }
+  .bgm .trk.on { background:var(--accent-soft); border-color:var(--accent); color:var(--accent); font-weight:700; }
+  .bgm .play { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700; min-width:130px; }
+  .bgm .vol { display:flex; align-items:center; gap:8px; margin-left:10px; }
+  .bgm .vol button { width:44px; padding:4px 0; }
+  .bgm input[type=range] { width:240px; accent-color:var(--accent); }
+  #volNum { font-size:22px; width:60px; text-align:right; font-variant-numeric:tabular-nums; }
+  .bgm-credit { position:absolute; left:110px; bottom:26px; font-size:18px; color:var(--sub); }
+
+  .cover { flex-direction:row; align-items:center; padding:60px 60px 60px 110px; gap:30px; }
+  .cover-text { flex:none; width:640px; }
+  .cover-kicker { font-size:36px; font-weight:800; color:var(--accent); white-space:nowrap; }
+  .cover h1 { font-size:104px; line-height:1.25; font-weight:800; margin-top:14px; white-space:nowrap; }
+  .cover h1::after { content:""; display:block; width:120px; height:8px; background:var(--accent); margin-top:30px; border-radius:4px; }
+  .cover-name { font-size:42px; font-weight:700; margin-top:44px; }
+  .cover img { flex:1; min-width:0; max-height:760px; object-fit:contain; }
+
+  .pic { flex-direction:row; align-items:flex-start; gap:50px; padding:72px 70px 60px 110px; }
+  .pic .tx { flex:none; width:640px; }
+  .pic h2 { white-space:nowrap; line-height:1.4; font-size:58px; margin-top:14px; }
+  .pic h2.sm { font-size:44px; margin-top:32px; }
+  .pic .im { flex:1; min-width:0; height:740px; display:flex; align-items:center; justify-content:center; }
+  .pic .im img { max-width:100%; max-height:100%; object-fit:contain; border-radius:14px; }
+  .lead { font-size:38px; font-weight:600; line-height:1.55; color:#374151; margin-top:30px; white-space:nowrap; }
+  .say { font-size:42px; font-weight:800; line-height:1.5; color:var(--accent); background:var(--accent-soft); border-radius:18px; padding:22px 28px; margin-top:32px; display:inline-block; white-space:nowrap; }
+  .credit { position:absolute; left:110px; bottom:26px; font-size:17px; color:var(--sub); }
+  .yen { font-size:100px; font-weight:800; color:var(--accent); line-height:1.15; margin-top:40px; white-space:nowrap; }
+  .yen small { font-size:48px; margin-left:6px; }
+
+  .ba { display:flex; align-items:stretch; justify-content:center; gap:30px; margin-top:64px; }
+  .ba .card { flex:1; border-radius:24px; padding:44px 36px; text-align:center; border:4px solid var(--line); display:flex; flex-direction:column; justify-content:center; min-height:500px; }
+  .ba .arw { flex:none; align-self:center; font-size:72px; font-weight:800; color:var(--accent); min-width:40px; text-align:center; }
+  .ba .lb { font-size:30px; font-weight:800; color:var(--sub); white-space:nowrap; }
+  .ba .m { font-size:56px; font-weight:800; line-height:1.4; margin-top:22px; white-space:nowrap; }
+  .ba .d { font-size:31px; line-height:1.55; color:#374151; margin-top:22px; white-space:nowrap; }
+  .ba .d b { color:var(--accent); }
+  .ba .off { background:#f4f5f7; } .ba .off .m { color:#4b5563; }
+  .ba .on { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .ba .on .lb, .ba .on .d { color:#fff; }
+  .ba .on2 { border-color:var(--accent); background:#fff; }
+  .ba .on2 .lb { color:var(--accent); }
+
+  .rows { margin-top:50px; display:flex; flex-direction:column; gap:26px; }
+  .r { display:flex; align-items:center; gap:34px; font-size:50px; font-weight:700; background:#f5f9ff; border-radius:20px; padding:32px 44px; white-space:nowrap; }
+  .r b { color:var(--accent); }
+  .r .n { flex:none; width:84px; height:84px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:44px; font-weight:800; }
+
+  .stepmap { display:flex; align-items:stretch; gap:30px; margin-top:64px; }
+  .stepmap > div:not(.arw) { flex:1; border-radius:24px; padding:44px 40px; text-align:center; min-height:500px; display:flex; flex-direction:column; justify-content:center; }
+  .stepmap .arw { align-self:center; font-size:72px; font-weight:800; color:var(--accent); }
+  .stepmap .lb { font-size:32px; font-weight:800; }
+  .stepmap .m { font-size:52px; font-weight:800; margin-top:18px; white-space:nowrap; }
+  .stepmap .d { font-size:32px; margin-top:18px; }
+  .today { background:var(--accent); color:#fff; }
+  .next { border:4px solid var(--accent); } .next .lb { color:var(--accent); }
+  .chips { display:flex; justify-content:center; gap:12px; margin-top:26px; }
+  .chips span { font-size:27px; font-weight:700; background:var(--accent-soft); color:var(--accent); padding:10px 18px; border-radius:999px; white-space:nowrap; }
+
+  .sec { padding:0; justify-content:center; }
+  .sec::before { display:none; }
+  .sec .bgimg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .sec .sec-in { position:relative; z-index:2; padding:0 110px; color:#fff; }
+  .sec::after { color:#fff; z-index:3; }
+  .sec .grad { position:absolute; inset:0; z-index:1; background:linear-gradient(90deg,rgba(18,74,170,.96) 0%,rgba(31,111,235,.88) 55%,rgba(31,111,235,.45) 100%); }
+  .sec .no { font-size:38px; font-weight:800; letter-spacing:.14em; }
+  .sec .ttl { font-size:84px; font-weight:800; margin-top:14px; white-space:nowrap; }
+
+  .three { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-top:60px; }
+  .three .it { background:#f5f9ff; border-radius:24px; padding:44px 20px; text-align:center; }
+  .three .ic { font-size:84px; }
+  .three .m { font-size:42px; font-weight:800; line-height:1.4; margin-top:18px; white-space:nowrap; }
+  .three .d { font-size:31px; color:var(--accent); font-weight:700; margin-top:22px; white-space:nowrap; }
+
+  .then-now { margin-top:90px; display:flex; flex-direction:column; gap:90px; }
+  .tn { display:flex; align-items:center; gap:36px; }
+  .tn .lbl { flex:none; width:120px; height:120px; border-radius:50%; background:#6b7280; color:#fff; font-size:50px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .tn .lbl.now { background:var(--accent); }
+  .chain { display:flex; align-items:center; gap:14px; }
+  .chain span { font-size:40px; font-weight:800; padding:26px 28px; border:3px solid var(--line); border-radius:16px; background:#fff; white-space:nowrap; }
+  .chain i { font-style:normal; font-size:42px; color:var(--accent); font-weight:800; }
+  .chain .buy { background:var(--accent); border-color:var(--accent); color:#fff; }
+
+  .stairs { display:flex; align-items:flex-end; gap:16px; margin-top:30px; height:490px; }
+  .st { flex:1; background:var(--accent-soft); border-radius:16px 16px 0 0; padding:18px 6px; text-align:center; }
+  .st b { display:block; font-size:50px; color:var(--accent); }
+  .st span { display:block; font-size:27px; font-weight:800; line-height:1.4; margin-top:8px; white-space:nowrap; }
+  .st:last-child { background:var(--accent); color:#fff; } .st:last-child b { color:#fff; }
+
+  .funnel { display:flex; align-items:center; gap:50px; margin-top:6px; }
+  .fn { flex:none; width:800px; height:600px; }
+  .f1 { font-size:46px; font-weight:800; text-anchor:middle; fill:#1f2933; font-family:inherit; }
+  .f1.w { fill:#fff; }
+  .fn-side { flex:1; display:flex; flex-direction:column; gap:6px; }
+  .note { font-size:28px; line-height:1.5; background:#f5f9ff; border-radius:16px; padding:18px 24px; white-space:nowrap; }
+  .note b { display:block; font-size:36px; color:var(--accent); }
+  .note.strong { background:var(--accent); color:#fff; } .note.strong b { color:#fff; }
+  .down { text-align:center; font-size:30px; color:var(--accent); font-weight:800; }
+
+  .ffmb { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; align-items:end; height:560px; margin-top:0; }
+  .col { display:flex; flex-direction:column; justify-content:flex-end; height:100%; }
+  .col .ex { font-size:26px; font-weight:700; color:#374151; text-align:center; line-height:1.4; margin-bottom:10px; white-space:nowrap; }
+  .bk { height:var(--h); border-radius:16px 16px 0 0; text-align:center; padding-top:26px; }
+  .bk b { display:block; font-size:50px; font-weight:800; }
+  .bk span { display:block; font-size:30px; font-weight:800; margin-top:8px; white-space:nowrap; }
+  .c1 { background:#cfe0fc; } .c2 { background:#8fb8f7; } .c3 { background:#2f7bee; color:#fff; } .c4 { background:#144ea8; color:#fff; }
+  .ffmb-foot { display:flex; justify-content:space-between; font-size:26px; font-weight:800; color:var(--accent); margin-top:14px; white-space:nowrap; }
+
+  .parts { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:80px; }
+  .parts span { font-size:34px; font-weight:800; line-height:1.35; width:236px; height:170px; border:4px solid var(--accent); border-radius:18px; display:flex; align-items:center; justify-content:center; text-align:center; white-space:nowrap; }
+  .parts span.hl { background:var(--accent); color:#fff; }
+  .parts i { font-style:normal; font-size:42px; font-weight:800; color:var(--accent); }
+
+  .point { margin-top:64px; font-size:38px; font-weight:800; background:var(--accent-soft); border-radius:18px; padding:26px 32px; display:flex; align-items:center; gap:24px; white-space:nowrap; }
+  .tag { flex:none; font-size:28px; color:#fff; background:var(--accent); padding:6px 20px; border-radius:999px; }
+
+  .journey { display:flex; align-items:center; justify-content:center; gap:20px; margin-top:64px; }
+  .journey i { font-style:normal; font-size:60px; font-weight:800; color:var(--accent); }
+  .j { width:380px; border:4px solid var(--line); border-radius:22px; padding:34px 10px; text-align:center; }
+  .j .c { font-size:32px; font-weight:800; color:var(--sub); }
+  .j .w { font-size:50px; font-weight:800; margin-top:10px; white-space:nowrap; }
+  .j .res { font-size:38px; font-weight:800; margin-top:20px; }
+  .j .res.no { color:#6b7280; }
+  .j.yes { background:var(--accent); border-color:var(--accent); color:#fff; } .j.yes .c { color:#fff; }
+
+  .tl { display:flex; height:220px; margin-top:80px; border-radius:18px; overflow:hidden; }
+  .seg { display:flex; flex-direction:column; justify-content:center; text-align:center; padding:10px; }
+  .seg b { font-size:40px; font-weight:800; white-space:nowrap; }
+  .seg span { font-size:28px; font-weight:700; margin-top:8px; white-space:nowrap; }
+  .prep { width:58%; background:var(--accent); color:#fff; }
+  .tlshelf { width:27%; background:#f59e0b; color:#1f2933; }
+  .gone { width:15%; background:#d1d5db; color:#1f2933; }
+  .tl-m { position:relative; height:50px; margin-top:12px; }
+  .tl-m span { position:absolute; font-size:30px; font-weight:800; white-space:nowrap; }
+  .slide .tl-m + .point { margin-top:40px; }
+
+  .calc { margin-top:50px; display:flex; justify-content:center; }
+  .cl { width:100%; background:#f5f9ff; border-radius:24px; padding:40px; text-align:center; }
+  .cl .lb { font-size:32px; font-weight:800; color:var(--sub); }
+  .cl .m { font-size:66px; font-weight:800; margin-top:12px; color:var(--accent); white-space:nowrap; }
+  .cl .d { font-size:38px; font-weight:700; line-height:1.5; margin-top:18px; white-space:nowrap; }
+  .after { font-size:44px; font-weight:800; text-align:center; margin-top:50px; white-space:nowrap; }
+
+  .whole { margin-top:80px; }
+  .w1 { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .w1 span { font-size:44px; font-weight:800; text-align:center; padding:50px 8px; background:var(--accent-soft); border-radius:18px; white-space:nowrap; }
+  .w1 span.hl { background:var(--accent); color:#fff; }
+  .brace { height:50px; border:5px solid var(--accent); border-top:none; border-radius:0 0 24px 24px; margin:22px 10px 0; }
+  .w2 { font-size:46px; font-weight:800; color:var(--accent); text-align:center; margin-top:30px; white-space:nowrap; }
+
+  .works { gap:14px; }
+  .works .chip { font-size:31px; padding:14px 24px; }
+  .boost { display:flex; align-items:stretch; gap:44px; margin-top:44px; }
+  .boost .core { width:300px; border-radius:24px; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; }
+  .boost .core .m { font-size:120px; font-weight:800; }
+  .boost .lines { flex:1; display:flex; flex-direction:column; gap:20px; }
+  .boost .ln { display:flex; align-items:center; gap:32px; }
+  .boost .ln i { font-style:normal; font-size:72px; font-weight:800; color:var(--accent); line-height:1; }
+  .boost .box { flex:1; display:flex; align-items:center; gap:48px; background:var(--accent-soft); border-radius:18px; padding:26px 44px; }
+  .boost .box b { width:170px; font-size:48px; font-weight:800; }
+  .boost .box span { font-size:42px; font-weight:700; white-space:nowrap; }
+  .slide .boost + .point { margin-top:36px; }
+  .rows.aud { margin-top:30px; gap:18px; }
+  .rows.aud .r { padding-top:16px; padding-bottom:16px; }
+  .slide .rows.aud + .point { margin-top:26px; }
+  .cta12 { display:flex; align-items:center; gap:44px; margin-top:40px; }
+  .cta12 .hd { width:440px; height:440px; border-radius:18px; flex:none; display:block; }
+  .cta12 .info { flex:1; min-width:0; }
+  .cta12 .nm { font-size:38px; font-weight:800; line-height:1.4; }
+  .cta12 .meta { font-size:28px; font-weight:700; color:var(--accent); margin-top:18px; }
+  .cta12 .sub { font-size:24px; font-weight:700; margin-top:14px; }
+  .cta12 .qr { width:400px; flex:none; text-align:center; }
+  .cta12 .qr img { width:340px; height:340px; display:block; margin:0 auto; }
+  .cta12 .qr p { font-size:26px; font-weight:800; margin-top:12px; }
+  .cta12 .qr .url { font-size:20px; font-weight:700; color:var(--accent); margin-top:6px; white-space:nowrap; }
+
+
+  @media print {
+    @page { size: 1600px 900px; margin: 0; }
+    html, body { background: #fff; overflow: visible; height: auto; }
+    .stage { position: static; transform: none !important; }
+    .slide { display: flex !important; page-break-after: always; }
+    .slide.waiting { display: none !important; }
+    .slide::after, .hint { display: none; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <!-- 表紙 -->
+  <section class="slide cover">
+    <div class="cover-text">
+      <p class="cover-kicker">マーケティング部 第1回</p>
+      <h1>販売導線の<br>作り方</h1>
+      <p class="cover-name">岡崎かつひろ</p>
+    </div>
+    <img src="img/cover.png" alt="">
+  </section>
+
+  <section class="slide">
+    <div class="kicker">自己紹介</div>
+    <div class="who">
+      <div class="name">岡崎かつひろ</div>
+      <div class="co">株式会社XYZ 代表取締役</div>
+    </div>
+    <div class="timeline">
+      <div class="step">
+        <div class="yr">1980</div>
+        <div class="ttl">埼玉県生まれ</div>
+      </div>
+      <div class="step">
+        <div class="yr">大学卒業</div>
+        <div class="ttl">ソフトバンク入社</div>
+        <div class="dsc">東京理科大学 経営学部</div>
+      </div>
+      <div class="step">
+        <div class="yr">2008</div>
+        <div class="ttl">飲食店を経営</div>
+        <div class="dsc">元バーテンダー<br>5店舗を運営</div>
+      </div>
+      <div class="step">
+        <div class="yr">2010</div>
+        <div class="ttl">株式会社XYZ設立</div>
+        <div class="dsc">セミナー・出版の<br>企画運営</div>
+      </div>
+      <div class="step now">
+        <div class="yr">現在</div>
+        <div class="ttl">作家・講演家</div>
+        <div class="dsc">全国出版オーディション<br>主宰</div>
+      </div>
+    </div>
+    <div class="works">
+      <span class="lbl">いまの仕事</span>
+      <span class="chip">講演・研修</span>
+      <span class="chip">本の執筆</span>
+      <span class="chip">書籍プロデュース</span>
+      <span class="chip">出版の挑戦者を応援</span>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">著書</div>
+    <h2>これまでに書いてきた本</h2>
+    <div class="shelf">
+      <div class="row">
+        <img src="img/book01.jpg" alt=""><img src="img/book02.jpg" alt=""><img src="img/book03.jpg" alt=""><img src="img/book04.jpg" alt=""><img src="img/book05.jpg" alt=""><img src="img/book06.jpg" alt=""><img src="img/book07.jpg" alt="">
+      </div>
+      <div class="row">
+        <img src="img/book08.jpg" alt=""><img src="img/book09.jpg" alt=""><img src="img/book10.jpg" alt=""><img src="img/book11.jpg" alt=""><img src="img/book12.jpg" alt=""><img src="img/book13.jpg" alt="">
+      </div>
+    </div>
+    <div class="total">
+      <span class="lbl">著書13冊・累計</span>
+      <span class="num">28万<small>部</small></span>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">いま力を入れていること</div>
+    <h2>本を出したい人を<span class="accent">応援しています</span></h2>
+    <div class="two">
+      <div class="card">
+        <div>
+          <span class="tag">年2回開催</span>
+          <div class="ttl">全国出版オーディション</div>
+        </div>
+        <ul>
+          <li>優勝者は<b>商業出版100％保証</b></li>
+          <li>優勝を逃しても出版オファー多数</li>
+          <li>現役編集長の企画書セミナー付き</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div>
+          <span class="tag">毎月開催・オンライン</span>
+          <div class="ttl">出版企画書勉強会</div>
+        </div>
+        <ul>
+          <li>毎月ちがう<b>現役編集者</b>が登壇</li>
+          <li>本になった企画書を本人が解説</li>
+          <li>会員の企画書をその場で添削</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 導入：飲食店 -->
+  <section class="slide impact center">
+    <p class="q-tag">最初の問いかけ</p>
+    <p class="big">なぜ、たくさんの飲食店が<br>潰れると思いますか？</p>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">僕の話</div><h2>僕はもともと<br><span class="accent">飲食店</span>を<br>やっていました</h2><p class="lead">元バーテンダー<br>5店舗を運営</p></div>
+    <div class="im"><img src="img/bartender.jpg" alt=""></div>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">飲食店オーナーの考え</div><h2>だいたい、<br>こう思っています</h2><p class="say">「おいしいものを<br>作れば売れるでしょ」</p></div>
+    <div class="im"><img src="img/restaurant_food.png" alt=""></div>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">その結果</div><h2>全然、<br><span class="accent">売れない</span></h2></div>
+    <div class="im"><img src="img/restaurant_empty.png" alt=""></div>
+  </section>
+
+  <section class="slide impact center blue">
+    <p class="mid">ぶっちゃけ言うと</p>
+    <p class="big">飲食店なんだから<br>おいしいのは当たり前</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">大事なのは、こっち</div>
+    <h2>おいしさの次に、問われること</h2>
+    <div class="ba">
+      <div class="card off"><div class="lb">みんなが考えていること</div><div class="m">おいしいものを作る</div><div class="d">やっていて当たり前</div></div>
+      <div class="arw">→</div>
+      <div class="card on"><div class="lb">本当に大事なこと</div><div class="m">売れるまでの<br>導線づくり</div><div class="d">ちゃんとできていますか？</div></div>
+    </div>
+  </section>
+
+  <section class="slide impact center">
+    <p class="big">飲食店だけの話じゃない</p>
+    <p class="mid2">これを理解しないで、みんないろんなビジネスをやっちゃうから<br>だいたい失敗します</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">今日の話</div>
+    <h2>今日、考えること</h2>
+    <div class="rows">
+      <div class="r"><span class="n">1</span><span>売れる導線を<b>理解する</b></span></div>
+      <div class="r"><span class="n">2</span><span>ご自身の商品やサービスを<b>売っていく</b></span></div>
+      <div class="r"><span class="n">3</span><span>本を、販売導線の中で<b>活かす</b></span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">マーケティング部</div>
+    <h2>今日は、そのための<span class="accent">第一歩</span>です</h2>
+    <div class="stepmap">
+      <div class="today"><div class="lb">今日</div><div class="m">全体の地図を描く</div><div class="d">最初のセットアップ</div></div>
+      <div class="arw">→</div>
+      <div class="next"><div class="lb">これから</div><div class="m">パーツを1つずつ扱う</div><div class="chips"><span>集客の商品</span><span>収益の商品</span><span>本の活かし方</span></div></div>
+    </div>
+  </section>
+
+  <!-- 第1章 -->
+  <section class="slide sec">
+    <img class="bgimg" src="img/compare.png" alt=""><div class="grad"></div>
+    <div class="sec-in"><p class="no">PART 1</p><p class="ttl">買い方が変わった</p></div>
+  </section>
+
+  <section class="slide impact center blue">
+    <p class="mid">大前提</p>
+    <p class="big">私たちは今、<br>出会い頭でものを買わない</p>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">昔の買い方</div><h2>路上の<br><span class="accent">バナナのたたき売り</span>でも<br>買っていた</h2></div>
+    <div class="im"><img src="img/banana.png" alt=""></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">昔の買い方</div>
+    <h2>なぜ、その場で買えたのか</h2>
+    <div class="three">
+      <div class="it"><div class="ic">📵</div><div class="m">インターネットが<br>なかった</div><div class="d">調べようがない</div></div>
+      <div class="it"><div class="ic">🤝</div><div class="m">そう悪い人も<br>いなかった</div><div class="d">じゃあ信用しよう</div></div>
+      <div class="it"><div class="ic">😄</div><div class="m">ぱっと見の<br>人柄で決めた</div><div class="d">出会い頭でも買う</div></div>
+    </div>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">その時代の主役</div><h2>フーテンの<br><span class="accent">寅さん</span>ですよ</h2><p class="lead">話法さえうまければ<br>売れた時代</p></div>
+    <div class="im"><img src="img/tora_statue.jpg" alt=""></div>
+    <p class="credit">写真：柴又駅前の寅さん像とさくら像／撮影 くろふね（CC BY 4.0・Wikimedia Commons）</p>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">そこから</div><h2><span class="accent">流通</span>が<br>しっかりしてきた</h2><p class="lead">同じようなものが<br>どこでも買えるように</p></div>
+    <div class="im"><img src="img/logistics.png" alt=""></div>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">さらに</div><h2><span class="accent">インターネット</span>が<br>できた</h2><p class="lead">買う前に、<br>手の中で調べられる</p></div>
+    <div class="im"><img src="img/internet.png" alt=""></div>
+  </section>
+
+  <section class="slide impact center">
+    <p class="big">結局、<br><span class="accent">話法だけでは売れない</span></p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">買い方の変化</div>
+    <h2>昔と今では、買うまでの道のりが違う</h2>
+    <div class="then-now">
+      <div class="tn"><div class="lbl">昔</div><div class="chain"><span>出会う</span><i>→</i><span>話を聞く</span><i>→</i><span class="buy">買う</span></div></div>
+      <div class="tn"><div class="lbl now">今</div><div class="chain"><span>出会う</span><i>→</i><span>調べる</span><i>→</i><span>比べる</span><i>→</i><span>また見る</span><i>→</i><span class="buy">買う</span></div></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">マーケティングの神様 フィリップ・コトラー</div>
+    <h2>マーケティングも、時代で変わってきた</h2>
+    <div class="stairs">
+      <div class="st" style="height:150px"><b>1.0</b><span>製品</span></div>
+      <div class="st" style="height:210px"><b>2.0</b><span>お客さま</span></div>
+      <div class="st" style="height:270px"><b>3.0</b><span>価値</span></div>
+      <div class="st" style="height:330px"><b>4.0</b><span>自己実現</span></div>
+      <div class="st" style="height:390px"><b>5.0</b><span>人を助ける<br>テクノロジー</span></div>
+      <div class="st" style="height:450px"><b>6.0</b><span>現実と<br>デジタルの融合</span></div>
+    </div>
+  </section>
+
+  <section class="slide impact center blue">
+    <p class="big">時代に合わせて、<br>販売導線は変えなきゃいけない</p>
+    <p class="mid2">だから、今の導線がどうなっているかを理解する</p>
+  </section>
+
+  <!-- 第2章 -->
+  <section class="slide sec">
+    <img class="bgimg" src="img/cover.png" alt=""><div class="grad"></div>
+    <div class="sec-in"><p class="no">PART 2</p><p class="ttl">基本はセールスファネル</p></div>
+  </section>
+
+  <section class="slide impact center">
+    <p class="big">いちばんの基本は、今も昔も<br><span class="accent">セールスファネル</span></p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">図解①</div>
+    <h2>セールスファネル</h2>
+    <div class="funnel">
+      <svg viewBox="0 0 900 600" class="fn">
+        <polygon points="0,0 900,0 790,140 110,140" fill="#cfe0fc"/>
+        <polygon points="118,150 782,150 680,290 220,290" fill="#8fb8f7"/>
+        <polygon points="228,300 672,300 580,440 320,440" fill="#4d8ef2"/>
+        <polygon points="328,450 572,450 500,590 400,590" fill="#1f6feb"/>
+        <text x="450" y="88" class="f1">知る</text>
+        <text x="450" y="238" class="f1">興味を持つ</text>
+        <text x="450" y="388" class="f1 w">調べて比べる</text>
+        <text x="450" y="534" class="f1 w">買う</text>
+      </svg>
+      <div class="fn-side">
+        <div class="note"><b>上は広く</b>たくさんの人に知ってもらう</div>
+        <div class="down">↓</div>
+        <div class="note"><b>段階ごとに減っていく</b>全員は次に進まない</div>
+        <div class="down">↓</div>
+        <div class="note strong"><b>最後に買う人</b>ここまでの道を設計する</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">図解②</div>
+    <h2>FFMBモデル</h2>
+    <div class="ffmb">
+      <div class="col" style="--h:230px"><div class="ex">SNS・発信<br>LINE公式<br>無料説明会</div><div class="bk c1"><b>Free</b><span>無料</span></div></div>
+      <div class="col" style="--h:310px"><div class="ex">本<br>低価格の<br>セミナー</div><div class="bk c2"><b>Front</b><span>入口の商品</span></div></div>
+      <div class="col" style="--h:390px"><div class="ex">講座<br>勉強会<br>講演・研修</div><div class="bk c3"><b>Middle</b><span>ミドルエンド商品</span></div></div>
+      <div class="col" style="--h:470px"><div class="ex">コンサル<br>プロデュース</div><div class="bk c4"><b>Back</b><span>利益の柱</span></div></div>
+    </div>
+    <div class="ffmb-foot"><span>買う人の数は、右へ行くほど少なくなる</span><span>1人あたりの金額は、右へ行くほど大きくなる</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">2つの図の関係</div>
+    <h2>言ってしまえば、どちらも一緒</h2>
+    <div class="ba">
+      <div class="card on2"><div class="lb">セールスファネル</div><div class="m">お客さまの<br>気持ちの流れ</div></div>
+      <div class="arw">＝</div>
+      <div class="card on2"><div class="lb">FFMBモデル</div><div class="m">その流れに置く<br>商品の並び</div></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">本はどこに立っているのか</div>
+    <h2>本も、ファネルが必要</h2>
+    <div class="ba">
+      <div class="card on2"><div class="lb">使い方 1</div><div class="m">本を売りたい</div><div class="d">本が<b>バックエンド</b><br>本を売るためのファネルをつくる</div></div>
+      <div class="arw"></div>
+      <div class="card on2"><div class="lb">使い方 2</div><div class="m">本から次へつなぐ</div><div class="d">本が<b>フロント</b><br>その先の商品へ進むファネルをつくる</div></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">本と各部品の関係</div>
+    <h2>本は、全部に関係する</h2>
+    <div class="boost">
+      <div class="core"><div class="m">本</div></div>
+      <div class="lines">
+        <div class="ln"><i>→</i><div class="box"><b>SNS</b><span>本をきっかけに伸びる</span></div></div>
+        <div class="ln"><i>→</i><div class="box"><b>リスト</b><span>本から取れる</span></div></div>
+        <div class="ln"><i>→</i><div class="box"><b>仕事</b><span>本からつながる</span></div></div>
+      </div>
+    </div>
+    <div class="point"><span class="tag">ポイント</span>本が、各部品の加速装置になる</div>
+  </section>
+
+  <!-- 第3章 -->
+  <section class="slide sec">
+    <img class="bgimg" src="img/bookstore2.png" alt=""><div class="grad"></div>
+    <div class="sec-in"><p class="no">PART 3</p><p class="ttl">今、本はこう買われている</p></div>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">本の買い方 1</div><h2>広告やSNSの<br>投稿で<span class="accent">見る</span></h2><p class="say">「Amazonで買ってね」</p></div>
+    <div class="im"><img src="img/sns.png" alt=""></div>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">本の買い方 2</div><h2>でも、みんな<br><span class="accent">Amazonでは買わない</span></h2></div>
+    <div class="im"><img src="img/amazon.png" alt=""></div>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">本の買い方 3</div><h2>街の書店で<br><span class="accent">最初に見かける</span></h2><p class="say">「気になるなぁ」</p><p class="lead">でも、買わない</p></div>
+    <div class="im"><img src="img/bookstore1.png" alt=""></div>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">本の買い方 4</div><h2>別の書店で<br><span class="accent">また見かける</span></h2><p class="say">「じゃあ買おうかな」</p></div>
+    <div class="im"><img src="img/bookstore2.png" alt=""></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">本の買い方</div>
+    <h2>買うまでに、何度も目に触れている</h2>
+    <div class="journey">
+      <div class="j"><div class="c">1回目</div><div class="w">広告・SNS</div><div class="res no">買わない</div></div><i>→</i>
+      <div class="j"><div class="c">2回目</div><div class="w">街の書店</div><div class="res no">買わない</div></div><i>→</i>
+      <div class="j yes"><div class="c">3回目</div><div class="w">別の書店</div><div class="res">買う</div></div>
+    </div>
+    <div class="point"><span class="tag">ポイント</span>「出ました。広告打ちました。だから買います」ではない</div>
+  </section>
+
+  <section class="slide impact center blue">
+    <p class="mid">単純接触効果</p>
+    <p class="big">接触回数が多いものを、<br>買っていく</p>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">書店の現実</div><h2>並んでいるうちに<br><span class="accent">目に触れる</span>状態を<br>つくりたい</h2><p class="lead">遅いと2週間で撤去</p></div>
+    <div class="im"><img src="img/removed.png" alt=""></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">準備のタイミング</div>
+    <h2>書店に並んでからでは、遅い</h2>
+    <div class="tl">
+      <div class="seg prep"><b>発売の3か月前から</b><span>目に触れる状態をつくる</span></div>
+      <div class="seg tlshelf"><b>書店に並ぶ</b><span>2週間〜2か月</span></div>
+      <div class="seg gone"><b>撤去</b></div>
+    </div>
+    <div class="tl-m"><span style="left:0">3か月前</span><span style="left:58%">発売</span></div>
+    <div class="point"><span class="tag">ポイント</span>何度も見てもらうために、できれば3か月前から準備する</div>
+  </section>
+
+  <!-- 第4章 -->
+  <section class="slide sec">
+    <img class="bgimg" src="img/coins.png" alt=""><div class="grad"></div>
+    <div class="sec-in"><p class="no">PART 4</p><p class="ttl">本だけでは、黒字にならない</p></div>
+  </section>
+
+  <section class="slide pic">
+    <div class="tx"><div class="kicker">本の利益</div><p class="yen">100〜150<small>円</small></p><p class="lead">1冊あたりの印税</p><h2 class="sm">正直、ほぼ利益がない</h2></div>
+    <div class="im"><img src="img/coins.png" alt=""></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">本の利益</div>
+    <h2>活動の経費で、飛びます</h2>
+    <div class="calc">
+      <div class="cl"><div class="lb">もちろん</div><div class="m">100万部売れれば別</div><div class="d">100万部 × 100〜150円<br>＝ 1億〜1億5,000万円</div></div>
+    </div>
+    <p class="after">そうでなければ、本の次まで考えておく</p>
+  </section>
+
+  <section class="slide impact center">
+    <p class="big">利益が出る商品まで<br><span class="accent">設計する</span></p>
+    <p class="mid2">高額でなくていい</p>
+  </section>
+
+  <section class="slide impact center blue">
+    <p class="big">本だけで何とかしようは、<br>大きな間違い</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">目指すこと</div>
+    <h2>全体で<span class="accent">黒字</span>にする</h2>
+    <div class="whole">
+      <div class="w1"><span>無料</span><span class="hl">本</span><span>ミドルエンド</span><span>バックエンド</span></div>
+      <div class="brace"></div>
+      <div class="w2">FFMB、もしくはセールスファネル全体で黒字化</div>
+    </div>
+  </section>
+
+  <!-- 締め -->
+  <section class="slide">
+    <div class="kicker">マーケティング部で、これからやること</div>
+    <h2>導線とバックエンドで、利益を出す</h2>
+    <div class="rows">
+      <div class="r"><span class="n">1</span><span>どんな<b>導線</b>をつくるのか</span></div>
+      <div class="r"><span class="n">2</span><span>どんな<b>バックエンド商品</b>で利益を出すのか</span></div>
+    </div>
+    <div class="point"><span class="tag">次回</span>集客商品と収益商品の違いを理解する</div>
+  </section>
+
+  <section class="slide impact center blue">
+    <p class="big">ぜひ引き続き、<br>ご参加ください</p>
+    <p class="mid2">岡崎かつひろ</p>
+  </section>
+
+  <!-- 全国出版オーディションのご案内 -->
+  <section class="slide">
+    <div class="kicker">導線づくりの実践の場</div>
+    <h2>導線づくりには、<span class="accent">全国出版オーディション</span>がおすすめ</h2>
+    <div class="rows aud">
+      <div class="r"><span class="n">1</span><span>現役編集長のセミナーで、<b>本の企画</b>を磨く</span></div>
+      <div class="r"><span class="n">2</span><span>Web投票とYouTubeで、<b>応援</b>を集める</span></div>
+      <div class="r"><span class="n">3</span><span>本選で、出版社の<b>編集者</b>に審査してもらう</span></div>
+    </div>
+    <div class="point"><span class="tag">ポイント</span>本が出る前から、人が集まる流れをつくれる</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">最後にご案内</div>
+    <h2>まずは<span class="accent">無料説明会</span>へ</h2>
+    <div class="cta12">
+      <img class="hd" src="img/audition12_header.jpg" alt="">
+      <div class="info">
+        <p class="nm">第12回<br>全国出版オーディション<br>無料オンライン説明会</p>
+        <p class="meta">Zoom・約60分／参加無料</p>
+        <p class="sub">はじめての出版挑戦を応援しています。</p>
+      </div>
+      <div class="qr">
+        <img src="img/audition12_qr.png" alt="">
+        <p>日程はこちらから選べます</p>
+        <p class="url">okazaki-media.com/lp/VMD41EEV</p>
+      </div>
+    </div>
+  </section>
+
+
+</div>
+<div class="hint">→ / クリック：次へ　← ：戻る　F：全画面　P：印刷</div>
+<script>
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  slides.forEach((s, i) => s.dataset.no = (i + 1) + ' / ' + slides.length);
+  let cur = Math.min(Math.max(parseInt(location.hash.slice(1)) - 1 || 0, 0), slides.length - 1);
+  function show(i) {
+    cur = Math.min(Math.max(i, 0), slides.length - 1);
+    slides.forEach((s, j) => s.classList.toggle('active', j === cur));
+    history.replaceState(null, '', '#' + (cur + 1));
+    if (cur !== 0)
+    document.querySelector('.hint').style.display = cur === 0 ? '' : 'none';
+  }
+  function next() { show(cur + 1); }
+  function prev() { show(cur - 1); }
+  function fit() {
+    const scale = Math.min(innerWidth / 1600, innerHeight / 900);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'ArrowDown', ' ', 'Enter', 'PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
+    else if (e.key === 'f' || e.key === 'F') {
+      document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    } else if (e.key === 'p' || e.key === 'P') window.print();
+  });
+  document.addEventListener('click', next);
+  document.addEventListener('contextmenu', e => { e.preventDefault(); prev(); });
+  addEventListener('resize', fit);
+  fit(); show(cur);
+</script>
+</body>
+</html>
