@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>メンバーの本｜出版企画書勉強会 参加者ラウンジ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#e8621c;--accent-d:#c94f0e;--ink:#1d1a17;--sub:#6b645c;--line:#e7e0d7;--cream:#f7f3ee;--paper:#fffdf9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans JP",sans-serif;color:var(--ink);background:var(--paper);line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:relative;padding:28px 20px 40px;text-align:center;color:#fff;overflow:hidden;background:#2a2119}
+.top .blur{position:absolute;inset:-40px;background:center/cover no-repeat;filter:blur(28px) brightness(.55);transform:scale(1.2)}
+.top>*{position:relative}
+.back{display:inline-block;font-size:13px;text-decoration:none;opacity:.85;margin-bottom:22px}
+.cover{width:190px;max-width:55vw;border-radius:4px;box-shadow:0 20px 40px rgba(0,0,0,.5);margin:0 auto;display:block}
+.cover.nocov{height:280px;background:linear-gradient(160deg,#fffdf9,#efe6da);color:var(--ink);display:flex;flex-direction:column;justify-content:space-between;padding:26px 18px;text-align:center}
+.cover.nocov span{font-family:"Noto Serif JP",serif;font-weight:900;font-size:19px;line-height:1.5}
+.cover.nocov small{display:block;font-size:12px;font-weight:500;color:var(--sub)}
+.cover.nocov em{font-style:normal;font-size:12px;font-weight:700;color:var(--accent)}
+.badges{margin-top:20px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.badge{font-size:12px;font-weight:700;border-radius:999px;padding:2px 12px;background:var(--accent)}
+.badge.sample{background:#fff8c5;color:#6b5a00}
+.title{font-family:"Noto Serif JP",serif;font-weight:900;font-size:24px;line-height:1.5;margin-top:12px}
+.author{margin-top:6px;font-size:15px;opacity:.9}
+.author small{display:block;font-size:13px;opacity:.75}
+.body{max-width:520px;margin:0 auto;padding:28px 20px 40px}
+.catch{font-family:"Noto Serif JP",serif;font-size:17px;text-align:center;margin-bottom:26px}
+.links{display:grid;gap:12px}
+.lnk{display:flex;align-items:center;gap:12px;text-decoration:none;border-radius:14px;padding:16px 18px;font-weight:700;font-size:16px;box-shadow:0 6px 16px rgba(60,40,20,.12);transition:.15s}
+.lnk:hover{transform:translateY(-2px)}
+.lnk .tg{font-size:11px;border-radius:999px;padding:1px 10px;background:rgba(255,255,255,.25);flex:none}
+.lnk .ar{margin-left:auto;font-size:18px}
+.lnk.dead{opacity:.5;pointer-events:none}
+.msg{margin-top:32px;background:var(--cream);border-radius:16px;padding:22px}
+.msg h2{font-family:"Noto Serif JP",serif;font-size:16px;margin-bottom:8px}
+.msg p{font-size:15px;color:#4a443e}
+.share{margin-top:24px;text-align:center}
+.share a{display:inline-block;text-decoration:none;border:1.5px solid var(--ink);border-radius:999px;padding:9px 22px;font-weight:700;font-size:14px;margin:4px}
+.club{margin-top:40px;border-top:1px solid var(--line);padding-top:28px;text-align:center}
+.club .en{font-family:"Cormorant Garamond",serif;font-style:italic;color:var(--accent);font-size:18px}
+.club p{font-size:14px;color:var(--sub);margin:6px 0 16px}
+.club a{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;border-radius:999px;padding:12px 28px}
+.club a.sub{display:block;margin-top:14px;font-size:13px;color:var(--sub);background:none;padding:0;text-decoration:underline}
+.nf{padding:80px 20px;text-align:center}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="books-data.js"></script>
+<script>
+function esc(s){return String(s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+var id=new URLSearchParams(location.search).get("b");
+var b=MEMBER_BOOKS.filter(function(x){return x.id===id;})[0];
+var app=document.getElementById("app");
+if(!b){
+  app.innerHTML='<div class="nf"><p>この本のページは見つかりませんでした。</p><p style="margin-top:16px"><a href="index.html#members">メンバーの本の一覧へ</a></p></div>';
+}else{
+  document.title=b.title+"｜"+b.author+"｜出版企画書勉強会 参加者ラウンジ";
+  var cov=b.cover?"images/member-books/"+b.cover:"";
+  var coverHtml=cov?'<img class="cover" src="'+cov+'" alt="'+esc(b.title)+'">':
+    '<div class="cover nocov"><span>'+esc(b.title)+(b.tentative?'<small>（仮題）</small>':'')+'</span><em>'+releaseLabel(b.release)+'<br>発売予定</em></div>';
+  var links=(b.links||[]).map(function(l){
+    var t=LINK_TYPES[l.type]||LINK_TYPES.other, dead=(!l.url||l.url==="#");
+    return '<a class="lnk'+(dead?' dead':'')+'" href="'+esc(l.url)+'" target="_blank" rel="noopener" style="background:'+t.color+';color:'+t.ink+'">'+
+      '<span class="tg">'+esc(t.name)+'</span>'+esc(l.label)+'<span class="ar">→</span></a>';
+  }).join("");
+  var shareText=encodeURIComponent("『"+b.title+"』"+b.author);
+  var shareUrl=encodeURIComponent(location.href);
+  app.innerHTML=
+    '<div class="top">'+(cov?'<div class="blur" style="background-image:url('+cov+')"></div>':'')+
+      '<a class="back" href="index.html#members">← 参加者ラウンジ／メンバーの本</a>'+
+      coverHtml+
+      '<div class="badges">'+(b.sample?'<span class="badge sample">見本</span>':'')+'<span class="badge">'+esc(b.stage)+'</span></div>'+
+      '<h1 class="title">'+esc(b.title)+(b.tentative?'<span style="font-size:14px">（仮題）</span>':'')+'</h1>'+
+      '<div class="author">'+esc(b.author)+'<small>'+[esc(b.publisher),(b.stage==="発売中"?releaseLabel(b.release)+'発売':releaseLabel(b.release)+' 発売予定')].filter(Boolean).join('／')+'</small></div>'+
+    '</div>'+
+    '<div class="body">'+
+      (b.catch?'<p class="catch">'+esc(b.catch)+'</p>':'')+
+      '<div class="links">'+links+'</div>'+
+      (b.message?'<div class="msg"><h2>著者からひとこと</h2><p>'+esc(b.message)+'</p></div>':'')+
+      '<div class="share"><a href="https://x.com/intent/post?text='+shareText+'&url='+shareUrl+'" target="_blank" rel="noopener">Xでシェア</a>'+
+      '<a href="https://social-plugins.line.me/lineit/share?url='+shareUrl+'" target="_blank" rel="noopener">LINEで送る</a></div>'+
+      '<div class="club"><div class="en">Publishing Club</div><p>この本の著者は、出版企画書勉強会のメンバーです。<br>編集者に直接企画書を見てもらえる勉強会を、毎月開いています。</p>'+
+      '<a href="index.html#join">出版企画書勉強会を見てみる</a><a class="sub" href="index.html#members">ほかのメンバーの本を見る</a></div>'+
+    '</div>';
+}
+</script>
+</body>
+</html>

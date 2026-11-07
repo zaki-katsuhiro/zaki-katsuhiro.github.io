@@ -131,6 +131,39 @@ section{padding:96px 0}
 .g .dt{font-family:"Cormorant Garamond",serif;font-size:17px;position:absolute;top:12px;right:12px;z-index:1;background:rgba(20,14,9,.6);border-radius:999px;padding:0 12px;line-height:1.7}
 .g.noimg .ph-note{position:absolute;top:45%;left:0;right:0;text-align:center;font-size:13px;opacity:.6}
 
+/* メンバーの本 */
+.mb-h{font-family:"Noto Serif JP",serif;font-size:21px;margin-bottom:6px}
+.mb-hint{font-size:14px;color:var(--sub);margin-bottom:22px}
+.tl{position:relative;border-left:2px solid var(--line);margin-left:8px}
+.tl-it{position:relative;display:grid;grid-template-columns:140px 1fr;gap:18px;padding:0 0 24px 26px;text-decoration:none}
+.tl-it::before{content:"";position:absolute;left:-8px;top:8px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--accent)}
+.tl-it.soon::before{background:var(--accent)}
+.tl-m{font-family:"Noto Serif JP",serif;font-weight:900;font-size:18px;line-height:1.5}
+.tl-m small{display:block;font-family:"Noto Sans JP",sans-serif;font-size:12px;font-weight:700;color:var(--accent)}
+.tl-c{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;transition:.15s}
+.tl-it:hover .tl-c{box-shadow:0 10px 24px rgba(60,40,20,.12);transform:translateY(-1px)}
+.tl-c img,.tl-c .nc{flex:none;width:54px;height:78px;border-radius:3px;object-fit:cover;box-shadow:0 4px 10px rgba(0,0,0,.15)}
+.tl-c .nc{background:linear-gradient(160deg,#fffdf9,#efe6da);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--sub);text-align:center;line-height:1.3}
+.tl-c b{display:block;font-family:"Noto Serif JP",serif;font-size:17px;line-height:1.5}
+.tl-c b small{font-size:12px;font-weight:500;color:var(--sub)}
+.tl-c span{font-size:14px;color:var(--sub)}
+.chip{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:1px 10px;margin-right:6px;background:var(--accent-soft);color:var(--accent-d)}
+.chip.sample{background:#fff8c5;color:#6b5a00}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:26px}
+.bk{text-decoration:none;text-align:center}
+.bk img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:4px;box-shadow:0 12px 26px rgba(60,40,20,.22);transition:.2s}
+.bk:hover img{transform:translateY(-4px)}
+.bk b{display:block;font-family:"Noto Serif JP",serif;font-size:14px;line-height:1.5;margin-top:12px}
+.bk span{font-size:12px;color:var(--sub)}
+.mb-cta{margin-top:56px;display:flex;gap:24px;align-items:center;justify-content:space-between;background:var(--cream);border-radius:18px;padding:24px 28px;flex-wrap:wrap}
+.mb-cta b{display:block;font-family:"Noto Serif JP",serif;font-size:17px}
+.mb-cta span{font-size:14px;color:var(--sub)}
+.mb-cta div{flex:1;min-width:240px}
+.empty{font-size:14px;color:var(--sub);padding:6px 0 0 26px}
+@media (max-width:820px){
+  .tl-it{grid-template-columns:1fr;gap:6px}
+}
+
 /* はじめての方へ */
 .start{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
 .stp{background:var(--cream);border-radius:18px;padding:28px 24px}
@@ -301,6 +334,24 @@ footer .links a{color:#fff;margin:0 10px}
   </div>
 </section>
 
+<section id="members" class="mb">
+  <div class="wrap">
+    <div class="head"><div class="en">Members' Books</div><h2>メンバーの本</h2><p>この会から生まれた本と、これから出る本です。本を押すと、Amazon・クラファン・出版記念イベントなどへのリンクがまとまったページが開きます。</p></div>
+
+    <h3 class="mb-h">これからの出版予定</h3>
+    <p class="mb-hint">発売の1〜2ヶ月前が、予約・クラファン・出版記念イベントでいちばん応援しやすい時期です。</p>
+    <div class="tl" id="planList"></div>
+
+    <h3 class="mb-h" style="margin-top:56px">発売中のメンバーの本</h3>
+    <div class="shelf" id="shelf"></div>
+
+    <div class="mb-cta">
+      <div><b>本が出ることが決まったメンバーへ</b><span>発売月・書名（仮題でOK）・出版社・載せたいリンクを事務局へお知らせください。このページに載せて、みんなで応援します。</span></div>
+      <a class="btn btn-line" href="mailto:happylife.japan2021@gmail.com?subject=%E3%80%90%E5%87%BA%E7%89%88%E4%BC%81%E7%94%BB%E6%9B%B8%E5%8B%89%E5%BC%B7%E4%BC%9A%E3%80%91%E5%87%BA%E7%89%88%E3%81%AE%E3%81%94%E5%A0%B1%E5%91%8A">事務局に知らせる</a>
+    </div>
+  </div>
+</section>
+
 <section id="start" style="padding-top:0">
   <div class="wrap">
     <div class="head"><div class="en">First Steps</div><h2>入会したら、まずこの3つ</h2><p>録画がたくさんあるので、迷ったらこの順番で。</p></div>
@@ -368,6 +419,8 @@ footer .links a{color:#fff;margin:0 10px}
 </footer>
 
 <div class="zoom" id="zoom"><img id="zoomImg" alt=""></div>
+
+<script src="books-data.js"></script>
 
 <script>
 /* ===== ここを毎月書きかえる ===================================== */
@@ -475,6 +528,27 @@ document.getElementById("guestList").innerHTML=GUESTS.map(function(g){
 (function(){
   var h=BOOKS.map(function(b){return '<img src="images/books/'+b+'.jpg" alt="">';}).join("");
   document.getElementById("belt").innerHTML=h+h;
+})();
+
+/* メンバーの本（中身は books-data.js） */
+(function(){
+  if(typeof MEMBER_BOOKS==="undefined") return;
+  function rd(b){return dt(b.release.length===7?b.release+"-01":b.release);}
+  var thisMonth=new Date(today.getFullYear(),today.getMonth(),1);
+  var plans=MEMBER_BOOKS.filter(function(b){return b.stage!=="発売中" && rd(b)>=thisMonth;}).sort(function(a,b){return rd(a)-rd(b);});
+  var out=MEMBER_BOOKS.filter(function(b){return plans.indexOf(b)<0;}).sort(function(a,b){return rd(b)-rd(a);});
+  document.getElementById("planList").innerHTML = plans.length ? plans.map(function(b){
+    var days=(rd(b)-today)/86400000, soon=days<=62;
+    var cov=b.cover?'<img src="images/member-books/'+b.cover+'" alt="">':'<div class="nc">書影<br>準備中</div>';
+    return '<a class="tl-it'+(soon?' soon':'')+'" href="book.html?b='+encodeURIComponent(b.id)+'"><div class="tl-m">'+(soon?'<small>もうすぐ発売</small>':'')+releaseLabel(b.release)+'</div>'+
+      '<div class="tl-c">'+cov+'<div>'+(b.sample?'<span class="chip sample">見本</span>':'')+'<span class="chip">'+esc(b.stage)+'</span>'+
+      '<b>'+esc(b.title)+(b.tentative?'<small>（仮題）</small>':'')+'</b><span>'+esc(b.author)+'さん'+(b.publisher?'／'+esc(b.publisher):'')+'</span></div></div></a>';
+  }).join("") : '<p class="empty">いまは登録された予定がありません。</p>';
+  document.getElementById("shelf").innerHTML = out.map(function(b){
+    var cov=b.cover?'images/member-books/'+b.cover:'';
+    return '<a class="bk" href="book.html?b='+encodeURIComponent(b.id)+'">'+(cov?'<img src="'+cov+'" alt="'+esc(b.title)+'">':'')+
+      '<b>'+esc(b.title)+'</b><span>'+(b.sample?'【見本】':'')+esc(b.author)+'さん</span></a>';
+  }).join("");
 })();
 
 /* 上の帯：スクロールしたら白地に */
