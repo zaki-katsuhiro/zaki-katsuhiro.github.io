@@ -356,9 +356,6 @@
   .rows { gap:20px; margin-top:40px; }
   .rows .r { padding:24px 44px; }
   /* 順番に出す */
-  .fr { opacity:0; transition:opacity .35s; }
-  .fr.on { opacity:1; }
-  @media print { .fr { opacity:1 !important; } }
 </style>
 </head>
 <body>
@@ -401,10 +398,10 @@
     <div class="kicker">今日の流れ</div>
     <h2>2時間の進め方</h2>
     <div class="rows">
-      <div class="r fr"><span class="n">1</span><span>今日の前提　<b>本は、出したあとまで考える</b></span></div>
-      <div class="r fr"><span class="n">2</span><span>大谷由里子さん　<b>ご講演</b>（60分）</span></div>
-      <div class="r fr"><span class="n">3</span><span>後半戦　<b>対談＋質疑応答</b></span></div>
-      <div class="r fr"><span class="n">4</span><span>最後に、ご案内</span></div>
+      <div class="r"><span class="n">1</span><span>今日の前提　<b>本は、出したあとまで考える</b></span></div>
+      <div class="r"><span class="n">2</span><span>大谷由里子さん　<b>ご講演</b>（60分）</span></div>
+      <div class="r"><span class="n">3</span><span>後半戦　<b>対談＋質疑応答</b></span></div>
+      <div class="r"><span class="n">4</span><span>最後に、ご案内</span></div>
     </div>
   </section>
 
@@ -464,8 +461,8 @@
   <section class="slide impact center">
     <p class="q-tag">じつは</p>
     <p class="mid">全国出版オーディションの「元」は</p>
-    <p class="big fr">大谷さんの<br><span class="accent">全国講師オーディション</span></p>
-    <p class="mid2 fr">ご本人に許可をいただいて、始めました</p>
+    <p class="big">大谷さんの<br><span class="accent">全国講師オーディション</span></p>
+    <p class="mid2">ご本人に許可をいただいて、始めました</p>
   </section>
 
   <!-- PART1 -->
@@ -484,13 +481,13 @@
     <h2>セールスファネル</h2>
     <div class="funnel">
       <svg viewBox="0 0 900 600" class="fn">
-        <g class="fr"><polygon points="0,0 900,0 790,140 110,140" fill="#cfe0fc"/><text x="450" y="88" class="f1">知る</text></g>
-        <g class="fr"><polygon points="118,150 782,150 680,290 220,290" fill="#8fb8f7"/><text x="450" y="238" class="f1">興味を持つ</text></g>
-        <g class="fr"><polygon points="228,300 672,300 580,440 320,440" fill="#4d8ef2"/><text x="450" y="388" class="f1 w">調べて比べる</text></g>
-        <g class="fr"><polygon points="328,450 572,450 500,590 400,590" fill="#1f6feb"/><text x="450" y="534" class="f1 w">買う</text></g>
+        <g><polygon points="0,0 900,0 790,140 110,140" fill="#cfe0fc"/><text x="450" y="88" class="f1">知る</text></g>
+        <g><polygon points="118,150 782,150 680,290 220,290" fill="#8fb8f7"/><text x="450" y="238" class="f1">興味を持つ</text></g>
+        <g><polygon points="228,300 672,300 580,440 320,440" fill="#4d8ef2"/><text x="450" y="388" class="f1 w">調べて比べる</text></g>
+        <g><polygon points="328,450 572,450 500,590 400,590" fill="#1f6feb"/><text x="450" y="534" class="f1 w">買う</text></g>
       </svg>
       <div class="fn-side">
-        <div class="note strong fr"><b>お客さまの気持ちの流れ</b>知ってから買うまでの道を設計する</div>
+        <div class="note strong"><b>お客さまの気持ちの流れ</b>知ってから買うまでの道を設計する</div>
       </div>
     </div>
   </section>
@@ -499,51 +496,51 @@
     <div class="kicker">11/2 のおさらい ②</div>
     <h2>FFMBモデル</h2>
     <div class="ffmb">
-      <div class="col fr" style="--h:230px"><div class="ex">SNS・発信<br>無料説明会</div><div class="bk c1"><b>Free</b><span>無料</span></div></div>
-      <div class="col fr" style="--h:310px"><div class="ex">本<br>低価格のセミナー</div><div class="bk c2"><b>Front</b><span>入口の商品</span></div></div>
-      <div class="col fr" style="--h:390px"><div class="ex">講座<br>講演</div><div class="bk c3"><b>Middle</b><span>ミドルの商品</span></div></div>
-      <div class="col fr" style="--h:470px"><div class="ex">企業研修<br>コンサル</div><div class="bk c4"><b>Back</b><span>利益の柱</span></div></div>
+      <div class="col" style="--h:230px"><div class="ex">SNS・発信<br>無料説明会</div><div class="bk c1"><b>Free</b><span>無料</span></div></div>
+      <div class="col" style="--h:310px"><div class="ex">本<br>低価格のセミナー</div><div class="bk c2"><b>Front</b><span>入口の商品</span></div></div>
+      <div class="col" style="--h:390px"><div class="ex">講座<br>講演</div><div class="bk c3"><b>Middle</b><span>ミドルの商品</span></div></div>
+      <div class="col" style="--h:470px"><div class="ex">企業研修<br>コンサル</div><div class="bk c4"><b>Back</b><span>利益の柱</span></div></div>
     </div>
-    <div class="ffmb-foot fr"><span>ファネル＝気持ちの流れ</span><span>FFMB＝その流れに置く商品の並び</span></div>
+    <div class="ffmb-foot"><span>ファネル＝気持ちの流れ</span><span>FFMB＝その流れに置く商品の並び</span></div>
   </section>
 
   <section class="slide">
     <div class="kicker">本だけで考えると</div>
     <h2>1冊売れて、著者に入るのは</h2>
-    <p class="yen fr">100〜150<small>円</small></p>
-    <div class="point fr"><span class="tag">ポイント</span>本だけでは、黒字になりにくい</div>
+    <p class="yen">100〜150<small>円</small></p>
+    <div class="point"><span class="tag">ポイント</span>本だけでは、黒字になりにくい</div>
   </section>
 
   <section class="slide">
     <div class="kicker">本はどこに立つか</div>
     <h2>本は<span class="accent">フロント</span>＝知ってもらう入口</h2>
     <div class="parts">
-      <span class="fr">本を<br>出す</span><i class="fr">→</i>
-      <span class="fr">講演の<br>依頼</span><i class="fr">→</i>
-      <span class="hl fr">企業研修</span>
+      <span>本を<br>出す</span><i>→</i>
+      <span>講演の<br>依頼</span><i>→</i>
+      <span class="hl">企業研修</span>
     </div>
-    <div class="point fr"><span class="tag">ポイント</span>研修が「バック」。ここで全体が黒字になる</div>
+    <div class="point"><span class="tag">ポイント</span>研修が「バック」。ここで全体が黒字になる</div>
   </section>
 
   <section class="slide">
     <div class="kicker">逆の流れもある</div>
     <h2>講師として立っていると、<span class="accent">本の話が来る</span></h2>
     <div class="parts">
-      <span class="fr">講師として<br>立つ</span><i class="fr">→</i>
-      <span class="fr">本の話が<br>来る</span><i class="fr">→</i>
-      <span class="hl fr">2冊目<br>3冊目</span>
+      <span>講師として<br>立つ</span><i>→</i>
+      <span>本の話が<br>来る</span><i>→</i>
+      <span class="hl">2冊目<br>3冊目</span>
     </div>
-    <div class="point fr"><span class="tag">ポイント</span>依頼が続く人ほど、次の本が出る</div>
+    <div class="point"><span class="tag">ポイント</span>依頼が続く人ほど、次の本が出る</div>
   </section>
 
   <section class="slide impact center blue">
     <p class="mid">だから、企画の段階で決めておく</p>
-    <p class="big fr">この本を読んだ会社が、<br>どんな研修を頼みたくなるか</p>
+    <p class="big">この本を読んだ会社が、<br>どんな研修を頼みたくなるか</p>
   </section>
 
   <section class="slide impact center">
     <p class="mid">ここを何十年もやってきたプロに</p>
-    <p class="big fr">今日は、<span class="accent">教えていただきます</span></p>
+    <p class="big">今日は、<span class="accent">教えていただきます</span></p>
   </section>
 
   <!-- PART2 ご講演 -->
@@ -568,10 +565,10 @@
     <div class="kicker">対談で聞いてみたいこと</div>
     <h2>大谷さんに、<span class="accent">聞いてみます</span></h2>
     <div class="rows qa">
-      <div class="r fr"><span class="n">1</span><span>本を出したら、まず<b>何から</b>始めればいい？</span></div>
-      <div class="r fr"><span class="n">2</span><span>依頼が<b>来る本</b>と<b>来ない本</b>のちがい</span></div>
-      <div class="r fr"><span class="n">3</span><span>研修の担当者は、<b>どこを見て</b>決めている？</span></div>
-      <div class="r fr"><span class="n">4</span><span>指名され続ける講師が、<b>話す前に</b>していること</span></div>
+      <div class="r"><span class="n">1</span><span>本を出したら、まず<b>何から</b>始めればいい？</span></div>
+      <div class="r"><span class="n">2</span><span>依頼が<b>来る本</b>と<b>来ない本</b>のちがい</span></div>
+      <div class="r"><span class="n">3</span><span>研修の担当者は、<b>どこを見て</b>決めている？</span></div>
+      <div class="r"><span class="n">4</span><span>指名され続ける講師が、<b>話す前に</b>していること</span></div>
     </div>
   </section>
 
@@ -586,11 +583,11 @@
     <div class="kicker">本を出す入口として</div>
     <h2><span class="accent">全国出版オーディション</span></h2>
     <div class="rows aud">
-      <div class="r fr"><span class="n">1</span><span>現役編集長のセミナーで、<b>本の企画</b>を磨く</span></div>
-      <div class="r fr"><span class="n">2</span><span>Web投票とYouTubeで、<b>応援</b>を集める</span></div>
-      <div class="r fr"><span class="n">3</span><span>本選で、出版社の<b>編集者</b>に審査してもらう</span></div>
+      <div class="r"><span class="n">1</span><span>現役編集長のセミナーで、<b>本の企画</b>を磨く</span></div>
+      <div class="r"><span class="n">2</span><span>Web投票とYouTubeで、<b>応援</b>を集める</span></div>
+      <div class="r"><span class="n">3</span><span>本選で、出版社の<b>編集者</b>に審査してもらう</span></div>
     </div>
-    <div class="point fr"><span class="tag">ポイント</span>本が出る前から、人が集まる流れをつくれる</div>
+    <div class="point"><span class="tag">ポイント</span>本が出る前から、人が集まる流れをつくれる</div>
   </section>
 
   <section class="slide">
