@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>講師依頼のくる企画の作り方</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1f2933;
+    --sub: #6b7280;
+    --accent: #1f6feb;
+    --accent-soft: #e8f0fe;
+    --line: #e5e7eb;
+    --orange: #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #2b2f36; }
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  /* 1600×900 の画面を、ウィンドウの大きさに合わせて拡大縮小する */
+  .stage {
+    position: absolute; top: 50%; left: 50%;
+    width: 1600px; height: 900px;
+    transform-origin: center center;
+  }
+  .slide {
+    display: none;
+    width: 1600px; height: 900px;
+    background: var(--bg);
+    padding: 72px 120px 60px;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+  /* 上の青い帯 */
+  .slide::before {
+    content: ""; position: absolute; left: 0; top: 0; right: 0; height: 12px;
+    background: linear-gradient(90deg, var(--accent) 0%, #6ea8ff 100%);
+  }
+  .slide::after {
+    content: attr(data-no);
+    position: absolute; right: 48px; bottom: 30px;
+    font-size: 20px; color: var(--sub);
+  }
+
+  .kicker {
+    font-size: 28px; font-weight: 800; color: var(--accent);
+    letter-spacing: .12em; white-space: nowrap;
+  }
+  h2 { font-size: 56px; line-height: 1.35; font-weight: 800; margin: 8px 0 0; white-space: nowrap; }
+  .accent { color: var(--accent); }
+
+  /* ── 1枚目：会社と経歴 ── */
+  .who { display: flex; align-items: baseline; gap: 40px; margin-top: 10px; }
+  .who .name { font-size: 104px; font-weight: 800; line-height: 1.2; white-space: nowrap; }
+  .who .co {
+    font-size: 36px; font-weight: 700; white-space: nowrap;
+    padding: 10px 28px; border-radius: 999px; background: var(--accent-soft); color: var(--accent);
+  }
+  .timeline { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; margin-top: 64px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 34px; height: 6px;
+    background: var(--line); border-radius: 3px;
+  }
+  .step { position: relative; text-align: center; }
+  .step .yr {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 150px; height: 74px; padding: 0 22px; border-radius: 999px;
+    background: #fff; border: 5px solid var(--accent);
+    font-size: 32px; font-weight: 800; color: var(--accent); white-space: nowrap;
+  }
+  .step .ttl { font-size: 34px; font-weight: 800; line-height: 1.4; margin-top: 28px; white-space: nowrap; }
+  .step .dsc { font-size: 27px; color: var(--sub); line-height: 1.55; margin-top: 12px; white-space: nowrap; }
+  .step.now .yr { background: var(--accent); color: #fff; }
+  .step.now .ttl { color: var(--accent); }
+  .works { display: flex; align-items: center; gap: 22px; margin-top: 70px; padding-top: 40px; border-top: 3px solid var(--accent-soft); }
+  .works .lbl { font-size: 30px; font-weight: 800; color: var(--sub); white-space: nowrap; margin-right: 10px; }
+  .works .chip {
+    font-size: 34px; font-weight: 800; white-space: nowrap;
+    padding: 14px 32px; border-radius: 16px; border: 4px solid var(--accent); color: var(--accent); background: #fff;
+  }
+
+  /* ── 2枚目：著書 ── */
+  .shelf { display: flex; flex-direction: column; align-items: center; gap: 26px; margin-top: 40px; }
+  .shelf .row { display: flex; gap: 26px; }
+  .shelf img {
+    height: 218px; width: 148px; object-fit: cover; display: block;
+    box-shadow: 0 8px 20px rgba(0,0,0,.20); border-radius: 2px;
+  }
+  .total {
+    align-self: center; margin-top: 38px;
+    display: flex; align-items: baseline; gap: 28px;
+    background: var(--accent); color: #fff; border-radius: 24px;
+    padding: 14px 64px 18px; box-shadow: 0 12px 30px rgba(31,111,235,.30);
+  }
+  .total .lbl { font-size: 38px; font-weight: 700; white-space: nowrap; }
+  .total .num { font-size: 92px; font-weight: 800; line-height: 1; white-space: nowrap; }
+  .total .num small { font-size: 48px; margin-left: 4px; }
+
+  /* ── 3枚目：オーディションと勉強会 ── */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 48px; }
+  .card {
+    border: 4px solid var(--line); border-radius: 24px; padding: 40px 42px 30px;
+    background: #fff;
+  }
+  .card .tag {
+    display: inline-block; font-size: 28px; font-weight: 800; color: #fff; background: var(--accent);
+    padding: 6px 20px; border-radius: 999px; white-space: nowrap;
+  }
+  .card .ttl { font-size: 50px; font-weight: 800; line-height: 1.3; margin-top: 16px; white-space: nowrap; }
+  .card ul { list-style: none; margin-top: 22px; border-top: 3px solid var(--accent-soft); padding-top: 10px; }
+  .card li {
+    font-size: 34px; line-height: 1.45; padding: 24px 0 24px 52px; position: relative; white-space: nowrap;
+  }
+  .card li::before {
+    content: "✓"; position: absolute; left: 0; top: 24px;
+    width: 38px; height: 38px; border-radius: 50%; background: var(--accent-soft);
+    color: var(--accent); font-size: 24px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; line-height: 1;
+    margin-top: 5px;
+  }
+  .card li b { color: var(--accent); }
+
+  .hint { position: fixed; left: 16px; bottom: 12px; font-size: 13px; color: #9aa3ae; }
+
+  
+  .slide.center { justify-content:center; align-items:center; text-align:center; }
+  .big { font-size:84px; font-weight:800; line-height:1.4; white-space:nowrap; }
+  .mid { font-size:40px; font-weight:800; color:var(--accent); margin-bottom:22px; white-space:nowrap; }
+  .mid2 { font-size:38px; font-weight:600; color:var(--sub); line-height:1.6; margin-top:36px; white-space:nowrap; }
+  .q-tag { font-size:32px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:26px; }
+  .slide.blue { background:var(--accent); color:#fff; }
+  .slide.blue::before { display:none; }
+  .slide.blue::after { color:#dbe7ff; }
+  .slide.blue .mid { color:#fff; opacity:.95; }
+  .slide.blue .mid2 { color:#fff; }
+
+  .waiting { padding:50px 110px 40px; background:linear-gradient(160deg,#f5f9ff 0%,#fff 60%); }
+  .w-lead { font-size:28px; color:var(--accent); font-weight:700; letter-spacing:.1em; }
+  .waiting h2 { font-size:52px; margin:4px 0 24px; }
+  .asks { display:grid; grid-template-columns:1fr 1fr; gap:20px 30px; }
+  .ask { display:flex; align-items:center; gap:22px; background:#fff; border:3px solid var(--line); border-radius:20px; padding:20px 24px; height:158px; }
+  .ask .ico { flex:none; width:84px; height:84px; border-radius:50%; background:var(--accent-soft); font-size:44px; display:flex; align-items:center; justify-content:center; }
+  .ask .t { font-size:30px; font-weight:800; line-height:1.35; }
+  .ask .d { font-size:20px; white-space:nowrap; color:var(--sub); margin-top:6px; line-height:1.4; }
+  .w-close { font-size:30px; font-weight:800; color:var(--accent); text-align:center; margin-top:22px; }
+  .bgm { margin-top:20px; align-self:center; display:flex; align-items:center; gap:14px; background:#fff; border:2px solid var(--line); border-radius:999px; padding:10px 24px; box-shadow:0 6px 20px rgba(31,111,235,.10); }
+  .bgm button { font:inherit; font-size:22px; cursor:pointer; border:2px solid var(--line); background:#fff; color:var(--text); border-radius:999px; padding:6px 18px; }
+  .bgm-label { font-size:22px; font-weight:800; color:var(--accent); margin-right:4px; }
+  .bgm .trk.on { background:var(--accent-soft); border-color:var(--accent); color:var(--accent); font-weight:700; }
+  .bgm .play { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700; min-width:130px; }
+  .bgm .vol { display:flex; align-items:center; gap:8px; margin-left:10px; }
+  .bgm .vol button { width:44px; padding:4px 0; }
+  .bgm input[type=range] { width:240px; accent-color:var(--accent); }
+  #volNum { font-size:22px; width:60px; text-align:right; font-variant-numeric:tabular-nums; }
+  .bgm-credit { position:absolute; left:110px; bottom:26px; font-size:18px; color:var(--sub); }
+
+  .cover { flex-direction:row; align-items:center; padding:60px 60px 60px 110px; gap:30px; }
+  .cover-text { flex:none; width:640px; }
+  .cover-kicker { font-size:36px; font-weight:800; color:var(--accent); white-space:nowrap; }
+  .cover h1 { font-size:104px; line-height:1.25; font-weight:800; margin-top:14px; white-space:nowrap; }
+  .cover h1::after { content:""; display:block; width:120px; height:8px; background:var(--accent); margin-top:30px; border-radius:4px; }
+  .cover-name { font-size:42px; font-weight:700; margin-top:44px; }
+  .cover img { flex:1; min-width:0; max-height:760px; object-fit:contain; }
+
+  .pic { flex-direction:row; align-items:flex-start; gap:50px; padding:72px 70px 60px 110px; }
+  .pic .tx { flex:none; width:640px; }
+  .pic h2 { white-space:nowrap; line-height:1.4; font-size:58px; margin-top:14px; }
+  .pic h2.sm { font-size:44px; margin-top:32px; }
+  .pic .im { flex:1; min-width:0; height:740px; display:flex; align-items:center; justify-content:center; }
+  .pic .im img { max-width:100%; max-height:100%; object-fit:contain; border-radius:14px; }
+  .lead { font-size:38px; font-weight:600; line-height:1.55; color:#374151; margin-top:30px; white-space:nowrap; }
+  .say { font-size:42px; font-weight:800; line-height:1.5; color:var(--accent); background:var(--accent-soft); border-radius:18px; padding:22px 28px; margin-top:32px; display:inline-block; white-space:nowrap; }
+  .credit { position:absolute; left:110px; bottom:26px; font-size:17px; color:var(--sub); }
+  .yen { font-size:100px; font-weight:800; color:var(--accent); line-height:1.15; margin-top:40px; white-space:nowrap; }
+  .yen small { font-size:48px; margin-left:6px; }
+
+  .ba { display:flex; align-items:stretch; justify-content:center; gap:30px; margin-top:64px; }
+  .ba .card { flex:1; border-radius:24px; padding:44px 36px; text-align:center; border:4px solid var(--line); display:flex; flex-direction:column; justify-content:center; min-height:500px; }
+  .ba .arw { flex:none; align-self:center; font-size:72px; font-weight:800; color:var(--accent); min-width:40px; text-align:center; }
+  .ba .lb { font-size:30px; font-weight:800; color:var(--sub); white-space:nowrap; }
+  .ba .m { font-size:56px; font-weight:800; line-height:1.4; margin-top:22px; white-space:nowrap; }
+  .ba .d { font-size:31px; line-height:1.55; color:#374151; margin-top:22px; white-space:nowrap; }
+  .ba .d b { color:var(--accent); }
+  .ba .off { background:#f4f5f7; } .ba .off .m { color:#4b5563; }
+  .ba .on { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .ba .on .lb, .ba .on .d { color:#fff; }
+  .ba .on2 { border-color:var(--accent); background:#fff; }
+  .ba .on2 .lb { color:var(--accent); }
+
+  .rows { margin-top:50px; display:flex; flex-direction:column; gap:26px; }
+  .r { display:flex; align-items:center; gap:34px; font-size:50px; font-weight:700; background:#f5f9ff; border-radius:20px; padding:32px 44px; white-space:nowrap; }
+  .r b { color:var(--accent); }
+  .r .n { flex:none; width:84px; height:84px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:44px; font-weight:800; }
+
+  .stepmap { display:flex; align-items:stretch; gap:30px; margin-top:64px; }
+  .stepmap > div:not(.arw) { flex:1; border-radius:24px; padding:44px 40px; text-align:center; min-height:500px; display:flex; flex-direction:column; justify-content:center; }
+  .stepmap .arw { align-self:center; font-size:72px; font-weight:800; color:var(--accent); }
+  .stepmap .lb { font-size:32px; font-weight:800; }
+  .stepmap .m { font-size:52px; font-weight:800; margin-top:18px; white-space:nowrap; }
+  .stepmap .d { font-size:32px; margin-top:18px; }
+  .today { background:var(--accent); color:#fff; }
+  .next { border:4px solid var(--accent); } .next .lb { color:var(--accent); }
+  .chips { display:flex; justify-content:center; gap:12px; margin-top:26px; }
+  .chips span { font-size:27px; font-weight:700; background:var(--accent-soft); color:var(--accent); padding:10px 18px; border-radius:999px; white-space:nowrap; }
+
+  .sec { padding:0; justify-content:center; }
+  .sec::before { display:none; }
+  .sec .bgimg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .sec .sec-in { position:relative; z-index:2; padding:0 110px; color:#fff; }
+  .sec::after { color:#fff; z-index:3; }
+  .sec .grad { position:absolute; inset:0; z-index:1; background:linear-gradient(90deg,rgba(18,74,170,.96) 0%,rgba(31,111,235,.88) 55%,rgba(31,111,235,.45) 100%); }
+  .sec .no { font-size:38px; font-weight:800; letter-spacing:.14em; }
+  .sec .ttl { font-size:84px; font-weight:800; margin-top:14px; white-space:nowrap; }
+
+  .three { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-top:60px; }
+  .three .it { background:#f5f9ff; border-radius:24px; padding:44px 20px; text-align:center; }
+  .three .ic { font-size:84px; }
+  .three .m { font-size:42px; font-weight:800; line-height:1.4; margin-top:18px; white-space:nowrap; }
+  .three .d { font-size:31px; color:var(--accent); font-weight:700; margin-top:22px; white-space:nowrap; }
+
+  .then-now { margin-top:90px; display:flex; flex-direction:column; gap:90px; }
+  .tn { display:flex; align-items:center; gap:36px; }
+  .tn .lbl { flex:none; width:120px; height:120px; border-radius:50%; background:#6b7280; color:#fff; font-size:50px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .tn .lbl.now { background:var(--accent); }
+  .chain { display:flex; align-items:center; gap:14px; }
+  .chain span { font-size:40px; font-weight:800; padding:26px 28px; border:3px solid var(--line); border-radius:16px; background:#fff; white-space:nowrap; }
+  .chain i { font-style:normal; font-size:42px; color:var(--accent); font-weight:800; }
+  .chain .buy { background:var(--accent); border-color:var(--accent); color:#fff; }
+
+  .stairs { display:flex; align-items:flex-end; gap:16px; margin-top:30px; height:490px; }
+  .st { flex:1; background:var(--accent-soft); border-radius:16px 16px 0 0; padding:18px 6px; text-align:center; }
+  .st b { display:block; font-size:50px; color:var(--accent); }
+  .st span { display:block; font-size:27px; font-weight:800; line-height:1.4; margin-top:8px; white-space:nowrap; }
+  .st:last-child { background:var(--accent); color:#fff; } .st:last-child b { color:#fff; }
+
+  .funnel { display:flex; align-items:center; gap:50px; margin-top:6px; }
+  .fn { flex:none; width:800px; height:600px; }
+  .f1 { font-size:46px; font-weight:800; text-anchor:middle; fill:#1f2933; font-family:inherit; }
+  .f1.w { fill:#fff; }
+  .fn-side { flex:1; display:flex; flex-direction:column; gap:6px; }
+  .note { font-size:28px; line-height:1.5; background:#f5f9ff; border-radius:16px; padding:18px 24px; white-space:nowrap; }
+  .note b { display:block; font-size:36px; color:var(--accent); }
+  .note.strong { background:var(--accent); color:#fff; } .note.strong b { color:#fff; }
+  .down { text-align:center; font-size:30px; color:var(--accent); font-weight:800; }
+
+  .ffmb { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; align-items:end; height:560px; margin-top:0; }
+  .col { display:flex; flex-direction:column; justify-content:flex-end; height:100%; }
+  .col .ex { font-size:26px; font-weight:700; color:#374151; text-align:center; line-height:1.4; margin-bottom:10px; white-space:nowrap; }
+  .bk { height:var(--h); border-radius:16px 16px 0 0; text-align:center; padding-top:26px; }
+  .bk b { display:block; font-size:50px; font-weight:800; }
+  .bk span { display:block; font-size:30px; font-weight:800; margin-top:8px; white-space:nowrap; }
+  .c1 { background:#cfe0fc; } .c2 { background:#8fb8f7; } .c3 { background:#2f7bee; color:#fff; } .c4 { background:#144ea8; color:#fff; }
+  .ffmb-foot { display:flex; justify-content:space-between; font-size:26px; font-weight:800; color:var(--accent); margin-top:14px; white-space:nowrap; }
+
+  .parts { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:80px; }
+  .parts span { font-size:34px; font-weight:800; line-height:1.35; width:236px; height:170px; border:4px solid var(--accent); border-radius:18px; display:flex; align-items:center; justify-content:center; text-align:center; white-space:nowrap; }
+  .parts span.hl { background:var(--accent); color:#fff; }
+  .parts i { font-style:normal; font-size:42px; font-weight:800; color:var(--accent); }
+
+  .point { margin-top:64px; font-size:38px; font-weight:800; background:var(--accent-soft); border-radius:18px; padding:26px 32px; display:flex; align-items:center; gap:24px; white-space:nowrap; }
+  .tag { flex:none; font-size:28px; color:#fff; background:var(--accent); padding:6px 20px; border-radius:999px; }
+
+  .journey { display:flex; align-items:center; justify-content:center; gap:20px; margin-top:64px; }
+  .journey i { font-style:normal; font-size:60px; font-weight:800; color:var(--accent); }
+  .j { width:380px; border:4px solid var(--line); border-radius:22px; padding:34px 10px; text-align:center; }
+  .j .c { font-size:32px; font-weight:800; color:var(--sub); }
+  .j .w { font-size:50px; font-weight:800; margin-top:10px; white-space:nowrap; }
+  .j .res { font-size:38px; font-weight:800; margin-top:20px; }
+  .j .res.no { color:#6b7280; }
+  .j.yes { background:var(--accent); border-color:var(--accent); color:#fff; } .j.yes .c { color:#fff; }
+
+  .tl { display:flex; height:220px; margin-top:80px; border-radius:18px; overflow:hidden; }
+  .seg { display:flex; flex-direction:column; justify-content:center; text-align:center; padding:10px; }
+  .seg b { font-size:40px; font-weight:800; white-space:nowrap; }
+  .seg span { font-size:28px; font-weight:700; margin-top:8px; white-space:nowrap; }
+  .prep { width:58%; background:var(--accent); color:#fff; }
+  .tlshelf { width:27%; background:#f59e0b; color:#1f2933; }
+  .gone { width:15%; background:#d1d5db; color:#1f2933; }
+  .tl-m { position:relative; height:50px; margin-top:12px; }
+  .tl-m span { position:absolute; font-size:30px; font-weight:800; white-space:nowrap; }
+  .slide .tl-m + .point { margin-top:40px; }
+
+  .calc { margin-top:50px; display:flex; justify-content:center; }
+  .cl { width:100%; background:#f5f9ff; border-radius:24px; padding:40px; text-align:center; }
+  .cl .lb { font-size:32px; font-weight:800; color:var(--sub); }
+  .cl .m { font-size:66px; font-weight:800; margin-top:12px; color:var(--accent); white-space:nowrap; }
+  .cl .d { font-size:38px; font-weight:700; line-height:1.5; margin-top:18px; white-space:nowrap; }
+  .after { font-size:44px; font-weight:800; text-align:center; margin-top:50px; white-space:nowrap; }
+
+  .whole { margin-top:80px; }
+  .w1 { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .w1 span { font-size:44px; font-weight:800; text-align:center; padding:50px 8px; background:var(--accent-soft); border-radius:18px; white-space:nowrap; }
+  .w1 span.hl { background:var(--accent); color:#fff; }
+  .brace { height:50px; border:5px solid var(--accent); border-top:none; border-radius:0 0 24px 24px; margin:22px 10px 0; }
+  .w2 { font-size:46px; font-weight:800; color:var(--accent); text-align:center; margin-top:30px; white-space:nowrap; }
+
+  .works { gap:14px; }
+  .works .chip { font-size:31px; padding:14px 24px; }
+  .boost { display:flex; align-items:stretch; gap:44px; margin-top:44px; }
+  .boost .core { width:300px; border-radius:24px; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; }
+  .boost .core .m { font-size:120px; font-weight:800; }
+  .boost .lines { flex:1; display:flex; flex-direction:column; gap:20px; }
+  .boost .ln { display:flex; align-items:center; gap:32px; }
+  .boost .ln i { font-style:normal; font-size:72px; font-weight:800; color:var(--accent); line-height:1; }
+  .boost .box { flex:1; display:flex; align-items:center; gap:48px; background:var(--accent-soft); border-radius:18px; padding:26px 44px; }
+  .boost .box b { width:170px; font-size:48px; font-weight:800; }
+  .boost .box span { font-size:42px; font-weight:700; white-space:nowrap; }
+  .slide .boost + .point { margin-top:36px; }
+  .rows.aud { margin-top:30px; gap:18px; }
+  .rows.aud .r { padding-top:16px; padding-bottom:16px; }
+  .slide .rows.aud + .point { margin-top:26px; }
+  .cta12 { display:flex; align-items:center; gap:44px; margin-top:40px; }
+  .cta12 .hd { width:440px; height:440px; border-radius:18px; flex:none; display:block; }
+  .cta12 .info { flex:1; min-width:0; }
+  .cta12 .nm { font-size:38px; font-weight:800; line-height:1.4; }
+  .cta12 .meta { font-size:28px; font-weight:700; color:var(--accent); margin-top:18px; }
+  .cta12 .sub { font-size:24px; font-weight:700; margin-top:14px; }
+  .cta12 .qr { width:400px; flex:none; text-align:center; }
+  .cta12 .qr img { width:340px; height:340px; display:block; margin:0 auto; }
+  .cta12 .qr p { font-size:26px; font-weight:800; margin-top:12px; }
+  .cta12 .qr .url { font-size:20px; font-weight:700; color:var(--accent); margin-top:6px; white-space:nowrap; }
+
+
+  @media print {
+    @page { size: 1600px 900px; margin: 0; }
+    html, body { background: #fff; overflow: visible; height: auto; }
+    .stage { position: static; transform: none !important; }
+    .slide { display: flex !important; page-break-after: always; }
+    .slide.waiting { display: none !important; }
+    .slide::after, .hint { display: none; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  .cover-sub { font-size:34px; font-weight:700; color:var(--sub); margin-top:14px; }
+  .cover-text { width:820px; }
+  .cover h1 { font-size:92px; }
+  .cover-book { flex:1; display:flex; justify-content:center; }
+  .cover-book img { height:640px; box-shadow:0 16px 40px rgba(0,0,0,.25); border-radius:4px; }
+  .who .name { font-size:96px; }
+  .timeline { grid-template-columns: repeat(5, 1fr); }
+  .step .dsc { font-size:24px; }
+  .works .chip { font-size:30px; }
+  .pic .im img.bookimg { height:700px; box-shadow:0 16px 40px rgba(0,0,0,.25); border-radius:4px; }
+  .lead.sm { font-size:30px; color:var(--sub); }
+  .rows.qa .r { font-size:44px; }
+  .parts span { width:300px; }
+  .rows { gap:20px; margin-top:40px; }
+  .rows .r { padding:24px 44px; }
+  /* 順番に出す */
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <!-- 表紙 -->
+  <section class="slide cover">
+    <div class="cover-text">
+      <p class="cover-kicker">出版企画書勉強会　特別セミナー</p>
+      <h1>講師依頼のくる<br>企画の作り方</h1>
+      <p class="cover-name">ゲスト　大谷由里子さん</p>
+      <p class="cover-sub">聞き手　岡崎かつひろ</p>
+    </div>
+    <div class="cover-book"><img src="img/otani_book.jpg" alt=""></div>
+  </section>
+
+  <!-- 今日の流れ -->
+  <section class="slide">
+    <div class="kicker">今日の流れ</div>
+    <h2>2時間の進め方</h2>
+    <div class="rows">
+      <div class="r"><span class="n">1</span><span>今日の前提　<b>本は、出したあとまで考える</b></span></div>
+      <div class="r"><span class="n">2</span><span>大谷由里子さん　<b>ご講演</b>（60分）</span></div>
+      <div class="r"><span class="n">3</span><span>後半戦　<b>対談＋質疑応答</b></span></div>
+      <div class="r"><span class="n">4</span><span>最後に、ご案内</span></div>
+    </div>
+  </section>
+
+  <!-- ゲスト紹介（アニメなし） -->
+  <section class="slide">
+    <div class="kicker">今日のゲスト</div>
+    <div class="who">
+      <div class="name">大谷由里子さん</div>
+      <div class="co">人材活性プロデューサー</div>
+    </div>
+    <div class="timeline">
+      <div class="step">
+        <div class="yr">1985</div>
+        <div class="ttl">吉本興業に入社</div>
+        <div class="dsc">横山やすし・西川きよしの<br>マネージャー</div>
+      </div>
+      <div class="step">
+        <div class="yr">23歳</div>
+        <div class="ttl">プロデューサーに</div>
+        <div class="dsc">「花王名人劇場」</div>
+      </div>
+      <div class="step">
+        <div class="yr">若手を発掘</div>
+        <div class="ttl">天然素材</div>
+        <div class="dsc">ナインティナイン<br>雨上がり決死隊</div>
+      </div>
+      <div class="step">
+        <div class="yr">2003</div>
+        <div class="ttl">志縁塾を設立</div>
+        <div class="dsc">研修会社<br>代表取締役</div>
+      </div>
+      <div class="step now">
+        <div class="yr">現在</div>
+        <div class="ttl">講師を育てる</div>
+        <div class="dsc">講演・研修を<br>年間300本超プロデュース</div>
+      </div>
+    </div>
+    <div class="works">
+      <span class="lbl">呼ばれ方</span>
+      <span class="chip">吉本興業 伝説の女マネージャー</span>
+      <span class="chip">全国講師オーディション 主宰</span>
+    </div>
+  </section>
+
+  <!-- 代表作（アニメなし） -->
+  <section class="slide pic">
+    <div class="tx">
+      <div class="kicker">著書は30冊超</div>
+      <h2>講師をやる人の<br><span class="accent">定番の1冊</span></h2>
+      <p class="lead">『はじめて講師を<br>頼まれたら読む本』</p>
+      <p class="lead sm">KADOKAWA／台湾版・中国版も</p>
+    </div>
+    <div class="im"><img class="bookimg" src="img/otani_book.jpg" alt=""></div>
+  </section>
+
+  <!-- つながり -->
+  <section class="slide impact center">
+    <p class="q-tag">じつは</p>
+    <p class="mid">全国出版オーディションの「元」は</p>
+    <p class="big">大谷さんの<br><span class="accent">全国講師オーディション</span></p>
+    <p class="mid2">ご本人に許可をいただいて、始めました</p>
+  </section>
+
+  <!-- PART1 -->
+  <section class="slide sec">
+    <img class="bgimg" src="img/bookstore2.png" alt=""><div class="grad"></div>
+    <div class="sec-in"><p class="no">PART 1</p><p class="ttl">今日の前提</p></div>
+  </section>
+
+  <section class="slide impact center">
+    <p class="q-tag">最初に、ひとつ質問です</p>
+    <p class="big">本を出したあと、<br>何が起きてほしいですか？</p>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">11/2 のおさらい ①</div>
+    <h2>セールスファネル</h2>
+    <div class="funnel">
+      <svg viewBox="0 0 900 600" class="fn">
+        <g><polygon points="0,0 900,0 790,140 110,140" fill="#cfe0fc"/><text x="450" y="88" class="f1">知る</text></g>
+        <g><polygon points="118,150 782,150 680,290 220,290" fill="#8fb8f7"/><text x="450" y="238" class="f1">興味を持つ</text></g>
+        <g><polygon points="228,300 672,300 580,440 320,440" fill="#4d8ef2"/><text x="450" y="388" class="f1 w">調べて比べる</text></g>
+        <g><polygon points="328,450 572,450 500,590 400,590" fill="#1f6feb"/><text x="450" y="534" class="f1 w">買う</text></g>
+      </svg>
+      <div class="fn-side">
+        <div class="note strong"><b>お客さまの気持ちの流れ</b>知ってから買うまでの道を設計する</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">11/2 のおさらい ②</div>
+    <h2>FFMBモデル</h2>
+    <div class="ffmb">
+      <div class="col" style="--h:230px"><div class="ex">SNS・発信<br>無料説明会</div><div class="bk c1"><b>Free</b><span>無料</span></div></div>
+      <div class="col" style="--h:310px"><div class="ex">本<br>低価格のセミナー</div><div class="bk c2"><b>Front</b><span>入口の商品</span></div></div>
+      <div class="col" style="--h:390px"><div class="ex">講座<br>講演</div><div class="bk c3"><b>Middle</b><span>ミドルの商品</span></div></div>
+      <div class="col" style="--h:470px"><div class="ex">企業研修<br>コンサル</div><div class="bk c4"><b>Back</b><span>利益の柱</span></div></div>
+    </div>
+    <div class="ffmb-foot"><span>ファネル＝気持ちの流れ</span><span>FFMB＝その流れに置く商品の並び</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">本だけで考えると</div>
+    <h2>1冊売れて、著者に入るのは</h2>
+    <p class="yen">100〜150<small>円</small></p>
+    <div class="point"><span class="tag">ポイント</span>本だけでは、黒字になりにくい</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">本はどこに立つか</div>
+    <h2>本は<span class="accent">フロント</span>＝知ってもらう入口</h2>
+    <div class="parts">
+      <span>本を<br>出す</span><i>→</i>
+      <span>講演の<br>依頼</span><i>→</i>
+      <span class="hl">企業研修</span>
+    </div>
+    <div class="point"><span class="tag">ポイント</span>研修が「バック」。ここで全体が黒字になる</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">逆の流れもある</div>
+    <h2>講師として立っていると、<span class="accent">本の話が来る</span></h2>
+    <div class="parts">
+      <span>講師として<br>立つ</span><i>→</i>
+      <span>本の話が<br>来る</span><i>→</i>
+      <span class="hl">2冊目<br>3冊目</span>
+    </div>
+    <div class="point"><span class="tag">ポイント</span>依頼が続く人ほど、次の本が出る</div>
+  </section>
+
+  <section class="slide impact center blue">
+    <p class="mid">だから、企画の段階で決めておく</p>
+    <p class="big">この本を読んだ会社が、<br>どんな研修を頼みたくなるか</p>
+  </section>
+
+  <section class="slide impact center">
+    <p class="mid">ここを何十年もやってきたプロに</p>
+    <p class="big">今日は、<span class="accent">教えていただきます</span></p>
+  </section>
+
+  <!-- PART2 ご講演 -->
+  <section class="slide sec">
+    <img class="bgimg" src="img/cover.png" alt=""><div class="grad"></div>
+    <div class="sec-in"><p class="no">PART 2</p><p class="ttl">大谷由里子さん　ご講演</p></div>
+  </section>
+
+  <section class="slide impact center blue">
+    <p class="mid">それでは、ここから</p>
+    <p class="big">大谷由里子さんに<br>ご講演いただきます</p>
+    <p class="mid2">聞きたいことは、チャットへどうぞ</p>
+  </section>
+
+  <!-- PART3 対談 -->
+  <section class="slide sec">
+    <img class="bgimg" src="img/bookstore2.png" alt=""><div class="grad"></div>
+    <div class="sec-in"><p class="no">PART 3</p><p class="ttl">後半戦　対談＋質疑応答</p></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">対談で聞いてみたいこと</div>
+    <h2>大谷さんに、<span class="accent">聞いてみます</span></h2>
+    <div class="rows qa">
+      <div class="r"><span class="n">1</span><span>本を出したら、まず<b>何から</b>始めればいい？</span></div>
+      <div class="r"><span class="n">2</span><span>依頼が<b>来る本</b>と<b>来ない本</b>のちがい</span></div>
+      <div class="r"><span class="n">3</span><span>研修の担当者は、<b>どこを見て</b>決めている？</span></div>
+      <div class="r"><span class="n">4</span><span>指名され続ける講師が、<b>話す前に</b>していること</span></div>
+    </div>
+  </section>
+
+  <section class="slide impact center">
+    <p class="q-tag">質疑応答</p>
+    <p class="big">聞きたいことは、<br><span class="accent">チャットへ</span>どうぞ</p>
+    <p class="mid2">ひとことでまとめていただけると、多くの方にお答えできます</p>
+  </section>
+
+  <!-- PART4 ご案内 -->
+  <section class="slide">
+    <div class="kicker">本を出す入口として</div>
+    <h2><span class="accent">全国出版オーディション</span></h2>
+    <div class="rows aud">
+      <div class="r"><span class="n">1</span><span>現役編集長のセミナーで、<b>本の企画</b>を磨く</span></div>
+      <div class="r"><span class="n">2</span><span>Web投票とYouTubeで、<b>応援</b>を集める</span></div>
+      <div class="r"><span class="n">3</span><span>本選で、出版社の<b>編集者</b>に審査してもらう</span></div>
+    </div>
+    <div class="point"><span class="tag">ポイント</span>本が出る前から、人が集まる流れをつくれる</div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">最後にご案内</div>
+    <h2>まずは<span class="accent">無料説明会</span>へ</h2>
+    <div class="cta12">
+      <img class="hd" src="img/audition12_header.jpg" alt="">
+      <div class="info">
+        <p class="nm">第12回<br>全国出版オーディション<br>無料オンライン説明会</p>
+        <p class="meta">Zoom・約60分／参加無料</p>
+        <p class="sub">本選は 2027年7月24日（土）</p>
+      </div>
+      <div class="qr">
+        <img src="img/audition12_qr.png" alt="">
+        <p>日程はこちらから選べます</p>
+        <p class="url">okazaki-media.com/lp/VMD41EEV</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">次回のご案内</div>
+    <h2>11月の勉強会</h2>
+    <div class="rows">
+      <div class="r"><span class="n">11</span><span>11/11（水）20時〜　<b>星野美紀さん</b>（あさ出版）</span></div>
+      <div class="r"><span class="n">19</span><span>11/19（木）20時〜　<b>グループコンサル</b></span></div>
+    </div>
+    <div class="point"><span class="tag">アーカイブ</span>今日の録画は、会員サイトに残します</div>
+  </section>
+
+  <section class="slide impact center blue">
+    <p class="mid">大谷由里子さん</p>
+    <p class="big">ありがとうございました</p>
+  </section>
+
+</div>
+<div class="hint">→ / クリック：次へ　← ：戻る　F：全画面　P：印刷</div>
+<script>
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  slides.forEach((s, i) => s.dataset.no = (i + 1) + ' / ' + slides.length);
+  let cur = Math.min(Math.max(parseInt(location.hash.slice(1)) - 1 || 0, 0), slides.length - 1);
+  function show(i) {
+    cur = Math.min(Math.max(i, 0), slides.length - 1);
+    slides.forEach((s, j) => s.classList.toggle('active', j === cur)); slides[cur].querySelectorAll('.fr').forEach(x=>x.classList.add('on'));
+    history.replaceState(null, '', '#' + (cur + 1));
+    document.querySelector('.hint').style.display = cur === 0 ? '' : 'none';
+  }
+  function next() { const f=[...slides[cur].querySelectorAll('.fr:not(.on)')]; if(f.length){ f[0].classList.add('on'); return; } show(cur + 1); }
+  function prev() { const f=[...slides[cur].querySelectorAll('.fr.on')]; if(f.length){ f[f.length-1].classList.remove('on'); return; } show(cur - 1); slides[cur].querySelectorAll('.fr').forEach(x=>x.classList.add('on')); }
+  function fit() {
+    const scale = Math.min(innerWidth / 1600, innerHeight / 900);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'ArrowDown', ' ', 'Enter', 'PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
+    else if (e.key === 'f' || e.key === 'F') {
+      document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    } else if (e.key === 'p' || e.key === 'P') window.print();
+  });
+  document.addEventListener('click', next);
+  document.addEventListener('contextmenu', e => { e.preventDefault(); prev(); });
+  addEventListener('resize', fit);
+  fit(); show(cur);
+</script>
+</body>
+</html>
