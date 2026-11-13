@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>セールス勉強会 第5回｜岡崎かつひろ</title>
+<style>
+  :root{
+    --bg:#ffffff; --text:#1f2933; --sub:#6b7280;
+    --accent:#1f6feb; --soft:#e8f0fe; --line:#e5e7eb;
+    --warm:#f59e0b; --warmsoft:#fef3c7; --ng:#dc2626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;background:#2b2f36;}
+  body{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;color:var(--text);overflow:hidden;-webkit-font-smoothing:antialiased;}
+
+  #stage{position:absolute;top:50%;left:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--scale,1));transform-origin:center center;}
+  .slide{display:none;position:absolute;inset:0;width:1600px;height:900px;background:var(--bg);
+         padding:84px 110px 76px;flex-direction:column;justify-content:flex-start;overflow:hidden;}
+  .slide.active{display:flex;}
+  .slide.center{align-items:center;justify-content:center;text-align:center;}
+  .slide::after{content:attr(data-no);position:absolute;right:44px;bottom:28px;font-size:20px;color:var(--sub);z-index:5;}
+
+  .kicker{font-size:26px;font-weight:800;letter-spacing:.14em;color:var(--accent);margin-bottom:14px;white-space:nowrap;}
+  h1{font-size:76px;line-height:1.32;font-weight:800;letter-spacing:.01em;}
+  h2{font-size:50px;line-height:1.36;font-weight:800;margin-bottom:30px;letter-spacing:.01em;white-space:nowrap;}
+  p{font-size:34px;line-height:1.65;}
+  .lead{font-size:34px;color:#45505e;line-height:1.7;}
+  .sub{color:var(--sub);}
+  .ac{color:var(--accent);} .ng{color:var(--ng);}
+  .nw{white-space:nowrap;}
+  strong,b{color:var(--accent);font-weight:800;}
+  .tag{display:inline-block;font-size:24px;font-weight:800;letter-spacing:.12em;background:var(--accent);color:#fff;padding:8px 26px;border-radius:999px;margin-bottom:24px;white-space:nowrap;}
+
+  ul.clean{list-style:none;width:100%;max-width:1300px;align-self:center;}
+  ul.clean li{font-size:34px;line-height:1.5;margin:18px 0;padding-left:46px;position:relative;}
+  ul.clean li::before{content:"";position:absolute;left:0;top:.5em;width:18px;height:18px;border-radius:50%;background:var(--accent);}
+  ul.clean li small{display:block;font-size:24px;color:var(--sub);line-height:1.5;margin-top:6px;}
+
+  .mtbl{width:100%;max-width:1360px;align-self:center;border-collapse:collapse;font-size:28px;}
+  .mtbl th,.mtbl td{border:2px solid var(--line);padding:14px 22px;text-align:left;vertical-align:middle;line-height:1.5;}
+  .mtbl thead th{background:var(--soft);color:var(--accent);font-weight:800;}
+  .mtbl th.rowh{background:#f8fafc;font-weight:800;white-space:nowrap;}
+  .mtbl tr.hot td,.mtbl tr.hot th{background:var(--soft);}
+
+  .point{margin-top:30px;width:100%;max-width:1300px;align-self:center;background:var(--soft);
+         border-left:12px solid var(--accent);border-radius:0 16px 16px 0;padding:22px 34px;
+         font-size:36px;font-weight:800;line-height:1.5;}
+  .warn{margin-top:26px;width:100%;max-width:1300px;align-self:center;background:var(--warmsoft);
+        border-left:12px solid var(--warm);border-radius:0 16px 16px 0;padding:20px 34px;}
+  .warn .wh{display:block;font-size:24px;font-weight:800;letter-spacing:.1em;color:#b45309;margin-bottom:6px;}
+  .warn .wb{font-size:30px;line-height:1.55;}
+  .warn .wb b{color:#b45309;}
+  .quote{margin-top:10px;width:100%;max-width:1300px;align-self:center;background:#f8fafc;border:3px solid var(--line);
+         border-radius:18px;padding:24px 38px;font-size:31px;line-height:1.65;}
+
+  .ba{display:flex;gap:30px;margin-top:8px;width:100%;max-width:1360px;align-self:center;}
+  .ba .bx{flex:1;border:3px solid var(--line);border-radius:18px;padding:22px 28px;background:#fff;}
+  .ba .bx .hd{font-size:30px;font-weight:800;margin-bottom:12px;white-space:nowrap;}
+  .ba .bx .bd{font-size:28px;line-height:1.6;color:#45505e;}
+  .ba .bx.ng{border-color:#fecaca;background:#fef2f2;} .ba .bx.ng .hd{color:var(--ng);}
+  .ba .bx.ok{border-color:#bfdbfe;background:#eff6ff;} .ba .bx.ok .hd{color:var(--accent);}
+
+  .three{display:flex;gap:26px;margin-top:8px;width:100%;max-width:1360px;align-self:center;}
+  .three .c{flex:1;border:3px solid var(--line);border-radius:18px;padding:22px 26px;background:#fff;}
+  .three .c .tt{font-size:30px;font-weight:800;color:var(--accent);margin-bottom:10px;white-space:nowrap;}
+  .three .c .dd{font-size:25px;line-height:1.55;color:#45505e;}
+  .three .c.hot{border-color:var(--accent);background:var(--soft);}
+
+  .qlist{width:100%;max-width:1340px;align-self:center;display:flex;flex-direction:column;gap:14px;}
+  .qlist .ql{display:flex;gap:22px;align-items:flex-start;border:3px solid var(--line);border-radius:16px;padding:16px 26px;background:#fff;}
+  .qlist .ql .n{flex:0 0 auto;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;
+                font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .qlist .ql .t{flex:1;font-size:30px;font-weight:700;line-height:1.5;}
+  .qlist .ql .t em{display:block;font-style:normal;font-size:24px;color:var(--sub);margin-top:5px;}
+
+  /* 地図（3段階） */
+  .map{display:flex;gap:26px;width:100%;max-width:1380px;align-self:center;margin-top:6px;}
+  .map .stg{flex:1;border:3px solid #bfdbfe;border-radius:18px;background:#fff;overflow:hidden;}
+  .map .stg .sh{background:var(--accent);color:#fff;font-size:32px;font-weight:800;padding:14px 22px;white-space:nowrap;}
+  .map .stg .sh span{font-size:22px;opacity:.9;margin-right:10px;}
+  .map .stg ul{list-style:none;padding:14px 22px 18px;}
+  .map .stg li{font-size:25px;line-height:1.45;padding:9px 0;border-bottom:2px dashed var(--line);}
+  .map .stg li:last-child{border-bottom:none;}
+  .map .stg li .no{color:var(--accent);font-weight:800;margin-right:6px;}
+  .map .stg li.star{font-weight:800;}
+
+  /* 章扉 */
+  .divider{background:linear-gradient(110deg,#1557c0 0%,#1f6feb 55%,#4f8ff0 100%);color:#fff;}
+  .divider .kicker{color:#fff;opacity:.95;}
+  .divider h1{color:#fff;}
+  .divider .lead{color:#fff;margin-top:24px;}
+  .divider::after{color:#e8f0fe;}
+
+  /* これまでの回 */
+  .series{width:100%;max-width:1300px;align-self:center;display:flex;flex-direction:column;gap:12px;}
+  .series .rw{display:flex;align-items:center;gap:24px;border:3px solid var(--line);border-radius:14px;padding:12px 24px;background:#fff;}
+  .series .rw .no{flex:none;width:190px;font-size:24px;font-weight:800;color:var(--sub);white-space:nowrap;}
+  .series .rw .th{flex:1;font-size:29px;font-weight:700;}
+  .series .rw .tg{flex:none;font-size:22px;color:var(--accent);font-weight:800;white-space:nowrap;}
+  .series .rw.now{border-color:var(--accent);background:var(--soft);}
+  .series .rw.now .no{color:var(--accent);}
+
+  /* 数字の対比 */
+  .nums{display:flex;gap:50px;align-items:center;justify-content:center;margin-top:20px;width:100%;}
+  .nums .nb{text-align:center;}
+  .nums .nb .v{font-size:96px;font-weight:800;line-height:1.05;white-space:nowrap;}
+  .nums .nb .k{font-size:26px;color:var(--sub);margin-top:12px;}
+  .nums .nb.a .v{color:var(--sub);} .nums .nb.b .v{color:var(--accent);}
+  .nums .arw{font-size:64px;color:var(--accent);}
+
+  /* 待機スライド */
+  .waiting{padding:56px 100px 44px;background:linear-gradient(160deg,#f5f9ff 0%,#ffffff 60%);}
+  .waiting .wl{font-size:26px;color:var(--accent);font-weight:800;letter-spacing:.1em;}
+  .waiting h2{font-size:52px;margin:6px 0 28px;}
+  .asks{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;width:100%;}
+  .ask{display:flex;align-items:center;gap:22px;background:#fff;border:3px solid var(--line);border-radius:18px;padding:18px 26px;height:150px;}
+  .ask .ico{flex:none;width:80px;height:80px;border-radius:50%;background:var(--soft);font-size:42px;display:flex;align-items:center;justify-content:center;}
+  .ask .t{font-size:30px;font-weight:800;line-height:1.35;}
+  .ask .d{font-size:21px;color:var(--sub);margin-top:6px;line-height:1.45;}
+  .asknote{grid-column:1/-1;text-align:center;font-size:26px;font-weight:800;color:var(--accent);margin-top:2px;}
+  .bgm{margin-top:22px;align-self:center;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px;background:#fff;border:2px solid var(--line);
+       border-radius:999px;padding:10px 22px;box-shadow:0 6px 20px rgba(31,111,235,.10);}
+  .bgm button{font:inherit;font-size:20px;cursor:pointer;border:2px solid var(--line);background:#fff;color:var(--text);border-radius:999px;padding:5px 16px;}
+  .bgm .bgm-label{font-size:20px;font-weight:800;color:var(--accent);margin-right:2px;}
+  .bgm .trk.on{background:var(--soft);border-color:var(--accent);color:var(--accent);font-weight:700;}
+  .bgm .play{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;min-width:118px;}
+  .bgm .vol{display:flex;align-items:center;gap:7px;margin-left:8px;}
+  .bgm .vol button{width:40px;padding:4px 0;}
+  .bgm input[type=range]{width:200px;accent-color:var(--accent);}
+  .bgm #volNum{font-size:20px;width:56px;text-align:right;}
+  .bgm .hint{flex-basis:100%;text-align:center;font-size:19px;color:var(--sub);margin-top:2px;}
+  .credit{position:absolute;left:44px;bottom:26px;font-size:18px;color:var(--sub);}
+
+  .foot{position:absolute;bottom:28px;left:110px;font-size:20px;color:var(--sub);letter-spacing:.03em;}
+  .progress{position:absolute;bottom:0;left:0;height:6px;background:var(--accent);transition:width .25s;z-index:60;}
+
+  #hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#cbd5e1;font-size:13px;background:rgba(0,0,0,.45);padding:6px 14px;border-radius:20px;z-index:80;transition:opacity .5s;}
+  #counter{position:fixed;top:14px;right:18px;color:#94a3b8;font-size:13px;z-index:80;}
+
+  @media print{
+    @page{size:1600px 900px;margin:0;}
+    body{background:#fff;overflow:visible;}
+    #stage{position:static;transform:none;width:1600px;height:auto;}
+    .slide{display:flex!important;position:relative;page-break-after:always;height:900px;}
+    #hint,#counter,.progress,.bgm{display:none!important;}
+    .divider{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+<div id="counter"></div>
+<div id="hint">← → / Space で進む ・ F で全画面 ・ P で印刷</div>
+
+<div id="stage">
+<div class="progress" id="prog"></div>
+
+<!-- 1 待機 -->
+<section class="slide waiting">
+  <div class="wl">まもなく始まります ・ セールス勉強会 第5回</div>
+  <h2>ようこそ。はじめに、<span class="ac">4つのお願い</span></h2>
+  <div class="asks">
+    <div class="ask"><div class="ico">📷</div><div><div class="t">できれば、カメラをONに</div><div class="d">顔が見えると、場があたたまります</div></div></div>
+    <div class="ask"><div class="ico">✏️</div><div><div class="t">表示名を、お名前に変えてください</div><div class="d">参加者一覧 › ご自分の名前 › 詳細 › 名前の変更</div></div></div>
+    <div class="ask"><div class="ico">👂</div><div><div class="t">顔出しが難しい方は、<br>お名前の前に「👂」を</div><div class="d">「聞いています」の合図。聞き役での参加も大歓迎です</div></div></div>
+    <div class="ask"><div class="ico">👏</div><div><div class="t">リアクションは大きめに</div><div class="d">拍手も 👍 も、どんどんお願いします</div></div></div>
+    <div class="asknote">ここは学ぶ場であり、つながる場でもあります。</div>
+  </div>
+</section>
+
+<!-- 2 表紙 -->
+<section class="slide center">
+  <div class="kicker">セールス勉強会 第5回 ・ 2026.11.14</div>
+  <h1>値段で断られる前に<br><span class="ac">やるべきこと</span></h1>
+  <p class="sub" style="margin-top:40px;font-size:28px;">岡崎かつひろ</p>
+</section>
+
+<!-- 3 つかみ -->
+<section class="slide center">
+  <div class="tag">はじめに</div>
+  <h1 style="font-size:64px;">「高いですね」<br>「ちょっと考えます」</h1>
+  <p class="lead" style="margin-top:34px;">言われたこと、ありますか？<br><span class="ac" style="font-weight:800;">チャットに「ある」と書いてください</span></p>
+</section>
+
+<!-- 4 つかみの答え -->
+<section class="slide center">
+  <div class="tag">今日の出発点</div>
+  <h1 style="font-size:60px;">それ、<span class="ac">値段を言う前に</span><br>決まっていました。</h1>
+  <div class="point" style="max-width:1180px;margin-top:44px;text-align:center;">
+    言われてから返すのでは、もう遅い。<br><span class="ac">言われる前に、断られる理由をつぶしておく。</span>
+  </div>
+</section>
+
+<!-- 5 前提 -->
+<section class="slide">
+  <div class="kicker">今日の前提</div>
+  <h2>関係づくりは、<span class="ac">ここまでの回でやりました</span></h2>
+  <div class="series">
+    <div class="rw"><div class="no">第1回 9/12</div><div class="th">お客様は4種類しかいない</div><div class="tg">見分ける</div></div>
+    <div class="rw"><div class="no">第2回 9/26</div><div class="th">4つの質問で、ギャップを開く</div><div class="tg">聞く順番</div></div>
+    <div class="rw"><div class="no">第3回 10/17</div><div class="th">小さなイエスを積み重ねる</div><div class="tg">ノーが出ない順番</div></div>
+    <div class="rw"><div class="no">第4回 10/31</div><div class="th">最初の10分（ゲスト 山崎雅行さん）</div><div class="tg">入口</div></div>
+    <div class="rw now"><div class="no">第5回 今日</div><div class="th">値段で断られる前にやるべきこと</div><div class="tg">値段の前</div></div>
+  </div>
+  <div class="point" style="margin-top:24px;">今日は、関係はできている前提で話します。</div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 6 背骨 -->
+<section class="slide">
+  <div class="kicker">今日の背骨</div>
+  <h2>値段で断られる原因は、<span class="ac">期待を超えていない</span>こと</h2>
+  <div class="ba">
+    <div class="bx ng">
+      <div class="hd">期待どおり</div>
+      <div class="bd">「ほかにも応えてくれる人が<br>いるかもしれない」<br><br>→ <b class="ng">比較検討</b> →「考えます」</div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">期待を超えている</div>
+      <div class="bd">「ほかと比べる必要がない」<br><br><br>→ <b>早く買いたい</b></div>
+    </div>
+  </div>
+  <div class="point">「高い」と言われたら、値段ではなく<br><span class="ac">期待を超えられていなかった</span>と考える。</div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 7 地図 -->
+<section class="slide">
+  <div class="kicker">今日の地図</div>
+  <h2>値段を言う前の、<span class="ac">3つの段階</span></h2>
+  <div class="map">
+    <div class="stg">
+      <div class="sh"><span>1</span>聞く</div>
+      <ul>
+        <li><span class="no">①</span>決め手を、<br>早めにやわらかく聞く</li>
+        <li class="star"><span class="no">②</span>悩みを具体的にして、<br>痛みを大きくする ★</li>
+      </ul>
+    </div>
+    <div class="stg">
+      <div class="sh"><span>2</span>先に渡す</div>
+      <ul>
+        <li><span class="no">③</span>「できる・できる・できない」<br>の順で教える</li>
+        <li><span class="no">④</span>お客様の声・実績を、<br>値段の前に見せる</li>
+      </ul>
+    </div>
+    <div class="stg">
+      <div class="sh"><span>3</span>比べさせない</div>
+      <ul>
+        <li><span class="no">⑤</span>他社と比べられる前に、<br>答えを用意しておく</li>
+        <li><span class="no">⑥</span>弱いところと対策を、先に言う</li>
+        <li><span class="no">⑦</span>1日あたりに直す</li>
+        <li><span class="no">⑧</span>期限をつける（露骨にしない）</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 8 章扉1 -->
+<section class="slide center divider">
+  <div class="kicker">段階 1</div>
+  <h1>聞く</h1>
+  <p class="lead">① 決め手を、早めにやわらかく聞く<br>② 悩みを具体的にして、痛みを大きくする</p>
+</section>
+
+<!-- 9 ① いつ聞くか -->
+<section class="slide">
+  <div class="kicker">① 決め手を、早めにやわらかく聞く</div>
+  <h2>お客様が<span class="ac">何を重視しているか</span>は、早め早めに</h2>
+  <div class="ba">
+    <div class="bx ng">
+      <div class="hd">✕ クロージングに入ってから</div>
+      <div class="bd">「決め手は何ですか？」<br><br>正面から聞かれると、<br>相手は身構えます。</div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">◯ 少し打ち解けたころに</div>
+      <div class="bd">アイスブレイクが済んだあたりで、<br><b>過去の経験として</b>聞く。<br><br>答えやすく、本音が出ます。</div>
+    </div>
+  </div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 10 ① 聞き方 -->
+<section class="slide">
+  <div class="kicker">① 決め手を、早めにやわらかく聞く</div>
+  <h2>たとえば、こう聞く</h2>
+  <div class="qlist">
+    <div class="ql"><div class="n">1</div><div class="t">「これまで何か新しく始めたとき、<b>最後の決め手</b>って何でした？」<em>→ 何を重視する人か が分かる</em></div></div>
+    <div class="ql"><div class="n">2</div><div class="t">「逆に、入ってみて<b>『思ってたのと違った』</b>ってこと、ありました？」<em>→ 過去に嫌だったこと が分かる（⑥で使える）</em></div></div>
+    <div class="ql"><div class="n">3</div><div class="t">「もし始めるとしたら、<b>どんなところが気になりそう</b>ですか？」<em>→ いまの不安 が分かる</em></div></div>
+  </div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 11 ② 具体的に -->
+<section class="slide">
+  <div class="kicker">② 悩みを具体的にして、痛みを大きくする ★</div>
+  <h2>緊急性は、<span class="ac">悩みが具体的になったとき</span>に上がる</h2>
+  <div class="ba">
+    <div class="bx ng">
+      <div class="hd">ぼんやりした悩み</div>
+      <div class="bd">「なんとなく売上が伸びない」<br><br>→「いつか何とかしよう」<br>で終わる</div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">具体的な悩み</div>
+      <div class="bd">「この半年、毎月20万円ずつ<br>足りていない」<br><br>→「<b>今</b>なんとかしないと」に変わる</div>
+    </div>
+  </div>
+  <div class="point">緊急性は、こちらがつくるものではない。<br><span class="ac">お客様の悩みを、どれだけ具体的にできるか。</span></div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 12 ② 聞き方 -->
+<section class="slide">
+  <div class="kicker">② 悩みを具体的にして、痛みを大きくする ★</div>
+  <h2><span class="ac">時間・回数・お金・人</span>に置き換えていく</h2>
+  <div class="qlist">
+    <div class="ql"><div class="n">時</div><div class="t">「それって、<b>いつごろから</b>続いてます？」</div></div>
+    <div class="ql"><div class="n">回</div><div class="t">「週に<b>どれくらい</b>、そのことで困ってます？」</div></div>
+    <div class="ql"><div class="n">金</div><div class="t">「このまま<b>1年たったら</b>、どうなってそうですか？」</div></div>
+    <div class="ql"><div class="n">人</div><div class="t">「そうなったら、<b>いちばん困るのは誰</b>ですか？」</div></div>
+  </div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 13 ② 注意と裏づけ -->
+<section class="slide">
+  <div class="kicker">② 悩みを具体的にして、痛みを大きくする ★</div>
+  <h2>痛みの大きさは、<span class="ac">お客様の口で</span>言ってもらう</h2>
+  <ul class="clean">
+    <li>こちらが言うと、<b>脅し</b>になる<small>「このままだと大変なことになりますよ」は逆効果</small></li>
+    <li>人は、得するより<b>損するほうを2倍くらい重く</b>感じる<small>損失回避（カーネマン／トヴェルスキー）</small></li>
+    <li>「このまま続いたら失うもの」がはっきりすると、<br><b>値段が、その損と比べられる</b></li>
+  </ul>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 14 章扉2 -->
+<section class="slide center divider">
+  <div class="kicker">段階 2</div>
+  <h1>先に渡す</h1>
+  <p class="lead">③「できる・できる・できない」の順で教える<br>④ お客様の声・実績を、値段の前に見せる</p>
+</section>
+
+<!-- 15 ③ NG -->
+<section class="slide">
+  <div class="kicker">③「できる・できる・できない」の順で教える</div>
+  <h2>いちばんダメなのは、<span class="ng">「本編で分かります」</span>ばかり</h2>
+  <div class="ba">
+    <div class="bx ng">
+      <div class="hd">✕ 何も渡さない</div>
+      <div class="bd">「それは、本編に行ったら<br>分かります」<br><br>何ももらっていないので、<br>お返しもしたくならない。</div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">◯ 先に1つ役に立つ</div>
+      <div class="bd">その場で、使えることを渡す。<br><br><br>もらった人は、<br><b>お返しをしたくなる</b>（返報性）</div>
+    </div>
+  </div>
+  <div class="point">セールスで大事なのは、<span class="ac">「できる・できない」</span>。</div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 16 ③ 3段 -->
+<section class="slide">
+  <div class="kicker">③「できる・できる・できない」の順で教える</div>
+  <h2>3つ目で、<span class="ac">はしごを外す</span></h2>
+  <div class="three">
+    <div class="c"><div class="tt">1つ目　できる</div><div class="dd">自分でもできそうなこと<br><br>「なるほど、<br>やってみよう」</div></div>
+    <div class="c"><div class="tt">2つ目　できる</div><div class="dd">自分でもできそうなこと<br><br>「この人の話は、<br>役に立つ」</div></div>
+    <div class="c hot"><div class="tt">3つ目　できない</div><div class="dd">自分だけではできない。<br>でも、それができないと<br>たぶん先に進まない<br>重要なポイント<br><br>「ここは自分じゃ無理だ」</div></div>
+  </div>
+  <div class="point">ここまで教えてもらった。自分ではできない。<br><span class="ac">だから、しっかり教えてもらおう。</span></div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 17 ③ 美容の例 -->
+<section class="slide">
+  <div class="kicker">③ たとえば、美容（肌の悩み）なら</div>
+  <h2>表面の手入れ → <span class="ac">本当の原因</span></h2>
+  <table class="mtbl">
+    <tbody>
+      <tr><th class="rowh">1つ目　できる</th><td>「洗顔は、こすらずに泡で洗うだけで変わります」</td></tr>
+      <tr><th class="rowh">2つ目　できる</th><td>「寝る前の保湿を、この順番にするだけでも違います」</td></tr>
+      <tr class="hot"><th class="rowh">3つ目　できない</th><td>「ただ、いま起きている問題のいちばんの原因は、<b>細胞の老化</b>なんです。<br>これは<b>科学的なアプローチでないと直せません</b>。<br>だから、そのための〇〇という製品をおすすめしているんです」</td></tr>
+    </tbody>
+  </table>
+  <div class="point" style="margin-top:24px;">3つ目は、<span class="ac">原因 → 自分では直せない理由 → だからこれ</span>。</div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 18 ④ 声 -->
+<section class="slide">
+  <div class="kicker">④ お客様の声・実績を、値段の前に見せる</div>
+  <h2>「同じ悩みだった人が、<span class="ac">こうなりました</span>」</h2>
+  <div class="ba">
+    <div class="bx ng">
+      <div class="hd">✕ 値段のあとに出す</div>
+      <div class="bd">「高い」と言われてから<br>「でも、こんな声が…」<br><br>→ 言い訳に聞こえる</div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">◯ 値段の前に出す</div>
+      <div class="bd">②で具体的にした悩みと<br><b>同じ悩みだった人</b>の声を選ぶ<br><br>→「自分もそうなれるかも」</div>
+    </div>
+  </div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 19 章扉3 -->
+<section class="slide center divider">
+  <div class="kicker">段階 3</div>
+  <h1>比べさせない</h1>
+  <p class="lead">⑤ 他社と比べられる前に、答えを用意しておく<br>⑥ 弱いところと対策を、先に言う<br>⑦ 1日あたりに直す　⑧ 期限をつける</p>
+</section>
+
+<!-- 20 ⑤ 他社比較 -->
+<section class="slide">
+  <div class="kicker">⑤ 他社と比べられる前に、答えを用意しておく</div>
+  <h2>お客様は、<span class="ac">かならず他社と比べる</span></h2>
+  <ul class="clean">
+    <li>放っておくと、<b>いちばん安いところ</b>と比べられる</li>
+    <li>「ほかとどう違うんですか？」に、<b>すぐ「ここはこうです」</b>と答えられるように</li>
+    <li>聞かれる前に、こちらから比べてみせてもいい<small>「独学だと〜、ほかの講座だと〜、うちは〜」</small></li>
+  </ul>
+  <div class="warn"><span class="wh">1分で書いてみる</span><span class="wb">よく比べられる相手を<b>2つ</b> → それぞれと<b>どこが違うか</b>を1行ずつ</span></div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 21 ⑥ 弱いところと対策 -->
+<section class="slide">
+  <div class="kicker">⑥ 弱いところと対策を、先に言う</div>
+  <h2>「ダメです」ではなく、<span class="ac">弱いところと対策</span>をセットで</h2>
+  <div class="quote">
+    「正直にお伝えしますね。うちは結構きびしいんです。<br>
+    ちゃんと続けないと、脱落する人もいます。<br>
+    そうなってほしくないので、<b>最初の3ヶ月は、毎週のセミナーには必ず来てください</b>。<br>
+    それと、<b>最初のコンサルは、こちらから先に予定を入れさせてください</b>。」
+  </div>
+  <div class="point" style="margin-top:24px;">弱いところを言っているのに、不安にならない。<br><span class="ac">「ここまで考えてくれている」</span>に変わる。</div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 22 ⑥ 心理学 -->
+<section class="slide">
+  <div class="kicker">⑥ なぜ、先に言うと信用されるのか</div>
+  <h2>3つの心理</h2>
+  <div class="three">
+    <div class="c"><div class="tt">両面提示</div><div class="dd">良いところだけ言うより、<br>弱いところも言うほうが<br>信用される。<br><br>よく考えて決める人、<br>ほかと比べている人ほど効く</div></div>
+    <div class="c"><div class="tt">予防接種の効果</div><div class="dd">あとで他社や家族から<br>「そこ、きびしいらしいよ」<br>と言われても、<br>先に聞いていると揺らがない<br><br><span class="sub">接種理論（マクガイア）</span></div></div>
+    <div class="c"><div class="tt">しくじり効果</div><div class="dd">しっかりした人が<br>少し欠点を見せると、<br>かえって親しみが増す<br><br><br><span class="sub">しくじり効果（アロンソン）</span></div></div>
+  </div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 23 ⑦ 1日あたり -->
+<section class="slide">
+  <div class="kicker">⑦ 1日あたりに直す</div>
+  <h2>お客様は、頭の中で<span class="ac">「1日いくら？」</span>を計算している</h2>
+  <div class="nums">
+    <div class="nb a"><div class="v">月3万円</div><div class="k">大きく見える</div></div>
+    <div class="arw">→</div>
+    <div class="nb b"><div class="v">1日1,000円</div><div class="k">ランチ1回分</div></div>
+  </div>
+  <div class="point" style="margin-top:44px;">先に、こちらから出す。<span class="ac">身近なものと比べてもらう。</span></div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 24 ⑧ 期限 -->
+<section class="slide">
+  <div class="kicker">⑧ 期限をつける（露骨にしない）</div>
+  <h2>背中を押すのは、値下げではなく<span class="ac">今決める理由</span></h2>
+  <div class="ba">
+    <div class="bx ng">
+      <div class="hd">✕ 露骨</div>
+      <div class="bd">「今日だけです！<br>今日決めないと、<br>この値段では出せません！」<br><br>→ 押されている感じで、嫌われる</div>
+    </div>
+    <div class="bx ok">
+      <div class="hd">◯ こう言う</div>
+      <div class="bd">「本当は今日中なんですけど、<br>今回は特別に〇日までなら、<br>この条件でお受けします。<br>それまでにお返事いただけますか？」</div>
+    </div>
+  </div>
+  <div class="warn"><span class="wh">ひとつだけ</span><span class="wb">期限や特典は<b>本当のもの</b>にする。<br>毎回「今回だけ特別」だと、一度ばれたら信用が全部なくなる。</span></div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 27 共有 -->
+<section class="slide center">
+  <div class="tag">共有</div>
+  <h1 style="font-size:60px;">今日いちばん使えそうな、<br><span class="ac">その一言</span>は？</h1>
+  <p class="lead" style="margin-top:34px;">チャットでも、声でも教えてください</p>
+</section>
+
+<!-- 28 まとめ -->
+<section class="slide">
+  <div class="kicker">まとめ</div>
+  <h2>値段は、<span class="ac">言う前に決まっている</span></h2>
+  <div class="map">
+    <div class="stg">
+      <div class="sh"><span>1</span>聞く</div>
+      <ul><li>① 決め手を早めに</li><li class="star">② 痛みを具体的に ★</li></ul>
+    </div>
+    <div class="stg">
+      <div class="sh"><span>2</span>先に渡す</div>
+      <ul><li>③ できる・できる・できない</li><li>④ お客様の声は値段の前</li></ul>
+    </div>
+    <div class="stg">
+      <div class="sh"><span>3</span>比べさせない</div>
+      <ul><li>⑤ 他社比較の答え</li><li>⑥ 弱いところと対策</li><li>⑦ 1日あたり　⑧ 期限</li></ul>
+    </div>
+  </div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 29 お知らせ -->
+<section class="slide">
+  <div class="kicker">次回</div>
+  <h2>11月28日（土）は、<span class="ac">朝7時から3時間</span></h2>
+  <div class="series">
+    <div class="rw now"><div class="no">7:00〜8:00</div><div class="th">セールス勉強会（11月2回目）</div><div class="tg">いつものURL</div></div>
+    <div class="rw"><div class="no">8:00〜10:00</div><div class="th">ライブ　ゲスト：中西 航大さん（三笠書房 王様文庫）</div><div class="tg">そのまま残る</div></div>
+  </div>
+  <div class="point" style="margin-top:30px;">Zoomは同じURLです。<br>勉強会のあと、そのままお残りください。</div>
+  <div class="foot">セールス勉強会 第5回</div>
+</section>
+
+<!-- 30 終わり -->
+<section class="slide center">
+  <div class="kicker">セールス勉強会 第5回</div>
+  <h1>ありがとうございました</h1>
+  <p class="sub" style="margin-top:30px;font-size:28px;">岡崎かつひろ</p>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage');
+  var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  slides.forEach(function(s,i){ s.dataset.no=(i+1)+' / '+slides.length; });
+  var counter=document.getElementById('counter');
+  var prog=document.getElementById('prog');
+  var hint=document.getElementById('hint');
+
+
+  var si=0;
+  function render(){
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===si); });
+    counter.textContent=(si+1)+' / '+slides.length;
+    prog.style.width=((si)/(slides.length-1)*100)+'%';
+  }
+  function next(){ if(si<slides.length-1){ si++; render(); } }
+  function prev(){ if(si>0){ si--; render(); } }
+  function fit(){ stage.style.setProperty('--scale', Math.min(window.innerWidth/1600, window.innerHeight/900)); }
+  window.addEventListener('resize',fit);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ si=0; render(); }
+    else if(e.key==='End'){ si=slides.length-1; render(); }
+    else if(e.key==='f'||e.key==='F'){ document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen(); }
+    else if(e.key==='p'||e.key==='P'){ window.print(); }
+  });
+  document.addEventListener('click',function(e){ if(e.clientX<window.innerWidth*0.25) prev(); else next(); });
+  setTimeout(function(){ hint.style.opacity='0'; },5000);
+  /* 確認用：#n で n枚目を開く */
+  var m=location.hash.match(/^#(\d+)$/); if(m){ si=Math.min(slides.length-1,Math.max(0,+m[1]-1)); }
+  fit(); render();
+})();
+</script>
+</body>
+</html>
