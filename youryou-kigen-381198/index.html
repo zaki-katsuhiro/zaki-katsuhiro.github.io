@@ -180,6 +180,20 @@
   .qrbox img{width:360px;height:360px;border:3px solid var(--line);border-radius:18px;padding:10px;background:#fff}
   .qrbox .cap{font-size:28px;font-weight:800;margin-top:14px;white-space:nowrap}
 
+
+  /* 緊急×重要の4つのマス */
+  .quadwrap{display:grid;grid-template-columns:70px 1fr;grid-template-rows:1fr 56px;gap:0 16px;margin-top:28px;flex:1;max-height:640px}
+  .quadwrap .yax{grid-row:1;writing-mode:vertical-rl;display:flex;align-items:center;justify-content:space-between;font-size:28px;font-weight:800;color:var(--sub);white-space:nowrap}
+  .quadwrap .xax{grid-column:2;grid-row:2;display:flex;justify-content:space-between;align-items:center;font-size:28px;font-weight:800;color:var(--sub);white-space:nowrap}
+  .quad{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:18px}
+  .quad .cell{border:4px solid var(--line);border-radius:22px;padding:24px 30px;background:#fff}
+  .quad .cl{font-size:30px;font-weight:800;color:var(--accent);white-space:nowrap}
+  .quad .ct{font-size:34px;font-weight:700;line-height:1.5;margin-top:12px}
+  .quad .ct b{color:var(--accent)}
+  .quad .cell.trap{border-color:var(--orange);background:#fff7e6}
+  .quad .cell.trap .cl,.quad .cell.trap .ct b{color:var(--orange-deep)}
+  .quad .cell.goal{border-color:var(--accent);background:var(--accent-soft)}
+
   .hint{position:fixed;left:16px;bottom:12px;font-size:13px;color:#9aa3ae}
 
   @media print{
@@ -593,6 +607,22 @@
     <li>いつもやっているから、続けている</li>
   </ul>
   <p class="lead">何かを<b class="hl">やる</b>前に、何を<b class="hl">やめる</b>かを考える。</p>
+  <div class="foot">岡崎かつひろ</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">よくある話</div>
+  <h2>緊急 × 重要の<span class="hl">4つのマス</span></h2>
+  <div class="quadwrap">
+    <div class="yax"><span>重要</span><span>重要でない</span></div>
+    <div class="quad">
+      <div class="cell"><div class="cl">緊急 ＋ 重要</div><div class="ct">ここは<b>ほぼゼロ</b>に<br>しておきたい</div></div>
+      <div class="cell goal"><div class="cl">緊急でない ＋ 重要</div><div class="ct">本当は、ここに時間を使いたい。<br><b>仕組みづくりはここ</b></div></div>
+      <div class="cell trap"><div class="cl">緊急 ＋ 重要でない</div><div class="ct">多くの人が、<br><b>ここに振り回されている</b></div></div>
+      <div class="cell"><div class="cl">緊急でない ＋ 重要でない</div><div class="ct">言うまでもなく、<br><b>全部やめる</b></div></div>
+    </div>
+    <div class="xax"><span>← 緊急</span><span>緊急でない →</span></div>
+  </div>
   <div class="foot">岡崎かつひろ</div>
 </section>
 
