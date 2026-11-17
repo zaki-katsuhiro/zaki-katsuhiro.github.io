@@ -36,6 +36,15 @@ h2 .mk{background:linear-gradient(transparent 62%,#ffd3dc 62%)}
 .voice .num{color:var(--pink);font-weight:800;font-size:18px}
 .voice .by{font-size:13px;color:var(--sub)}
 .photo-ph{background:#efe6df;border:2px dashed #c9b8ab;border-radius:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:#8a786c;font-size:14px;text-align:center;padding:10px}
+.prof-photo{width:72%;max-width:320px;margin:4px auto 0;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gallery figure{margin:0}
+.gallery figure:first-child{grid-column:1 / -1}
+.gallery img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px}
+.gallery figure:first-child img{aspect-ratio:4/3;object-position:50% 30%}
+.gallery figcaption{font-size:12.5px;color:var(--sub);text-align:center;margin-top:3px}
+.video{position:relative;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .prof dl{margin:12px 0 0}
 .prof dt{font-weight:800;font-size:18px}
 .prof dd{margin:4px 0 0;font-size:14.5px;color:var(--sub)}
@@ -124,7 +133,9 @@ footer a{color:var(--sub)}
 <section>
   <h2>現場を知っている人に<br>教わったら</h2>
   <img class="manga" src="img/manga3.jpg" alt="動画で学んだ女性が、日本にいながらオンラインで仕入れ、インスタライブで売れて「好きな韓国ファッションが、仕事になった」と喜ぶ4コマ漫画">
-  <p style="font-weight:700;margin-top:18px">実際に動いた受講生の声</p>
+  <p style="font-weight:700;margin-top:18px">受講生インタビュー（約3分半）</p>
+  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/sDimJ2dqX2M?start=0&amp;end=208&amp;rel=0&amp;playsinline=1" title="韓国バイヤー 受講生の声" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  <p style="font-weight:700;margin-top:22px">実際に動いた受講生の声</p>
   <div class="voice"><span class="num">初ライブ15分で 売上5万3,000円</span><br>韓国からの初めてのライブ販売で。日本でもインスタ告知とTikTokライブでアクセサリーを販売。<div class="by">会社員・菜摘さん</div></div>
   <div class="voice"><span class="num">韓国へ行かずに 売上3万5,000円</span><br>オンラインで仕入れて、日本から初めてのTikTokライブ。<div class="by">会社員・あきこさん</div></div>
   <div class="voice"><span class="num">4,000円のスカーフが 14,800円で</span><br>現地で仕入れた商品が、日本でこの値段で売れた実例です。<div class="by">さおり塾の実例</div></div>
@@ -134,11 +145,17 @@ footer a{color:var(--sub)}
 <!-- 6. 講師 -->
 <section class="prof">
   <h2>教えるのは</h2>
-  <div class="photo-ph">ここに勝連さおりさんの写真<br>（本番で差し込み・市場で仕入れている写真が理想）</div>
+  <img class="prof-photo" src="img/saori_profile.jpg" alt="韓国ファッションバイヤー 勝連さおり">
   <dl>
     <dt>韓国ファッションバイヤー　勝連さおり</dt>
     <dd>大手アパレルで10年以上。提案した人数は1万人を超える。イベント講演・ファッション記事の監修・ラジオ出演も多数。<br>2026年4月から、東京の専門学校（ファッションカレッジ桜丘）で授業に採用。</dd>
   </dl>
+  <p style="font-weight:700;margin:22px 0 8px">さおりの、韓国での仕入れの現場</p>
+  <div class="gallery">
+    <figure><img src="img/saori_live.jpg" alt="韓国のお店から商品を紹介するライブ配信"><figcaption>韓国のお店からライブ配信</figcaption></figure>
+    <figure><img src="img/saori_airport.jpg" alt="スーツケースと仕入れ用の大きな袋を持って空港に立つ勝連さおり"><figcaption>仕入れの旅へ出発</figcaption></figure>
+    <figure><img src="img/saori_night.jpg" alt="仕入れた荷物を抱えて夜のソウルを歩く後ろ姿"><figcaption>仕入れた荷物を抱えて夜の街を</figcaption></figure>
+  </div>
 </section>
 
 <!-- 7. 無料で受け取れるもの -->
