@@ -13,7 +13,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans",
 section{padding:28px 20px}
 img{max-width:100%;display:block}
 .manga{width:100%;border-radius:10px;margin:8px 0 6px}
-.hero{background:linear-gradient(180deg,#fde8ec 0%,#fff 100%);padding:30px 20px 18px;text-align:center}
+.hero{background:linear-gradient(180deg,#fde8ec 0%,#fff 100%);padding:0 0 18px;text-align:center}
+.hero .who,.hero .cta{margin-left:20px;margin-right:20px}
+.hero-img{width:100%}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .hero .who{font-size:12.5px;color:var(--sub);letter-spacing:.05em;margin-top:12px}
 .hero .h-1{margin:0;font-size:19px;font-weight:800;line-height:1.35;color:var(--ink)}
 .hero .h-1 .big{display:inline-block;font-size:34px;color:var(--pink);letter-spacing:.02em;margin-top:2px}
@@ -84,11 +87,10 @@ footer a{color:var(--sub)}
 
 <!-- 1. 冒頭 -->
 <header class="hero">
-  <p class="h-1">韓国好きを、<br><span class="big">仕事にしたい！</span></p>
-  <p class="h-2">それなら<br><span class="mark">韓国ファッションバイヤー</span><br>がおすすめ</p>
-  <h1 class="h-3">でもそれ、<br><span class="gpt">ChatGPT</span>には<br><em>"答えがない"</em>って<br>知ってましたか？</h1>
+  <h1 class="sr">韓国好きを、仕事にしたい！それなら韓国ファッションバイヤーがおすすめ。でもそれ、ChatGPTには"答えがない"って知ってましたか？</h1>
+  <img class="hero-img" src="img/hero_a.jpg" alt="韓国好きを、仕事にしたい！それなら韓国ファッションバイヤーがおすすめ。でもそれ、ChatGPTには答えがないって知ってましたか？">
   <div class="who">韓国ファッションバイヤー 勝連さおり</div>
-  <div class="cta" style="margin-top:16px"><a class="btn" href="#gift">現場のやり方を、無料の動画で見る<small>動画6本＋「韓国輸入はじめ方ガイド」</small></a></div>
+  <div class="cta" style="margin-top:12px"><a class="btn" href="#gift">現場のやり方を、無料の動画で見る<small>メール登録で 無料の動画講座（全6回）</small></a></div>
 </header>
 <section style="padding-top:6px">
   <img class="manga" src="img/manga1.jpg" alt="韓国の服を仕入れたい女性がChatGPTに聞いて市場へ行くが、観光客向けのお店で日本と変わらない値段しかなく、ただのお買い物で終わる4コマ漫画">
@@ -125,7 +127,7 @@ footer a{color:var(--sub)}
 
 <section class="mid-cta">
   <p style="margin:0;text-align:center;font-weight:700">現場のやり方を、無料の動画で見てみませんか？</p>
-  <div class="cta"><a class="btn" href="#gift">無料の動画で、現場のやり方を見る<small>動画6本＋「韓国輸入はじめ方ガイド」</small></a></div>
+  <div class="cta"><a class="btn" href="#gift">無料の動画で、現場のやり方を見る<small>メール登録で 無料の動画講座（全6回）</small></a></div>
 </section>
 
 <!-- 4. 思い込み -->
@@ -168,11 +170,11 @@ footer a{color:var(--sub)}
 <section class="gift" id="gift">
   <h2>無料で受け取れるもの</h2>
   <ul>
-    <li><b>無料オンラインプログラム（動画6本）</b><br>韓国の市場で仕入れて日本で売るまでの流れを、現場の目線で。</li>
-    <li><b>韓国輸入はじめ方ガイド</b><br>最初の一歩でつまずかないための手引き。</li>
+    <li><b>メール登録で：無料オンラインプログラム（動画・全6回）</b><br>韓国の市場で仕入れて日本で売るまでの流れを、現場の目線で。メールでお届けします。</li>
+    <li><b>さらにLINE登録で：「韓国輸入はじめ方ガイド」</b><br>登録完了のページから受け取れます。</li>
   </ul>
   <div class="cta"><a class="btn" href="thanks.html">メールアドレスを登録して受け取る<small>登録は無料です</small></a></div>
-  <p class="note">登録するとすぐに、1本目の動画をメールでお届けします。</p>
+  <p class="note">登録後、動画講座のご案内をメールでお届けします。</p>
 </section>
 
 <footer>
