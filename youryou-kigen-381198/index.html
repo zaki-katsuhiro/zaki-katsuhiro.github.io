@@ -176,6 +176,14 @@
   .offer ul.pts{margin-top:20px}
   .offer ul.pts li{font-size:32px;padding:10px 0 10px 50px}
   .offer ul.pts li::before{top:23px;width:18px;height:18px}
+  /* 資料プレゼント（LINE） */
+  .present{display:grid;grid-template-columns:1fr 440px;gap:70px;align-items:center;margin-top:44px}
+  .present ol{list-style:none;counter-reset:st}
+  .present li{counter-increment:st;font-size:40px;font-weight:700;line-height:1.4;padding:26px 0 26px 84px;position:relative;border-bottom:3px solid var(--accent-soft);white-space:nowrap}
+  .present li::before{content:counter(st);position:absolute;left:0;top:50%;transform:translateY(-50%);width:58px;height:58px;border-radius:50%;background:var(--accent);color:#fff;font-size:32px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .present .kw{display:inline-block;background:#fff4d6;border:3px solid var(--orange-deep);color:var(--text);padding:2px 20px;border-radius:12px;font-size:44px}
+  .present .qrbox img{width:400px;height:400px}
+  .present .sub{font-size:28px;color:var(--sub);margin-top:22px;line-height:1.6}
   .qrbox{text-align:center}
   .qrbox img{width:360px;height:360px;border:3px solid var(--line);border-radius:18px;padding:10px;background:#fff}
   .qrbox .cap{font-size:28px;font-weight:800;margin-top:14px;white-space:nowrap}
@@ -269,6 +277,23 @@
     <li>家に帰れず、<b>1年半の車上生活</b></li>
     <li>それでも「がんばっている自分」に<b>満足していた</b></li>
   </ul>
+  <div class="foot">岡崎かつひろ</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">ご参加のお礼に</div>
+  <h2>今日の資料を、<span class="hl">まるごとプレゼント</span>します</h2>
+  <div class="present">
+    <div>
+      <ol>
+        <li>右のQRから、LINEを友だち追加</li>
+        <li><span class="kw">ゆうみん大好き</span> と送る</li>
+        <li>今日のスライドが届きます</li>
+      </ol>
+      <p class="sub">メモを取らなくて大丈夫です。あとでゆっくり見返してください。</p>
+    </div>
+    <div class="qrbox"><img src="img/qr_line_present.png" alt="LINE公式アカウントの友だち追加"><div class="cap">LINEで受け取る</div></div>
+  </div>
   <div class="foot">岡崎かつひろ</div>
 </section>
 
