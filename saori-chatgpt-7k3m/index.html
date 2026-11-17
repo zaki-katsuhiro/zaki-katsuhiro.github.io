@@ -44,6 +44,19 @@ h2 .mk{background:linear-gradient(transparent 62%,#ffd3dc 62%)}
 .cta{text-align:center;margin:20px 0 6px}
 .btn{display:block;width:100%;padding:18px 12px;border-radius:999px;background:var(--pink);color:#fff;font-size:18px;font-weight:800;text-decoration:none;box-shadow:0 4px 0 #c24d61}
 .btn small{display:block;font-size:12.5px;font-weight:600;opacity:.95}
+/* ボタンが数秒おきにフルフル震える */
+.btn{animation:furu 2.6s ease-in-out infinite;transform-origin:center}
+@keyframes furu{
+  0%,64%,100%{transform:translate(0,0) rotate(0)}
+  67%{transform:translate(-3px,0) rotate(-1.5deg)}
+  70%{transform:translate(3px,0) rotate(1.5deg)}
+  73%{transform:translate(-3px,0) rotate(-1.5deg)}
+  76%{transform:translate(3px,0) rotate(1.5deg)}
+  79%{transform:translate(-2px,0) rotate(-1deg)}
+  82%{transform:translate(2px,0) rotate(1deg)}
+  85%{transform:translate(0,0) rotate(0)}
+}
+@media (prefers-reduced-motion:reduce){.btn{animation:none}}
 .note{font-size:12.5px;color:var(--sub);text-align:center;margin:8px 0 0}
 .mid-cta{background:#fff7f9;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 footer{padding:22px 20px 40px;text-align:center;font-size:12px;color:var(--sub)}
@@ -60,6 +73,7 @@ footer a{color:var(--sub)}
   <div class="who">韓国ファッションバイヤー 勝連さおり</div>
   <h1>韓国の仕入れ方、<br>ChatGPTに聞いても<br><em>"現場の答え"</em>は出てきません</h1>
   <p class="lead">韓国旅行もファッションも好きな人へ。</p>
+  <div class="cta" style="margin-top:16px"><a class="btn" href="#gift">現場のやり方を、無料の動画で見る<small>動画6本＋「韓国輸入はじめ方ガイド」</small></a></div>
 </header>
 <section style="padding-top:6px">
   <img class="manga" src="img/manga1.jpg" alt="韓国の服を仕入れたい女性がChatGPTに聞いて市場へ行くが、観光客向けのお店で日本と変わらない値段しかなく、ただのお買い物で終わる4コマ漫画">
